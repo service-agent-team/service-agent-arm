@@ -1,11 +1,22 @@
 import { useRoutes } from 'react-router-dom';
-import { Home } from './loadable';
 import { ROUTES } from '@/constants';
+import { UssdLayout } from './loadable';
+import { AgentLayout, Videos } from './agentLoadable';
 
 export const Router = () =>
   useRoutes([
     {
-      path: ROUTES.home,
-      element: <Home />,
+      path: '/agent',
+      element: <AgentLayout />,
+      children: [
+        {
+          path: 'videos',
+          element: <Videos />,
+        },
+      ],
+    },
+    {
+      path: '/ussd',
+      element: <UssdLayout />,
     },
   ]);

@@ -1,0 +1,27 @@
+.layout{
+    height: 100%;
+    &__head{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &__logo{
+            color: white;
+            font-weight: 700;
+        }
+        &__nav{
+            width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            height: 50px;
+            padding: 0 20px;
+            border-radius: 10px;
+            &__link{
+                color: black;
+            }
+        }
+    }
+} 
+
