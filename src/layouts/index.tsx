@@ -15,11 +15,6 @@ interface LayoutPropsType {
     children: ReactNode
 }
 
-
-  
-
-
-
 export function MainLayout({ items, children }: LayoutPropsType) {
     const { pathname } = useLocation();
     const mainMenuItems = generateAllMenuItems(items);
