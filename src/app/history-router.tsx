@@ -1,6 +1,6 @@
+import { BrowserHistory } from 'history';
 import { useLayoutEffect, useState } from 'react';
 import { Router, RouterProps } from 'react-router-dom';
-import { BrowserHistory } from 'history';
 
 type Props = {
   history: BrowserHistory;

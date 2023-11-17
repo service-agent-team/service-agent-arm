@@ -1,7 +1,6 @@
 import { useRoutes } from 'react-router-dom';
-import { ROUTES } from '@/constants';
-import { UssdLayout } from './loadable';
 import { AgentLayout, Videos } from './agentLoadable';
+import { UssdLayout } from './loadable';
 
 export const Router = () =>
   useRoutes([
