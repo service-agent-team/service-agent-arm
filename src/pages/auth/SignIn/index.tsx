@@ -1,4 +1,5 @@
 import { useActions } from '@/libs/hooks/useActions';
+import { addNotification } from '@/libs/utils/addNotification';
 import { PasswordField, UsernameField } from '@/pages/auth/Fields';
 import { AuthForm } from '@/pages/auth/Form';
 import { authLoadings } from '@/pages/auth/constants';
@@ -8,16 +9,18 @@ import { IValues } from './sign-in.interface';
 
 export const SignIn = () => {
   const { SignIn } = useActions();
-  const login = { username: 'barakashop', password: '123456789' };
+  const login = { email: 'mke@gmail.com', password: '1234567a' };
 
   const handleFinish = async (values: IValues) => {
-    // SignIn({
-    //   username: values.username,
-    //   password: values.password,
-    //   callback: () => {
-    //     addNotification('Successfully logged In');
-    //   },
-    // });
+    console.log(values);
+
+    SignIn({
+      email: values.email,
+      password: values.password,
+      callback: () => {
+        addNotification('Successfully logged In');
+      },
+    });
   };
 
   return (
@@ -27,7 +30,7 @@ export const SignIn = () => {
       </Typography.Title>
 
       <UsernameField
-        value={login.username}
+        value={login.email}
         label={authDictionary.loginEmail}
         placeholder={authDictionary.loginPlaceholder}
       />

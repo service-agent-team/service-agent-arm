@@ -1,20 +1,21 @@
+import { errorCatch } from '@/helpers';
+import { addNotification } from '@/libs/utils/addNotification';
+import { AuthService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IAuthResponse, IAuthSignIn } from './auth.interface';
 
-// type AsyncThunkConfig = {
-//   rejectValue: {
-//     error: string;
-//   };
-// };
-
-export const SignIn = createAsyncThunk('auth/signIn', async () => {
-  try {
-    // const response = await AuthService.signIn(username, password);
-    // if (response.data) {
-    //   callback();
-    // }
-    // return response.data;
-  } catch (error) {
-    // addNotification(error);
-    // return thunkApi.rejectWithValue({ error: errorCatch(error) });
-  }
-});
+export const SignIn = createAsyncThunk<IAuthResponse, IAuthSignIn>(
+  'auth/signIn',
+  async ({ email, password, callback }, thunkApi) => {
+    try {
+      const response = await AuthService.signIn(email, password);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);

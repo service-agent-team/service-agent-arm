@@ -9,13 +9,13 @@ const cn = classnameBind.bind(styles);
 
 export const UsernameField = ({ label, value, placeholder }: IFieldsProps) => (
   <Form.Item
-    name="username"
+    name="email"
     label={label}
     initialValue={value}
     rules={[
       {
         required: true,
-        type: 'string',
+        type: 'email',
       },
     ]}
   >

@@ -1,15 +1,42 @@
-import { AppstoreAddOutlined, ControlOutlined } from '@ant-design/icons';
+import {
+  BlockOutlined,
+  ProjectOutlined,
+  TeamOutlined,
+  UnlockOutlined,
+  UserSwitchOutlined,
+  UsergroupAddOutlined,
+} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 
 export const globalLayoutitems: MenuProps['items'] = [
   {
-    label: 'Service-agent',
-    key: '/agent',
-    icon: <AppstoreAddOutlined />,
+    label: 'Users',
+    key: '/users',
+    icon: <UsergroupAddOutlined />,
   },
   {
-    label: 'Ussd-app',
-    key: '/ussd',
-    icon: <ControlOutlined />,
+    label: 'Permissions',
+    key: '/permissions',
+    icon: <BlockOutlined />,
+  },
+  {
+    label: 'Roles',
+    key: '/roles',
+    icon: <UnlockOutlined />,
+  },
+  {
+    label: 'User-roles',
+    key: '/user-roles',
+    icon: <UserSwitchOutlined />,
+  },
+  {
+    label: 'User-permissions',
+    key: '/user-permissions',
+    icon: <TeamOutlined />,
+  },
+  {
+    label: 'Projects',
+    key: '/projects',
+    icon: <ProjectOutlined />,
   },
 ];

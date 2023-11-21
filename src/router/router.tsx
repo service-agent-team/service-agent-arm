@@ -16,23 +16,22 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         {
           path: ROUTES.home,
           element: <GlobalLayout />,
+          children: [],
+        },
+        {
+          path: '/agent',
+          element: <AgentLayout />,
           children: [
             {
-              path: '/agent',
-              element: <AgentLayout />,
-              children: [
-                {
-                  path: 'videos',
-                  element: <Videos />,
-                },
-              ],
-            },
-            {
-              path: '/ussd',
-              element: <UssdLayout />,
-              children: [],
+              path: 'videos',
+              element: <Videos />,
             },
           ],
+        },
+        {
+          path: '/ussd',
+          element: <UssdLayout />,
+          children: [],
         },
       ],
     },

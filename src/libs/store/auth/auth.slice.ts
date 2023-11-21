@@ -1,5 +1,6 @@
 import { cliearStorage } from '@/helpers';
 import { createSlice } from '@reduxjs/toolkit';
+import { SignIn } from './auth.actions';
 import { InitialState } from './auth.interface';
 
 const initialState: InitialState = {
@@ -36,7 +37,25 @@ export const authSlice = createSlice({
       state.error = null;
     },
   },
-  extraReducers: () => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(SignIn.pending, (state) => {
+        state.loading.sign = true;
+        state.error = null;
+      })
+      .addCase(SignIn.fulfilled, (state, { payload }) => {
+        state.error = null;
+        state.isAuth = true;
+        state.loading.sign = false;
+        state.user = payload.data;
+        state.token = payload.access_token;
+      })
+      .addCase(SignIn.rejected, (state, { payload }) => {
+        state.error = payload;
+        state.loading.sign = false;
+        state.isAuth = false;
+      });
+  },
 });
 
 export const AuthReducer = authSlice.reducer;
