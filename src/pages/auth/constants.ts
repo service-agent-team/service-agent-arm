@@ -1,3 +1,3 @@
 export const authLoadings = {
-  sign: "sign"
-}
+  sign: 'sign',
+};

@@ -1,9 +1,7 @@
 /* eslint-disable prettier/prettier */
-import loadable from '@loadable/component';
 import { Loading } from '@/components';
+import loadable from '@loadable/component';
 const handleCatchChunkError = () => {
-  // window.location.reload();
-
   return { default: Loading };
 };
 
@@ -12,10 +10,15 @@ export const Home = loadable(
   { fallback: <Loading /> },
 );
 
-
-
-
 export const UssdLayout = loadable(
-  () => import('@/pages').then(({ UssdLayout }) => ({ default: UssdLayout })).catch(handleCatchChunkError),
+  () =>
+    import('@/pages')
+      .then(({ UssdLayout }) => ({ default: UssdLayout }))
+      .catch(handleCatchChunkError),
+  { fallback: <Loading /> },
+);
+
+export const SignIn = loadable(
+  () => import('@/pages').then(({ SignIn }) => ({ default: SignIn })).catch(handleCatchChunkError),
   { fallback: <Loading /> },
 );
