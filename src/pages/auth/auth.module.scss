@@ -1,0 +1,24 @@
+.auth {
+  &__form {
+    width: 520px;
+    &-btn {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .auth {
+    &__form {
+      width: 400px; 
+    }
+  }
+
+  @media only screen and (max-width: 468px) {
+  .auth {
+    &__form {
+      width: 300px; 
+    }
+  }
+}
+}
