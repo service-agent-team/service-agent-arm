@@ -12,8 +12,6 @@ export const SignIn = () => {
   const login = { email: 'mke@gmail.com', password: '1234567a' };
 
   const handleFinish = async (values: IValues) => {
-    console.log(values);
-
     SignIn({
       email: values.email,
       password: values.password,
