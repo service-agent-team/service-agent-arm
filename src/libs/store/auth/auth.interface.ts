@@ -26,6 +26,7 @@ export interface IAuthData {
   user_name: string;
   password: string;
   email: string;
+  role: string;
   created_at: string;
   updated_at: string;
 }
