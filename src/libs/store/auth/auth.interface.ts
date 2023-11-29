@@ -34,7 +34,7 @@ export interface IAuthData {
 export interface IAuthSignIn {
   email: string;
   password: string;
-  callback: () => void;
+  callback: (data: IAuthResponse) => void;
 }
 
 export interface InitialState {

@@ -10,7 +10,7 @@ export const SignIn = createAsyncThunk<IAuthResponse, IAuthSignIn>(
     try {
       const response = await AuthService.signIn(email, password);
       if (response.data) {
-        callback();
+        callback(response.data);
       }
       return response.data;
     } catch (error) {

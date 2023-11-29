@@ -1,10 +1,19 @@
-import { useTypedSelector } from '@/libs/hooks';
-import { UserOutlined } from '@ant-design/icons';
-import { Layout } from 'antd';
+import { useActions, useTypedSelector } from '@/libs/hooks';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { Layout, Modal } from 'antd';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { accountDictionary } from './dictionary';
 
 export const Header = () => {
   const { user } = useTypedSelector((state) => state.auth);
+  const { logout } = useActions();
+
+  const sinOut = () => logout();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const changeModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     <Layout.Header>
@@ -15,9 +24,23 @@ export const Header = () => {
             projects
           </Link>
           <div className="layout__head__nav__account">
-            <UserOutlined />
+            <Link to={'/'}>
+              <UserOutlined />
+            </Link>
           </div>
         </ul>
+        <p className="layout__head__logo" onClick={changeModal}>
+          <LogoutOutlined />
+        </p>
+
+        <Modal
+          title={accountDictionary.exit}
+          open={isModalOpen}
+          onOk={sinOut}
+          onCancel={changeModal}
+        >
+          <span>{accountDictionary.logout}</span>
+        </Modal>
       </div>
     </Layout.Header>
   );
