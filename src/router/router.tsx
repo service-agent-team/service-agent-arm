@@ -1,15 +1,14 @@
 import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
-import { Videos } from '@/pages';
 import { GlobalLayout } from '@/pages/layout';
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
-import { AgentLayout } from './agentLoadable';
-import { Permissions, Projects, Roles, UserPermissions, UserRoles, Users } from './globalLoadable';
 import { ProjectsPage, SignIn, UssdLayout } from './loadable';
+import { Permissions, Projects, Roles, UserPermissions, UserRoles, Users } from './globalLoadable';
 import { ProtectedRoutes } from './protected.routes';
 import { PublicRoutes } from './public.routes';
-
+import { ServiceAgentLayout } from '@/layouts/AgentLayout';
+import { Agents, Videos } from './agentLoadable';
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
     {
@@ -71,8 +70,12 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         },
         {
           path: '/agent',
-          element: <AgentLayout />,
+          element: <ServiceAgentLayout />,
           children: [
+            {
+              path: 'agents',
+              element: <Agents />,
+            },
             {
               path: 'videos',
               element: (

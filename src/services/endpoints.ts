@@ -3,4 +3,9 @@ export const EndPointes = {
     signIn: '/auth/login',
     getme: '/auth/getme',
   },
+  agent: {
+    contract: {
+      getAllUsers: '/agent/all',
+    },
+  },
 };
