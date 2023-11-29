@@ -3,11 +3,11 @@ import { ROUTES } from '@/constants';
 import { GlobalLayout } from '@/pages/layout';
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
-import { AgentLayout, Videos } from './agentLoadable';
+import { Agents, Videos } from './agentLoadable';
 import { SignIn, UssdLayout } from './loadable';
 import { ProtectedRoutes } from './protected.routes';
 import { PublicRoutes } from './public.routes';
-
+import { ServiceAgentLayout } from '@/layouts/AgentLayout';
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
     {
@@ -20,8 +20,12 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         },
         {
           path: '/agent',
-          element: <AgentLayout />,
+          element: <ServiceAgentLayout />,
           children: [
+            {
+              path: 'agents',
+              element: <Agents />,
+            },
             {
               path: 'videos',
               element: <Videos />,

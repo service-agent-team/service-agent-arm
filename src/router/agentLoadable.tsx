@@ -5,13 +5,11 @@ const handleCatchChunkError = () => {
   return { default: Loading };
 };
 
-export const AgentLayout = loadable(
-  () =>
-    import('@/pages')
-      .then(({ ServiceAgentLayout }) => ({ default: ServiceAgentLayout }))
-      .catch(handleCatchChunkError),
+export const Agents = loadable(
+  () => import('@/pages').then(({ Agents }) => ({ default: Agents })).catch(handleCatchChunkError),
   { fallback: <Loading /> },
 );
+
 
 export const Videos = loadable(
   () => import('@/pages').then(({ Videos }) => ({ default: Videos })).catch(handleCatchChunkError),

@@ -23,5 +23,5 @@ export const authDictionary = {
   forgetPlaceholder: 'force@adresseemail.com',
 
   // auth
-  logintitle: 'Barakshop',
+  logintitle: 'Coreteam',
 };

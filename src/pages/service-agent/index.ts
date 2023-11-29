@@ -1,2 +1,2 @@
-export { ServiceAgentLayout } from './layout';
+export { Agents } from './agent';
 export { Videos } from './videos';
