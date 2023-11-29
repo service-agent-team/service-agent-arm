@@ -3,11 +3,12 @@ import { ROUTES } from '@/constants';
 import { GlobalLayout } from '@/pages/layout';
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
-import { Agents, Videos } from './agentLoadable';
-import { SignIn, UssdLayout } from './loadable';
+import { ProjectsPage, SignIn, UssdLayout } from './loadable';
+import { Permissions, Projects, Roles, UserPermissions, UserRoles, Users } from './globalLoadable';
 import { ProtectedRoutes } from './protected.routes';
 import { PublicRoutes } from './public.routes';
 import { ServiceAgentLayout } from '@/layouts/AgentLayout';
+import { Agents, Videos } from './agentLoadable';
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
     {
@@ -16,7 +17,56 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         {
           path: ROUTES.home,
           element: <GlobalLayout />,
-          children: [],
+          children: [
+            {
+              path: ROUTES.users,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Users />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.permissions,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Permissions />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.roles,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Roles />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.userPermission,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <UserPermissions />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.userRoles,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <UserRoles />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.projects,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Projects />
+                </Suspense>
+              ),
+            },
+          ],
         },
         {
           path: '/agent',
@@ -28,7 +78,11 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
             },
             {
               path: 'videos',
-              element: <Videos />,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <Videos />
+                </Suspense>
+              ),
             },
           ],
         },
@@ -36,6 +90,14 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
           path: '/ussd',
           element: <UssdLayout />,
           children: [],
+        },
+        {
+          path: ROUTES.projectsPage,
+          element: (
+            <Suspense fallback={<Loading />}>
+              <ProjectsPage />
+            </Suspense>
+          ),
         },
       ],
     },

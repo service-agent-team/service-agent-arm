@@ -2,8 +2,8 @@
 import Cookies from 'js-cookie';
 
 export const saveTokensCookie = (data: any) => {
-  Cookies.set('accessToken', data.accessToken);
-  Cookies.set('refreshToken', data.refreshToken);
+  Cookies.set('accessToken', data.access_token);
+  Cookies.set('refreshToken', data.access_token);
 };
 
 export const saveStorage = (data: any) => {

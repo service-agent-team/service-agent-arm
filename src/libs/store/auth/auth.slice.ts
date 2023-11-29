@@ -29,6 +29,10 @@ export const authSlice = createSlice({
       loading.sign = payload;
     },
 
+    setUser: (state, { payload }) => {
+      state.user = payload;
+    },
+
     logout: (state) => {
       cliearStorage();
       state.isAuth = false;
