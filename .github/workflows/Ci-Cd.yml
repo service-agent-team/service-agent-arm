@@ -23,5 +23,5 @@ jobs:
           key: ${{secrets.SERVER_PRIVATE_KEY}}
           script: |
             cd /var/www/html/service-agent-arm
-            git pull
-            npm run build
+            sudo git pull
+            sudo npm run build
