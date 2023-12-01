@@ -1,0 +1,20 @@
+name: Deployment Ci-Cd...
+on:
+  push:
+    - 'main'
+    - 'dev'
+jobs:
+  deploy:
+    name: Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: chechout my code
+        uses: actions/checkout2@v3
+      - name: Connect to server
+        uses: appleboy/ssh-action@Master
+        with:
+          host: ${{  }}
+# and cd to /var/www/
+# pull the code
+# end build it end
+# npm start
