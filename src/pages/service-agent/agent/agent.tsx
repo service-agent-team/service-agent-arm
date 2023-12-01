@@ -1,24 +1,18 @@
 /* eslint-disable prettier/prettier */
-import { useEffect } from 'react'
-import { Rows, Cols } from "@/UI"
-import { useActions } from "@/libs/hooks";
-import { Typography } from 'antd';
+import { Rows } from '@/UI';
+import { useActions } from '@/libs/hooks';
 import { addNotification } from '@/libs/utils/addNotification';
-const { Title } = Typography;
+import { useEffect } from 'react';
 export default function Agents() {
-    const { getAllUsers } = useActions()
-    useEffect(() => {
-        getAllUsers({
-            callback: () => {
-                console.log('users::::')
-                addNotification('Success');
-            },
-        })
-    }, [])
+  const { getAllUsers } = useActions();
+  useEffect(() => {
+    getAllUsers({
+      callback: () => {
+        console.log('users::::');
+        addNotification('Success');
+      },
+    });
+  }, []);
 
-    return (
-        <Rows>
-
-        </Rows>
-    )
+  return <Rows>slls</Rows>;
 }
