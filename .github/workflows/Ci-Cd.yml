@@ -14,7 +14,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-        
+
       - name: Connect to server
         uses: appleboy/ssh-action@master
         with:
@@ -22,7 +22,6 @@ jobs:
           username: ${{secrets.SERVER_USERNAME}}
           key: ${{secrets.SERVER_PRIVATE_KEY}}
           script: |
-            cd /var/www/html
+            cd /var/www/html/service-agent-arm
             git pull
             npm run build
-            
