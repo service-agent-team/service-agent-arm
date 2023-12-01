@@ -2,7 +2,7 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { ContractService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IUserResponse, IUser } from './contract.interface';
+import { IUser, IUserResponse } from './contract.interface';
 
 export const getAllUsers = createAsyncThunk<IUserResponse, IUser>(
   'agent/all',

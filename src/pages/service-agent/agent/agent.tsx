@@ -2,9 +2,7 @@
 import { useEffect } from 'react'
 import { Rows, Cols } from "@/UI"
 import { useActions, useTypedSelector } from "@/libs/hooks";
-import { Typography } from 'antd';
 import { addNotification } from '@/libs/utils/addNotification';
-const { Title } = Typography;
 export default function Agents() {
     const { getAllUsers } = useActions()
     useEffect(() => {
