@@ -8,4 +8,7 @@ export const EndPointes = {
       getAllUsers: '/agent/all',
     },
   },
+  user: {
+    getUsers: '/user/get-all',
+  },
 };

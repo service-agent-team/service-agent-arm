@@ -1,3 +1,5 @@
+import { TableComponent } from '@/UI';
+
 export const Users = () => {
-  return <div>Users</div>;
+  return <TableComponent />;
 };

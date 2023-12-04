@@ -10,7 +10,6 @@ export const Agents = loadable(
   { fallback: <Loading /> },
 );
 
-
 export const Videos = loadable(
   () => import('@/pages').then(({ Videos }) => ({ default: Videos })).catch(handleCatchChunkError),
   { fallback: <Loading /> },
