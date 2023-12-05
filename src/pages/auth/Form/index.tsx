@@ -1,6 +1,6 @@
 import { PrimaryBtn } from '@/components';
 import { ROUTES } from '@/constants';
-import { useTypedSelector } from '@/libs/hooks/';
+import { useAppSelector } from '@/libs/hooks/';
 import { Form, Row, Typography } from 'antd';
 import classnameBind from 'classnames/bind';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { IFormProps } from './form.props';
 const cn = classnameBind.bind(styles);
 
 export const AuthForm = ({ text, login, onFinish, children }: IFormProps) => {
-  const { loading } = useTypedSelector((state) => state.auth);
+  const { loading } = useAppSelector((state) => state.auth);
 
   return (
     <Form className={cn('auth__form')} layout="vertical" onFinish={onFinish} autoComplete="off">

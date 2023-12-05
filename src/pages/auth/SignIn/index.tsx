@@ -1,6 +1,6 @@
 import { history } from '@/libs';
-import { useActions } from '@/libs/hooks/useActions';
-import { IAuthResponse } from '@/libs/store/auth/auth.interface';
+import { useActions } from '@/libs/hooks/use-actions';
+import { IAuthResponse } from '@/store/auth/auth.interface';
 import { addNotification } from '@/libs/utils/addNotification';
 import { PasswordField, UsernameField } from '@/pages/auth/Fields';
 import { AuthForm } from '@/pages/auth/Form';

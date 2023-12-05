@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Cols, Rows } from '@/UI';
-import { useActions, useTypedSelector } from '@/libs/hooks';
+import { useActions, useAppSelector } from '@/libs/hooks';
 import { addNotification } from '@/libs/utils/addNotification';
 import { useEffect } from 'react';
 export default function Agents() {
@@ -13,7 +13,7 @@ export default function Agents() {
     });
   }, []);
 
-  const { data } = useTypedSelector((state) => state.contract);
+  const { data } = useAppSelector((state) => state.contract);
 
   return (
     <Rows>
