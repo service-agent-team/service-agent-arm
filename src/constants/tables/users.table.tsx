@@ -1,18 +1,12 @@
+import { DataType } from '@/UI';
 import { ColumnsType } from 'antd/es/table';
-import React from 'react';
+import { Link } from 'react-router-dom';
 
-export interface DataType {
-  key: React.Key;
-  name: string;
-  age: number;
-  address: string;
-}
-
-export const usersSource: ColumnsType<DataType> = [
+export const columns: ColumnsType<DataType> = [
   {
     title: 'Name',
     dataIndex: 'name',
-    render: (text: string) => <a>{text}</a>,
+    render: (text: string) => <Link to={'/' + text}>{text}</Link>,
   },
   {
     title: 'Age',
@@ -24,29 +18,12 @@ export const usersSource: ColumnsType<DataType> = [
   },
 ];
 
-export const userColumns: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
+export const data: DataType[] = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i,
+    name: `Edward King ${i}`,
     age: 32,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Disabled User',
-    age: 99,
-    address: 'Sydney No. 1 Lake Park',
-  },
-];
+    address: `London, Park Lane no. ${i}`,
+  });
+}

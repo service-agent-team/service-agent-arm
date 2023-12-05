@@ -7,7 +7,7 @@ const handleCatchChunkError = () => {
 
 export const Users = loadable(
   () =>
-    import('@/pages/layout/users')
+    import('@/pages/global/users')
       .then(({ Users }) => ({ default: Users }))
       .catch(handleCatchChunkError),
   { fallback: <Loading /> },
@@ -15,7 +15,7 @@ export const Users = loadable(
 
 export const Permissions = loadable(
   () =>
-    import('@/pages/layout/permission')
+    import('@/pages/global/permission')
       .then(({ Permissions }) => ({ default: Permissions }))
       .catch(handleCatchChunkError),
   { fallback: <Loading /> },
@@ -23,7 +23,7 @@ export const Permissions = loadable(
 
 export const Roles = loadable(
   () =>
-    import('@/pages/layout/roles')
+    import('@/pages/global/roles')
       .then(({ Roles }) => ({ default: Roles }))
       .catch(handleCatchChunkError),
   { fallback: <Loading /> },
@@ -31,7 +31,7 @@ export const Roles = loadable(
 
 export const UserRoles = loadable(
   () =>
-    import('@/pages/layout/user-roles')
+    import('@/pages/global/user-roles')
       .then(({ UserRoles }) => ({ default: UserRoles }))
       .catch(handleCatchChunkError),
   { fallback: <Loading /> },
@@ -39,7 +39,7 @@ export const UserRoles = loadable(
 
 export const UserPermissions = loadable(
   () =>
-    import('@/pages/layout/user-permissions')
+    import('@/pages/global/user-permissions')
       .then(({ UserPermissions }) => ({ default: UserPermissions }))
       .catch(handleCatchChunkError),
   { fallback: <Loading /> },
@@ -47,7 +47,7 @@ export const UserPermissions = loadable(
 
 export const Projects = loadable(
   () =>
-    import('@/pages/layout/projects')
+    import('@/pages/global/projects')
       .then(({ Projects }) => ({ default: Projects }))
       .catch(handleCatchChunkError),
   { fallback: <Loading /> },
