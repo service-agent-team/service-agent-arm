@@ -1,2 +1,2 @@
 export { errorCatch } from './errorhandler';
-export { cliearStorage, getFromLocalstorage, getTokens, saveStorage } from './storage';
+export { clearStorage, getTokens, saveStorage } from './cookie';

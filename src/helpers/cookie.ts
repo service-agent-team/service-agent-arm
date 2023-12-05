@@ -1,4 +1,4 @@
-// import { IAuthResponse } from '@/store/auth/auth.interface';
+import { removeLocalStorage, setLocalStorage } from '@/libs';
 import Cookies from 'js-cookie';
 
 export const saveTokensCookie = (data: any) => {
@@ -8,7 +8,7 @@ export const saveTokensCookie = (data: any) => {
 
 export const saveStorage = (data: any) => {
   saveTokensCookie(data);
-  localStorage.setItem('user', JSON.stringify(data.data));
+  setLocalStorage('user', data.data);
 };
 
 export const removeTokensCookie = () => {
@@ -16,13 +16,9 @@ export const removeTokensCookie = () => {
   Cookies.remove('refreshToken');
 };
 
-export const cliearStorage = () => {
+export const clearStorage = () => {
   removeTokensCookie();
-  localStorage.removeItem('user');
-};
-
-export const getFromLocalstorage = (key: string) => {
-  return localStorage.getItem(key);
+  removeLocalStorage('user');
 };
 
 export const getTokens = () => {

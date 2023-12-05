@@ -1,32 +1,7 @@
-/* eslint-disable prettier/prettier */
-import { Loading } from '@/components';
-import loadable from '@loadable/component';
-const handleCatchChunkError = () => {
-  return { default: Loading };
-};
+import { getLoadablePage } from './util';
 
-export const Home = loadable(
-  () => import('@/pages').then(({ Home }) => ({ default: Home })).catch(handleCatchChunkError),
-  { fallback: <Loading /> },
-);
+export const Home = getLoadablePage('Home');
 
-export const UssdLayout = loadable(
-  () =>
-    import('@/pages')
-      .then(({ UssdLayout }) => ({ default: UssdLayout }))
-      .catch(handleCatchChunkError),
-  { fallback: <Loading /> },
-);
+export const Users = getLoadablePage('Users');
 
-export const SignIn = loadable(
-  () => import('@/pages').then(({ SignIn }) => ({ default: SignIn })).catch(handleCatchChunkError),
-  { fallback: <Loading /> },
-);
-
-export const ProjectsPage = loadable(
-  () =>
-    import('@/pages')
-      .then(({ ProjectsPage }) => ({ default: ProjectsPage }))
-      .catch(handleCatchChunkError),
-  { fallback: <Loading /> },
-);
+export const SignIn = getLoadablePage('SignIn');

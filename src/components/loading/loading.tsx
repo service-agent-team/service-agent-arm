@@ -1,7 +1,8 @@
-import { Row, Spin } from 'antd';
+import { Spin } from 'antd';
+import * as S from './loading-styled';
 
 export const Loading = () => (
-  <Row justify="center">
+  <S.loading>
     <Spin size="large" />
-  </Row>
+  </S.loading>
 );
