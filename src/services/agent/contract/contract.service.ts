@@ -1,5 +1,5 @@
 import { $axios } from '@/config';
-import { IUserResponse } from '@/libs/store/agent/contract/contract.interface';
+import { IUserResponse } from '@/store/agent/contract/contract.interface';
 import { EndPointes } from '../../endpoints';
 const { agent } = EndPointes;
 
