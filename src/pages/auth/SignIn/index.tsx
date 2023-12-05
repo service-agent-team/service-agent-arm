@@ -1,11 +1,11 @@
 import { history } from '@/libs';
 import { useActions } from '@/libs/hooks/use-actions';
-import { IAuthResponse } from '@/store/auth/auth.interface';
 import { addNotification } from '@/libs/utils/addNotification';
 import { PasswordField, UsernameField } from '@/pages/auth/Fields';
 import { AuthForm } from '@/pages/auth/Form';
 import { authLoadings } from '@/pages/auth/constants';
 import { authDictionary } from '@/pages/auth/dictionary';
+import { IAuthResponse } from '@/store/auth/auth.interface';
 import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { IValues } from './sign-in.interface';
@@ -27,8 +27,6 @@ export const SignIn = () => {
               history.push('/');
               break;
             case 'admin':
-              console.log(data.data.role);
-              history.push('/agent');
               navigate('/agent');
               break;
             default:

@@ -1,14 +1,13 @@
+import { ROUTES } from '@/constants';
+import { Layout as AntLayout, theme } from 'antd';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Layout as AntLayout, theme } from 'antd';
-import { Sider } from './sider';
-import { Header } from './header';
 import { Content } from './content';
 import { Float } from './float';
-import { ROUTES } from '@/constants';
+import { Header } from './header';
+import { Sider } from './sider';
 
-export const Layout = () => {
-  const isAuth = true;
+export const Layout = ({ isAuth }: { isAuth: boolean }) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },

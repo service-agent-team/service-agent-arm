@@ -1,9 +1,9 @@
-import { useActions } from './use-actions';
-import { useAppSelector } from './use-selector';
 import { getTokens } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { useEffect, useState } from 'react';
-import { getLocalStorage, USER } from '../utils';
+import { USER, getLocalStorage } from '../utils';
+import { useActions } from './use-actions';
+import { useAppSelector } from './use-selector';
 
 export function useBootstrap() {
   const { setAuth, setToken, logout, setUser } = useActions();
@@ -34,7 +34,7 @@ export function useBootstrap() {
     };
 
     appConfig();
-  }, []);
+  }, [setApp]);
 
   return { isAuth, isInitiated };
 }

@@ -1,13 +1,16 @@
+import { THEME, getLocalStorage, setLocalStorage } from '@/libs';
 import { createSlice } from '@reduxjs/toolkit';
 import { ENDPOINTS } from '../endpoints';
-import { ETheme, TInitialState } from './types';
-import { getLocalStorage, setLocalStorage, THEME } from '@/libs';
 import { RootState } from '../store-interfaces';
+import { ETheme, TInitialState } from './types';
 
 const initialState: TInitialState = {
   isModal: false,
   isDrawer: false,
   theme: getLocalStorage(THEME) ?? ETheme.LIGHT,
+  path: '',
+  isAdd: false,
+  previewTitle: '',
 };
 
 const appSlice = createSlice({

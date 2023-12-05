@@ -1,10 +1,8 @@
-import { StyledLayout } from './style';
-import { Navigate, Outlet } from 'react-router-dom';
 import { ROUTES } from '@/constants';
+import { Navigate, Outlet } from 'react-router-dom';
+import { StyledLayout } from './style';
 
-export const Layout = () => {
-  const isAuth = true;
-
+export const Layout = ({ isAuth }: { isAuth: boolean }) => {
   return isAuth ? (
     <Navigate to={ROUTES.home} />
   ) : (
