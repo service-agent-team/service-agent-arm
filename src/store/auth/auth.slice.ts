@@ -1,4 +1,4 @@
-import { cliearStorage } from '@/helpers';
+import { clearStorage } from '@/helpers';
 import { createSlice } from '@reduxjs/toolkit';
 import { SignIn } from './auth.actions';
 import { InitialState } from './auth.interface';
@@ -34,7 +34,7 @@ export const authSlice = createSlice({
     },
 
     logout: (state) => {
-      cliearStorage();
+      clearStorage();
       state.isAuth = false;
       state.token = null;
       state.user = null;

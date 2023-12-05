@@ -1,4 +1,4 @@
-import { useThemeDetector } from '@/libs/hooks';
+import { useThemeDetector } from '@/libs';
 import { PropsWithChildren } from 'react';
 import { ThemeProvider as StyledProvider } from 'styled-components';
 import { GlobalStyles, antTheme } from '@/styles';
