@@ -3,6 +3,10 @@ import { AxiosError } from 'axios';
 export const LANG = 'lang';
 const PREFIX = '/';
 
+export const ACCESS_TOKEN = 'access-token';
+export const USER = 'user';
+export const THEME = 'theme';
+
 export const getRoute = (...routes: Array<string>) => {
   let route = '';
 

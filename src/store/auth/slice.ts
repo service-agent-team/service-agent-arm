@@ -1,7 +1,7 @@
 import { cliearStorage } from '@/helpers';
 import { createSlice } from '@reduxjs/toolkit';
-import { SignIn } from './auth.actions';
-import { InitialState } from './auth.interface';
+import { SignIn } from './actions';
+import { InitialState } from './interface';
 
 const initialState: InitialState = {
   user: null,

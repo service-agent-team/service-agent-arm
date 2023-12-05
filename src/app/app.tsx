@@ -1,6 +1,6 @@
 import { history } from '@/libs';
-import { store } from '@/libs/store';
 import { Router } from '@/router';
+import { store } from '@/store/store';
 import { GlobalStyles } from '@/styles';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';

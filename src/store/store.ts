@@ -1,6 +1,6 @@
 import { navigateBasedOnRole } from '@/middlewares';
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer } from './root-reducer';
+import { reducer } from './root/reducer';
 
 export const store = configureStore({
   reducer: reducer,

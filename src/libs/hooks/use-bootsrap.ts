@@ -1,8 +1,8 @@
 import { getFromLocalstorage, getTokens } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { useEffect, useState } from 'react';
-import { useActions } from './useActions';
-import { useTypedSelector } from './useTypedSelector';
+import { useActions } from './use-actions';
+import { useTypedSelector } from './use-selector';
 
 export function useBootstrap() {
   const { setAuth, setToken, logout, setUser } = useActions();

@@ -1,6 +1,6 @@
 import { $axios } from '@/config';
 import { saveStorage } from '@/helpers';
-import { IAuthResponse, IAuthSignIn } from '@/libs/store/auth/auth.interface';
+import { IAuthResponse, IAuthSignIn } from '@/store/auth/interface';
 import { AxiosResponse } from 'axios';
 import { EndPointes } from '../endpoints';
 

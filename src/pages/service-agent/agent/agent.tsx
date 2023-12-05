@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Cols, Rows } from '@/UI';
 import { useActions, useTypedSelector } from '@/libs/hooks';
 import { addNotification } from '@/libs/utils/addNotification';
+import { Cols, Rows } from '@/ui';
 import { useEffect } from 'react';
 export default function Agents() {
   const { getAllUsers } = useActions();

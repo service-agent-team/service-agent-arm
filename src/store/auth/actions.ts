@@ -2,7 +2,7 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { AuthService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IAuthResponse, IAuthSignIn } from './auth.interface';
+import { IAuthResponse, IAuthSignIn } from './interface';
 
 export const SignIn = createAsyncThunk<IAuthResponse, IAuthSignIn>(
   'auth/signIn',

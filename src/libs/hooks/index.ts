@@ -1,4 +1,5 @@
-export { useActions } from './useActions';
-export { useBootstrap } from './useBootsrap';
-export { usePaginator } from './usePaginator';
-export { useTypedSelector } from './useTypedSelector';
+export { useActions } from './use-actions';
+export { useBootstrap } from './use-bootsrap';
+export { usePaginator } from './use-paginator';
+export { useTypedSelector } from './use-selector';
+export { useThemeDetector } from './use-theme-detector';
