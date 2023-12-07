@@ -3,12 +3,21 @@ export const EndPointes = {
     signIn: '/auth/login',
     getme: '/auth/getme',
   },
+
+  // AUTH
+  login: '/login',
+
+  // AGENT
+  agentContract: {
+    allUsers: '/agent/all',
+  },
+
   agent: {
     contract: {
       getAllUsers: '/agent/all',
     },
   },
   user: {
-    getUsers: '/user/get-all',
+    getAll: '/user/get-all',
   },
-};
+} as const;
