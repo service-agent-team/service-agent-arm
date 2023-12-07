@@ -1,5 +1,5 @@
 import { $axios } from '@/config';
-import { IUserResponse } from '@/store/users/user-interfaces';
+import { IUserResponse } from '@/store/users/types';
 import { EndPointes } from '../endpoints';
 export const UserService = {
   async getUsers() {

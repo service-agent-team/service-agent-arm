@@ -1,5 +1,5 @@
 import { Action, ThunkAction } from '@reduxjs/toolkit';
-import { store } from './store';
+import { RootState } from '.';
 
 export interface IStoreLoadings {
   get: string;
@@ -8,8 +8,6 @@ export interface IStoreLoadings {
   delete: string;
 }
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   RootState,

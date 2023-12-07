@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ISetUserPayload, IUserInitalState, PayloadEnum } from './user-interfaces';
-import { getUsers } from './user.actions';
+import { ISetUserPayload, IUserInitalState, PayloadEnum } from './types';
+import { getUsers } from './actions';
 
 const initialState: IUserInitalState = {
   loading: {

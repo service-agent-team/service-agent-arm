@@ -1,9 +1,6 @@
 import { AxiosError } from 'axios';
 
-export const ACCESS_TOKEN = 'access-token';
 export const LANG = 'lang';
-export const USER = 'user';
-export const THEME = 'theme';
 const PREFIX = '/';
 
 export const ACCESS_TOKEN = 'access-token';

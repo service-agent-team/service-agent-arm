@@ -1,10 +1,9 @@
-import { appSelector } from '@/store/app';
 import { ETheme } from '@/store/app/types';
-import { useState, useEffect } from 'react';
-import { useAppSelector } from '.';
+import { useEffect, useState } from 'react';
+import { useTypedSelector } from '.';
 
 export const useThemeDetector = () => {
-  const { theme } = useAppSelector(appSelector);
+  const { theme } = useTypedSelector((state) => state.app);
   const getCurrentTheme = (): boolean => window.matchMedia('(prefers-color-scheme: dark)').matches;
 
   const [isDarkTheme, setIsDarkTheme] = useState(getCurrentTheme());
@@ -26,8 +25,4 @@ export const useThemeDetector = () => {
   }
 
   return theme;
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 9cc14a7cc27f2b4ccb4e41492ddd1e7514a7f178

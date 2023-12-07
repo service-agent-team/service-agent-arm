@@ -1,12 +1,11 @@
-import { useActions, useAppSelector } from '@/libs';
-import { appSelector } from '@/store/app';
-import { PropsWithChildren } from 'react';
+import { useActions, useTypedSelector } from '@/libs';
 import { Dropdown as AntDropdown, MenuProps, Radio } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { PropsWithChildren } from 'react';
 import { dropDownMenu } from '../constants';
 
 export const Dropdown = ({ children }: PropsWithChildren) => {
-  const { theme } = useAppSelector(appSelector);
+  const { theme } = useTypedSelector((state) => state.app);
   const { setTheme } = useActions();
 
   const handleChangeRadio = (e: CheckboxChangeEvent) => {

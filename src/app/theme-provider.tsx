@@ -1,19 +1,10 @@
 import { useThemeDetector } from '@/libs';
-<<<<<<< HEAD
 import { GlobalStyles, antTheme } from '@/styles';
 import { ConfigProvider, Modal, message as antMessage } from 'antd';
 import { MessageInstance } from 'antd/es/message/interface';
 import { HookAPI } from 'antd/es/modal/useModal';
 import { PropsWithChildren } from 'react';
 import { ThemeProvider as StyledProvider } from 'styled-components';
-=======
-import { PropsWithChildren } from 'react';
-import { ThemeProvider as StyledProvider } from 'styled-components';
-import { GlobalStyles, antTheme } from '@/styles';
-import { ConfigProvider, Modal, message as antMessage } from 'antd';
-import { HookAPI } from 'antd/es/modal/useModal';
-import { MessageInstance } from 'antd/es/message/interface';
->>>>>>> 9cc14a7cc27f2b4ccb4e41492ddd1e7514a7f178
 
 let modal: HookAPI;
 let message: MessageInstance;
@@ -44,7 +35,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <StyledProvider theme={{}}>
+    <StyledProvider theme={theme}>
       <GlobalStyles />
 
       <ConfigProvider
@@ -62,8 +53,4 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-<<<<<<< HEAD
 export { message, modal };
-=======
-export { modal, message };
->>>>>>> 9cc14a7cc27f2b4ccb4e41492ddd1e7514a7f178

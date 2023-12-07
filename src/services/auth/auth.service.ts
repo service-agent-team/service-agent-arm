@@ -1,10 +1,6 @@
 import { $axios } from '@/config';
 import { saveStorage } from '@/helpers';
-<<<<<<< HEAD
 import { IAuthResponse, IAuthSignIn } from '@/store/auth/interface';
-=======
-import { IAuthResponse, IAuthSignIn } from '@/store/auth/auth.interface';
->>>>>>> 9cc14a7cc27f2b4ccb4e41492ddd1e7514a7f178
 import { AxiosResponse } from 'axios';
 import { EndPointes } from '../endpoints';
 
