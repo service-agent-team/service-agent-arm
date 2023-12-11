@@ -1,10 +1,10 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react';
 
 export interface IBtnProps {
-  type?: any
-  btn: boolean
-  children: ReactNode
-  className: string
-  loading: boolean
-  htmlType: any
+  type?: any;
+  btn: boolean;
+  children: ReactNode;
+  className: string;
+  loading: boolean;
+  htmlType: any;
 }

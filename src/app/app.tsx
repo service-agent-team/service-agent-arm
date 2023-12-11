@@ -1,8 +1,7 @@
 import { history, useBootstrap } from '@/libs';
-import { Loading } from '@/components';
+import { Routes } from '@/router';
 import { HistoryRouter } from './history-router';
 import { ThemeProvider } from './theme-provider';
-import { Routes } from '@/router';
 
 export const App = () => {
   const { isAuth, isInitiated } = useBootstrap();

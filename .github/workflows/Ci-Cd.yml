@@ -5,6 +5,18 @@ on:
       - 'main'
       - 'dev'
 jobs:
+  lint:
+    name: Linting my code
+    runs-on: ubuntu-latest
+    steps:
+      - name: chackout code...
+        uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Linting
+        run: npm run lint
   deploy:
     name: Deployment
     runs-on: ubuntu-latest

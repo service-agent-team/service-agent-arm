@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { SettingFilled, VideoCameraFilled } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Row } from 'antd';
 import { ReactNode } from 'react';
 type IProps = {
