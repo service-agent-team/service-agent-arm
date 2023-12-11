@@ -35,7 +35,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <StyledProvider theme={theme}>
+    <StyledProvider theme={{}}>
       <GlobalStyles />
 
       <ConfigProvider

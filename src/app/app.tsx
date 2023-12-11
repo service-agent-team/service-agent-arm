@@ -1,27 +1,21 @@
-// import { Loading } from '@/components';
-// import { history, useBootstrap } from '@/libs';
-import { Loading } from '@/components';
 import { history, useBootstrap } from '@/libs';
-import { Routes } from '@/router';
-import { store } from '@/store';
-import { Provider } from 'react-redux';
+import { Loading } from '@/components';
 import { HistoryRouter } from './history-router';
 import { ThemeProvider } from './theme-provider';
-// import { ThemeProvider } from './theme-provider';
+import { Routes } from '@/router';
 
 export const App = () => {
   const { isAuth, isInitiated } = useBootstrap();
 
-  if (!isInitiated) {
-    return <Loading />;
-  }
+  // if (!isInitiated) {
+  //   return <Loading />;
+  // }
+
   return (
     <ThemeProvider>
-      <Provider store={store}>
-        <HistoryRouter history={history}>
-          <Routes isAuth={isAuth} />
-        </HistoryRouter>
-      </Provider>
+      <HistoryRouter history={history}>
+        <Routes isAuth={isAuth} />
+      </HistoryRouter>
     </ThemeProvider>
   );
 };

@@ -11,34 +11,34 @@ import { useNavigate } from 'react-router-dom';
 import { IValues } from './sign-in.interface';
 
 export const SignIn = () => {
-  const { SignIn } = useActions();
+  // const { SignIn } = useActions();
   const login = { email: 'mke@gmail.com', password: '1234567a' };
   const navigate = useNavigate();
 
-  const handleFinish = async (values: IValues) => {
-    SignIn({
-      email: values.email,
-      password: values.password,
-      callback: (data: IAuthResponse) => {
-        addNotification('Successfully logged In');
-        if (data.success) {
-          switch (data.data.role) {
-            case 'superadmin':
-              history.push('/');
-              break;
-            case 'admin':
-              navigate('/agent');
-              break;
-            default:
-              break;
-          }
-        }
-      },
-    });
-  };
+  // const handleFinish = async (values: IValues) => {
+  //   SignIn({
+  //     email: values.email,
+  //     password: values.password,
+  //     callback: (data: IAuthResponse) => {
+  //       addNotification('Successfully logged In');
+  //       if (data.success) {
+  //         switch (data.data.role) {
+  //           case 'superadmin':
+  //             history.push('/');
+  //             break;
+  //           case 'admin':
+  //             navigate('/agent');
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       }
+  //     },
+  //   });
+  // };
 
   return (
-    <AuthForm login loader={authLoadings.sign} text={authDictionary.signIn} onFinish={handleFinish}>
+    <AuthForm login loader={authLoadings.sign} text={authDictionary.signIn}>
       <Typography.Title style={{ textAlign: 'center', marginBottom: '50px' }}>
         {authDictionary.logintitle}
       </Typography.Title>
