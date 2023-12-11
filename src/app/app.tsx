@@ -6,6 +6,7 @@ import { Routes } from '@/router';
 import { store } from '@/store';
 import { Provider } from 'react-redux';
 import { HistoryRouter } from './history-router';
+import { ThemeProvider } from './theme-provider';
 // import { ThemeProvider } from './theme-provider';
 
 export const App = () => {
@@ -15,12 +16,12 @@ export const App = () => {
     return <Loading />;
   }
   return (
-    // <ThemeProvider>
-    <Provider store={store}>
-      <HistoryRouter history={history}>
-        <Routes isAuth={isAuth} />
-      </HistoryRouter>
-    </Provider>
-    // </ThemeProvider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Routes isAuth={isAuth} />
+        </HistoryRouter>
+      </Provider>
+    </ThemeProvider>
   );
 };
