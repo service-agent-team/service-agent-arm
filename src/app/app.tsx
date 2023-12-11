@@ -9,6 +9,7 @@ export const App = () => {
   // if (!isInitiated) {
   //   return <Loading />;
   // }
+  console.log(isInitiated);
 
   return (
     <ThemeProvider>

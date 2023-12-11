@@ -5,5 +5,5 @@ import { AuthSliceActions } from './../auth/slice';
 export const AllActions = {
   ...appActions,
   ...AuthSliceActions,
-  // ...AuthActions,
+  ...AuthActions,
 };

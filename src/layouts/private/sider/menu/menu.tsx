@@ -1,8 +1,8 @@
-import { useLocation } from 'react-router-dom';
 import { AntMenu } from '@/layouts/private/style';
-import { MenuProps } from 'antd';
-import { menuItems } from './constants';
 import { history } from '@/libs';
+import { MenuProps } from 'antd';
+import { useLocation } from 'react-router-dom';
+import { menuItems } from './constants';
 
 export const Menu = () => {
   const { pathname } = useLocation();

@@ -11,20 +11,59 @@ jobs:
     steps:
       - name: chackout code...
         uses: actions/checkout@v3
-      
+
+      - name: Cashe dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
       - name: Linting
         run: npm run lint
+  build:
+    needs: lint
+    name: Building data to deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout my code ...
+        uses: actions/checkout@v3
+
+      - name: Cashe dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Build the code ...
+        run: npm run build
+
   deploy:
+    needs: lint
     name: Deployment
     runs-on: ubuntu-latest
     steps:
       - name: chechout my code
         uses: actions/checkout@v3
 
+      - name: Cashe dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
       - name: Connect to server

@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
 // import { MainLayout } from "@/layouts";
-import { ussdMenu } from "@/constants/menus";
-import { Outlet } from "react-router-dom";
+// import { ussdMenu } from "@/constants/menus";
+// import { Outlet } from "react-router-dom";
 
 export function UssdLayout() {
-    return (
-        <>dsf</>
-        // <MainLayout items={ussdMenu}>
-        //     <Outlet />
-        // </MainLayout>
-    )
+  return (
+    <>dsf</>
+    // <MainLayout items={ussdMenu}>
+    //     <Outlet />
+    // </MainLayout>
+  );
 }

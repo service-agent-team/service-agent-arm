@@ -1,4 +1,4 @@
-import { DataType } from '@/UI';
+import { DataType } from '@/ui/tables/table-component/table-interface';
 import { ColumnsType } from 'antd/es/table';
 import { Link } from 'react-router-dom';
 

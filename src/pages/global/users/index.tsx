@@ -1,5 +1,6 @@
-import { DataType, TableComponent } from '@/UI';
 import { columns, data } from '@/constants';
+import { TableComponent } from '@/ui/tables';
+import { DataType } from '@/ui/tables/table-component/table-interface';
 import { TableRowSelection } from 'antd/es/table/interface';
 import React, { useState } from 'react';
 import * as S from './user.styled';
