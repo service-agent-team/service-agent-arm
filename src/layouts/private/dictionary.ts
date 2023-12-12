@@ -1,5 +1,5 @@
 export const dictionary = {
-  title: 'HOUSELINK',
+  title: 'S.AGENT',
   labels: [
     'Buildings',
     'Commercial real estate',

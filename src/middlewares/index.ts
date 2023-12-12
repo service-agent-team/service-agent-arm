@@ -1,1 +1,1 @@
-export { navigateBasedOnRole } from './role.middleware';
+export { navigateBasedOnRole } from './role';

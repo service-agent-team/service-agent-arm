@@ -34,7 +34,7 @@ export const AuthForm = ({ text, login, onFinish, children }: IFormProps) => {
           </Typography.Text>
         ) : (
           <Typography.Text>
-            <Link to={ROUTES.signIn}>{authDictionary.backToLoginPage}</Link>
+            <Link to={ROUTES.login}>{authDictionary.backToLoginPage}</Link>
           </Typography.Text>
         )}
       </Row>

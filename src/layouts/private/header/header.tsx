@@ -1,22 +1,22 @@
-import { LayoutHeader } from '../style';
-import { Flex } from 'antd';
+import { modal } from '@/app';
 import { Icon } from '@/components';
+import { useActions } from '@/libs';
+import { Flex } from 'antd';
+import { dictionary } from '../dictionary';
+import { LayoutHeader } from '../style';
 import { HeaderProps } from '../type';
 import { Breadcrumb } from './breadcrumb';
 import { Dropdown } from './dropdown';
-import { modal } from '@/app';
-import { dictionary } from '../dictionary';
-// import { useAppStore } from '@/store';
 
 export const Header = ({ bg, collapsed, setCollapsed }: HeaderProps) => {
-  // const { logout } = useAppStore();
+  const { logout } = useActions();
   const handleClickMenu = () => setCollapsed(!collapsed);
 
   const handleClickLogout = () => {
     modal.confirm({
       title: dictionary.modal[0],
       onOk() {
-        // logout();
+        logout();
       },
     });
   };

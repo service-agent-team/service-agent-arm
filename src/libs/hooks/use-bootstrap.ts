@@ -34,7 +34,7 @@ export function useBootstrap() {
     };
 
     appConfig();
-  }, [setApp]);
+  }, []);
 
   return { isAuth, isInitiated };
 }
