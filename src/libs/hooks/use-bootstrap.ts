@@ -14,11 +14,13 @@ export function useBootstrap() {
   const accessToken = getTokens().accessToken;
 
   const setApp = () => {
-    if (accessToken != undefined) {
-      setUser(JSON.parse(user as string));
+    if (accessToken) {
+      setUser(user);
       setAuth(true);
       setToken(accessToken);
+      setIsInitiated(false);
     } else {
+      setIsInitiated(false);
       logout();
     }
   };
@@ -27,7 +29,6 @@ export function useBootstrap() {
     const appConfig = () => {
       try {
         setApp();
-        setIsInitiated(false);
       } catch (error) {
         addNotification(error);
       }

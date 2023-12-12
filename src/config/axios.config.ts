@@ -1,5 +1,5 @@
 import { BASE_URL } from '@/constants';
-import { getLocalStorage } from '@/libs';
+import { getTokens } from '@/helpers';
 import axios from 'axios';
 
 const $axios = axios.create({
@@ -8,7 +8,7 @@ const $axios = axios.create({
 
 const setToken = (config: any) => {
   if (!config?.headers?.authorization) {
-    const token = getLocalStorage('access-token');
+    const token = getTokens().accessToken;
     if (token && config.headers) {
       config.headers.authorization = `Bearer ${token}`;
     }

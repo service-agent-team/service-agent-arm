@@ -7,7 +7,7 @@ import { ThemeProvider } from './theme-provider';
 export const App = () => {
   const { isAuth, isInitiated } = useBootstrap();
 
-  if (!isInitiated) {
+  if (isInitiated) {
     return <Loading />;
   }
 
