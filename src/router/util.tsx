@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
-import loadable from '@loadable/component';
 import { Loading } from '@/components';
+import loadable from '@loadable/component';
+import { ComponentType } from 'react';
 
 type PagesModule = {
   [key: string]: ComponentType<any>;

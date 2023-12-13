@@ -1,6 +1,6 @@
 export const ROUTES = {
   home: '/',
-  main: '*',
+  main: '/dashboard',
   resetEmail: '/email',
   login: '/signin',
   users: '/users',
