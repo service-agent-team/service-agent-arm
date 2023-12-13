@@ -1,4 +1,4 @@
-import { AntMenu } from '@/layouts/private/style';
+import { AntMenu } from '@/layouts/global/style';
 import { history } from '@/libs';
 import { MenuProps } from 'antd';
 import { useLocation } from 'react-router-dom';
