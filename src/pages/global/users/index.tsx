@@ -1,5 +1,5 @@
+import { Table } from '@/components';
 import { columns, data } from '@/constants';
-import { TableComponent } from '@/ui/tables';
 import { DataType } from '@/ui/tables/table-component/table-interface';
 import { TableRowSelection } from 'antd/es/table/interface';
 import React, { useState } from 'react';
@@ -19,11 +19,12 @@ export const Users = () => {
 
   return (
     <S.userStyled>
-      <TableComponent
+      <Table
         rowSelection={rowSelection}
         columns={columns}
         dataSource={data}
         loading={false}
+        bordered
       />
     </S.userStyled>
   );
