@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TableProps } from 'antd';
 import React from 'react';
 import * as S from './styles';

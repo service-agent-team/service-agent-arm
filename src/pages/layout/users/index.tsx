@@ -1,4 +1,4 @@
-import { TableComponent } from "@/ui/tables";
+import { TableComponent } from '@/ui/tables';
 
 export const Users = () => {
   return <TableComponent />;

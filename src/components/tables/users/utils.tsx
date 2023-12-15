@@ -6,9 +6,8 @@ import Highlighter from 'react-highlight-words';
 import { items } from './constants';
 import { DataIndex, IhandleSearchProps, UserTableRow } from './types';
 
-const handleMenuClick: MenuProps['onClick'] = (e: any) => {
+const handleMenuClick: MenuProps['onClick'] = (_: any) => {
   message.success('Click on menu item.');
-  console.log(e);
 };
 
 const menuProps = {
@@ -87,8 +86,6 @@ export const utils = () => {
       <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
     ),
     onFilter: (value, record) => {
-      console.log(record);
-
       return (record as any)[dataIndex]
         .toString()
         .toLowerCase()
@@ -172,8 +169,6 @@ export const utils = () => {
       render: (_, { userPermission }) => (
         <Row style={{ gap: '4px' }}>
           {userPermission?.map((permission) => {
-            console.log(permission);
-
             let color =
               permission?.permission_id?.permission_name?.length > 5 ? 'geekblue' : 'green';
 

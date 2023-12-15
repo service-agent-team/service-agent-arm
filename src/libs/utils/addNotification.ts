@@ -10,8 +10,6 @@ export const addNotification = (data: any) => {
 
     return 'ok';
   } else if (typeof data === 'object') {
-    console.log(data?.error);
-
     toast.error(data?.error, {
       position: 'top-right',
     });
