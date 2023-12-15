@@ -1,6 +1,7 @@
 import { Loading } from '@/components';
 import { history, useBootstrap } from '@/libs';
 import { Routes } from '@/router';
+import { Toaster } from 'react-hot-toast';
 import { HistoryRouter } from './history-router';
 import { ThemeProvider } from './theme-provider';
 
@@ -16,6 +17,7 @@ export const App = () => {
       <ThemeProvider>
         <HistoryRouter history={history}>
           <Routes isAuth={isAuth} />
+          <Toaster />
         </HistoryRouter>
       </ThemeProvider>
     </>

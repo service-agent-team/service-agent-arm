@@ -9,9 +9,17 @@ export const addNotification = (data: any) => {
     });
 
     return 'ok';
-  }
+  } else if (typeof data === 'object') {
+    console.log(data?.error);
 
-  toast.success(data, {
-    position: 'top-right',
-  });
+    toast.error(data?.error, {
+      position: 'top-right',
+    });
+    return 'ok';
+  } else {
+    toast.success(data, {
+      position: 'top-right',
+    });
+    return 'ok';
+  }
 };

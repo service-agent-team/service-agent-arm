@@ -1,31 +1,25 @@
-import { Table } from '@/components';
-import { columns, data } from '@/constants';
-import { DataType } from '@/ui/tables/table-component/table-interface';
-import { TableRowSelection } from 'antd/es/table/interface';
-import React, { useState } from 'react';
+import { PageTitle, UserTable } from '@/components';
+import { ROUTES } from '@/constants';
+import { useActions } from '@/libs';
+import { addNotification } from '@/libs/utils/addNotification';
+import { useEffect } from 'react';
 import * as S from './user.styled';
 
 export const Users = () => {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { getUsers } = useActions();
 
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-
-  const rowSelection: TableRowSelection<DataType> = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
+  useEffect(() => {
+    getUsers({
+      callback() {
+        addNotification('successfully get users');
+      },
+    });
+  }, []);
 
   return (
     <S.userStyled>
-      <Table
-        rowSelection={rowSelection}
-        columns={columns}
-        dataSource={data}
-        loading={false}
-        bordered
-      />
+      <PageTitle title="Users" icon="UserAddOutlined" route={ROUTES.create} />
+      <UserTable />
     </S.userStyled>
   );
 };

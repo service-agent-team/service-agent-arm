@@ -18,6 +18,6 @@ export const EndPointes = {
     },
   },
   user: {
-    getAll: '/user/get-all',
+    getAll: '/users/get-all',
   },
 } as const;

@@ -3,7 +3,16 @@ import { ROUTES } from '@/constants';
 import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
 import { Suspense } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
-import { Home, Permissions, Projects, SignIn, UserPermissions, UserRoles, Users } from './loadable';
+import {
+  Home,
+  Permissions,
+  Projects,
+  SignIn,
+  UserCreatePage,
+  UserPermissions,
+  UserRoles,
+  Users,
+} from './loadable';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
@@ -30,6 +39,14 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
               element: (
                 <Suspense fallback={<Loading />}>
                   <Users />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.create,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <UserCreatePage />
                 </Suspense>
               ),
             },

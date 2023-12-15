@@ -42,3 +42,8 @@ export const makeErrMsg = (error: any | AxiosError) => {
 };
 
 export const passwordRegex = new RegExp(/^(?=.*[0-9])[a-zA-Z0-9][a-zA-Z0-9!@#$%^&*.,_-]{6,17}$/);
+
+export const addKeyProp = <T>(data: T[]) =>
+  data?.map((item, i) => {
+    return { key: i, ...item };
+  });
