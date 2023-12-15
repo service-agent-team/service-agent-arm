@@ -1,0 +1,43 @@
+{
+  "index.css": {
+    "file": "assets/index.css",
+    "src": "index.css"
+  },
+  "index.html": {
+    "assets": [
+      "assets/logo.png"
+    ],
+    "css": [
+      "assets/index.css"
+    ],
+    "dynamicImports": [
+      "src/pages/index.ts"
+    ],
+    "file": "js/index.js",
+    "isEntry": true,
+    "src": "index.html"
+  },
+  "src/assets/images/logo.png": {
+    "file": "assets/logo.png",
+    "src": "src/assets/images/logo.png"
+  },
+  "src/assets/images/user.png": {
+    "file": "assets/user.png",
+    "src": "src/assets/images/user.png"
+  },
+  "src/pages/index.css": {
+    "file": "assets/index2.css",
+    "src": "src/pages/index.css"
+  },
+  "src/pages/index.ts": {
+    "css": [
+      "assets/index2.css"
+    ],
+    "file": "js/index2.js",
+    "imports": [
+      "index.html"
+    ],
+    "isDynamicEntry": true,
+    "src": "src/pages/index.ts"
+  }
+}
