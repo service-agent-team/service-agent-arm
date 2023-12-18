@@ -1,20 +1,18 @@
 name: Deployment Ci-Cd... 🌙
-
 on:
   push:
     branches:
       - 'main'
       - 'dev'
-
 jobs:
   lint:
     name: Linting my code ⚡️
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code... 🪐
+      - name: chackout code... 🪐
         uses: actions/checkout@v3
 
-      - name: Cache dependencies 🌈
+      - name: Cashe dependencies 🌈
         id: cache
         uses: actions/cache@v3
         with:
@@ -27,7 +25,6 @@ jobs:
 
       - name: Linting ❄️
         run: npm run lint
-
   build:
     needs: lint
     name: Building data to deploy 🌞
@@ -36,7 +33,7 @@ jobs:
       - name: checkout my code ... 🌻
         uses: actions/checkout@v3
 
-      - name: Cache dependencies ☁️
+      - name: Cashe dependencies ☁️
         id: cache
         uses: actions/cache@v3
         with:
@@ -50,24 +47,21 @@ jobs:
       - name: Build the code ... 🌩️
         run: npm run build
 
-      - name: Zip artifacts 📦
-        run: zip -r dist-files.zip build
-
-      - name: Upload artifacts ... 🫀
+      - name: Upload arrifacts ... 🫀
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: dist-files.zip
+          path: build
 
   deploy:
     needs: build
     name: Deployment ... 🚀
     runs-on: ubuntu-latest
     steps:
-      - name: checkout my code 🪐
+      - name: chechout my code 🪐
         uses: actions/checkout@v3
 
-      - name: Cache dependencies 🧪
+      - name: Cashe dependencies 🧪
         id: cache
         uses: actions/cache@v3
         with:
@@ -78,25 +72,22 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: Download artifacts... dist... 💋
+      - name: Donwload artifacts.. dist.. 💋
         uses: actions/download-artifact@v3
         with:
           name: dist-files
-          path: ./
+          path: ./build
 
-      - name: Output Contents... 💥
-        run: ls ./
-
-      - name: Unzip artifacts 📂
-        run: unzip dist-files.zip -d ./build
+      - name: Output Contents.. 💥
+        run: ls ./build
 
       - name: Connect to server 🆘
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          username: ${{secrets.SERVER_USERNAME}}
+          key: ${{secrets.SERVER_PRIVATE_KEY}}
           script: |
             sudo rm -rf /var/www/html/*
-            sudo cp -r ./build/* /var/www/html/
+            sudo cp -r ./home/runner/work/service-agent-arm/service-agent-arm/* /var/www/html/
             echo "Deployed... 🥹😂🥹"
