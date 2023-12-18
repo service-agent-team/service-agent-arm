@@ -3,7 +3,16 @@ import { ROUTES } from '@/constants';
 import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
 import { Suspense } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
-import { Home, Permissions, Projects, SignIn, UserPermissions, UserRoles, Users } from './loadable';
+import {
+  Home,
+  Permissions,
+  Projects,
+  SignIn,
+  UserPermissions,
+  UserRoles,
+  Users,
+  ProjectsPage,
+} from './loadable';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
@@ -11,6 +20,10 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
       element: <PrivateLayout isAuth={isAuth} />,
       path: ROUTES.home,
       children: [
+        {
+          element: <ProjectsPage />,
+          path: ROUTES.projectsPage,
+        },
         {
           path: ROUTES.home,
           element: <GlobalLayout isAuth={isAuth} />,

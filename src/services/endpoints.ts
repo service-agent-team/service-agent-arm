@@ -1,7 +1,7 @@
 export const EndPointes = {
   auth: {
     signIn: '/auth/login',
-    getme: '/auth/getme',
+    getme: '/auth/get/me',
   },
 
   // AUTH
