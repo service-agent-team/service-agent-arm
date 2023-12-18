@@ -90,4 +90,5 @@ jobs:
           script: |
             cd /var/www/html/service-agent-arm
             sudo git pull
+            sudo npm run build
             echo "Deployed... 🥹😂🥹"
