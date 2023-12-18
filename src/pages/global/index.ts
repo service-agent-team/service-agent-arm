@@ -4,3 +4,4 @@ export { Roles } from './roles';
 export { UserPermissions } from './user-permissions';
 export { UserRoles } from './user-roles';
 export { Users } from './users';
+export { UserCreatePage } from './users/create-page/index';

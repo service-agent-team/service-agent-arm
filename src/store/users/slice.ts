@@ -26,12 +26,21 @@ export const userSlice = createSlice({
     setUsers: (state, { payload }: ISetUserPayload) => {
       state.users = payload;
     },
+
+    setError: (state, { payload }) => {
+      state.errors = payload;
+    },
+
+    setTotal: (state, { payload }) => {
+      state.total = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUsers.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
+        state.users = null;
       })
       .addCase(getUsers.fulfilled, (state, { payload }) => {
         state.loading.get = false;

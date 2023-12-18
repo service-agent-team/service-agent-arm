@@ -41,6 +41,7 @@ export interface IUserGetMeResponse {
 }
 
 export interface IUserResponseData {
+  key?: number;
   user_id: number;
   user_name: string;
   password: string;

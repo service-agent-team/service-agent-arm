@@ -1,5 +1,10 @@
-export { ContentCenter } from './content';
+//  Selected exposts
 export { PrimaryBtn } from './PrimaryBtn';
 export { Icon } from './common/icon';
-export { Loading } from './loading';
 export { Table } from './common/table';
+
+export { Loading } from './loading';
+export { PageTitle } from './page-title';
+// All exports
+export * from './common';
+export * from './tables';

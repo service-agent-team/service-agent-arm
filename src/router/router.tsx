@@ -8,10 +8,11 @@ import {
   Permissions,
   Projects,
   SignIn,
+  ProjectsPage,
+  UserCreatePage,
   UserPermissions,
   UserRoles,
   Users,
-  ProjectsPage,
 } from './loadable';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
@@ -43,6 +44,14 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
               element: (
                 <Suspense fallback={<Loading />}>
                   <Users />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.create,
+              element: (
+                <Suspense fallback={<Loading />}>
+                  <UserCreatePage />
                 </Suspense>
               ),
             },

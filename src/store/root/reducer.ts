@@ -6,4 +6,5 @@ export const reducer = {
   app: appReducer,
   auth: AuthReducer,
   user: UserReducer,
+  users: UserReducer,
 };
