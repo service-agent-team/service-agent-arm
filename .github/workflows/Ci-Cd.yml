@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: ./build
+          path: build
 
   deploy:
     needs: build
@@ -79,7 +79,7 @@ jobs:
           path: ./build
 
       - name: Output Contents.. 💥
-        run: ls
+        run: ls ./build
 
       - name: Connect to server 🆘
         uses: appleboy/ssh-action@master
@@ -89,5 +89,5 @@ jobs:
           key: ${{secrets.SERVER_PRIVATE_KEY}}
           script: |
             sudo rm -rf /var/www/html/*
-            sudo cp -r build/* /var/www/html/
+            sudo cp -r ./build/* /var/www/html/
             echo "Deployed... 🥹😂🥹"
