@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/loadable__component": "^5.13.6",
-    "@types/node": "^20.8.9",
+    "@types/node": "^20.10.5",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/react-highlight-words": "^0.16.7",
