@@ -1,5 +1,6 @@
 export const ROUTES = {
   home: '/',
+  global: '/global',
   main: '/dashboard',
   resetEmail: '/email',
   login: '/signin',
@@ -9,6 +10,6 @@ export const ROUTES = {
   permissions: '/permissions',
   userRoles: '/user-roles',
   userPermission: '/user-permissions',
-  projects: '/projects',
-  projectsPage: '/projects/:user',
+  projects: '/project',
+  projectsPage: '/projects',
 } as const;

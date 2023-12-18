@@ -6,4 +6,9 @@ export const UserService = {
     const response = await $axios.get<IUserResponse>(EndPointes.user.getAll);
     return response;
   },
+
+  async getMe() {
+    const response = await $axios.get(EndPointes.auth.getme);
+    return response;
+  },
 };

@@ -8,6 +8,7 @@ import {
   Permissions,
   Projects,
   SignIn,
+  ProjectsPage,
   UserCreatePage,
   UserPermissions,
   UserRoles,
@@ -20,6 +21,10 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
       element: <PrivateLayout isAuth={isAuth} />,
       path: ROUTES.home,
       children: [
+        {
+          element: <ProjectsPage />,
+          path: ROUTES.projectsPage,
+        },
         {
           path: ROUTES.home,
           element: <GlobalLayout isAuth={isAuth} />,

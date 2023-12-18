@@ -8,6 +8,8 @@ export const AllActions = {
   ...appActions,
   ...AuthSliceActions,
   ...AuthActions,
+  ...UserSliceActions,
+  ...UserActions,
   ...UserActions,
   ...UserSliceActions,
 };
