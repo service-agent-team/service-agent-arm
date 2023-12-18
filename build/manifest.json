@@ -17,6 +17,10 @@
     "isEntry": true,
     "src": "index.html"
   },
+  "src/assets/images/fon.jpg": {
+    "file": "assets/fon.jpg",
+    "src": "src/assets/images/fon.jpg"
+  },
   "src/assets/images/logo.png": {
     "file": "assets/logo.png",
     "src": "src/assets/images/logo.png"
@@ -30,6 +34,9 @@
     "src": "src/pages/index.css"
   },
   "src/pages/index.ts": {
+    "assets": [
+      "assets/fon.jpg"
+    ],
     "css": [
       "assets/index2.css"
     ],
