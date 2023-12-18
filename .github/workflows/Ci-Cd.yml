@@ -1,18 +1,20 @@
 name: Deployment Ci-Cd... 🌙
+
 on:
   push:
     branches:
       - 'main'
       - 'dev'
+
 jobs:
   lint:
     name: Linting my code ⚡️
     runs-on: ubuntu-latest
     steps:
-      - name: chackout code... 🪐
+      - name: checkout code... 🪐
         uses: actions/checkout@v3
 
-      - name: Cashe dependencies 🌈
+      - name: Cache dependencies 🌈
         id: cache
         uses: actions/cache@v3
         with:
@@ -25,6 +27,7 @@ jobs:
 
       - name: Linting ❄️
         run: npm run lint
+
   build:
     needs: lint
     name: Building data to deploy 🌞
@@ -33,7 +36,7 @@ jobs:
       - name: checkout my code ... 🌻
         uses: actions/checkout@v3
 
-      - name: Cashe dependencies ☁️
+      - name: Cache dependencies ☁️
         id: cache
         uses: actions/cache@v3
         with:
@@ -47,21 +50,24 @@ jobs:
       - name: Build the code ... 🌩️
         run: npm run build
 
-      - name: Upload arrifacts ... 🫀
+      - name: Zip artifacts 📦
+        run: zip -r dist-files.zip build
+
+      - name: Upload artifacts ... 🫀
         uses: actions/upload-artifact@v3
         with:
           name: dist-files
-          path: build
+          path: dist-files.zip
 
   deploy:
     needs: build
     name: Deployment ... 🚀
     runs-on: ubuntu-latest
     steps:
-      - name: chechout my code 🪐
+      - name: checkout my code 🪐
         uses: actions/checkout@v3
 
-      - name: Cashe dependencies 🧪
+      - name: Cache dependencies 🧪
         id: cache
         uses: actions/cache@v3
         with:
@@ -72,21 +78,24 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: Donwload artifacts.. dist.. 💋
+      - name: Download artifacts... dist... 💋
         uses: actions/download-artifact@v3
         with:
           name: dist-files
-          path: ./build
+          path: ./
 
-      - name: Output Contents.. 💥
-        run: ls ./build
+      - name: Output Contents... 💥
+        run: ls ./
+
+      - name: Unzip artifacts 📂
+        run: unzip dist-files.zip -d ./build
 
       - name: Connect to server 🆘
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
-          username: ${{secrets.SERVER_USERNAME}}
-          key: ${{secrets.SERVER_PRIVATE_KEY}}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
           script: |
             sudo rm -rf /var/www/html/*
             sudo cp -r ./build/* /var/www/html/
