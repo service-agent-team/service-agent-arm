@@ -88,9 +88,5 @@ jobs:
           username: ${{secrets.SERVER_USERNAME}}
           key: ${{secrets.SERVER_PRIVATE_KEY}}
           script: |
-            cd /var/www/html/service-agent-arm
-            sudo rm -rf /var/www/html/service-agent-arm/build/*
+            cd /var/www/html/service-agent-arm && sudo rm -rf /var/www/html/service-agent-arm/build/* && sudo git pull 
             echo "Deployed... 🥹😂🥹"
-
-      - name: Copy zip file to server
-        run: scp -i ${{ secrets.SERVER_PRIVATE_KEY }} ./dist-files.zip ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}:/var/www/html/service-agent-arm/build
