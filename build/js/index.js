@@ -177,7 +177,7 @@ X=Q,function(){var e={}.hasOwnProperty;function t(){for(var n=[],r=0;r<arguments
       color: var(--disabled-color);
     }
   }
-`;uF.bind({"content-center":"_content-center_24m0n_1"});const oxe=__.div`
+`,oxe=__.div`
   height: 100vh;
   display: flex;
   align-items: center;
