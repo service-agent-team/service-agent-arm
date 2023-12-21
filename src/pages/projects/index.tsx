@@ -1,4 +1,4 @@
-import { ProjectCard } from '@/components/cards/projectCard';
+import { ProjectCard } from '@/components/cards/project-card';
 import { Wrapper } from './projects.styles';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/libs';

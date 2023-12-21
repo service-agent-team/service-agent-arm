@@ -91,3 +91,28 @@ export interface ProjectId {
   created_at: string;
   updated_at: string;
 }
+
+export interface IUserCreateResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: createData[];
+}
+
+export interface createData {
+  user_name: string;
+  email: string;
+  password: string;
+  userRoles: any[];
+  userPermission: any[];
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IUserCreateData {
+  userName: string;
+  password: string;
+  email: string;
+  callback: () => void;
+}

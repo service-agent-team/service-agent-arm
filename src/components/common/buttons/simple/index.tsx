@@ -9,7 +9,7 @@ interface Iprops {
   to?: string;
 }
 
-export const Simple = ({ children, click, color, width, to, ...props }: Iprops) => {
+export const SimpleButton = ({ children, click, color, width, to, ...props }: Iprops) => {
   return (
     <Button
       onClick={click}

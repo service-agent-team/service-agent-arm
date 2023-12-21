@@ -19,5 +19,6 @@ export const EndPointes = {
   },
   user: {
     getAll: '/users/get-all',
+    createUser: '/create/user'
   },
 } as const;

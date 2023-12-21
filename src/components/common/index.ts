@@ -1,3 +1,6 @@
+export { SimpleButton } from './buttons';
+export * from './forms';
+export * from './inputs';
+export * from './selects';
 export { Table } from './table';
-export { Simple } from './buttons';
 export * from './typography';

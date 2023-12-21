@@ -1,5 +1,5 @@
 import { $axios } from '@/config';
-import { IUserResponse } from '@/store/users/types';
+import { IUserCreateResponse, IUserResponse } from '@/store/users/types';
 import { EndPointes } from '../endpoints';
 export const UserService = {
   async getUsers() {
@@ -9,6 +9,11 @@ export const UserService = {
 
   async getMe() {
     const response = await $axios.get(EndPointes.auth.getme);
+    return response;
+  },
+
+  async createUser(body: any) {
+    const response = await $axios.post<IUserCreateResponse>(EndPointes.user.createUser, body);
     return response;
   },
 };

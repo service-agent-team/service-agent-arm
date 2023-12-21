@@ -1,14 +1,15 @@
 import { Button } from 'antd';
+import { ButtonProps } from 'antd/lib';
 import classnames from 'classnames';
 import classnameBind from 'classnames/bind';
 import styles from './primary-btn.module.scss';
 
 const cn = classnameBind.bind(styles);
 
-export const PrimaryBtn = ({ btn, children, className, ...props }: any) => (
+export const PrimaryBtn = ({ htmlType, children, className, ...props }: ButtonProps) => (
   <Button
     type="primary"
-    htmlType={btn ? 'button' : 'submit'}
+    htmlType={htmlType}
     className={classnames(cn('primary-btn'), className)}
     {...props}
   >

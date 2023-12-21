@@ -1,3 +1,9 @@
+import { UsersForm } from '@/components';
+
 export const UserCreatePage = () => {
-  return <div>UserCreatePage</div>;
+  return (
+    <div>
+      <UsersForm />
+    </div>
+  );
 };

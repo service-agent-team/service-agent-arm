@@ -1,1 +1,1 @@
-export { Simple } from './simple';
+export { SimpleButton } from './simple/index';
