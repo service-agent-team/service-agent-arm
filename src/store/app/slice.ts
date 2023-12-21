@@ -1,15 +1,16 @@
 import { THEME, setLocalStorage } from '@/libs';
 import { createSlice } from '@reduxjs/toolkit';
 import { ENDPOINTS } from '../endpoints';
-import { ETheme } from './types';
+import { ETheme, TInitialState } from './types';
 
-const initialState: any = {
+const initialState: TInitialState = {
   isModal: false,
   isDrawer: false,
   theme: ETheme.LIGHT,
   path: '',
   isAdd: false,
   previewTitle: '',
+  menu: [],
 };
 
 const appSlice = createSlice({
@@ -31,6 +32,10 @@ const appSlice = createSlice({
     setTheme: (state, { payload }) => {
       setLocalStorage(THEME, payload);
       state.theme = payload;
+    },
+
+    setMenu: (state, { payload }) => {
+      state.menu = payload;
     },
   },
 });

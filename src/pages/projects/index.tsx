@@ -1,5 +1,5 @@
 import { ProjectCard } from '@/components/cards/project-card';
-import { Wrapper } from './projects.styles';
+import { Title, Wrapper } from './projects.styles';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
@@ -19,8 +19,13 @@ export const ProjectsPage = () => {
 
   return (
     <Wrapper>
+      <Title>Sizning Proectlaringiz</Title>
       {user?.userPermission.map((el: UserPermission, i: number) => (
-        <ProjectCard key={i} name={el.project_id.project_name} path="/agent" />
+        <ProjectCard
+          key={i}
+          name={el.project_id.project_name}
+          path={`/${el.project_id.project_name}/home`}
+        />
       ))}
     </Wrapper>
   );
