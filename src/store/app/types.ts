@@ -1,19 +1,23 @@
 import { Action, Location } from 'history';
 
 export type TInitialState = {
-  path: string;
-  theme: ETheme;
-  isAdd: boolean;
-  action: Action;
-  location: Location;
   isModal: boolean;
   isDrawer: boolean;
-  previewImage: string;
+  theme: ETheme.LIGHT;
+  path: string;
+  isAdd: boolean;
   previewTitle: string;
+  menu: IMenu[];
 };
 
 export enum ETheme {
   LIGHT = 'light',
   DARK = 'dark',
   SYSTEM = 'system',
+}
+
+export interface IMenu {
+  key: string;
+  icon: string;
+  label: string;
 }

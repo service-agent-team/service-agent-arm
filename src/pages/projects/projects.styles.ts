@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
   background: url(${fon});
@@ -12,4 +13,12 @@ export const Wrapper = styled.div`
   background-repeat: repeat;
   background-position: center;
   padding: 100px;
+`;
+
+export const Title = styled.h1`
+  font-size: 35px;
+  top: 0;
+  color: wheat;
+  width: 100%;
+  text-align: center;
 `;

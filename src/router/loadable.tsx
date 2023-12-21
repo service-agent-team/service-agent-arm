@@ -1,5 +1,6 @@
 import { getLoadablePage } from './util';
 
+// global
 export const Home = getLoadablePage('Home');
 
 export const Users = getLoadablePage('Users');
@@ -19,3 +20,8 @@ export const Projects = getLoadablePage('Projects');
 export const ProjectsPage = getLoadablePage('ProjectsPage');
 
 export const UserCreatePage = getLoadablePage('UserCreatePage');
+
+// agent
+export const AgentHome = getLoadablePage('AgentHome');
+
+export const AgentControl = getLoadablePage('AgentControl');

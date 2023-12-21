@@ -2,18 +2,9 @@ import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
 import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
 import { Suspense } from 'react';
-import { Navigate, useRoutes } from 'react-router-dom';
-import {
-  Home,
-  Permissions,
-  Projects,
-  SignIn,
-  ProjectsPage,
-  UserCreatePage,
-  UserPermissions,
-  UserRoles,
-  Users,
-} from './loadable';
+import { useRoutes } from 'react-router-dom';
+import { SignIn, ProjectsPage } from './loadable';
+import { mainRouter, agentRouter } from './modules';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
@@ -23,79 +14,17 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
       children: [
         {
           element: <ProjectsPage />,
-          path: ROUTES.projectsPage,
+          path: ROUTES.home,
         },
         {
-          path: ROUTES.home,
+          path: ROUTES.global,
           element: <GlobalLayout isAuth={isAuth} />,
-          children: [
-            { path: '*', element: <Navigate to={ROUTES.main} /> },
-            { index: true, element: <Navigate to={ROUTES.main} replace /> },
-            {
-              path: ROUTES.main,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Home />
-                </Suspense>
-              ),
-            },
-            {
-              path: ROUTES.users,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Users />
-                </Suspense>
-              ),
-            },
-            {
-              path: ROUTES.create,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <UserCreatePage />
-                </Suspense>
-              ),
-            },
-            {
-              path: ROUTES.permissions,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Permissions />
-                </Suspense>
-              ),
-            },
-            {
-              path: ROUTES.roles,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Permissions />
-                </Suspense>
-              ),
-            },
-            {
-              path: ROUTES.userRoles,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <UserRoles />
-                </Suspense>
-              ),
-            },
-            {
-              path: ROUTES.userPermission,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <UserPermissions />
-                </Suspense>
-              ),
-            },
-            {
-              path: ROUTES.projects,
-              element: (
-                <Suspense fallback={<Loading />}>
-                  <Projects />
-                </Suspense>
-              ),
-            },
-          ],
+          children: [...mainRouter],
+        },
+        {
+          path: ROUTES.agent,
+          element: <GlobalLayout isAuth={isAuth} />,
+          children: [...agentRouter],
         },
       ],
     },
