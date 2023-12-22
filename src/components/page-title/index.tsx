@@ -6,17 +6,19 @@ export const PageTitle = ({
   title,
   icon,
   route,
+  label,
 }: {
   title: string;
   icon: string;
   route: string;
+  label: string;
 }) => {
   return (
     <Row justify={'space-between'} style={{ margin: '20px 0px' }}>
       <H1>{title}</H1>
       <Button>
         <Link to={route}>
-          create <Icon title={icon} name={icon} />
+          {label} <Icon title={icon} name={icon} />
         </Link>
       </Button>
     </Row>

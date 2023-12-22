@@ -1,34 +1,20 @@
 import { BaseForm, InputPassword, PrimaryBtn } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useTypedSelector } from '@/libs';
 import { Input } from 'antd';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as S from './styled';
 import { IValuesForm } from './types';
 
-export const UsersForm: React.FC = () => {
+export const UsersEdit: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const { createUser } = useActions();
-  const navigate = useNavigate();
 
   const { loading } = useTypedSelector((state) => state.users);
 
-  const onFinish = (value: IValuesForm) => {
-    createUser({
-      userName: value.username,
-      email: value.email,
-      password: value.password,
-      callback: () => {
-        addNotification('user created');
-        navigate('/global/users');
-      },
-    });
-  };
+  const onFinish = (_: IValuesForm) => {};
 
   return (
     <BaseForm
-      name="usersForm"
+      name="usersEditForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}

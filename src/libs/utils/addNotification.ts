@@ -10,9 +10,15 @@ export const addNotification = (data: any) => {
 
     return 'ok';
   } else if (typeof data === 'object') {
-    toast.error(data?.error, {
-      position: 'top-right',
-    });
+    if (data?.message) {
+      toast.error(data.message[0], {
+        position: 'top-right',
+      });
+    } else {
+      toast.error(data?.error, {
+        position: 'top-right',
+      });
+    }
     return 'ok';
   } else {
     toast.success(data, {

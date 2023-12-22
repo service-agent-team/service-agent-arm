@@ -11,9 +11,7 @@ export const SignIn = createAsyncThunk<IAuthResponse, IAuthSignIn>(
       const response = await AuthService.signIn(email, password);
       if (response.data) {
         callback(response.data);
-        addNotification('Succesfully loggedIn');
       }
-      console.log(response.data);
       return response.data;
     } catch (error) {
       addNotification(error);

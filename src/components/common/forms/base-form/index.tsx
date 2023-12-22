@@ -6,7 +6,6 @@ import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import { BaseFormItem, BaseFormList, BaseFormTitle } from '../components';
 import { BaseFormInterface } from '../types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type BaseFormProps = Omit<ComponentProps<typeof Form>, 'onFinish'> & {
   onFinish?: (values: any) => void;
   onFinishFailed?: () => void;
@@ -21,9 +20,7 @@ export const BaseForm: BaseFormInterface<BaseFormProps> = ({
   onFinishFailed?: (error: ValidateErrorEntity<unknown>) => void;
   layout?: FormLayout;
 }) => {
-  const onFinishFailedDefault = (error: ValidateErrorEntity<unknown>) => {
-    console.log(error);
-  };
+  const onFinishFailedDefault = (_: ValidateErrorEntity<unknown>) => {};
 
   return (
     <Form onFinishFailed={onFinishFailed || onFinishFailedDefault} layout={layout} {...props} />

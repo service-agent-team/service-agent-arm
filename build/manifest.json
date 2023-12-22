@@ -11,11 +11,17 @@
       "assets/index.css"
     ],
     "dynamicImports": [
-      "src/pages/index.ts"
+      "src/pages/index.ts",
+      "node_modules/web-vitals/dist/web-vitals.js"
     ],
     "file": "js/index.js",
     "isEntry": true,
     "src": "index.html"
+  },
+  "node_modules/web-vitals/dist/web-vitals.js": {
+    "file": "js/web-vitals.js",
+    "isDynamicEntry": true,
+    "src": "node_modules/web-vitals/dist/web-vitals.js"
   },
   "src/assets/images/fon.jpg": {
     "file": "assets/fon.jpg",

@@ -18,7 +18,7 @@ export const Users = () => {
 
   return (
     <S.userStyled>
-      <PageTitle title="Users" icon="UserAddOutlined" route={ROUTES.create} />
+      <PageTitle title="Users" icon="UserAddOutlined" route={ROUTES.create} label="create" />
       <UserTable />
     </S.userStyled>
   );

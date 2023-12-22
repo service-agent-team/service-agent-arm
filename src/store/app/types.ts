@@ -1,9 +1,7 @@
-import { Action, Location } from 'history';
-
 export type TInitialState = {
   isModal: boolean;
   isDrawer: boolean;
-  theme: ETheme.LIGHT;
+  theme: ETheme;
   path: string;
   isAdd: boolean;
   previewTitle: string;
