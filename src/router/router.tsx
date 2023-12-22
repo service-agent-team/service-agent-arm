@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { SignIn, ProjectsPage } from './loadable';
 import { mainRouter, agentRouter } from './modules';
+import { menuItems } from '@/constants/menus/menu';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
@@ -18,12 +19,12 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         },
         {
           path: ROUTES.global,
-          element: <GlobalLayout isAuth={isAuth} />,
+          element: <GlobalLayout isAuth={isAuth} items={menuItems} />,
           children: [...mainRouter],
         },
         {
           path: ROUTES.agent,
-          element: <GlobalLayout isAuth={isAuth} />,
+          element: <GlobalLayout isAuth={isAuth} items={menuItems} />,
           children: [...agentRouter],
         },
       ],

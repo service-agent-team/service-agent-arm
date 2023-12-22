@@ -15,7 +15,6 @@ export const Menu = () => {
     history.push(key);
   };
   const menuitems = generateMenuIconCreator(menu);
-  console.log(menuitems);
   return (
     <AntMenu
       mode="inline"

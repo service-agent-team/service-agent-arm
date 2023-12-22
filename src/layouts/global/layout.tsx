@@ -6,12 +6,20 @@ import { Content } from './content';
 import { Float } from './float';
 import { Header } from './header';
 import { Sider } from './sider';
+import { useActions } from '@/libs';
 
-export const Layout = ({ isAuth }: { isAuth: boolean }) => {
+export type IProps = {
+  isAuth: boolean;
+  items: any;
+};
+
+export const Layout = ({ isAuth, items }: IProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const { setMenu } = useActions();
+  setMenu(items);
 
   return isAuth ? (
     <AntLayout>
