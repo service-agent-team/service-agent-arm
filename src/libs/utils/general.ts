@@ -26,8 +26,8 @@ export const getPrefix = (name: string, action: string) => `${name}${PREFIX}${ac
 export const makeErrMsg = (error: any | AxiosError) => {
   const { message: responseError } = error.response.data;
 
-  if (responseError.errMsg instanceof Array) {
-    return responseError.errMsg[0];
+  if (responseError.message instanceof Array) {
+    return responseError.message[0];
   } else {
     if (!error.response.data) {
       return error.message;

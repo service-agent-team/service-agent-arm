@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { createUser, getMe, getUsers } from './actions';
 import { ISetUserPayload, IUserInitalState, PayloadEnum } from './types';
-import { getMe, getUsers } from './actions';
 
 const initialState: IUserInitalState = {
   loading: {
@@ -64,6 +64,18 @@ export const userSlice = createSlice({
       .addCase(getMe.rejected, (state) => {
         state.loading.get = false;
         state.errors = null;
+      })
+      .addCase(createUser.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createUser.fulfilled, (state, _) => {
+        state.loading.post = false;
+        state.errors = null;
+      })
+      .addCase(createUser.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
       });
   },
 });
