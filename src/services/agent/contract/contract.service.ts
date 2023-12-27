@@ -4,8 +4,10 @@ import { EndPointes } from '../../endpoints';
 const { agent } = EndPointes;
 
 export const ContractService = {
-  async getAllUsers() {
-    const response = await $axios.get<IUserResponse>(agent.contract.getAllUsers);
+  async getAllUsers(statusName: string) {
+    const response = await $axios.get<IUserResponse>(
+      agent.contract.getAllUsers + `?status=${statusName}`,
+    );
     return response;
   },
 };

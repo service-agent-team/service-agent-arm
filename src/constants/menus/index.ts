@@ -1,3 +1,2 @@
-export { globalLayoutitems } from './global-menu';
-export { serviceAgentMenu } from './service-agent';
-export { ussdMenu } from './ussd';
+export { global } from './global';
+export { agent } from './agent';

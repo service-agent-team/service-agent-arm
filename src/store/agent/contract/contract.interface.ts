@@ -1,7 +1,11 @@
 export interface InitialState {
   data: IUserData[] | null;
+  status: string;
   loading: {
-    sign: boolean;
+    get: boolean;
+    post: boolean;
+    put: boolean;
+    delete: boolean;
   };
   error: null | string | unknown;
 }
@@ -14,22 +18,22 @@ export interface IUserResponse {
   status: number;
   success: boolean;
   message: string;
-  data: IUserData[];
+  data: IUserData[] | null;
 }
 
 export interface IUserData {
   userId: number;
-  firstName: any;
-  lastName: any;
-  middleName: any;
+  firstName: string;
+  lastName: string;
+  middleName: string;
   birthDate: any;
-  gender: any;
-  citizenship: any;
-  country: any;
-  city: any;
-  address: any;
-  photoURL: any;
-  status: any;
+  gender: string;
+  citizenship: string;
+  country: string;
+  city: string;
+  address: string;
+  photoURL: string | null | any;
+  status: string;
   infoCreatedDateTime: any;
   infoStatusDateTime: any;
   login: string;
@@ -41,4 +45,5 @@ export interface IUserData {
 
 export interface IUser {
   callback: () => void;
+  statusName: string;
 }

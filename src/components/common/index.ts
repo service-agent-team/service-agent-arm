@@ -4,3 +4,4 @@ export * from './inputs';
 export * from './selects';
 export { Table } from './table';
 export * from './typography';
+export { Tab } from './tab';

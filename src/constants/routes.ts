@@ -1,6 +1,7 @@
 export const ROUTES = {
   home: '/',
   global: '/global',
+  globalHome: '/global/home',
   main: '/dashboard',
   resetEmail: '/email',
   login: '/signin',

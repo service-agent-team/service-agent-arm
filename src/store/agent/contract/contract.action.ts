@@ -6,9 +6,9 @@ import { IUser, IUserResponse } from './contract.interface';
 
 export const getAllUsers = createAsyncThunk<IUserResponse, IUser>(
   'agent/all',
-  async ({ callback }, thunkApi) => {
+  async ({ callback, statusName }, thunkApi) => {
     try {
-      const response = await ContractService.getAllUsers();
+      const response = await ContractService.getAllUsers(statusName);
       if (response.data) {
         callback();
       }

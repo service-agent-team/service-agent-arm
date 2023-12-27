@@ -1,8 +1,8 @@
-import { ROUTES } from '@/constants';
-
-export const menuItems = [
+import { ROUTES } from '../routes';
+import type { MenuProps } from 'antd';
+export const global: MenuProps['items'] = [
   {
-    key: ROUTES.home,
+    key: ROUTES.globalHome,
     icon: 'HomeOutlined',
     label: 'Home',
   },
