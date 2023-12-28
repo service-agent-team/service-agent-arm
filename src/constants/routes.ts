@@ -9,6 +9,7 @@ export const ROUTES = {
   create: '/global/users/create',
   roles: '/global/roles',
   permissions: '/global/permissions',
+  permissionCreate: '/global/permissions/create',
   userRoles: '/global/user-roles',
   userPermission: '/global/user-permissions',
   projects: '/global/project',

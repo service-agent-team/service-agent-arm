@@ -1,5 +1,6 @@
 import { appReducer } from '../app';
 import { AuthReducer } from '../auth/slice';
+import { PermissionReducer } from '../permission/slice';
 import { UserReducer } from '../users/slice';
 import { AgentContractReducer } from './../agent';
 
@@ -9,4 +10,5 @@ export const reducer = {
   user: UserReducer,
   users: UserReducer,
   agent: AgentContractReducer,
+  permission: PermissionReducer,
 };
