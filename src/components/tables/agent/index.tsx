@@ -22,9 +22,11 @@ export const AgentTable: React.FC = () => {
   const generateUserData = addKeyProp<IUserData>(data as IUserData[]);
   const onChange = (key: string) => {
     if (key === '1') {
-      setSatus('created');
+      setSatus('success');
     } else if (key === '2') {
       setSatus('view');
+    } else {
+      setSatus('reject');
     }
   };
 
@@ -56,7 +58,14 @@ export const AgentTable: React.FC = () => {
     {
       key: '3',
       label: 'Rad etilgan',
-      children: 'tab 3',
+      children: (
+        <Table
+          columns={utils()}
+          dataSource={generateUserData ? (generateUserData as IUserData[]) : []}
+          loading={get}
+          bordered
+        />
+      ),
     },
   ];
 

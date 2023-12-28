@@ -20,7 +20,6 @@ export const SimpleButton = ({ children, click, color, width, to, ...props }: Ip
         width: `${width ? width : '100%'}`,
         height: '45px',
       }}
-      href={to ? to : ''}
       {...props}
     >
       {children}

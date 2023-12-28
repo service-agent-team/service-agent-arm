@@ -1,5 +1,6 @@
 export interface InitialState {
   data: IUserData[] | null;
+  agent: IUserData | null;
   status: string;
   loading: {
     get: boolean;
@@ -22,28 +23,37 @@ export interface IUserResponse {
 }
 
 export interface IUserData {
+  userInfoId: number;
   userId: number;
   firstName: string;
-  lastName: string;
   middleName: string;
-  birthDate: any;
+  lastName: string;
+  birthDate: string;
   gender: string;
   citizenship: string;
   country: string;
   city: string;
   address: string;
-  photoURL: string | null | any;
-  status: string;
-  infoCreatedDateTime: any;
-  infoStatusDateTime: any;
-  login: string;
-  authType: number;
-  userCurrentStatus: number;
-  isRegistrationMyId: boolean;
-  isRegistrationContract: boolean;
+  photoURL: any;
+  infoCreatedAt: string;
+  infoStatusAt: string;
+  userContractId: number;
+  isContracted: boolean;
+  videoContentId: string;
+  signature: string;
+  contractStatus: string;
+  startDate: string;
+  finishDate: string;
+  contractCreatedAt: string;
+  contractStatusAt: string;
 }
 
 export interface IUser {
   callback: () => void;
   statusName: string;
+}
+
+export interface IParams {
+  userId: number;
+  callback: () => void;
 }

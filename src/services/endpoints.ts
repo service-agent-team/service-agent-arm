@@ -15,6 +15,9 @@ export const EndPointes = {
   agent: {
     contract: {
       getAllUsers: '/agent/all',
+      accept: '/agent/accept',
+      reject: '/agent/reject',
+      getOne: '/agent',
     },
   },
   user: {
