@@ -4,6 +4,10 @@ export const EndPointes = {
     getme: '/auth/get/me',
   },
 
+  permissions: {
+    getAll: '/permissions/get-all',
+  },
+
   // AUTH
   login: '/login',
 

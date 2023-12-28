@@ -1,6 +1,6 @@
 import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
-import { UserService } from '@/services/Users/user.service';
+import { UserService } from '@/services/Users/user-service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IGetUserPayload,

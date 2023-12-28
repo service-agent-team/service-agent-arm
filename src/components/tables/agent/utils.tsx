@@ -1,11 +1,11 @@
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, InputRef, MenuProps, Row, Space, Tag, message } from 'antd';
+import { Button, Dropdown, Input, InputRef, MenuProps, Space, message } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { items } from './constants';
 import { DataIndex, IhandleSearchProps, AgentTableRow } from './types';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { LinkButton } from '@/components/common/buttons';
 
 export const utils = () => {

@@ -1,9 +1,11 @@
 import { appActions } from '../app/slice';
 import * as AuthActions from '../auth/actions';
+import * as PermissionActions from '../permission/actions';
+import { PermissionSliceActions } from '../permission/slice';
 import * as UserActions from '../users/actions';
 import { UserSliceActions } from '../users/slice';
+import { AgentContractActions, ContractSliceActions } from './../agent';
 import { AuthSliceActions } from './../auth/slice';
-import { ContractSliceActions, AgentContractActions } from './../agent';
 
 export const AllActions = {
   ...appActions,
@@ -15,4 +17,6 @@ export const AllActions = {
   ...UserSliceActions,
   ...ContractSliceActions,
   ...AgentContractActions,
+  ...PermissionActions,
+  ...PermissionSliceActions,
 };

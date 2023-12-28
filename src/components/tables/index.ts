@@ -1,2 +1,3 @@
-export { UserTable } from './users';
 export { AgentTable } from './agent';
+export { PermissionTable } from './permission';
+export { UserTable } from './users';
