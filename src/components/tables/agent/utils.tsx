@@ -1,10 +1,10 @@
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, InputRef, MenuProps, Row, Space, Tag, message } from 'antd';
+import { Button, Dropdown, Input, InputRef, MenuProps, Space, message } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { items } from './constants';
-import { DataIndex, IhandleSearchProps, AgentTableRow } from './types';
+import { AgentTableRow, DataIndex, IhandleSearchProps } from './types';
 
 const handleMenuClick: MenuProps['onClick'] = (_: any) => {
   message.success('Click on menu item.');

@@ -2,6 +2,7 @@ import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
 export interface AgentTableRow {
+  key: number;
   userId: number;
   firstName: string;
   lastName: string;

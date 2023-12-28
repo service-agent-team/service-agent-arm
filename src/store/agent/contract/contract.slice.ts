@@ -28,7 +28,7 @@ export const contractSlice = createSlice({
         state.loading.get = true;
       })
       .addCase(getAllUsers.fulfilled, (state, { payload }) => {
-        state.data = payload;
+        state.data = payload.data;
         state.loading.get = false;
       })
       .addCase(getAllUsers.rejected, (state, { error }) => {
