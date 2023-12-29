@@ -4,8 +4,8 @@ import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { SignIn, ProjectsPage } from './loadable';
-import { mainRouter, agentRouter } from './modules';
-import { global, agent } from '@/constants/menus';
+import { mainRouter, agentRouter, transferRouter } from './modules';
+import { global, agent, transfer } from '@/constants/menus';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
@@ -26,6 +26,11 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
           path: ROUTES.agent,
           element: <GlobalLayout isAuth={isAuth} items={agent} />,
           children: [...agentRouter],
+        },
+        {
+          path: ROUTES.transfer,
+          element: <GlobalLayout isAuth={isAuth} items={transfer} />,
+          children: [...transferRouter],
         },
       ],
     },

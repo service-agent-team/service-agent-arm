@@ -23,4 +23,5 @@ export const ROUTES = {
 
   // tranfer
   transfer: '/transfer',
+  transferHome: '/transfer/home',
 } as const;

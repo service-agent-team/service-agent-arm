@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import * as S from './styles';
 import { AgentCard, VideoCard } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
+import { useActions } from '@/libs';
 import { useEffect } from 'react';
 import { addNotification } from '@/libs/utils/addNotification';
 import { Flex } from 'antd';
@@ -20,7 +20,6 @@ export const View = () => {
     });
   }, [id]);
 
-  const { agent } = useTypedSelector((state) => state.agent);
   return (
     <S.viewStyled>
       <Card width="100%">

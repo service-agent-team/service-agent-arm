@@ -5,24 +5,15 @@ import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { items } from './constants';
 import { DataIndex, IhandleSearchProps, AgentTableRow } from './types';
-import { useNavigate } from 'react-router-dom';
 import { LinkButton } from '@/components/common/buttons';
 
 export const utils = () => {
-  const navigate = useNavigate();
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
-  const [user, setUser] = useState<number | undefined>();
   const searchInput = useRef<InputRef>(null);
 
-  const handleMenuClick: MenuProps['onClick'] = (e) => {
+  const handleMenuClick: MenuProps['onClick'] = () => {
     message.success('Click on menu item.');
-    console.log(user);
-  };
-
-  const handleNavigate = (id: number) => {
-    console.log(id);
-    return navigate(`/view/${id}`);
   };
 
   const menuProps = {
@@ -166,8 +157,7 @@ export const utils = () => {
       title: 'Actions',
       dataIndex: 'userId',
       key: 'action',
-      render: (data) => {
-        setUser(data);
+      render: () => {
         return (
           <Dropdown menu={menuProps}>
             <Button>

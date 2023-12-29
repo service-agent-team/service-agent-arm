@@ -1,6 +1,5 @@
 import { Card } from '@/components/common/card';
-import * as S from './styles';
-import { Badge, Divider, Flex, List, Typography } from 'antd';
+import { Badge, Flex, List, Typography } from 'antd';
 import { history, useActions, useTypedSelector } from '@/libs';
 import { SimpleButton } from '@/components';
 import { addNotification } from '@/libs/utils/addNotification';
