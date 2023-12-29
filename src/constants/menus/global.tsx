@@ -2,7 +2,7 @@ import { ROUTES } from '../routes';
 import type { MenuProps } from 'antd';
 export const global: MenuProps['items'] = [
   {
-    key: ROUTES.globalHome,
+    key: ROUTES.global,
     icon: 'HomeOutlined',
     label: 'Home',
   },
