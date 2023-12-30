@@ -20,6 +20,9 @@ export const ProjectsPage = () => {
   return (
     <Wrapper>
       <Title>Sizning Proectlaringiz</Title>
+      {user?.userRoles[0].user_role_name.includes('superadmin') && (
+        <ProjectCard name="Global" path={`/global`} />
+      )}
       {user?.userPermission.map((el: UserPermission, i: number) => (
         <ProjectCard
           key={i}

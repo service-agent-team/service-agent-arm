@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 import { SimpleButton } from '@/components';
 import { Card } from '@/components/common/card';
 import { history, useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
 import { Badge, Flex, List, Typography } from 'antd';
+=======
+import { Card } from '@/components/common/card';
+import { Badge, Flex, List, Typography } from 'antd';
+import { history, useActions, useTypedSelector } from '@/libs';
+import { SimpleButton } from '@/components';
+import { addNotification } from '@/libs/utils/addNotification';
+>>>>>>> 91342ab955cc38c65d423b290fe37b92c4016f01
 
 export const AgentCard = () => {
   const { agent } = useTypedSelector((state) => state.agent);

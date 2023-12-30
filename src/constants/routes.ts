@@ -19,7 +19,9 @@ export const ROUTES = {
   agent: '/service-agent',
   agentHome: `/service-agent/home`,
   agentControl: '/service-agent/control',
+  agentView: '/service-agent/view/:id',
 
   // tranfer
   transfer: '/transfer',
+  transferHome: '/transfer/home',
 } as const;

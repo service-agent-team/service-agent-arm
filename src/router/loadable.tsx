@@ -27,3 +27,9 @@ export const PermissionCreatePage = getLoadablePage('PermissionCreatePage');
 export const AgentHome = getLoadablePage('AgentHome');
 
 export const AgentControl = getLoadablePage('AgentControl');
+
+export const AgentView = getLoadablePage('AgentView');
+
+// transfer
+
+export const TransferHome = getLoadablePage('TransferHome');

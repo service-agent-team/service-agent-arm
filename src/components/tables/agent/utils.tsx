@@ -4,21 +4,22 @@ import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { items } from './constants';
-import { AgentTableRow, DataIndex, IhandleSearchProps } from './types';
-
-const handleMenuClick: MenuProps['onClick'] = (_: any) => {
-  message.success('Click on menu item.');
-};
-
-const menuProps = {
-  items: items,
-  onClick: handleMenuClick,
-};
+import { DataIndex, IhandleSearchProps, AgentTableRow } from './types';
+import { LinkButton } from '@/components/common/buttons';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+
+  const handleMenuClick: MenuProps['onClick'] = () => {
+    message.success('Click on menu item.');
+  };
+
+  const menuProps = {
+    items: items,
+    onClick: handleMenuClick,
+  };
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
     confirm();
@@ -139,19 +140,35 @@ export const utils = () => {
       width: '20%',
     },
     {
+      title: 'Phone number',
+      dataIndex: 'login',
+      key: 'login',
+      width: '20%',
+    },
+    {
+      title: 'View',
+      dataIndex: 'userId',
+      key: 'view',
+      render: (userId: number) => {
+        return <LinkButton path={`/service-agent/view/${userId}`}>view</LinkButton>;
+      },
+    },
+    {
       title: 'Actions',
-      dataIndex: 'action',
+      dataIndex: 'userId',
       key: 'action',
-      render: () => (
-        <Dropdown menu={menuProps}>
-          <Button>
-            <Space>
-              Actions
-              <DownOutlined />
-            </Space>
-          </Button>
-        </Dropdown>
-      ),
+      render: () => {
+        return (
+          <Dropdown menu={menuProps}>
+            <Button>
+              <Space>
+                Actions
+                <DownOutlined />
+              </Space>
+            </Button>
+          </Dropdown>
+        );
+      },
     },
   ];
 
