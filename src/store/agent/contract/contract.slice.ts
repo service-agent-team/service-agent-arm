@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-<<<<<<< HEAD
-import { getAllUsers } from './contract.action';
-import { InitialState } from './contract.interface';
-=======
-import { InitialState } from './contract.interface';
 import { acceptAgnet, getAllUsers, getOneAgent, rejectAgnet } from './contract.action';
->>>>>>> 91342ab955cc38c65d423b290fe37b92c4016f01
+import { InitialState } from './contract.interface';
 
 const initialState: InitialState = {
   data: null,
@@ -18,7 +13,6 @@ const initialState: InitialState = {
     delete: false,
   },
   error: null,
-  agent: null,
 };
 
 export const contractSlice = createSlice({

@@ -1,10 +1,15 @@
 import { MoonSunSwitch } from '@/components';
+import { useActions, useTypedSelector } from '@/libs';
 import React from 'react';
 
 export const ThemePicker: React.FC = () => {
-  const theme = 'dark';
+  const { theme } = useTypedSelector((state) => state.app);
 
-  const handleClickButton = (_: any) => {};
+  const { setTheme } = useActions();
+
+  const handleClickButton = (type: any) => {
+    setTheme(type);
+  };
 
   return (
     <MoonSunSwitch

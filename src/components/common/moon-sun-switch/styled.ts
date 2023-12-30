@@ -1,4 +1,3 @@
-import { BORDER_RADIUS } from '@/styles';
 import { Button } from 'antd';
 import styled, { css } from 'styled-components';
 
@@ -18,25 +17,26 @@ export const Btn = styled(Button)`
 
 export const ButtonGroup = styled.div<BtnProps>`
   display: inline-flex;
-  padding: 0.325rem;
+  with: 50px;
+  padding: 0.225rem;
   column-gap: 0.325rem;
 
-  border-radius: ${BORDER_RADIUS};
+  border-radius: 10px;
 
-  background-color: rgba(var(--primary-rgb-color), 0.1);
+  background-color: #e7edf5;
 
   ${(props) =>
     props.$isFirstActive
       ? css`
           & > ${Btn}:first-of-type {
-            background: var(--primary-color);
-            color: var(--text-secondary-color);
+            background: #339cfd;
+            color: #fff;
           }
         `
       : css`
           & > ${Btn}:last-of-type {
-            background: var(--warning-color);
-            color: var(--text-secondary-color);
+            background: #339cfd;
+            color: #fff;
           }
         `}
 

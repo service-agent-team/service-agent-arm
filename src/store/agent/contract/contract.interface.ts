@@ -9,7 +9,6 @@ export interface InitialState {
     delete: boolean;
   };
   error: null | string | unknown;
-  agent: null;
 }
 
 import { AxiosResponse } from 'axios';

@@ -5,9 +5,9 @@ import * as S from './styled';
 
 export const SettingsOverlay: React.FC = ({ ...props }) => {
   return (
-    <S.SettingsOverlayMenu mode="inline" selectable={true} {...props}>
+    <S.SettingsOverlayMenu mode="inline" selectable={false} {...props}>
       <DropdownCollapse
-        bordered={false}
+        bordered={true}
         expandIconPosition="right"
         ghost
         defaultActiveKey="themePicker"

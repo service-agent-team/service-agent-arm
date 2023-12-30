@@ -4,13 +4,9 @@ import { Col, Collapse, Menu } from 'antd';
 import styled, { css } from 'styled-components';
 
 export const DropdownMenu = styled(Menu)`
-  line-height: 1.5715;
+  line-height: 1.2715;
 
   border-radius: ${BORDER_RADIUS};
-
-  &.ant-dropdown-menu {
-    box-shadow: var(--box-shadow);
-  }
 `;
 
 export const HeaderActionWrapper = styled.div`
