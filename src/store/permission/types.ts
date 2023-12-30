@@ -65,3 +65,30 @@ export interface UserId {
   created_at: string;
   updated_at: string;
 }
+
+export interface IPermissionCreatePayload {
+  permissionName: string;
+  permissionDescription: string;
+  callback: () => void;
+}
+
+export interface IPermissionCreateResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: ICreatePermissionData;
+}
+
+export interface ICreatePermissionData {
+  permission_name: string;
+  permission_description: string;
+  userPermission: any[];
+  permission_id: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ICreatePermissionAxiosPayload {
+  permissionName: string;
+  permissionDescription: string;
+}

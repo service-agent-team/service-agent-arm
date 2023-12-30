@@ -3,6 +3,7 @@ import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
 import {
   Home,
+  PermissionCreatePage,
   Permissions,
   Projects,
   UserCreatePage,
@@ -33,6 +34,14 @@ export const mainRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <UserCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.permissionCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <PermissionCreatePage />
       </Suspense>
     ),
   },

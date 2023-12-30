@@ -21,6 +21,8 @@ export const ProjectsPage = getLoadablePage('ProjectsPage');
 
 export const UserCreatePage = getLoadablePage('UserCreatePage');
 
+export const PermissionCreatePage = getLoadablePage('PermissionCreatePage');
+
 // agent
 export const AgentHome = getLoadablePage('AgentHome');
 

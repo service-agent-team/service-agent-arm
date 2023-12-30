@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getPermisions } from './actions';
+import { createPermission, getPermisions } from './actions';
 import { IPermissionInitalState, PayloadEnum } from './types';
 
 const initialState: IPermissionInitalState = {
@@ -44,6 +44,18 @@ export const userSlice = createSlice({
       })
       .addCase(getPermisions.rejected, (state, { payload }) => {
         state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(createPermission.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createPermission.fulfilled, (state, _) => {
+        state.loading.post = false;
+        state.errors = null;
+      })
+      .addCase(createPermission.rejected, (state, { payload }) => {
+        state.loading.post = false;
         state.errors = payload;
       });
   },

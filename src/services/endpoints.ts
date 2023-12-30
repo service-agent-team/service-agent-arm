@@ -6,6 +6,7 @@ export const EndPointes = {
 
   permissions: {
     getAll: '/permissions/get-all',
+    create: '/permissions/create',
   },
 
   // AUTH

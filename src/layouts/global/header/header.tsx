@@ -6,6 +6,7 @@ import { dictionary } from '../dictionary';
 import { LayoutHeader } from '../style';
 import { HeaderProps } from '../type';
 import { Breadcrumb } from './breadcrumb';
+import { HeaderFullscreen, ProfileDropdown, SettingsDropdown } from './components';
 import { Dropdown } from './dropdown';
 
 export const Header = ({ bg, collapsed, setCollapsed }: HeaderProps) => {
@@ -40,6 +41,11 @@ export const Header = ({ bg, collapsed, setCollapsed }: HeaderProps) => {
           </Dropdown>
 
           <Icon btn name="LogoutOutlined" onClick={handleClickLogout} />
+
+          <HeaderFullscreen />
+          <SettingsDropdown />
+
+          <ProfileDropdown />
         </Flex>
       </LayoutHeader>
     </>

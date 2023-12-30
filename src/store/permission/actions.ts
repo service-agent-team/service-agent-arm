@@ -2,7 +2,7 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { UserPermissionService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IPermissionResponse } from '..';
+import { IPermissionCreatePayload, IPermissionCreateResponse, IPermissionResponse } from '..';
 import { IGetUserPayload } from '../users/types';
 
 export const getPermisions = createAsyncThunk<IPermissionResponse, IGetUserPayload>(
@@ -21,3 +21,22 @@ export const getPermisions = createAsyncThunk<IPermissionResponse, IGetUserPaylo
     }
   },
 );
+
+export const createPermission = createAsyncThunk<
+  IPermissionCreateResponse,
+  IPermissionCreatePayload
+>('create/permission', async ({ permissionName, permissionDescription, callback }, thunkApi) => {
+  try {
+    const response = await UserPermissionService.createPermission({
+      permissionDescription,
+      permissionName,
+    });
+    if (response.data) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
