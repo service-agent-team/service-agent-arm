@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { InitialState } from './contract.interface';
 import { getAllUsers } from './contract.action';
+import { InitialState } from './contract.interface';
 
 const initialState: InitialState = {
   data: null,
@@ -12,6 +12,7 @@ const initialState: InitialState = {
     delete: false,
   },
   error: null,
+  agent: null,
 };
 
 export const contractSlice = createSlice({
