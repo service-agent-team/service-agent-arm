@@ -1,12 +1,11 @@
 import { ROUTES } from '@/constants';
+import { useActions } from '@/libs';
 import { Layout as AntLayout, theme } from 'antd';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Content } from './content';
-import { Float } from './float';
 import { Header } from './header';
 import { Sider } from './sider';
-import { useActions } from '@/libs';
 
 export type IProps = {
   isAuth: boolean;
@@ -30,8 +29,6 @@ export const Layout = ({ isAuth, items }: IProps) => {
 
         <Content bg={colorBgContainer} />
       </AntLayout>
-
-      <Float />
     </AntLayout>
   ) : (
     <Navigate to={ROUTES.login} />

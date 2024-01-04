@@ -33,3 +33,5 @@ export const AgentView = getLoadablePage('AgentView');
 // transfer
 
 export const TransferHome = getLoadablePage('TransferHome');
+
+export const TransferTariff = getLoadablePage('TransferTariff');

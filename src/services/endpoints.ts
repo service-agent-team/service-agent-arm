@@ -29,4 +29,8 @@ export const EndPointes = {
     getAll: '/users/get-all',
     createUser: '/users/create',
   },
+
+  transfer: {
+    getAll: 'http://backend.coreteam.uz:8098/api/v1/tariff/get/all',
+  },
 } as const;

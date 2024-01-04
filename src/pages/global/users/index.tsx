@@ -3,7 +3,7 @@ import { ROUTES } from '@/constants';
 import { useActions } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
 import { useEffect } from 'react';
-import * as S from './user.styled';
+import * as S from './styled';
 
 export const Users = () => {
   const { getUsers } = useActions();

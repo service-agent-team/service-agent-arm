@@ -27,10 +27,15 @@ export const ProfileOverlay: React.FC = ({ ...props }) => {
       </S.MenuItem>
       <S.ItemsDivider />
       <S.MenuItem key={1}>
-        <Button color={'red'} style={{ width: '100%' }} icon={<LogoutOutlined />}>
+        <Button
+          color={'red'}
+          style={{ width: '100%' }}
+          icon={<LogoutOutlined />}
+          onClick={handleClickLogout}
+        >
           logout
         </Button>
-        <Icon btn name="LogoutOutlined" onClick={handleClickLogout} />
+        <Icon btn name="LogoutOutlined" />
       </S.MenuItem>
     </DropdownMenu>
   );
