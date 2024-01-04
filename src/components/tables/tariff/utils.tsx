@@ -160,8 +160,8 @@ export const utils = () => {
       key: 'isDeleted',
       width: '20%',
       render: (_, { isDeleted }) => {
-        let color = isDeleted ? 'geekblue' : 'green';
-        return <Tag color={color}>{String(isDeleted)}</Tag>;
+        let color = isDeleted ? 'green' : 'red';
+        return <Tag color={color}>{isDeleted ? 'faol' : 'faol emas'}</Tag>;
       },
     },
     {

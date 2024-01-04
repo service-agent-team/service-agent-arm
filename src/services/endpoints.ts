@@ -32,5 +32,6 @@ export const EndPointes = {
 
   transfer: {
     getAll: 'http://backend.coreteam.uz:8098/api/v1/tariff/get/all',
+    createTariff: 'http://backend.coreteam.uz:8098/api/v1/tariff/add',
   },
 } as const;
