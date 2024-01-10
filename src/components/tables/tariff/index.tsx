@@ -16,7 +16,7 @@ export const TariffTable: React.FC = () => {
     if (errors) {
       addNotification(errors);
     }
-  }, [errors]);
+  }, [errors, tariff]);
 
   const generateUserData = addKeyProp<ITariff>(tariff as ITariff[]);
 

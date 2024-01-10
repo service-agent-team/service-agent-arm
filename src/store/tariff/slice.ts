@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getTariff } from './actions';
+import { createTariff, getTariff } from './actions';
 import { ITariff, ITariffInitalState, PayloadTariffEnum } from './types';
 
 const initialState: ITariffInitalState = {
@@ -41,6 +41,18 @@ export const tariffSlice = createSlice({
       })
       .addCase(getTariff.rejected, (state, { payload }) => {
         state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(createTariff.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createTariff.fulfilled, (state, _) => {
+        state.loading.post = false;
+        state.errors = null;
+      })
+      .addCase(createTariff.rejected, (state, { payload }) => {
+        state.loading.post = false;
         state.errors = payload;
       });
   },

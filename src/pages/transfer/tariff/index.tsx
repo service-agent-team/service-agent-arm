@@ -18,7 +18,12 @@ export const Tariff = () => {
 
   return (
     <S.tariffStyled>
-      <PageTitle title="Tariff" icon="MoneyCollectOutlined" route={ROUTES.create} label="create" />
+      <PageTitle
+        title="Tariff"
+        icon="MoneyCollectOutlined"
+        route={ROUTES.tariffCreate}
+        label="create"
+      />
       <TariffTable />
     </S.tariffStyled>
   );

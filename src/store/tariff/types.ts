@@ -25,3 +25,13 @@ export interface ITariff {
 export interface ITariffResponse {
   data: ITariff[];
 }
+
+export interface ITariffCreateResponse {}
+
+export interface ItariffCreatepayload {
+  price: number;
+  minimumDuration: number;
+  nameUz: string;
+  nameRu: string;
+  callback: () => void;
+}
