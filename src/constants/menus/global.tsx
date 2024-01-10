@@ -1,3 +1,4 @@
+import { logo } from '@/assets';
 import { ROUTES } from '../routes';
 import type { MenuProps } from 'antd';
 export const global: MenuProps['items'] = [
@@ -37,3 +38,8 @@ export const global: MenuProps['items'] = [
     icon: 'ProjectOutlined',
   },
 ];
+
+export const GlobalConf = {
+  name: 'CORETEAM',
+  logo: logo,
+};

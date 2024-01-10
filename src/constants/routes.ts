@@ -20,6 +20,7 @@ export const ROUTES = {
   agentHome: `/service-agent/home`,
   agentControl: '/service-agent/control',
   agentView: '/service-agent/view/:id',
+  agentTariff: '/service-agent/tariff',
 
   // tranfer
   transfer: '/transfer',
