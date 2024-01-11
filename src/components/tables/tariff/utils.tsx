@@ -1,24 +1,46 @@
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, InputRef, MenuProps, Space, Tag, message } from 'antd';
+import { modal } from '@/app';
+import { useActions } from '@/libs';
+import { addNotification } from '@/libs/utils/addNotification';
+import { CheckOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-import { items } from './constants';
+import { useNavigate } from 'react-router-dom';
 import { DataIndex, IhandleSearchProps, UserTableRow } from './types';
-
-const handleMenuClick: MenuProps['onClick'] = (_: any) => {
-  message.success('Click on menu item.');
-};
-
-const menuProps = {
-  items: items,
-  onClick: handleMenuClick,
-};
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const navigate = useNavigate();
+  const { disableTariff, enableTariff, getTariff } = useActions();
+
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
+      title: `You want to delete right ?`,
+      onOk: () => {
+        if (!record.isDeleted) {
+          disableTariff({
+            id: record.tarifId,
+            callback: () => {
+              addNotification('Successfully disabled');
+              getTariff({ callback: () => {} });
+            },
+          });
+        } else {
+          enableTariff({
+            id: record.tarifId,
+            callback: () => {
+              addNotification('Successfully enabled');
+              getTariff({ callback: () => {} });
+            },
+          });
+        }
+      },
+    });
+  };
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
     confirm();
@@ -111,7 +133,7 @@ export const utils = () => {
 
   const columns: ColumnsType<UserTableRow> = [
     {
-      title: 'Id',
+      title: 'TariffId',
       dataIndex: 'tarifId',
       key: 'tarifId',
       width: '4%',
@@ -141,13 +163,6 @@ export const utils = () => {
       ...getColumnSearchProps('nameRu'),
     },
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      width: '20%',
-      ...getColumnSearchProps('price'),
-    },
-    {
       title: 'Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
@@ -160,24 +175,31 @@ export const utils = () => {
       key: 'isDeleted',
       width: '20%',
       render: (_, { isDeleted }) => {
-        let color = isDeleted ? 'green' : 'red';
-        return <Tag color={color}>{isDeleted ? 'faol' : 'faol emas'}</Tag>;
+        let color = !isDeleted ? 'green' : 'red';
+        return <Tag color={color}>{!isDeleted ? 'faol' : 'faol emas'}</Tag>;
       },
     },
     {
       title: 'Actions',
       dataIndex: 'action',
       key: 'action',
-      render: () => (
-        <Dropdown menu={menuProps}>
-          <Button>
-            <Space>
-              Actions
-              <DownOutlined />
-            </Space>
-          </Button>
-        </Dropdown>
-      ),
+      render: (_: any, record: any) => {
+        return (
+          <Space>
+            <Button
+              key={1}
+              onClick={() => {
+                navigate(`/transfer/tariff/edit/${record.tarifId}`);
+              }}
+            >
+              <EditOutlined />
+            </Button>
+            <Button key={2} onClick={() => handleDelete(record)}>
+              {record.isDeleted ? <CheckOutlined /> : <DeleteOutlined />}
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
 

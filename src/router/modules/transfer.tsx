@@ -1,7 +1,7 @@
 import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
-import { CreateTariffPage, TransferHome, TransferTariff } from '../loadable';
+import { CreateTariffPage, EditTariffPage, TransferHome, TransferTariff } from '../loadable';
 
 export const transferRouter = [
   {
@@ -25,6 +25,14 @@ export const transferRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <CreateTariffPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.transferEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <EditTariffPage />
       </Suspense>
     ),
   },

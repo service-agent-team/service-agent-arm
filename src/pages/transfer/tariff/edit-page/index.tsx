@@ -1,17 +1,16 @@
 import { PageTitle } from '@/components';
 import { TariffForm } from '@/components/forms';
-import React from 'react';
 
-export const CreateTariffPage: React.FC = () => {
+export const EditTariffPage = () => {
   return (
-    <div>
+    <>
       <PageTitle
         label="ortga"
-        title="Create Tariff"
+        title="Edit Tariff"
         icon="RollbackOutlined"
         route="/transfer/tariff"
       />
-      <TariffForm type="create" />
-    </div>
+      <TariffForm type="edit" />
+    </>
   );
 };
