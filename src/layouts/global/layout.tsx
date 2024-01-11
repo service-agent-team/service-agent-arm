@@ -10,9 +10,10 @@ import { Sider } from './sider';
 export type IProps = {
   isAuth: boolean;
   items: any;
+  conf: any;
 };
 
-export const Layout = ({ isAuth, items }: IProps) => {
+export const Layout = ({ isAuth, items, conf }: IProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -22,7 +23,7 @@ export const Layout = ({ isAuth, items }: IProps) => {
 
   return isAuth ? (
     <AntLayout>
-      <Sider collapsed={collapsed} />
+      <Sider collapsed={collapsed} conf={conf} />
 
       <AntLayout>
         <Header bg={colorBgContainer} collapsed={collapsed} setCollapsed={setCollapsed} />

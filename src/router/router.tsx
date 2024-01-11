@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { SignIn, ProjectsPage } from './loadable';
 import { mainRouter, agentRouter, transferRouter } from './modules';
-import { global, agent, transfer } from '@/constants/menus';
+import { global, GlobalConf, agent, AgentConf, transfer, TransferConf } from '@/constants/menus';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
@@ -19,17 +19,17 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         },
         {
           path: ROUTES.global,
-          element: <GlobalLayout isAuth={isAuth} items={global} />,
+          element: <GlobalLayout isAuth={isAuth} items={global} conf={GlobalConf} />,
           children: [...mainRouter],
         },
         {
           path: ROUTES.agent,
-          element: <GlobalLayout isAuth={isAuth} items={agent} />,
+          element: <GlobalLayout isAuth={isAuth} items={agent} conf={AgentConf} />,
           children: [...agentRouter],
         },
         {
           path: ROUTES.transfer,
-          element: <GlobalLayout isAuth={isAuth} items={transfer} />,
+          element: <GlobalLayout isAuth={isAuth} items={transfer} conf={TransferConf} />,
           children: [...transferRouter],
         },
       ],
