@@ -37,3 +37,5 @@ export const TransferHome = getLoadablePage('TransferHome');
 export const TransferTariff = getLoadablePage('TransferTariff');
 
 export const CreateTariffPage = getLoadablePage('CreateTariffPage');
+
+export const EditTariffPage = getLoadablePage('EditTariffPage');

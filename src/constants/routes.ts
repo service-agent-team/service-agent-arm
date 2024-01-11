@@ -26,4 +26,5 @@ export const ROUTES = {
   transferHome: '/transfer/home',
   transferTariff: '/transfer/tariff',
   tariffCreate: '/transfer/tariff/create',
+  transferEdit: '/transfer/tariff/edit/:id',
 } as const;

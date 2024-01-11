@@ -30,8 +30,11 @@ export const EndPointes = {
     createUser: '/users/create',
   },
 
-  transfer: {
-    getAll: 'http://backend.coreteam.uz:8098/api/v1/tariff/get/all',
-    createTariff: 'http://backend.coreteam.uz:8098/api/v1/tariff/add',
+  tariff: {
+    create: '/tariff/create',
+    getAll: '/tariff/get-all',
+    edit: '/tariff/update/',
+    disable: '/tariff/disable/',
+    enable: '/tariff/enable/',
   },
 } as const;

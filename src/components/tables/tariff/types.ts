@@ -1,15 +1,15 @@
+/* eslint-disable prettier/prettier */
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
 export interface UserTableRow {
   key: number;
   tarifId: number;
-  price: number;
   nameUz: string;
   nameRu: string;
-  createdAt: string;
+  createdAt: string
   isDeleted: boolean;
-  minimalDuration: number;
+  minimalDuration: number
 }
 
 export interface Pagination {

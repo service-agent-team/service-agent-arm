@@ -2,7 +2,9 @@ export interface ITariffInitalState {
   loading: {
     get: boolean;
     post: boolean;
+    patch: boolean;
   };
+  oneTariff: ITariff | null;
   tariff: ITariff[] | null;
   errors: unknown | string[] | string;
 }
@@ -23,15 +25,38 @@ export interface ITariff {
 }
 
 export interface ITariffResponse {
-  data: ITariff[];
+  data: {
+    data: ITariff[];
+  };
+}
+
+export interface ITariffByIdResponse {
+  data: ITariff;
+}
+
+export interface ITariffByIdPayload {
+  tariffId: number | string;
 }
 
 export interface ITariffCreateResponse {}
+export interface ITariffEditResponse {}
 
 export interface ItariffCreatepayload {
-  price: number;
   minimumDuration: number;
   nameUz: string;
   nameRu: string;
+  callback: () => void;
+}
+
+export interface ItariffEditpayload {
+  id: number | string;
+  minimumDuration: number;
+  nameUz: string;
+  nameRu: string;
+  callback: () => void;
+}
+
+export interface ITarriffDisablePayload {
+  id: number | string;
   callback: () => void;
 }
