@@ -1,6 +1,4 @@
-import { logo } from '@/assets';
 import { Flex, Layout, Typography } from 'antd';
-import { dictionary } from '../dictionary';
 import { Menu } from './menu';
 interface IProps {
   collapsed: boolean;
