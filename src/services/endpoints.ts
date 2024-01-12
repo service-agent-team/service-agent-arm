@@ -12,6 +12,11 @@ export const EndPointes = {
   // AUTH
   login: '/login',
 
+  // PRODUCT
+  product: {
+    getByCategort: '/product/by',
+  },
+
   // AGENT
   agentContract: {
     allUsers: '/agent/all',
