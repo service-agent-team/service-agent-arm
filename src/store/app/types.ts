@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type TInitialState = {
   isModal: boolean;
   isDrawer: boolean;
@@ -15,7 +17,12 @@ export enum ETheme {
 }
 
 export interface IMenu {
-  key: string;
+  key?: string;
   icon: string;
+  label: string;
+}
+
+export interface MenuChildren {
+  key: string;
   label: string;
 }

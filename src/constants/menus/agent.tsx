@@ -1,8 +1,7 @@
 import { ROUTES } from '../routes';
-import type { MenuProps } from 'antd';
 import { logo } from '@/assets';
 
-export const agent: MenuProps['items'] = [
+export const agent = [
   {
     icon: 'HomeOutlined',
     key: ROUTES.agentHome,
@@ -14,9 +13,9 @@ export const agent: MenuProps['items'] = [
     icon: 'UsergroupAddOutlined',
   },
   {
-    label: 'Categories',
-    key: ROUTES.agentTariff,
+    label: 'Products',
     icon: 'DatabaseOutlined',
+    key: ROUTES.agentProducts,
   },
   {
     label: 'Tariff Category',
@@ -25,12 +24,12 @@ export const agent: MenuProps['items'] = [
   },
   {
     label: 'Permissions',
-    key: ROUTES.agentTariff,
+    key: ROUTES.agentPermission,
     icon: 'ApartmentOutlined',
   },
   {
     label: 'Roles',
-    key: ROUTES.agentTariff,
+    key: ROUTES.agentRole,
     icon: 'ApartmentOutlined',
   },
 ];

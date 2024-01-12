@@ -1,0 +1,1 @@
+export { Tariff } from './tariff';
