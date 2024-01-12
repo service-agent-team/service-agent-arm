@@ -37,4 +37,20 @@ export const EndPointes = {
     disable: '/tariff/disable/',
     enable: '/tariff/enable/',
   },
+
+  carType: {
+    create: '/car-type/create',
+    getAll: '/car-type/get-all',
+    edit: '/car-type/update/',
+    getOne: '/car-type/get-one/',
+    delete: '/car-type/delete/',
+  },
+
+  driver: {
+    create: '/driver/create',
+    getAll: '/driver/get-all',
+    edit: '/driver/update/',
+    getOne: '/driver/get-one/',
+    delete: '/driver/delete/',
+  },
 } as const;

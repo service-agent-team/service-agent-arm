@@ -25,9 +25,7 @@ export interface ITariff {
 }
 
 export interface ITariffResponse {
-  data: {
-    data: ITariff[];
-  };
+  data: ITariff[];
 }
 
 export interface ITariffByIdResponse {

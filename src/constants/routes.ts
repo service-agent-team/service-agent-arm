@@ -28,4 +28,10 @@ export const ROUTES = {
   transferTariff: '/transfer/tariff',
   tariffCreate: '/transfer/tariff/create',
   transferEdit: '/transfer/tariff/edit/:id',
+  carType: '/transfer/car-type',
+  carTypeCreate: '/transfer/car-type/create',
+  carTypeEdit: '/transfer/car-type/edit/:id',
+  driver: '/transfer/driver',
+  driverCreate: '/transfer/driver/create',
+  driverEdit: '/transfer/driver/edit/:id',
 } as const;

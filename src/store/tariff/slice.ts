@@ -45,7 +45,7 @@ export const tariffSlice = createSlice({
       })
       .addCase(getTariff.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.tariff = payload.data.data;
+        state.tariff = payload.data;
         state.errors = null;
       })
       .addCase(getTariff.rejected, (state, { payload }) => {

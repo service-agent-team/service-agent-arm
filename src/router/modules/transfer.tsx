@@ -1,7 +1,17 @@
 import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
-import { CreateTariffPage, EditTariffPage, TransferHome, TransferTariff } from '../loadable';
+import {
+  CarType,
+  CreateCarTypePage,
+  CreateTariffPage,
+  DriverCreatePage,
+  DriverPage,
+  EditCarTypePage,
+  EditTariffPage,
+  TransferHome,
+  TransferTariff,
+} from '../loadable';
 
 export const transferRouter = [
   {
@@ -33,6 +43,46 @@ export const transferRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <EditTariffPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.carType,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <CarType />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.carTypeCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <CreateCarTypePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.carTypeEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <EditCarTypePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.driver,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <DriverPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.driverCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <DriverCreatePage />
       </Suspense>
     ),
   },
