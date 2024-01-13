@@ -146,6 +146,12 @@ export const utils = () => {
       width: '20%',
     },
     {
+      title: 'currency',
+      dataIndex: 'currency',
+      key: 'login',
+      width: '20%',
+    },
+    {
       title: 'View',
       dataIndex: 'id',
       key: 'view',

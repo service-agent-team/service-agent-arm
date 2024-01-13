@@ -25,10 +25,10 @@ export const PermissionCreatePage = getLoadablePage('PermissionCreatePage');
 
 // agent
 export const AgentHome = getLoadablePage('AgentHome');
-
 export const AgentControl = getLoadablePage('AgentControl');
-
 export const AgentView = getLoadablePage('AgentView');
+export const AgentProducts = getLoadablePage('AgentProduct');
+export const AgentProductCreate = getLoadablePage('AgentProductCreate');
 
 // transfer
 

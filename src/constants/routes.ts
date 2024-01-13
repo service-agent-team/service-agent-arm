@@ -26,6 +26,7 @@ export const ROUTES = {
   agentRole: '/service-agent/roles',
   agentProjects: '/service-agent/projects',
   agentProducts: '/service-agent/products',
+  agentProductCreate: '/service-agent/products/create',
   // agent
 
   // tranfer

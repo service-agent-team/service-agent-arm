@@ -18,7 +18,6 @@ export const AgentTable: React.FC = () => {
       addNotification(error);
     }
   }, [data]);
-
   const generateUserData = addKeyProp<IUserData>(data as IUserData[]);
   const onChange = (key: string) => {
     if (key === '1') {

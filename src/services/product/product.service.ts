@@ -8,4 +8,14 @@ export const ProductService = {
     );
     return responce;
   },
+
+  async getOneProduct(productId: number) {
+    const responce = await $axios.get(`${EndPointes.product.getOneProduct}/${productId}`);
+    return responce;
+  },
+
+  async postProduct(body: any) {
+    const responce = await $axios.post(EndPointes.product.addProduct, body);
+    return responce;
+  },
 };

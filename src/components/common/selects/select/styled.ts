@@ -13,7 +13,6 @@ export const Select = styled(AntSelect).withConfig({
   shouldForwardProp: (prop) => !['shadow', 'width'].includes(prop),
 })<SelectProps>`
   width: ${(props) => props.width && normalizeProp(props.width)};
-
   font-weight: ${FONT_WEIGHT.medium};
 
   box-shadow: ${(props) => props.shadow && 'var(--box-shadow)'};

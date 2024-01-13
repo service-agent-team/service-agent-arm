@@ -21,7 +21,16 @@ export interface IProductResponse {
   success: boolean;
   status: number;
   msg: string;
-  data: IProduct[];
+  data: {
+    content: IProduct[];
+  };
+}
+
+export interface IOneProductResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IProduct;
 }
 
 export interface IProduct {
@@ -56,5 +65,15 @@ export interface IProductPayload {
   categoryId: number;
   page: number;
   size: number;
+  callback: () => void;
+}
+
+export interface IOneProductPayload {
+  productId: number;
+  callback: () => void;
+}
+
+export interface IPostProductPayload {
+  body: IProduct;
   callback: () => void;
 }

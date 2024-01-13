@@ -4,7 +4,7 @@ import { PermissionReducer } from '../permission/slice';
 import { TariffReducer } from '../tariff/slice';
 import { UserReducer } from '../users/slice';
 import { AgentContractReducer } from './../agent';
-
+import { ProductReducer } from '../product/slice';
 export const reducer = {
   app: appReducer,
   auth: AuthReducer,
@@ -13,4 +13,5 @@ export const reducer = {
   agent: AgentContractReducer,
   permission: PermissionReducer,
   tariff: TariffReducer,
+  product: ProductReducer,
 };

@@ -15,6 +15,8 @@ export const EndPointes = {
   // PRODUCT
   product: {
     getByCategort: '/product/by',
+    getOneProduct: '/product',
+    addProduct: '/product/create',
   },
 
   // AGENT
