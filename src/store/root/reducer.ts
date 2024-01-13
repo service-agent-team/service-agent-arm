@@ -1,5 +1,7 @@
 import { appReducer } from '../app';
 import { AuthReducer } from '../auth/slice';
+import { CarTypeReducer } from '../car-type/slice';
+import { DriverReducer } from '../driver/slice';
 import { PermissionReducer } from '../permission/slice';
 import { TariffReducer } from '../tariff/slice';
 import { UserReducer } from '../users/slice';
@@ -14,4 +16,6 @@ export const reducer = {
   permission: PermissionReducer,
   tariff: TariffReducer,
   product: ProductReducer,
+  carType: CarTypeReducer,
+  driver: DriverReducer,
 };

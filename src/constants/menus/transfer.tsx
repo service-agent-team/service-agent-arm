@@ -1,6 +1,6 @@
+import { logo } from '@/assets';
 import type { MenuProps } from 'antd';
 import { ROUTES } from '../routes';
-import { logo } from '@/assets';
 
 export const transfer: MenuProps['items'] = [
   {
@@ -12,6 +12,16 @@ export const transfer: MenuProps['items'] = [
     key: ROUTES.transferTariff,
     icon: 'MoneyCollectOutlined',
     label: 'Tariff',
+  },
+  {
+    key: ROUTES.carType,
+    icon: 'FileSearchOutlined',
+    label: 'CarType',
+  },
+  {
+    key: ROUTES.driver,
+    icon: 'MedicineBoxOutlined',
+    label: 'Driver',
   },
 ];
 

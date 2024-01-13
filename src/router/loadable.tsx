@@ -39,3 +39,13 @@ export const TransferTariff = getLoadablePage('TransferTariff');
 export const CreateTariffPage = getLoadablePage('CreateTariffPage');
 
 export const EditTariffPage = getLoadablePage('EditTariffPage');
+
+export const CarType = getLoadablePage('CarType');
+
+export const CreateCarTypePage = getLoadablePage('CreateCarTypePage');
+
+export const EditCarTypePage = getLoadablePage('EditCarTypePage');
+
+export const DriverPage = getLoadablePage('DriverPage');
+
+export const DriverCreatePage = getLoadablePage('DriverCreatePage');
