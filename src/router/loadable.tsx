@@ -29,6 +29,7 @@ export const AgentControl = getLoadablePage('AgentControl');
 export const AgentView = getLoadablePage('AgentView');
 export const AgentProducts = getLoadablePage('AgentProduct');
 export const AgentProductCreate = getLoadablePage('AgentProductCreate');
+export const AgentTariffs = getLoadablePage('AgentTariff');
 
 // transfer
 

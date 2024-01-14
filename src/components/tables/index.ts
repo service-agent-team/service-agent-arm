@@ -5,3 +5,4 @@ export { PermissionTable } from './permission';
 export { TariffTable } from './tariff/index';
 export { UserTable } from './users';
 export { AgenetProductsTable } from './agent-product';
+export { AgenetTariffTable } from './agent-tariff';

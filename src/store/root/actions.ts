@@ -13,6 +13,7 @@ import { UserSliceActions } from '../users/slice';
 import { AgentContractActions, ContractSliceActions } from './../agent';
 import { AuthSliceActions } from './../auth/slice';
 import * as ProductActions from './../product/action';
+import { agentTariffSliceActions, agentTariffAction } from './../agent';
 
 export const AllActions = {
   ...appActions,
@@ -33,4 +34,6 @@ export const AllActions = {
   ...CarTypesliceActions,
   ...DriverActions,
   ...DriverSliceActions,
+  ...agentTariffSliceActions,
+  ...agentTariffAction,
 };

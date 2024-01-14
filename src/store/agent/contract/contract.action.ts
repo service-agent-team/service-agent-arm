@@ -25,7 +25,7 @@ export const acceptAgnet = createAsyncThunk<any, IParams>(
   async ({ userId, callback }, thunkApi) => {
     try {
       const response = await ContractService.acceptAgent(userId);
-      if (response.data) {
+      if (response) {
         callback();
       }
       return response.data;

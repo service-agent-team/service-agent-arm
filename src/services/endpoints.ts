@@ -31,6 +31,12 @@ export const EndPointes = {
       reject: '/agent/reject',
       getOne: '/agent',
     },
+    tariff: {
+      getAll: '/category/all',
+    },
+    tariffPer: {
+      add: '/category/permission/create',
+    },
   },
   user: {
     getAll: '/users/get-all',

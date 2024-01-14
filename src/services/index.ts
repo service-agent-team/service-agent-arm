@@ -1,4 +1,8 @@
-export { ContractService } from './agent';
+export {
+  ContractService,
+  TariffService as AgentTariffService,
+  TariffPermissionService,
+} from './agent';
 export { AuthService } from './auth/auth.service';
 export { CarTypeService } from './car-type/car-type-service';
 export { DriverService } from './driver/driver.service';
