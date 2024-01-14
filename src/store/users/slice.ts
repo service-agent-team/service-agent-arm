@@ -19,7 +19,7 @@ export const userSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {
-    setLoading: (state, { payload }: { payload: PayloadEnum }) => {
+    setUserLoading: (state, { payload }: { payload: PayloadEnum }) => {
       state.loading[payload] = !state.loading[payload];
     },
 

@@ -17,7 +17,7 @@ export const carTypeSlice = createSlice({
   name: 'cartype',
   initialState,
   reducers: {
-    setLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
+    setCarTypeLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
       state.loading[payload] = !state.loading[payload];
     },
   },

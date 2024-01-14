@@ -24,16 +24,12 @@ export const tariffSlice = createSlice({
   name: 'tariff',
   initialState,
   reducers: {
-    setLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
+    setTariffLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
       state.loading[payload] = !state.loading[payload];
     },
 
     setTariff: (state, { payload }: { payload: ITariff[] }) => {
       state.tariff = payload;
-    },
-
-    setError: (state, { payload }) => {
-      state.errors = payload;
     },
   },
   extraReducers: (builder) => {

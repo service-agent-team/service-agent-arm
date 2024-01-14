@@ -14,20 +14,12 @@ const initialState: IPermissionInitalState = {
   errors: null,
 };
 
-export const userSlice = createSlice({
-  name: 'users',
+export const permissionSlice = createSlice({
+  name: 'permissions',
   initialState,
   reducers: {
-    setLoading: (state, { payload }: { payload: PayloadEnum }) => {
+    setPermissionLoading: (state, { payload }: { payload: PayloadEnum }) => {
       state.loading[payload] = !state.loading[payload];
-    },
-
-    setUsers: (state, { payload }) => {
-      state.permissions = payload;
-    },
-
-    setError: (state, { payload }) => {
-      state.errors = payload;
     },
   },
   extraReducers: (builder) => {
@@ -61,5 +53,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const PermissionReducer = userSlice.reducer;
-export const PermissionSliceActions = userSlice.actions;
+export const PermissionReducer = permissionSlice.reducer;
+export const PermissionSliceActions = permissionSlice.actions;

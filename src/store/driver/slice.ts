@@ -17,7 +17,7 @@ export const driverSlice = createSlice({
   name: 'driver',
   initialState,
   reducers: {
-    setLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
+    setDriverLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
       state.loading[payload] = !state.loading[payload];
     },
   },

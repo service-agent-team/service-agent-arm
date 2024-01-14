@@ -46,7 +46,7 @@ export const createDriver = createAsyncThunk<IDriverCreateResponse, IDriverCreat
   },
 );
 
-export const getTariffById = createAsyncThunk<IDriverByIdResponse, ICarTypeByIdPayload>(
+export const getDriverById = createAsyncThunk<IDriverByIdResponse, ICarTypeByIdPayload>(
   'get/getdriverById',
   async ({ id }, thunkApi) => {
     try {
@@ -75,7 +75,7 @@ export const editDriver = createAsyncThunk<IDriverEditResponse, IDriverEditPaylo
   },
 );
 
-export const deletCarType = createAsyncThunk<IDriverEditResponse, IcarTypeDeletePayload>(
+export const deletDriver = createAsyncThunk<IDriverEditResponse, IcarTypeDeletePayload>(
   'delete/driver',
   async ({ callback, id }, thunkApi) => {
     try {

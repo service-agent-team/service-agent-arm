@@ -4,8 +4,6 @@ import { CarTypeService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IGetUserPayload } from '../users/types';
 import {
-  ICarTypeByIdPayload,
-  ICarTypeByIdResponse,
   ICarTypeCreatepayload,
   ICarTypeEditResponse,
   ICarTypeResponse,
@@ -33,7 +31,7 @@ export const getCarType = createAsyncThunk<ICarTypeResponse, IGetUserPayload>(
 );
 
 export const createCarType = createAsyncThunk<ICartypeCreateResponse, ICarTypeCreatepayload>(
-  'create/tariff',
+  'create/carType',
   async ({ withBaggage, numberOfSeats, callback }, thunkApi) => {
     try {
       const response = await CarTypeService.createCarType({ withBaggage, numberOfSeats });
@@ -48,22 +46,8 @@ export const createCarType = createAsyncThunk<ICartypeCreateResponse, ICarTypeCr
   },
 );
 
-export const getTariffById = createAsyncThunk<ICarTypeByIdResponse, ICarTypeByIdPayload>(
-  'get/tariffById',
-  async ({ id }, thunkApi) => {
-    try {
-      const response = await CarTypeService.getCarTypeById(id);
-
-      return response.data;
-    } catch (error) {
-      addNotification(error);
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
-    }
-  },
-);
-
 export const ediCarType = createAsyncThunk<ICarTypeEditResponse, ItariffEditpayload>(
-  'edit/tarriff',
+  'edit/carType',
   async ({ withBaggage, numberOfSeats, id, callback }, thunkApi) => {
     try {
       const response = await CarTypeService.editCarType({ withBaggage, numberOfSeats }, id);
@@ -78,7 +62,7 @@ export const ediCarType = createAsyncThunk<ICarTypeEditResponse, ItariffEditpayl
 );
 
 export const deletCarType = createAsyncThunk<ICarTypeEditResponse, IcarTypeDeletePayload>(
-  'disbale/tarriff',
+  'delete/CarType',
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await CarTypeService.deleteCarType(id);

@@ -1,6 +1,7 @@
 import { AntMenu } from '@/layouts/global/style';
 import { generateMenuIconCreator, history, useTypedSelector } from '@/libs';
 import { MenuProps } from 'antd';
+import { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';
 import { useLocation } from 'react-router-dom';
 import { menuItems } from './constants';
 
@@ -21,7 +22,7 @@ export const Menu = () => {
       theme="light"
       selectedKeys={[selectedMenuOpenKey]}
       openKeys={[selectedMenuOpenKey]}
-      items={menuitems}
+      items={menuitems as ItemType<MenuItemType>[]}
       onClick={handleClick}
     />
   );
