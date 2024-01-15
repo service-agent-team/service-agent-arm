@@ -7,6 +7,8 @@ import { TariffReducer } from '../tariff/slice';
 import { UserReducer } from '../users/slice';
 import { AgentContractReducer, agentTariffReducer } from './../agent';
 import { ProductReducer } from '../product/slice';
+import { CarModelReducer } from '../car-model/slice';
+import { OrderReducer } from './../order/slice';
 export const reducer = {
   app: appReducer,
   auth: AuthReducer,
@@ -19,4 +21,6 @@ export const reducer = {
   carType: CarTypeReducer,
   driver: DriverReducer,
   agentTariff: agentTariffReducer,
+  carModel: CarModelReducer,
+  tarnsferStatistika: OrderReducer,
 };
