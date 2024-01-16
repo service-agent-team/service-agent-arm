@@ -76,4 +76,13 @@ export const EndPointes = {
     getOne: '/car/get-one/',
     delete: '/acr/delete/',
   },
+
+  carModel: {
+    create: '/car-model/create',
+    update: '/car-model/update',
+    all: '/car-model/get-all',
+  },
+  statistic: {
+    getAll: '/order/get-all',
+  },
 } as const;

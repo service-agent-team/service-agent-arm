@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './types';
+import { add } from './permission.action';
 
 const initialState: InitialState = {
   permission: null,
@@ -28,7 +29,7 @@ export const tariffSlice = createSlice({
         state.loading.get = true;
       })
       .addCase(add.fulfilled, (state, { payload }) => {
-        state.tariffs = payload.data;
+        state.permission = payload.data;
         state.loading.get = false;
       })
       .addCase(add.rejected, (state, { error }) => {

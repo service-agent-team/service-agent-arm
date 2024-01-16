@@ -28,6 +28,11 @@ export const transfer: MenuProps['items'] = [
     icon: 'CarOutlined',
     label: 'Car',
   },
+  {
+    key: ROUTES.carModel,
+    icon: 'CarOutlined',
+    label: 'Car Model',
+  },
 ];
 
 export const TransferConf = {
