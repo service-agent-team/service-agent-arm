@@ -66,4 +66,14 @@ export const EndPointes = {
     getOne: '/driver/get-one/',
     delete: '/driver/delete/',
   },
+
+  car: {
+    createPrice: '/car/create/price',
+    setImage: '/car/set/image',
+    create: '/car/create',
+    getAll: '/car/get-all',
+    edit: '/car/update/',
+    getOne: '/car/get-one/',
+    delete: '/acr/delete/',
+  },
 } as const;

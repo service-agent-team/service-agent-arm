@@ -50,3 +50,5 @@ export const EditCarTypePage = getLoadablePage('EditCarTypePage');
 export const DriverPage = getLoadablePage('DriverPage');
 
 export const DriverCreatePage = getLoadablePage('DriverCreatePage');
+
+export const CarPage = getLoadablePage('CarPage');

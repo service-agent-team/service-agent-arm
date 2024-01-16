@@ -23,6 +23,11 @@ export const transfer: MenuProps['items'] = [
     icon: 'MedicineBoxOutlined',
     label: 'Driver',
   },
+  {
+    key: ROUTES.car,
+    icon: 'CarOutlined',
+    label: 'Car',
+  },
 ];
 
 export const TransferConf = {

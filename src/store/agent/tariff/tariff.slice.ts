@@ -39,5 +39,5 @@ export const tariffSlice = createSlice({
   },
 });
 
-export const agentTariffReducer = tariffSlice.reducer;
-export const agentTariffSliceActions = tariffSlice.actions;
+export const AgentTariffReducer = tariffSlice.reducer;
+export const AgentTariffSliceActions = tariffSlice.actions;

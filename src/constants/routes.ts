@@ -41,4 +41,5 @@ export const ROUTES = {
   driver: '/transfer/driver',
   driverCreate: '/transfer/driver/create',
   driverEdit: '/transfer/driver/edit/:id',
+  car: '/transfer/cars',
 } as const;
