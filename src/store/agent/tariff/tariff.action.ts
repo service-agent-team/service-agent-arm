@@ -9,7 +9,7 @@ export const getCategory = createAsyncThunk<IAgentTariffResponse, ITariffPayload
   async ({ callback }, thunkApi) => {
     try {
       const response = await AgentTariffService.getAllCategory();
-      if (response) {
+      if (response.data) {
         callback();
       }
       return response.data;

@@ -1,16 +1,24 @@
 import { SimpleButton } from '@/components';
 import { Card } from '@/components/common/card';
+import { AgentForm } from '@/components/forms';
 import { history, useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
 import { IUserData } from '@/store/agent/contract/contract.interface';
 import { Badge, Flex, List, Typography } from 'antd';
+import { useEffect } from 'react';
 
 interface IProps {
   data: IUserData | null;
 }
 
 export const AgentCard = ({ data }: IProps) => {
-  const { agent } = useTypedSelector((state) => state.agent);
+  const { getRoles, getCategory } = useActions();
+  useEffect(() => {
+    getRoles({ callback() {} });
+    getCategory({ callback() {} });
+  }, []);
+
+  const { agent, roles, agentTariff } = useTypedSelector((state) => state);
 
   const { acceptAgnet, rejectAgnet } = useActions();
   const handleAccept = () => {
@@ -19,7 +27,7 @@ export const AgentCard = ({ data }: IProps) => {
         addNotification('Agent tasdiqlandi');
         history.back();
       },
-      userId: Number(agent?.userId),
+      userId: Number(agent.agent?.userId),
     });
   };
   const handleReject = () => {
@@ -28,7 +36,7 @@ export const AgentCard = ({ data }: IProps) => {
         addNotification('Agent rad etildi');
         history.back();
       },
-      userId: Number(agent?.userId),
+      userId: Number(agent.agent?.userId),
     });
   };
   return (
@@ -76,8 +84,13 @@ export const AgentCard = ({ data }: IProps) => {
               : null}
           </List.Item>
         </List>
-        {data?.contractStatus === 'view' && (
-          <Flex gap="large" justify="space-around">
+        <AgentForm
+          userId={agent.agent?.userId}
+          roles={roles.roles}
+          categories={agentTariff.tariffs}
+        />
+        {
+          /*data?.contractStatus === '' && */ <Flex gap="large" justify="space-around">
             <SimpleButton click={handleReject} color="--negative">
               Rad etish
             </SimpleButton>
@@ -85,7 +98,7 @@ export const AgentCard = ({ data }: IProps) => {
               Tasdiqlash
             </SimpleButton>
           </Flex>
-        )}
+        }
       </Card>
     </Badge.Ribbon>
   );

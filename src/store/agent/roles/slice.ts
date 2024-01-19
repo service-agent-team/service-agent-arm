@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { PayloadTariffEnum } from '../car-type/types';
+import { PayloadTariffEnum } from '../../car-type/types';
 import { createRoles, deleteRoles, editRoles, getRoles, getRolesById } from './action';
 import { IRoles, IRolesInitalState } from './types';
 

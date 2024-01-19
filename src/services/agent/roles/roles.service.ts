@@ -1,7 +1,7 @@
 import { $axios } from '@/config';
-import { IRolesResponse } from '@/store/roles/types';
+import { IRolesResponse } from '@/store/agent/roles/types';
 import { ITariffCreateResponse } from '@/store/tariff/types';
-import { EndPointes } from '../endpoints';
+import { EndPointes } from '../../endpoints';
 
 export const RolesService = {
   async getRoles() {

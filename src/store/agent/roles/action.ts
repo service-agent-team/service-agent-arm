@@ -2,7 +2,7 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { RolesService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IGetUserPayload } from '../users/types';
+import { IGetUserPayload } from '../../users/types';
 import {
   IRolesByIdPayload,
   IRolesByIdResponse,

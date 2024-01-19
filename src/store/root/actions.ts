@@ -1,3 +1,5 @@
+import * as RolesSlice from '../agent/roles/action';
+import { RolesSliceActions } from '../agent/roles/slice';
 import { appActions } from '../app/slice';
 import * as AuthActions from '../auth/actions';
 import * as CarTypeActions from '../car-type/actions';
@@ -8,8 +10,6 @@ import * as DriverActions from '../driver/actions';
 import { DriverSliceActions } from '../driver/slice';
 import * as PermissionActions from '../permission/actions';
 import { PermissionSliceActions } from '../permission/slice';
-import * as RolesSlice from '../roles/action';
-import { RolesSliceActions } from '../roles/slice';
 import * as TariffActions from '../tariff/actions';
 import { TariffSliceActions } from '../tariff/slice';
 import * as UserActions from '../users/actions';

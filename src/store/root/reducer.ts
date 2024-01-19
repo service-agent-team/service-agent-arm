@@ -1,3 +1,4 @@
+import { RolesReducer } from '../agent/roles/slice';
 import { appReducer } from '../app';
 import { AuthReducer } from '../auth/slice';
 import { CarModelReducer } from '../car-model/slice';
@@ -6,7 +7,6 @@ import { CarReducer } from '../car/slice';
 import { DriverReducer } from '../driver/slice';
 import { PermissionReducer } from '../permission/slice';
 import { ProductReducer } from '../product/slice';
-import { RolesReducer } from '../roles/slice';
 import { TariffReducer } from '../tariff/slice';
 import { UserReducer } from '../users/slice';
 import { AgentContractReducer, AgentTariffReducer } from './../agent';

@@ -15,10 +15,7 @@ import { AxiosResponse } from 'axios';
 
 export interface IAuthAxiosResponse extends AxiosResponse {}
 
-export interface IAgentTariffResponse {
-  status: number;
-  success: boolean;
-  message: string;
+export interface IAgentTariffResponse extends AxiosResponse {
   data: ITaeiffData[] | null;
 }
 
