@@ -16,6 +16,7 @@ export function AgentControl() {
       statusName: status,
     });
   }, [status]);
+
   return (
     <S.agentStyled>
       <PageTitle title="Agents" icon="UserAddOutlined" route={ROUTES.create} label="" />

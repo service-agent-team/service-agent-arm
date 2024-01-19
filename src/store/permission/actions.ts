@@ -6,7 +6,7 @@ import { IPermissionCreatePayload, IPermissionCreateResponse, IPermissionRespons
 import { IGetUserPayload } from '../users/types';
 
 export const getPermisions = createAsyncThunk<IPermissionResponse, IGetUserPayload>(
-  'get/users',
+  'get/permissionsss',
   async ({ callback }, thunkApi) => {
     try {
       const response = await UserPermissionService.getPermissions();

@@ -19,7 +19,7 @@ export const contractSlice = createSlice({
   name: 'contract',
   initialState,
   reducers: {
-    setSatus: (state, { payload }) => {
+    setContarctSatus: (state, { payload }) => {
       state.status = payload;
     },
   },
