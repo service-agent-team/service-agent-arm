@@ -7,7 +7,7 @@ import { utils } from './utils';
 import { TabsProps } from 'antd';
 
 export const AgentTable: React.FC = () => {
-  const { setSatus } = useActions();
+  const { setContarctSatus } = useActions();
   const {
     data,
     loading: { get },
@@ -21,11 +21,11 @@ export const AgentTable: React.FC = () => {
   const generateUserData = addKeyProp<IUserData>(data as IUserData[]);
   const onChange = (key: string) => {
     if (key === '1') {
-      setSatus('success');
+      setContarctSatus('success');
     } else if (key === '2') {
-      setSatus('view');
+      setContarctSatus('view');
     } else {
-      setSatus('reject');
+      setContarctSatus('reject');
     }
   };
 

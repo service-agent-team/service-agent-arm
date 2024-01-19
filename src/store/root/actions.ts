@@ -25,7 +25,6 @@ export const AllActions = {
   ...UserSliceActions,
   ...UserActions,
   ...UserActions,
-  ...UserSliceActions,
   ...ContractSliceActions,
   ...AgentContractActions,
   ...PermissionActions,
