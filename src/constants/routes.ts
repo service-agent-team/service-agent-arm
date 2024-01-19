@@ -24,6 +24,7 @@ export const ROUTES = {
   agentComapany: '/service-agent/company',
   agentPermission: '/service-agent/permission',
   agentRole: '/service-agent/roles',
+  agentRolesCreate: '/service-agent/roles/create',
   agentProjects: '/service-agent/projects',
   agentProducts: '/service-agent/products',
   agentProductCreate: '/service-agent/products/create',
