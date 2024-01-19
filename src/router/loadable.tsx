@@ -20,6 +20,7 @@ export const AgentView = getLoadablePage('AgentView');
 export const AgentProducts = getLoadablePage('AgentProduct');
 export const AgentProductCreate = getLoadablePage('AgentProductCreate');
 export const AgentTariffs = getLoadablePage('AgentTariff');
+export const AgentRoles = getLoadablePage('AgentRoles');
 
 // transfer
 export const TransferHome = getLoadablePage('TransferHome');
@@ -36,3 +37,4 @@ export const CarPage = getLoadablePage('CarPage');
 export const CarModel = getLoadablePage('CarModel');
 export const CreateCarModel = getLoadablePage('CreateCarModel');
 export const UpdateCarModel = getLoadablePage('UpdateCarModel');
+export const CreateCarPage = getLoadablePage('CreateCarPage');

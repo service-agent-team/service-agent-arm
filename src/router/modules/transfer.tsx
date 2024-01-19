@@ -6,6 +6,7 @@ import {
   CarPage,
   CarType,
   CreateCarModel,
+  CreateCarPage,
   CreateCarTypePage,
   CreateTariffPage,
   DriverCreatePage,
@@ -95,6 +96,14 @@ export const transferRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <CarPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.carCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <CreateCarPage />
       </Suspense>
     ),
   },

@@ -1,8 +1,8 @@
+import { AgenetTariffTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { PageTitle, AgenetTariffTable } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
-import { useEffect } from 'react';
+import { useActions } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
+import { useEffect } from 'react';
 
 export function Tariff() {
   const { getCategory } = useActions();

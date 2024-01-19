@@ -8,6 +8,8 @@ import * as DriverActions from '../driver/actions';
 import { DriverSliceActions } from '../driver/slice';
 import * as PermissionActions from '../permission/actions';
 import { PermissionSliceActions } from '../permission/slice';
+import * as RolesSlice from '../roles/action';
+import { RolesSliceActions } from '../roles/slice';
 import * as TariffActions from '../tariff/actions';
 import { TariffSliceActions } from '../tariff/slice';
 import * as UserActions from '../users/actions';
@@ -19,12 +21,12 @@ import {
   ContractSliceActions,
 } from './../agent';
 import { AuthSliceActions } from './../auth/slice';
-import * as ProductActions from './../product/action';
-
 import * as CarModelActions from './../car-model/action';
 import { CarModelsliceActions } from './../car-model/slice';
 import * as OrderActions from './../order/action';
 import { OrderSliceActions } from './../order/slice';
+import * as ProductActions from './../product/action';
+
 export const AllActions = {
   ...CarActions,
   ...CarSliceActions,
@@ -51,4 +53,6 @@ export const AllActions = {
   ...CarModelActions,
   ...OrderSliceActions,
   ...OrderActions,
+  ...RolesSlice,
+  ...RolesSliceActions,
 };

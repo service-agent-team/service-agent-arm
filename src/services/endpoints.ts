@@ -92,4 +92,21 @@ export const EndPointes = {
   statistic: {
     getAll: '/order/get-all',
   },
+
+  roles: {
+    create: '/role/create',
+    getAll: '/role/get-all',
+    getOne: '/role/get-one/',
+    edit: '/role/update/',
+    delete: '/role/delete/',
+  },
+
+  userRoles: {
+    create: '/agent-roles/create',
+    getAll: '/agent-roles/get-all',
+    getOne: '/agent-roles/get-one/',
+    getExist: '/agent-roles/get-exist/',
+    edit: '/agent-roles/update/',
+    delete: '/agent-roles/delete/',
+  },
 } as const;
