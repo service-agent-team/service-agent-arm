@@ -31,6 +31,8 @@ export const CreateCarTypePage = getLoadablePage('CreateCarTypePage');
 export const EditCarTypePage = getLoadablePage('EditCarTypePage');
 export const DriverPage = getLoadablePage('DriverPage');
 export const DriverCreatePage = getLoadablePage('DriverCreatePage');
+
+export const CarPage = getLoadablePage('CarPage');
 export const CarModel = getLoadablePage('CarModel');
 export const CreateCarModel = getLoadablePage('CreateCarModel');
 export const UpdateCarModel = getLoadablePage('UpdateCarModel');

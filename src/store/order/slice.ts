@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { PayloadTariffEnum } from '../car-type/types';
 import { getStatistica } from './action';
 import { IDriverinitialState } from './types';
 

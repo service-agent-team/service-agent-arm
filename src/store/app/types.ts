@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 export type TInitialState = {
   isModal: boolean;
   isDrawer: boolean;

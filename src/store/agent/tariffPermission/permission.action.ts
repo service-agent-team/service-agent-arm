@@ -2,7 +2,7 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { TariffPermissionService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ITariffPermission, ICreateTarifPerResponse } from './types';
+import { ITariffPermission } from './types';
 
 export const add = createAsyncThunk<any, ITariffPermission>(
   'category/all',

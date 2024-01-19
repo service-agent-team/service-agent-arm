@@ -24,6 +24,11 @@ export const transfer: MenuProps['items'] = [
     label: 'Driver',
   },
   {
+    key: ROUTES.car,
+    icon: 'CarOutlined',
+    label: 'Car',
+  },
+  {
     key: ROUTES.carModel,
     icon: 'CarOutlined',
     label: 'Car Model',

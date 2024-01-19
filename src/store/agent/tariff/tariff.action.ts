@@ -12,7 +12,7 @@ export const getCategory = createAsyncThunk<IAgentTariffResponse, ITariffPayload
       if (response) {
         callback();
       }
-      return response;
+      return response.data;
     } catch (error) {
       addNotification(error);
       return thunkApi.rejectWithValue({ error: errorCatch(error) });

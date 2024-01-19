@@ -3,6 +3,7 @@ import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
 import {
   CarModel,
+  CarPage,
   CarType,
   CreateCarModel,
   CreateCarTypePage,
@@ -86,6 +87,14 @@ export const transferRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <DriverCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.car,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <CarPage />
       </Suspense>
     ),
   },

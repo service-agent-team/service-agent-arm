@@ -1,10 +1,9 @@
+import { $axios } from '@/config';
 import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IGetUserPayload } from '../users/types';
-import { IStatistica, IStatisticaResponce } from './types';
-import { $axios } from '@/config';
 import { EndPointes } from '@/services/endpoints';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IStatisticaResponce } from './types';
 
 export const getStatistica = createAsyncThunk<IStatisticaResponce>(
   'get/statistica',

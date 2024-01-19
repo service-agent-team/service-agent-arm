@@ -1,13 +1,13 @@
 import { useActions, useTypedSelector } from '@/libs';
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LineElement,
   LinearScale,
   PointElement,
-  LineElement,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
 import { useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
@@ -47,7 +47,6 @@ export const Home = () => {
     getStatistica();
   }, []);
   const { statistica } = useTypedSelector((state) => state.tarnsferStatistika);
-  console.log(statistica);
   const data = {
     labels,
     datasets: [
