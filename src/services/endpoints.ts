@@ -37,6 +37,13 @@ export const EndPointes = {
     tariffPer: {
       add: '/category/permission/create',
     },
+    // permission
+    getAllPermission: ``,
+    // user-rols
+    createAgentRoles: '/agent-roles/create',
+    updateAgentRoles: '/agent-roles',
+    getOneAgentRoles: '/agent-roles/get-one',
+    deleteAgentRoles: '/agent-roles/delete',
   },
   user: {
     getAll: '/users/get-all',

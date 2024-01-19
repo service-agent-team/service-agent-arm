@@ -2,10 +2,16 @@ import { SimpleButton } from '@/components';
 import { Card } from '@/components/common/card';
 import { history, useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
+import { IUserData } from '@/store/agent/contract/contract.interface';
 import { Badge, Flex, List, Typography } from 'antd';
 
-export const AgentCard = () => {
+interface IProps {
+  data: IUserData | null;
+}
+
+export const AgentCard = ({ data }: IProps) => {
   const { agent } = useTypedSelector((state) => state.agent);
+
   const { acceptAgnet, rejectAgnet } = useActions();
   const handleAccept = () => {
     acceptAgnet({
@@ -28,16 +34,16 @@ export const AgentCard = () => {
   return (
     <Badge.Ribbon
       text={
-        agent?.contractStatus === 'success'
+        data?.contractStatus === 'success'
           ? 'Tasdiqlangan'
-          : agent?.contractStatus === 'view'
+          : data?.contractStatus === 'view'
           ? 'Kutilmoqda'
           : 'Rad etilgan'
       }
       color={
-        agent?.contractStatus === 'success'
+        data?.contractStatus === 'success'
           ? 'green'
-          : agent?.contractStatus === 'view'
+          : data?.contractStatus === 'view'
           ? 'purple'
           : 'red'
       }
@@ -46,31 +52,31 @@ export const AgentCard = () => {
         <List>
           <List.Item>
             <Typography.Text strong>
-              {agent?.firstName} {agent?.lastName} {agent?.middleName}
+              {data?.firstName} {data?.lastName} {data?.middleName}
             </Typography.Text>
           </List.Item>
           <List.Item>
-            <Typography.Text strong>Fuqoroligi: </Typography.Text> {agent?.citizenship}
+            <Typography.Text strong>Fuqoroligi: </Typography.Text> {data?.citizenship}
           </List.Item>
           <List.Item>
-            <Typography.Text strong>{"Tug'ulgan sana"}: </Typography.Text> {agent?.birthDate}
+            <Typography.Text strong>{"Tug'ulgan sana"}: </Typography.Text> {data?.birthDate}
           </List.Item>
           <List.Item>
-            <Typography.Text strong>Manzil: </Typography.Text> {agent?.address}
+            <Typography.Text strong>Manzil: </Typography.Text> {data?.address}
           </List.Item>
           <List.Item>
-            <Typography.Text strong>Ariza qoldirgan sanasi: </Typography.Text> {agent?.startDate}
+            <Typography.Text strong>Ariza qoldirgan sanasi: </Typography.Text> {data?.startDate}
           </List.Item>
           <List.Item>
             <Typography.Text strong>Ariza holati: </Typography.Text>{' '}
-            {agent?.contractStatus === 'view'
+            {data?.contractStatus === 'view'
               ? 'Tasdiqlanishi kutilmoqda'
-              : agent?.contractStatus === 'success'
+              : data?.contractStatus === 'success'
               ? 'Tasdiqlangan'
               : null}
           </List.Item>
         </List>
-        {agent?.contractStatus === 'view' && (
+        {data?.contractStatus === 'view' && (
           <Flex gap="large" justify="space-around">
             <SimpleButton click={handleReject} color="--negative">
               Rad etish

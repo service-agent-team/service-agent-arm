@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
 import * as S from './styles';
-import { AgentCard, VideoCard } from '@/components';
-import { useActions } from '@/libs';
+import { AgentCard, PageTitle, VideoCard } from '@/components';
+import { useActions, useTypedSelector } from '@/libs';
 import { useEffect } from 'react';
 import { addNotification } from '@/libs/utils/addNotification';
 import { Flex } from 'antd';
 import { Card } from '@/components/common/card';
+import { ROUTES } from '@/constants';
 
 export const View = () => {
   const { id } = useParams();
@@ -19,17 +20,18 @@ export const View = () => {
       userId: Number(id),
     });
   }, [id]);
-
+  const { agent } = useTypedSelector((state) => state.agent);
   return (
     <S.viewStyled>
-      <Card width="100%">
-        <Flex gap="large" justify="space-between">
-          <S.Elements>Agent malumotlari</S.Elements>
-        </Flex>
-      </Card>
+      <PageTitle
+        title="Agent Malumotlari"
+        icon="ArrowLeftOutlined"
+        route={ROUTES.agentControl}
+        label="Back"
+      />
       <Flex gap="large" justify="space-evenly" style={{ marginTop: '20px' }}>
-        <VideoCard />
-        <AgentCard />
+        <VideoCard url={agent?.videoContentId} />
+        <AgentCard data={agent} />
       </Flex>
     </S.viewStyled>
   );

@@ -2,6 +2,7 @@ export {
   TariffService as AgentTariffService,
   ContractService,
   TariffPermissionService,
+  UserRolesService,
 } from './agent';
 export { AuthService } from './auth/auth.service';
 export { CarModelService } from './car-model/model.service';
