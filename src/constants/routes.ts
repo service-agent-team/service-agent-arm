@@ -42,6 +42,7 @@ export const ROUTES = {
   driverCreate: '/transfer/driver/create',
   driverEdit: '/transfer/driver/edit/:id',
   car: '/transfer/cars',
+  carCreate: '/transfer/cars/create',
   carModel: '/transfer/car-model',
   carModelCreate: '/transfer/car-model/create',
   carModelupdate: '/transfer/car-model/update',

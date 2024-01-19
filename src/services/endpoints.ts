@@ -85,4 +85,12 @@ export const EndPointes = {
   statistic: {
     getAll: '/order/get-all',
   },
+
+  roles: {
+    create: '/role/create',
+    getAll: '/role/get-all',
+    getOne: '/role/get-one/',
+    edit: '/role/update/',
+    delete: '/role/delete/',
+  },
 } as const;

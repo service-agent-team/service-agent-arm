@@ -10,4 +10,5 @@ export { CarTypeService } from './car-type/car-type-service';
 export { DriverService } from './driver/driver.service';
 export { UserPermissionService } from './permissions/permissions-service';
 export * from './product';
+export { RolesService } from './roles/roles.service';
 export { TariffService } from './tariff/tariff-service';

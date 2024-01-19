@@ -11,9 +11,12 @@ export interface ICarInitialState {
 
 export interface ICar {
   carId: number;
+  carNumber: string;
   driverId: number;
-  number: string;
+  driverName: string;
+  driverPhone: string;
   modelId: number;
+  modelName: string;
   imageId: string;
   createdAt: string;
 }
