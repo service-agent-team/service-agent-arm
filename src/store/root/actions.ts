@@ -26,6 +26,8 @@ import { CarModelsliceActions } from './../car-model/slice';
 import * as OrderActions from './../order/action';
 import { OrderSliceActions } from './../order/slice';
 import * as ProductActions from './../product/action';
+import { CompanySliceActions } from './../company/slice';
+import * as CompanyAction from './../company/actions';
 
 export const AllActions = {
   ...CarActions,
@@ -55,4 +57,6 @@ export const AllActions = {
   ...OrderActions,
   ...RolesSlice,
   ...RolesSliceActions,
+  ...CompanySliceActions,
+  ...CompanyAction,
 };

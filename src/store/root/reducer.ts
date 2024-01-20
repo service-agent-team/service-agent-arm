@@ -4,6 +4,7 @@ import { AuthReducer } from '../auth/slice';
 import { CarModelReducer } from '../car-model/slice';
 import { CarTypeReducer } from '../car-type/slice';
 import { CarReducer } from '../car/slice';
+import { CompanyReducer } from '../company/slice';
 import { DriverReducer } from '../driver/slice';
 import { PermissionReducer } from '../permission/slice';
 import { ProductReducer } from '../product/slice';
@@ -19,6 +20,7 @@ export const reducer = {
   agent: AgentContractReducer,
   permission: PermissionReducer,
   tariff: TariffReducer,
+  company: CompanyReducer,
   product: ProductReducer,
   carType: CarTypeReducer,
   driver: DriverReducer,

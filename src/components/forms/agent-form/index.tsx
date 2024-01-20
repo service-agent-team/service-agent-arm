@@ -7,15 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { IRoles } from '@/store/agent/roles/types';
 import { ITaeiffData } from '@/store/agent/tariff/types';
+import { ICompany } from '@/store/company/types';
 // import { IValuesForm } from './types';
 
 interface IProps {
   userId: number | undefined;
   roles: IRoles[] | null;
   categories: ITaeiffData[] | null;
+  companies: ICompany[] | null;
 }
 
-export const AgentForm: React.FC<IProps> = ({ userId, roles, categories }) => {
+export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, companies }) => {
   const [form] = BaseForm.useForm();
   const { createUser } = useActions();
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories }) => {
     label: el.tariffName,
     value: el.userTariffId,
   }));
+  const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   return (
     <BaseForm
       name="agentForm"
@@ -60,6 +63,18 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories }) => {
             style={{ height: 50 }}
             placeholder="Select an option"
             options={CategorySelectedOptions}
+          />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="msmsTariffId"
+          label={'Agent Company'}
+          hasFeedback
+          rules={[{ type: 'number', message: 'filed is required' }]}
+        >
+          <Select
+            style={{ height: 50 }}
+            placeholder="Select an option"
+            options={CompanySelectOption}
           />
         </BaseForm.Item>
         <PrimaryBtn htmlType="submit" loading={loading.post}>

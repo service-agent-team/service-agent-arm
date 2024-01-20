@@ -12,15 +12,15 @@ interface IProps {
 }
 
 export const AgentCard = ({ data }: IProps) => {
-  const { getRoles, getCategory } = useActions();
+  const { getRoles, getCategory, getCompany, acceptAgnet, rejectAgnet } = useActions();
   useEffect(() => {
     getRoles({ callback() {} });
     getCategory({ callback() {} });
+    getCompany({ page: 0, size: 20 });
   }, []);
 
-  const { agent, roles, agentTariff } = useTypedSelector((state) => state);
+  const { agent, roles, agentTariff, company } = useTypedSelector((state) => state);
 
-  const { acceptAgnet, rejectAgnet } = useActions();
   const handleAccept = () => {
     acceptAgnet({
       callback() {
@@ -88,6 +88,7 @@ export const AgentCard = ({ data }: IProps) => {
           userId={agent.agent?.userId}
           roles={roles.roles}
           categories={agentTariff.tariffs}
+          companies={company.companies}
         />
         {
           /*data?.contractStatus === '' && */ <Flex gap="large" justify="space-around">
