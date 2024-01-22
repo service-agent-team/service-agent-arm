@@ -2,7 +2,14 @@ import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
 import { AgentRoles, AgentTariff } from '@/pages';
 import { Suspense } from 'react';
-import { AgentControl, AgentHome, AgentProductCreate, AgentProducts, AgentView } from '../loadable';
+import {
+  AgentControl,
+  AgentHome,
+  AgentProductCreate,
+  AgentProducts,
+  AgentView,
+  CreateAgentRole,
+} from '../loadable';
 
 export const agentRouter = [
   {
@@ -58,6 +65,14 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <AgentRoles />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentRolesCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <CreateAgentRole />
       </Suspense>
     ),
   },

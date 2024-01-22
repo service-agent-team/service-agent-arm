@@ -21,6 +21,7 @@ export const AgentProducts = getLoadablePage('AgentProduct');
 export const AgentProductCreate = getLoadablePage('AgentProductCreate');
 export const AgentTariffs = getLoadablePage('AgentTariff');
 export const AgentRoles = getLoadablePage('AgentRoles');
+export const CreateAgentRole = getLoadablePage('CreateAgentRole');
 
 // transfer
 export const TransferHome = getLoadablePage('TransferHome');
