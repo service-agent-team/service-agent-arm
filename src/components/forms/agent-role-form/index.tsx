@@ -1,8 +1,7 @@
-import { BaseForm, PrimaryBtn, Select } from '@/components';
-import { Option } from '@/components/common/selects/select';
+import { BaseForm, PrimaryBtn } from '@/components';
 import { useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
-import { Flex, Input } from 'antd';
+import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from '../users-form/styled';
 import { ICreateRolesValues } from './types';
@@ -22,7 +21,7 @@ export const AgentRolesForm = ({ type }: { type: 'edit' | 'create' }) => {
         description: value.description,
         callback: () => {
           addNotification('created !');
-          navigate('/service/roles');
+          navigate('/service-agent/roles');
         },
       });
       form.resetFields();
@@ -44,27 +43,46 @@ export const AgentRolesForm = ({ type }: { type: 'edit' | 'create' }) => {
       <BaseForm name="usersForm" form={form} layout="vertical" onFinish={onFinish}>
         <S.FormContent>
           <BaseForm.Item
-            name="withBaggage"
-            label={'withBaggage'}
-            hasFeedback
-            rules={[{ required: true, message: 'filed is required' }]}
+            name="name"
+            label={'name'}
+            rules={[
+              { required: true, message: 'filed is required' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value) {
+                    return Promise.reject(new Error('filed is required'));
+                  }
+                  if (getFieldValue('name') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('error from NameUz!'));
+                },
+              }),
+            ]}
           >
-            <Select placeholder="Select an option">
-              <Option value={true}>Yes</Option>
-              <Option value={false}>No</Option>
-            </Select>
+            <Input placeholder="Enter name ?" />
           </BaseForm.Item>
 
-          <Flex justify="space-between" gap={'10px'}>
-            <BaseForm.Item
-              style={{ width: '50%' }}
-              name="numberOfSeats"
-              label={'numberOfSeats'}
-              rules={[{ required: true, message: 'filed is required' }]}
-            >
-              <Input placeholder="Enter numberOfSeats ?" />
-            </BaseForm.Item>
-          </Flex>
+          <BaseForm.Item
+            name="description"
+            label={'description'}
+            rules={[
+              { required: true, type: 'string', message: 'filed is required' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value) {
+                    return Promise.reject(new Error('filed is required'));
+                  }
+                  if (getFieldValue('description') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('error from NameUz!'));
+                },
+              }),
+            ]}
+          >
+            <Input placeholder="Enter description ?" />
+          </BaseForm.Item>
 
           <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.patch : loading.post}>
             {type === 'create' ? 'create' : 'edit'}

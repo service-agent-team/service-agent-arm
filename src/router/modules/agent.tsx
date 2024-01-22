@@ -9,6 +9,7 @@ import {
   AgentProducts,
   AgentView,
   CreateAgentRole,
+  EditAgentRole,
 } from '../loadable';
 
 export const agentRouter = [
@@ -73,6 +74,14 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <CreateAgentRole />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentRoleEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <EditAgentRole />
       </Suspense>
     ),
   },

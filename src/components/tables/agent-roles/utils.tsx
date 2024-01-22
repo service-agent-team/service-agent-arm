@@ -7,6 +7,8 @@ import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
 import { AgentRolesRow, DataIndex, IhandleSearchProps } from './types';
 
+import { useActions } from '@/libs';
+import { addNotification } from '@/libs/utils/addNotification';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 export const utils = () => {
@@ -15,20 +17,21 @@ export const utils = () => {
   const searchInput = useRef<InputRef>(null);
 
   const navigate = useNavigate();
+  const { deleteRoles, getRoles } = useActions();
 
   const handleDelete = (record: any) => {
     modal.confirm({
       okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
       title: `You want to delete right ?`,
       onOk: () => {
-        // deletCarType({
-        //   id: record.carTypeId,
-        //   callback: () => {
-        //     getCarType({ callback: () => {} });
-        //     addNotification('Deleted.');
-        //     return 'ok';
-        //   },
-        // });
+        deleteRoles({
+          id: record.id,
+          callback: () => {
+            getRoles({ callback: () => {} });
+            addNotification('Deleted.');
+            return 'ok';
+          },
+        });
       },
     });
   };
@@ -165,7 +168,7 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                navigate(`/transfer/car-type/edit/${record.carTypeId}`);
+                navigate(`/service-agent/roles/edit/${record.id}`);
               }}
             >
               <EditOutlined />
