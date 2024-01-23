@@ -1,3 +1,4 @@
+import { AgentPermissionReducer } from '../agent';
 import { RolesReducer } from '../agent/roles/slice';
 import { appReducer } from '../app';
 import { AuthReducer } from '../auth/slice';
@@ -12,6 +13,7 @@ import { TariffReducer } from '../tariff/slice';
 import { UserReducer } from '../users/slice';
 import { AgentContractReducer, AgentTariffReducer } from './../agent';
 import { OrderReducer } from './../order/slice';
+
 export const reducer = {
   app: appReducer,
   auth: AuthReducer,
@@ -29,4 +31,5 @@ export const reducer = {
   carModel: CarModelReducer,
   tarnsferStatistika: OrderReducer,
   roles: RolesReducer,
+  agentPermission: AgentPermissionReducer,
 };

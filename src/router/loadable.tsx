@@ -23,6 +23,9 @@ export const AgentTariffs = getLoadablePage('AgentTariff');
 export const AgentRoles = getLoadablePage('AgentRoles');
 export const CreateAgentRole = getLoadablePage('CreateAgentRole');
 export const EditAgentRole = getLoadablePage('EditAgentRole');
+export const PermissionPage = getLoadablePage('PermissionPage');
+export const CreateAgentPermission = getLoadablePage('CreateAgentPermission');
+export const EditAgentPermission = getLoadablePage('EditAgentPermission');
 
 // transfer
 export const TransferHome = getLoadablePage('TransferHome');

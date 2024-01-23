@@ -1,3 +1,4 @@
+import * as AgentPermissionActions from '../agent/permission/action';
 import * as RolesSlice from '../agent/roles/action';
 import { RolesSliceActions } from '../agent/roles/slice';
 import { appActions } from '../app/slice';
@@ -20,14 +21,15 @@ import {
   AgentTariffSliceActions,
   ContractSliceActions,
 } from './../agent';
+import { AgentPermissionSliceActions } from './../agent/permission/slice';
 import { AuthSliceActions } from './../auth/slice';
 import * as CarModelActions from './../car-model/action';
 import { CarModelsliceActions } from './../car-model/slice';
+import * as CompanyAction from './../company/actions';
+import { CompanySliceActions } from './../company/slice';
 import * as OrderActions from './../order/action';
 import { OrderSliceActions } from './../order/slice';
 import * as ProductActions from './../product/action';
-import { CompanySliceActions } from './../company/slice';
-import * as CompanyAction from './../company/actions';
 
 export const AllActions = {
   ...CarActions,
@@ -59,4 +61,6 @@ export const AllActions = {
   ...RolesSliceActions,
   ...CompanySliceActions,
   ...CompanyAction,
+  ...AgentPermissionSliceActions,
+  ...AgentPermissionActions,
 };

@@ -1,4 +1,5 @@
 export { AgentForm } from './agent-form';
+export { AgentPermissionForm } from './agent-permisison-form';
 export { AgentRolesForm } from './agent-role-form/index';
 export { CarModelForm } from './car-model-form';
 export { CarTypeForm } from './car-type-form';

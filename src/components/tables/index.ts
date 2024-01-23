@@ -1,4 +1,5 @@
 export { AgentTable } from './agent';
+export { AgenetPermissionTable } from './agent-permisison';
 export { AgenetProductsTable } from './agent-product';
 export { AgenetRolesTable } from './agent-roles';
 export { AgenetTariffTable } from './agent-tariff';

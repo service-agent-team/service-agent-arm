@@ -8,8 +8,11 @@ import {
   AgentProductCreate,
   AgentProducts,
   AgentView,
+  CreateAgentPermission,
   CreateAgentRole,
+  EditAgentPermission,
   EditAgentRole,
+  PermissionPage,
 } from '../loadable';
 
 export const agentRouter = [
@@ -82,6 +85,30 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <EditAgentRole />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentPermission,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <PermissionPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentPermissionCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <CreateAgentPermission />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentPermisionEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <EditAgentPermission />
       </Suspense>
     ),
   },
