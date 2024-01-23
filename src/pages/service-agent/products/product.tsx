@@ -1,9 +1,9 @@
-import { ROUTES } from '@/constants';
-import { PageTitle, AgentTable, AgenetProductsTable } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
-import { useEffect } from 'react';
-import { addNotification } from '@/libs/utils/addNotification';
+import { AgenetProductsTable, PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
+import { ROUTES } from '@/constants';
+import { useActions } from '@/libs';
+import { addNotification } from '@/libs/utils/addNotification';
+import { useEffect } from 'react';
 
 export function Products() {
   const { getByProducts } = useActions();

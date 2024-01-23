@@ -1,13 +1,11 @@
 import { BaseForm, PrimaryBtn } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
-import { Input, Select } from 'antd';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as S from './styles';
+import { useTypedSelector } from '@/libs';
 import { IRoles } from '@/store/agent/roles/types';
 import { ITaeiffData } from '@/store/agent/tariff/types';
 import { ICompany } from '@/store/company/types';
+import { Select } from 'antd';
+import React from 'react';
+import * as S from './styles';
 // import { IValuesForm } from './types';
 
 interface IProps {
@@ -17,14 +15,12 @@ interface IProps {
   companies: ICompany[] | null;
 }
 
-export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, companies }) => {
+export const AgentForm: React.FC<IProps> = ({ roles, categories, companies }) => {
   const [form] = BaseForm.useForm();
-  const { createUser } = useActions();
-  const navigate = useNavigate();
 
   const { loading } = useTypedSelector((state) => state.users);
 
-  const onFinish = (value: any) => {};
+  const onFinish = (_: any) => {};
 
   const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
   const CategorySelectedOptions = categories?.map((el) => ({

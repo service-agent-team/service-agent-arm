@@ -1,19 +1,15 @@
 import { BaseForm, PrimaryBtn, Select, TextArea } from '@/components';
 import { useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
-import { IPermissionCreatePayload } from '@/store';
-import { Input, DatePicker, Flex, Space } from 'antd';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as S from './styles';
-import { currencyOptions } from './constants';
-import { IProduct } from '@/store/product/types';
 import { dateFormatter } from '@/libs/utils/format';
+import { DatePicker, Space } from 'antd';
+import React from 'react';
+import { currencyOptions } from './constants';
+import * as S from './styles';
 
 export const ProductCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { addProduct } = useActions();
-  const navigate = useNavigate();
 
   const { loading } = useTypedSelector((state) => state.permission);
 

@@ -75,7 +75,7 @@ export const editAgentPermission = createAsyncThunk<any, IPermissionEditpayload>
 );
 
 export const deleteAgentPermission = createAsyncThunk<any, IRolesDisablePayload>(
-  'disbale/roles',
+  'disbale/permision/delete',
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await PermissionService.delete(id);

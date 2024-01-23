@@ -5,6 +5,7 @@
   },
   "index.html": {
     "assets": [
+      "assets/fon.jpg",
       "assets/logo.png"
     ],
     "css": [
@@ -35,17 +36,7 @@
     "file": "assets/user.png",
     "src": "src/assets/images/user.png"
   },
-  "src/pages/index.css": {
-    "file": "assets/index2.css",
-    "src": "src/pages/index.css"
-  },
   "src/pages/index.ts": {
-    "assets": [
-      "assets/fon.jpg"
-    ],
-    "css": [
-      "assets/index2.css"
-    ],
     "file": "js/index2.js",
     "imports": [
       "index.html"
