@@ -2,6 +2,7 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { UserService } from '@/services/Users/user-service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { IRolesDisablePayload } from '../agent/roles/types';
 import {
   IGetUserPayload,
   IUserCreateData,
@@ -51,6 +52,50 @@ export const createUser = createAsyncThunk<IUserCreateResponse, IUserCreateData>
       return response.data;
     } catch (error) {
       addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+// export const getUserById = createAsyncThunk<IUsersByIdResponse, IRolesByIdPayload>(
+//   'get/roles/by.id',
+//   async ({ id }, thunkApi) => {
+//     try {
+//       const response = await RolesService.getRoleById(id);
+
+//       return response.data;
+//     } catch (error) {
+//       addNotification(error);
+//       return thunkApi.rejectWithValue({ error: errorCatch(error) });
+//     }
+//   },
+// );
+
+// export const editRoles = createAsyncThunk<IRolesEditResponse, IRolesEditpayload>(
+//   'edit/roles',
+//   async ({ name, description, callback, id }, thunkApi) => {
+//     try {
+//       const response = await RolesService.editRoles({ name, description }, id);
+//       if (response.data) {
+//         callback();
+//       }
+//       return response.data;
+//     } catch (error) {
+//       return thunkApi.rejectWithValue({ error: errorCatch(error) });
+//     }
+//   },
+// );
+
+export const deleteUsers = createAsyncThunk<IUserResponse, IRolesDisablePayload>(
+  'delete/users',
+  async ({ callback, id }, thunkApi) => {
+    try {
+      const response = await UserService.delete(id as string);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
   },

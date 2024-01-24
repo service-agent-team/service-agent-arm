@@ -50,6 +50,7 @@ export const EndPointes = {
   user: {
     getAll: '/users/get-all',
     createUser: '/users/create',
+    delete: '/users/delete-user/',
   },
 
   tariff: {

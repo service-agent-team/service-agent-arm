@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadTariffEnum } from '../car-type/types';
-import { createCar, createPrice, deleteCar, editCar, getCar, getCarById } from './actions';
+import { createCar, createPrice, editCar, getCar, getCarById } from './actions';
 import { ICarInitialState } from './types';
 
 const initialState: ICarInitialState = {
@@ -30,7 +30,7 @@ export const carSlice = createSlice({
       })
       .addCase(getCar.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.car = payload.data;
+        state.car = payload.data.content;
         state.errors = null;
       })
       .addCase(getCar.rejected, (state, { payload }) => {
@@ -59,18 +59,6 @@ export const carSlice = createSlice({
       })
       .addCase(editCar.rejected, (state, { payload }) => {
         state.loading.patch = false;
-        state.errors = payload;
-      })
-      .addCase(deleteCar.pending, (state) => {
-        state.loading.delete = true;
-        state.errors = null;
-      })
-      .addCase(deleteCar.fulfilled, (state) => {
-        state.loading.delete = false;
-        state.errors = null;
-      })
-      .addCase(deleteCar.rejected, (state, { payload }) => {
-        state.loading.delete = false;
         state.errors = payload;
       })
       .addCase(getCarById.pending, (state) => {

@@ -2,6 +2,7 @@ import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
 import {
+  EditUsers,
   Home,
   PermissionCreatePage,
   Permissions,
@@ -82,6 +83,14 @@ export const mainRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <Projects />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.editUsers,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <EditUsers />
       </Suspense>
     ),
   },

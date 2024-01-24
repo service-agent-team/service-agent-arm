@@ -1,6 +1,7 @@
 export { CarPage } from './car';
 export * from './car-model';
 export { CreateCarPage } from './car/create-page/index';
+export { EditCarPage } from './car/edit-page/index';
 export { CarType } from './cartype';
 export { CreateCarTypePage } from './cartype/create-page';
 export { EditCarTypePage } from './cartype/edit-page/index';

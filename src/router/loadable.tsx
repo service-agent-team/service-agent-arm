@@ -12,6 +12,7 @@ export const Projects = getLoadablePage('Projects');
 export const ProjectsPage = getLoadablePage('ProjectsPage');
 export const UserCreatePage = getLoadablePage('UserCreatePage');
 export const PermissionCreatePage = getLoadablePage('PermissionCreatePage');
+export const EditUsers = getLoadablePage('EditUsers');
 
 // agent
 export const AgentHome = getLoadablePage('AgentHome');
@@ -37,7 +38,7 @@ export const CreateCarTypePage = getLoadablePage('CreateCarTypePage');
 export const EditCarTypePage = getLoadablePage('EditCarTypePage');
 export const DriverPage = getLoadablePage('DriverPage');
 export const DriverCreatePage = getLoadablePage('DriverCreatePage');
-
+export const EditCarPage = getLoadablePage('EditCarPage');
 export const CarPage = getLoadablePage('CarPage');
 export const CarModel = getLoadablePage('CarModel');
 export const CreateCarModel = getLoadablePage('CreateCarModel');

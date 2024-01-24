@@ -45,15 +45,15 @@ export const AgentCard = ({ data }: IProps) => {
         data?.contractStatus === 'success'
           ? 'Tasdiqlangan'
           : data?.contractStatus === 'view'
-          ? 'Kutilmoqda'
-          : 'Rad etilgan'
+            ? 'Kutilmoqda'
+            : 'Rad etilgan'
       }
       color={
         data?.contractStatus === 'success'
           ? 'green'
           : data?.contractStatus === 'view'
-          ? 'purple'
-          : 'red'
+            ? 'purple'
+            : 'red'
       }
     >
       <Card width="600px">
@@ -80,8 +80,8 @@ export const AgentCard = ({ data }: IProps) => {
             {data?.contractStatus === 'view'
               ? 'Tasdiqlanishi kutilmoqda'
               : data?.contractStatus === 'success'
-              ? 'Tasdiqlangan'
-              : null}
+                ? 'Tasdiqlangan'
+                : null}
           </List.Item>
         </List>
         <AgentForm

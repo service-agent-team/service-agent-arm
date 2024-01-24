@@ -13,16 +13,49 @@ export interface ICar {
   carId: number;
   carNumber: string;
   driverId: number;
-  driverName: string;
-  driverPhone: string;
   modelId: number;
   modelName: string;
   imageId: string;
   createdAt: string;
+  driverName?: string;
+  driverPhone?: string;
 }
 
 export interface ICarResponse {
-  data: ICar[];
+  data: {
+    content: ICar[];
+    pageable: Pageable;
+    totalPages: number;
+    totalElements: number;
+    last: boolean;
+    numberOfElements: number;
+    size: number;
+    number: number;
+    sort: Sort2;
+    first: boolean;
+    empty: boolean;
+  };
+}
+
+export interface Pageable {
+  pageNumber: number;
+  pageSize: number;
+  sort: Sort;
+  offset: number;
+  paged: boolean;
+  unpaged: boolean;
+}
+
+export interface Sort {
+  unsorted: boolean;
+  sorted: boolean;
+  empty: boolean;
+}
+
+export interface Sort2 {
+  unsorted: boolean;
+  sorted: boolean;
+  empty: boolean;
 }
 
 export interface ICarByIdResponse {
@@ -39,7 +72,8 @@ export interface ICarEditpayload {
 }
 
 export interface ICarCreatepayload {
-  number: string;
+  file: any;
+  carNumber: string;
   modelId: number;
   callback: () => void;
 }

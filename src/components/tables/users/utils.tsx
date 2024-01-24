@@ -1,24 +1,37 @@
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, InputRef, MenuProps, Row, Space, Tag, message } from 'antd';
+import { modal } from '@/app';
+import { useActions } from '@/libs';
+import { addNotification } from '@/libs/utils/addNotification';
+import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Input, InputRef, Row, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-import { items } from './constants';
+import { useNavigate } from 'react-router-dom';
 import { DataIndex, IhandleSearchProps, UserTableRow } from './types';
-
-const handleMenuClick: MenuProps['onClick'] = (_: any) => {
-  message.success('Click on menu item.');
-};
-
-const menuProps = {
-  items: items,
-  onClick: handleMenuClick,
-};
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const navigate = useNavigate();
+  const { deleteUsers, getUsers } = useActions();
+
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
+      title: `You want to delete right ?`,
+      onOk: () => {
+        deleteUsers({
+          id: record.user_id,
+          callback: () => {
+            getUsers({ callback: () => {} });
+            addNotification('Deleted.');
+            return 'ok';
+          },
+        });
+      },
+    });
+  };
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
     confirm();
@@ -210,16 +223,24 @@ export const utils = () => {
       title: 'Actions',
       dataIndex: 'action',
       key: 'action',
-      render: () => (
-        <Dropdown menu={menuProps}>
-          <Button>
-            <Space>
-              Actions
-              <DownOutlined />
-            </Space>
-          </Button>
-        </Dropdown>
-      ),
+      width: '10%',
+      render: (_: any, record: any) => {
+        return (
+          <Space>
+            <Button
+              key={1}
+              onClick={() => {
+                navigate(`/global/users/edit/${record.user_id}`);
+              }}
+            >
+              <EditOutlined />
+            </Button>
+            <Button key={2} onClick={() => handleDelete(record)}>
+              <DeleteOutlined />
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
 

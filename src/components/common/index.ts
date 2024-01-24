@@ -9,3 +9,4 @@ export * from './selects';
 export { Tab } from './tab';
 export { Table } from './table';
 export * from './typography';
+export { Upload } from './upload';

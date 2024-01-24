@@ -5,7 +5,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ICarTypeByIdPayload } from '../car-type/types';
 import { IGetUserPayload } from '../users/types';
 import {
-  ICarByIdPayload,
   ICarByIdResponse,
   ICarCreateResponse,
   ICarCreatepayload,
@@ -50,9 +49,9 @@ export const createPrice = createAsyncThunk<ICarCreateResponse, ICreateCarPriceP
 
 export const createCar = createAsyncThunk<ICarCreateResponse, ICarCreatepayload>(
   'create/ca/price',
-  async ({ number, modelId, callback }, thunkApi) => {
+  async ({ file, carNumber, modelId, callback }, thunkApi) => {
     try {
-      const response = await CarService.createCar({ number, modelId });
+      const response = await CarService.createCar({ file, carNumber, modelId });
       if (response.data) {
         callback();
       }
@@ -83,21 +82,6 @@ export const editCar = createAsyncThunk<ICarEditResponse, ICarEditpayload>(
   async ({ number, modelId, callback, id }, thunkApi) => {
     try {
       const response = await CarService.edit({ number, modelId }, id);
-      if (response.data) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
-    }
-  },
-);
-
-export const deleteCar = createAsyncThunk<any, ICarByIdPayload>(
-  'delete/car',
-  async ({ callback, id }, thunkApi) => {
-    try {
-      const response = await CarService.delete(id);
       if (response.data) {
         callback();
       }
