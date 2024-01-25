@@ -1,17 +1,16 @@
-import { BaseForm, PrimaryBtn } from '@/components';
+import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
 import { useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
-import { Input, Select } from 'antd';
+import { Flex, Select } from 'antd';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { IRoles } from '@/store/agent/roles/types';
 import { ITaeiffData } from '@/store/agent/tariff/types';
 import { ICompany } from '@/store/company/types';
-// import { IValuesForm } from './types';
+import { IParam } from './types';
 
 interface IProps {
-  userId: number | undefined;
+  userId: number;
   roles: IRoles[] | null;
   categories: ITaeiffData[] | null;
   companies: ICompany[] | null;
@@ -19,12 +18,42 @@ interface IProps {
 
 export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, companies }) => {
   const [form] = BaseForm.useForm();
-  const { createUser } = useActions();
-  const navigate = useNavigate();
+  const { acceptAgnet, rejectAgnet, addTariffPermission, createAgentRoles } = useActions();
 
   const { loading } = useTypedSelector((state) => state.users);
 
-  const onFinish = (value: any) => {};
+  const onFinish = (value: IParam) => {
+    acceptAgnet({
+      userId: Number(userId),
+      companyId: value.companyId,
+      currency: value.currency,
+      callback() {
+        addNotification('Agent tasdiqlandi');
+        history.back();
+      },
+    });
+    if (value.categoryId) {
+      addTariffPermission({
+        callback() {},
+        permissionId: 1,
+        userTariffId: value.categoryId,
+        userId,
+      });
+    }
+    if (value.roleId) {
+      createAgentRoles({ callback() {}, roleId: value.roleId, userId });
+    }
+  };
+
+  const handleReject = () => {
+    rejectAgnet({
+      callback() {
+        addNotification('Agent rad etildi');
+        history.back();
+      },
+      userId: Number(userId),
+    });
+  };
 
   const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
   const CategorySelectedOptions = categories?.map((el) => ({
@@ -42,7 +71,7 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
     >
       <S.FormContent>
         <BaseForm.Item
-          name="msmsTariffId"
+          name="roleId"
           label={'Agent Roles'}
           hasFeedback
           rules={[{ type: 'number', message: 'filed is required' }]}
@@ -54,7 +83,7 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
           />
         </BaseForm.Item>
         <BaseForm.Item
-          name="msmsTariffId"
+          name="categoryId"
           label={'Agent Category'}
           hasFeedback
           rules={[{ type: 'number', message: 'filed is required' }]}
@@ -66,7 +95,7 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
           />
         </BaseForm.Item>
         <BaseForm.Item
-          name="msmsTariffId"
+          name="companyId"
           label={'Agent Company'}
           hasFeedback
           rules={[{ type: 'number', message: 'filed is required' }]}
@@ -77,9 +106,29 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
             options={CompanySelectOption}
           />
         </BaseForm.Item>
-        <PrimaryBtn htmlType="submit" loading={loading.post}>
-          create
-        </PrimaryBtn>
+        <BaseForm.Item
+          name="currency"
+          label={'Agent currency'}
+          hasFeedback
+          rules={[{ type: 'string', message: 'filed is required' }]}
+        >
+          <Select
+            style={{ height: 50 }}
+            placeholder="Select an option"
+            options={[
+              { label: 'UZS', value: 'UZS' },
+              { label: 'USD', value: 'USD' },
+            ]}
+          />
+        </BaseForm.Item>
+        <Flex gap="large" justify="space-around">
+          <SimpleButton click={handleReject} color="--negative">
+            Rad etish
+          </SimpleButton>
+          <PrimaryBtn htmlType="submit" loading={loading.post}>
+            Tasdiqlash
+          </PrimaryBtn>
+        </Flex>
       </S.FormContent>
     </BaseForm>
   );

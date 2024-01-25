@@ -1,6 +1,6 @@
 export interface InitialState {
   data: IUserData[] | null;
-  agent: IUserData | null;
+  agent: IUserData | null | unknown;
   status: string;
   loading: {
     get: boolean;
@@ -55,5 +55,18 @@ export interface IUser {
 
 export interface IParams {
   userId: number;
+  companyId: number;
+  currency: string;
   callback: () => void;
+}
+
+export interface IRejectParam {
+  callback: () => void;
+  userId: number;
+}
+
+export interface IData {
+  userId: number;
+  companyId: number;
+  currency: string;
 }

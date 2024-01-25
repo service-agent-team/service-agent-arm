@@ -1,11 +1,15 @@
 import { $axios } from '@/config';
-import { IAgentTariffResponse } from '@/store/agent/tariff/types';
 import { EndPointes } from '../../endpoints';
 const { agent } = EndPointes;
 
-export const UserRolesService = {
-  async createUserRole(role: any) {
-    const response = await $axios.post(agent.createAgentRoles, role);
+export interface IParam {
+  userId: number;
+  roleId: number;
+}
+
+export const AgentRolesService = {
+  async createUserRole({ roleId, userId }: IParam) {
+    const response = await $axios.post(agent.createAgentRoles, { roleId, userId });
     return response;
   },
 

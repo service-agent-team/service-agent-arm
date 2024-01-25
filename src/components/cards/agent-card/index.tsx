@@ -12,7 +12,7 @@ interface IProps {
 }
 
 export const AgentCard = ({ data }: IProps) => {
-  const { getRoles, getCategory, getCompany, acceptAgnet, rejectAgnet } = useActions();
+  const { getRoles, getCategory, getCompany } = useActions();
   useEffect(() => {
     getRoles({ callback() {} });
     getCategory({ callback() {} });
@@ -20,25 +20,6 @@ export const AgentCard = ({ data }: IProps) => {
   }, []);
 
   const { agent, roles, agentTariff, company } = useTypedSelector((state) => state);
-
-  const handleAccept = () => {
-    acceptAgnet({
-      callback() {
-        addNotification('Agent tasdiqlandi');
-        history.back();
-      },
-      userId: Number(agent.agent?.userId),
-    });
-  };
-  const handleReject = () => {
-    rejectAgnet({
-      callback() {
-        addNotification('Agent rad etildi');
-        history.back();
-      },
-      userId: Number(agent.agent?.userId),
-    });
-  };
   return (
     <Badge.Ribbon
       text={
@@ -91,14 +72,14 @@ export const AgentCard = ({ data }: IProps) => {
           companies={company.companies}
         />
         {
-          /*data?.contractStatus === '' && */ <Flex gap="large" justify="space-around">
-            <SimpleButton click={handleReject} color="--negative">
-              Rad etish
-            </SimpleButton>
-            <SimpleButton color="" click={handleAccept}>
-              Tasdiqlash
-            </SimpleButton>
-          </Flex>
+          // /*data?.contractStatus === '' && */ <Flex gap="large" justify="space-around">
+          //   <SimpleButton click={handleReject} color="--negative">
+          //     Rad etish
+          //   </SimpleButton>
+          //   <SimpleButton color="" click={handleAccept}>
+          //     Tasdiqlash
+          //   </SimpleButton>
+          // </Flex>
         }
       </Card>
     </Badge.Ribbon>

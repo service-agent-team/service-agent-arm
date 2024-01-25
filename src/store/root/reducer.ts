@@ -12,6 +12,7 @@ import { TariffReducer } from '../tariff/slice';
 import { UserReducer } from '../users/slice';
 import { AgentContractReducer, AgentTariffReducer } from './../agent';
 import { OrderReducer } from './../order/slice';
+import { AgentRolesPermissionReducer } from './../agent/role-permission/slice';
 export const reducer = {
   app: appReducer,
   auth: AuthReducer,
@@ -29,4 +30,5 @@ export const reducer = {
   carModel: CarModelReducer,
   tarnsferStatistika: OrderReducer,
   roles: RolesReducer,
+  agentRolesPermission: AgentRolesPermissionReducer,
 };

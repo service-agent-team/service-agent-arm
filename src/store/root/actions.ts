@@ -28,7 +28,10 @@ import { OrderSliceActions } from './../order/slice';
 import * as ProductActions from './../product/action';
 import { CompanySliceActions } from './../company/slice';
 import * as CompanyAction from './../company/actions';
-
+import { AgentTariffPermissionSliceActions } from './../agent/tariffPermission/permission.slice';
+import * as TariffPermissionActions from './../agent/tariffPermission/permission.action';
+import { AgentRolesPermissionSliceActions } from './../agent/role-permission/slice';
+import * as AgentRolesPermissionActions from './../agent/role-permission/actions';
 export const AllActions = {
   ...CarActions,
   ...CarSliceActions,
@@ -59,4 +62,8 @@ export const AllActions = {
   ...RolesSliceActions,
   ...CompanySliceActions,
   ...CompanyAction,
+  ...AgentTariffPermissionSliceActions,
+  ...TariffPermissionActions,
+  ...AgentRolesPermissionSliceActions,
+  ...AgentRolesPermissionActions,
 };

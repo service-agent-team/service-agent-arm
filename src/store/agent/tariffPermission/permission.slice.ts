@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './types';
-import { add } from './permission.action';
+import { addTariffPermission } from './permission.action';
 
 const initialState: InitialState = {
   permission: null,
@@ -15,7 +15,7 @@ const initialState: InitialState = {
   error: null,
 };
 
-export const tariffSlice = createSlice({
+export const tariffPerSlice = createSlice({
   name: 'tariffPermission',
   initialState,
   reducers: {
@@ -25,19 +25,19 @@ export const tariffSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(add.pending, (state) => {
+      .addCase(addTariffPermission.pending, (state) => {
         state.loading.get = true;
       })
-      .addCase(add.fulfilled, (state, { payload }) => {
+      .addCase(addTariffPermission.fulfilled, (state, { payload }) => {
         state.permission = payload.data;
         state.loading.get = false;
       })
-      .addCase(add.rejected, (state, { error }) => {
+      .addCase(addTariffPermission.rejected, (state, { error }) => {
         state.error = error;
         state.loading.get = false;
       });
   },
 });
 
-export const agentTariffReducer = tariffSlice.reducer;
-export const agentTariffSliceActions = tariffSlice.actions;
+export const AgentTariffPermissionReducer = tariffPerSlice.reducer;
+export const AgentTariffPermissionSliceActions = tariffPerSlice.actions;
