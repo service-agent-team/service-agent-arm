@@ -28,7 +28,7 @@ export const CarTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
           navigate('/transfer/cars');
         },
       });
-      form.resetFields();
+      // form.resetFields();
     } else if (type === 'edit') {
       editCar({
         id: id as string,

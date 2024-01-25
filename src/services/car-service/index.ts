@@ -25,7 +25,7 @@ export const CarService = {
     const formdata = new FormData();
     formdata.append('file', body.file[0].originFileObj);
     formdata.append('carNumber', body.carNumber);
-    formdata.append('modelId', String(body.modelId));
+    formdata.append('modelId', `${body.modelId}`);
 
     const response = await $axios.post<any>(EndPointes.car.create, formdata);
     return response;
