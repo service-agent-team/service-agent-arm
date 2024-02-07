@@ -7,6 +7,7 @@ export interface IProductInitalState {
   };
   products: IProduct[];
   product: IProduct | unknown;
+  categoryId: number;
   errors: unknown | string[] | string;
 }
 

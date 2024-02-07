@@ -16,4 +16,9 @@ export const UserService = {
     const response = await $axios.post<IUserCreateResponse>(EndPointes.user.createUser, body);
     return response;
   },
+
+  async delete(id: string) {
+    const response = await $axios.delete(EndPointes.user.delete + id);
+    return response;
+  },
 };

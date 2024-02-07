@@ -1,7 +1,6 @@
 import { PageTitle, UserTable } from '@/components';
 import { ROUTES } from '@/constants';
 import { useActions } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
 import { useEffect } from 'react';
 import * as S from './styled';
 
@@ -10,9 +9,7 @@ export const Users = () => {
 
   useEffect(() => {
     getUsers({
-      callback() {
-        addNotification('successfully get users');
-      },
+      callback() {},
     });
   }, []);
 

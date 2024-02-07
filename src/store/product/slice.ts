@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IProductInitalState } from './types';
 import { addProduct, getByProducts, getOneProduct } from './action';
+import { IProductInitalState } from './types';
 
 const initialState: IProductInitalState = {
   loading: {
@@ -11,13 +11,18 @@ const initialState: IProductInitalState = {
   },
   products: [],
   product: null,
+  categoryId: 11,
   errors: null,
 };
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    setCategoryId: (state, { payload }) => {
+      state.categoryId = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getByProducts.pending, (state) => {

@@ -35,7 +35,7 @@ export const CarPage: React.FC = () => {
                   <EditOutlined
                     key="edit"
                     onClick={() => {
-                      navigate(`/trasnfer/cars/edit/${item.carId}`);
+                      navigate(`/transfer/cars/edit/${item.carId}`);
                     }}
                   />,
                   <DeleteOutlined key="ellipsis" />,

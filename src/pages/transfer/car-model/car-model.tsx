@@ -1,12 +1,12 @@
-import { Button, Card } from 'antd';
-import React, { useEffect } from 'react';
-import * as S from './styles';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
 import { PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { Link } from 'react-router-dom';
+import { useActions, useTypedSelector } from '@/libs';
+import { addNotification } from '@/libs/utils/addNotification';
 import { EditTwoTone } from '@ant-design/icons';
+import { Card } from 'antd';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import * as S from './styles';
 
 export const CarModel: React.FC = () => {
   const { GetAllCarModel } = useActions();

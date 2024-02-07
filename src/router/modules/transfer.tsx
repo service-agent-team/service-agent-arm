@@ -11,6 +11,7 @@ import {
   CreateTariffPage,
   DriverCreatePage,
   DriverPage,
+  EditCarPage,
   EditCarTypePage,
   EditTariffPage,
   TransferHome,
@@ -128,6 +129,14 @@ export const transferRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <UpdateCarModel />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.editCar,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <EditCarPage />
       </Suspense>
     ),
   },

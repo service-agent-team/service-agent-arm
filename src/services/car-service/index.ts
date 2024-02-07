@@ -21,8 +21,13 @@ export const CarService = {
     return response;
   },
 
-  async createCar(body: any) {
-    const response = await $axios.post<any>(EndPointes.car.create, body);
+  async createCar(body: { modelId: number; carNumber: string; file: any[] }) {
+    const formdata = new FormData();
+    formdata.append('file', body.file[0].originFileObj);
+    formdata.append('carNumber', body.carNumber);
+    formdata.append('modelId', `${body.modelId}`);
+
+    const response = await $axios.post<any>(EndPointes.car.create, formdata);
     return response;
   },
 

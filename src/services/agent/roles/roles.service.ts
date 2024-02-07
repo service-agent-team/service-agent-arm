@@ -10,7 +10,7 @@ export const RolesService = {
   },
 
   async createRoles(body: any) {
-    const response = await $axios.post<ITariffCreateResponse>(EndPointes.tariff.create, body);
+    const response = await $axios.post<ITariffCreateResponse>(EndPointes.roles.create, body);
     return response;
   },
 
@@ -20,12 +20,12 @@ export const RolesService = {
   },
 
   async editRoles(body: any, id: number | string) {
-    const response = await $axios.patch(EndPointes.tariff.edit + id, body);
+    const response = await $axios.patch(EndPointes.roles.edit + id, body);
     return response;
   },
 
   async delete(id: number | string) {
-    const response = await $axios.patch(EndPointes.tariff.disable + id);
+    const response = await $axios.delete(EndPointes.roles.delete + id);
     return response;
   },
 };

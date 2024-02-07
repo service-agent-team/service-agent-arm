@@ -2,7 +2,14 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { ContractService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IParams, IRejectParam, IUser, IUserResponse } from './contract.interface';
+import {
+  IOneAgentParams,
+  IOneAgentResponce,
+  IParams,
+  IRejectParam,
+  IUser,
+  IUserResponse,
+} from './contract.interface';
 
 export const getAllUsers = createAsyncThunk<IUserResponse, IUser>(
   'agent/all',
@@ -52,7 +59,7 @@ export const rejectAgnet = createAsyncThunk<any, IRejectParam>(
   },
 );
 
-export const getOneAgent = createAsyncThunk<any, IParams>(
+export const getOneAgent = createAsyncThunk<IOneAgentResponce, IOneAgentParams>(
   'agent/one',
   async ({ userId, callback }, thunkApi) => {
     try {

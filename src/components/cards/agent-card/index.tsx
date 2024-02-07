@@ -1,10 +1,9 @@
 import { SimpleButton } from '@/components';
 import { Card } from '@/components/common/card';
 import { AgentForm } from '@/components/forms';
-import { history, useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/libs';
 import { IUserData } from '@/store/agent/contract/contract.interface';
-import { Badge, Flex, List, Typography } from 'antd';
+import { Badge, List, Typography } from 'antd';
 import { useEffect } from 'react';
 
 interface IProps {
@@ -19,7 +18,7 @@ export const AgentCard = ({ data }: IProps) => {
     getCompany({ page: 0, size: 20 });
   }, []);
 
-  const { agent, roles, agentTariff, company } = useTypedSelector((state) => state);
+  const { roles, agentTariff, company } = useTypedSelector((state) => state);
   return (
     <Badge.Ribbon
       text={
@@ -64,23 +63,38 @@ export const AgentCard = ({ data }: IProps) => {
               ? 'Tasdiqlangan'
               : null}
           </List.Item>
+          {data?.userRoles[0]?.role && (
+            <List.Item>
+              <Typography.Text strong>Role: </Typography.Text>
+              {data?.userRoles[0]?.role?.name}
+            </List.Item>
+          )}
+          {data?.userTariffPermissions[0]?.userTariff && (
+            <List.Item>
+              <Typography.Text strong>Category: </Typography.Text>
+              {data?.userTariffPermissions[0]?.userTariff?.tariffName}
+            </List.Item>
+          )}
+          {data?.userPermissions[0]?.permission && (
+            <List.Item>
+              <Typography.Text strong>Permission: </Typography.Text>
+              {data?.userPermissions[0]?.permission?.name}
+            </List.Item>
+          )}
+          <List.Item>
+            <Typography.Text strong>Company: </Typography.Text>
+            Service-agent
+          </List.Item>
         </List>
-        <AgentForm
-          userId={agent.agent?.userId}
-          roles={roles.roles}
-          categories={agentTariff.tariffs}
-          companies={company.companies}
-        />
-        {
-          // /*data?.contractStatus === '' && */ <Flex gap="large" justify="space-around">
-          //   <SimpleButton click={handleReject} color="--negative">
-          //     Rad etish
-          //   </SimpleButton>
-          //   <SimpleButton color="" click={handleAccept}>
-          //     Tasdiqlash
-          //   </SimpleButton>
-          // </Flex>
-        }
+        {data?.contractStatus !== 'success' && (
+          <AgentForm
+            userId={data?.userId}
+            roles={roles.roles}
+            categories={agentTariff.tariffs}
+            companies={company.companies}
+          />
+        )}
+        {data?.contractStatus !== 'view' && <SimpleButton color="--warning ">Update</SimpleButton>}
       </Card>
     </Badge.Ribbon>
   );

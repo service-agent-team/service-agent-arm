@@ -50,6 +50,7 @@ export const EndPointes = {
   user: {
     getAll: '/users/get-all',
     createUser: '/users/create',
+    delete: '/users/delete-user/',
   },
 
   tariff: {
@@ -101,6 +102,14 @@ export const EndPointes = {
     getOne: '/role/get-one/',
     edit: '/role/update/',
     delete: '/role/delete/',
+  },
+
+  permisions: {
+    create: '/permission/create',
+    getAll: '/permission/get-all',
+    getOne: '/permission/get-one/',
+    edit: '/permission/update/',
+    delete: '/permission/delete/',
   },
 
   userRoles: {

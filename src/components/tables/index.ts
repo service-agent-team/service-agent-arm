@@ -1,8 +1,10 @@
 export { AgentTable } from './agent';
+export { AgenetPermissionTable } from './agent-permisison';
+export { AgenetProductsTable } from './agent-product';
+export { AgenetRolesTable } from './agent-roles';
+export { AgenetTariffTable } from './agent-tariff';
 export { CarTypetable } from './carType';
 export { DriverTable } from './driver/index';
 export { PermissionTable } from './permission';
 export { TariffTable } from './tariff/index';
 export { UserTable } from './users';
-export { AgenetProductsTable } from './agent-product';
-export { AgenetTariffTable } from './agent-tariff';

@@ -1,4 +1,4 @@
-import { PageTitle } from '@/components';
+import { AgenetRolesTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
 import { useActions } from '@/libs';
 import { useEffect } from 'react';
@@ -19,7 +19,7 @@ export const Roles = () => {
         route={ROUTES.agentRolesCreate}
         label="Create"
       />
-      {/* <AgenetRolesTable /> */}
+      <AgenetRolesTable />
     </div>
   );
 };

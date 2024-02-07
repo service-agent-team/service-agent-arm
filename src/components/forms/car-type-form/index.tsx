@@ -1,39 +1,42 @@
-import { BaseForm, PrimaryBtn, Select } from '@/components';
-import { Option } from '@/components/common/selects/select';
+import { BaseButtonsForm, BaseForm, PrimaryBtn, Upload } from '@/components';
 import { useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
-import { Flex, Input } from 'antd';
+import { ICreateCarValues } from '@/pages/transfer/car/create-page/types.ts';
+import { UploadOutlined } from '@ant-design/icons';
+import { Button, Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from '../users-form/styled';
-import { ICreateCarTypeValues } from './types';
+import { normFile } from './util';
 
 export const CarTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { createCarType, ediCarType } = useActions();
+  const { createCar, editCar, getCar } = useActions();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { loading } = useTypedSelector((state) => state.carType);
+  const { loading } = useTypedSelector((state) => state.car);
 
-  const onFinish = (value: ICreateCarTypeValues) => {
+  const onFinish = (value: ICreateCarValues) => {
     if (type === 'create') {
-      createCarType({
-        withBaggage: value.withBaggage,
-        numberOfSeats: +value.numberOfSeats,
+      createCar({
+        file: value.file,
+        carNumber: value.carNumber,
+        modelId: +value.modelId,
         callback: () => {
-          addNotification('successfully created tariff');
-          navigate('/transfer/car-type');
+          getCar({ callback: () => {} });
+          addNotification('created');
+          navigate('/transfer/cars');
         },
       });
-      form.resetFields();
+      // form.resetFields();
     } else if (type === 'edit') {
-      ediCarType({
+      editCar({
         id: id as string,
-        withBaggage: value.withBaggage,
-        numberOfSeats: +value.numberOfSeats,
+        number: value.carNumber,
+        modelId: +value.modelId,
         callback: () => {
-          addNotification('successfully eddited tariff');
-          navigate('/transfer/car-type');
+          addNotification('eddited');
+          navigate('/transfer/cars');
         },
       });
     }
@@ -44,29 +47,49 @@ export const CarTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
       <BaseForm name="usersForm" form={form} layout="vertical" onFinish={onFinish}>
         <S.FormContent>
           <BaseForm.Item
-            name="withBaggage"
-            label={'withBaggage'}
-            hasFeedback
-            rules={[{ required: true, message: 'filed is required' }]}
+            name="carNumber"
+            label={'carNumber'}
+            rules={[
+              { required: true, message: 'filed is required' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value) {
+                    return Promise.reject(new Error('filed is required'));
+                  }
+                  if (getFieldValue('carNumber') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error('error from carNumber!'));
+                },
+              }),
+            ]}
           >
-            <Select placeholder="Select an option">
-              <Option value={true}>Yes</Option>
-              <Option value={false}>No</Option>
-            </Select>
+            <Input placeholder="Enter name ?" />
           </BaseForm.Item>
 
-          <Flex justify="space-between" gap={'10px'}>
-            <BaseForm.Item
-              style={{ width: '50%' }}
-              name="numberOfSeats"
-              label={'numberOfSeats'}
-              rules={[{ required: true, message: 'filed is required' }]}
+          <BaseForm.Item
+            name="modelId"
+            label={'modelId'}
+            rules={[{ required: true, message: 'filed is required' }]}
+          >
+            <Input placeholder="Enter modelId ?" />
+          </BaseForm.Item>
+          {type === 'edit' ? null : (
+            <BaseButtonsForm.Item
+              name="file"
+              label={'Upload'}
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
             >
-              <Input placeholder="Enter numberOfSeats ?" />
-            </BaseForm.Item>
-          </Flex>
+              <Upload name="logo" action="/upload.do" listType="picture">
+                <Button type="default" icon={<UploadOutlined />}>
+                  Upload file
+                </Button>
+              </Upload>
+            </BaseButtonsForm.Item>
+          )}
 
-          <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.patch : loading.post}>
+          <PrimaryBtn htmlType="submit" loading={loading.post || loading.patch}>
             {type === 'create' ? 'create' : 'edit'}
           </PrimaryBtn>
         </S.FormContent>

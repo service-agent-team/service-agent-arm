@@ -1,3 +1,4 @@
+import { AgentPermissionReducer } from '../agent';
 import { RolesReducer } from '../agent/roles/slice';
 import { appReducer } from '../app';
 import { AuthReducer } from '../auth/slice';
@@ -13,6 +14,7 @@ import { UserReducer } from '../users/slice';
 import { AgentContractReducer, AgentTariffReducer } from './../agent';
 import { OrderReducer } from './../order/slice';
 import { AgentRolesPermissionReducer } from './../agent/role-permission/slice';
+
 export const reducer = {
   app: appReducer,
   auth: AuthReducer,
@@ -31,4 +33,5 @@ export const reducer = {
   tarnsferStatistika: OrderReducer,
   roles: RolesReducer,
   agentRolesPermission: AgentRolesPermissionReducer,
+  agentPermission: AgentPermissionReducer,
 };

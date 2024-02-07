@@ -138,12 +138,14 @@ export const utils = () => {
       dataIndex: 'startingPrice',
       key: 'city',
       width: '20%',
+      render: (data) => <span>{data / 100}</span>,
     },
     {
       title: 'Selling price',
       dataIndex: 'sellingPrice',
       key: 'login',
       width: '20%',
+      render: (data) => <span>{data / 100}</span>,
     },
     {
       title: 'currency',

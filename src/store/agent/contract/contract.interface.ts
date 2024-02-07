@@ -1,6 +1,6 @@
 export interface InitialState {
   data: IUserData[] | null;
-  agent: IUserData | null | unknown;
+  agent: IUserData | null;
   status: string;
   loading: {
     get: boolean;
@@ -37,6 +37,14 @@ export interface IUserData {
   photoURL: any;
   infoCreatedAt: string;
   infoStatusAt: string;
+  login: string;
+  authType: number;
+  userCurrentStatus: number;
+  isRegistrationMyId: boolean;
+  isRegistrationContract: boolean;
+  userTariffPermissions: UserTariffPermission[];
+  userPermissions: UserPermission[];
+  userRoles: UserRole[];
   userContractId: number;
   isContracted: boolean;
   videoContentId: string;
@@ -46,6 +54,63 @@ export interface IUserData {
   finishDate: string;
   contractCreatedAt: string;
   contractStatusAt: string;
+}
+
+export interface UserTariffPermission {
+  userTariffPermissionId: number;
+  userTariff: UserTariff;
+  permission: Permission;
+}
+
+export interface UserTariff {
+  userTariffId: number;
+  tariffName: string;
+  categoryId: number;
+  createAt: string;
+}
+
+export interface Permission {
+  id: number;
+  name: string;
+  description: string;
+  createdDateTime: string;
+  updateDateTime: string;
+}
+
+export interface UserPermission {
+  userPermissionId: number;
+  project: Project;
+  permission: Permission2;
+}
+
+export interface Project {
+  id: number;
+  name: string;
+  description: string;
+  status: string;
+  createdDateTime: string;
+  updateDateTime: string;
+}
+
+export interface Permission2 {
+  id: number;
+  name: string;
+  description: string;
+  createdDateTime: string;
+  updateDateTime: string;
+}
+
+export interface UserRole {
+  userRolesId: number;
+  role: Role;
+}
+
+export interface Role {
+  id: number;
+  name: string;
+  description: string;
+  createdDateTime: string;
+  updateDateTime: string;
 }
 
 export interface IUser {
@@ -60,6 +125,11 @@ export interface IParams {
   callback: () => void;
 }
 
+export interface IOneAgentParams {
+  callback: () => void;
+  userId: number;
+}
+
 export interface IRejectParam {
   callback: () => void;
   userId: number;
@@ -69,4 +139,8 @@ export interface IData {
   userId: number;
   companyId: number;
   currency: string;
+}
+
+export interface IOneAgentResponce extends AxiosResponse {
+  date: IUserData;
 }
