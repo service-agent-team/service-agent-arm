@@ -27,6 +27,7 @@ export const EditAgentRole = getLoadablePage('EditAgentRole');
 export const PermissionPage = getLoadablePage('PermissionPage');
 export const CreateAgentPermission = getLoadablePage('CreateAgentPermission');
 export const EditAgentPermission = getLoadablePage('EditAgentPermission');
+export const Orders = getLoadablePage('OrderPage');
 
 // transfer
 export const TransferHome = getLoadablePage('TransferHome');

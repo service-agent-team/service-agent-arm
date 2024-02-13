@@ -9,3 +9,4 @@ export { Roles as AgentRoles } from './roles';
 export { CreateAgentRole } from './roles/create/index';
 export { EditAgentRole } from './roles/edit';
 export { Tariff as AgentTariff } from './tariff';
+export * from './orders';

@@ -13,6 +13,11 @@ export const agent = [
     icon: 'UsergroupAddOutlined',
   },
   {
+    label: 'Orders',
+    key: ROUTES.agentOrders,
+    icon: 'ShoppingOutlined',
+  },
+  {
     label: 'Products',
     icon: 'DatabaseOutlined',
     key: ROUTES.agentProducts,

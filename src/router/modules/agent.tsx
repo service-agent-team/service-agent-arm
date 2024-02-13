@@ -12,6 +12,7 @@ import {
   CreateAgentRole,
   EditAgentPermission,
   EditAgentRole,
+  Orders,
   PermissionPage,
 } from '../loadable';
 
@@ -37,6 +38,14 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <AgentView />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentOrders,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <Orders />
       </Suspense>
     ),
   },

@@ -32,6 +32,8 @@ export interface ICreateTarifPerResponse {
 }
 
 export interface ITariffPermission {
-  body: IPermissionTariffData;
+  userTariffId: number;
+  userId: number;
+  permissionId: number;
   callback: () => void;
 }

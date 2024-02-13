@@ -2,7 +2,14 @@ import { errorCatch } from '@/helpers';
 import { addNotification } from '@/libs/utils/addNotification';
 import { ContractService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IParams, IUser, IUserResponse } from './contract.interface';
+import {
+  IOneAgentParams,
+  IOneAgentResponce,
+  IParams,
+  IRejectParam,
+  IUser,
+  IUserResponse,
+} from './contract.interface';
 
 export const getAllUsers = createAsyncThunk<IUserResponse, IUser>(
   'agent/all',
@@ -22,9 +29,9 @@ export const getAllUsers = createAsyncThunk<IUserResponse, IUser>(
 
 export const acceptAgnet = createAsyncThunk<any, IParams>(
   'agent/accept',
-  async ({ userId, callback }, thunkApi) => {
+  async ({ callback, companyId, currency, userId }, thunkApi) => {
     try {
-      const response = await ContractService.acceptAgent(userId);
+      const response = await ContractService.acceptAgent({ companyId, currency, userId });
       if (response) {
         callback();
       }
@@ -36,7 +43,7 @@ export const acceptAgnet = createAsyncThunk<any, IParams>(
   },
 );
 
-export const rejectAgnet = createAsyncThunk<any, IParams>(
+export const rejectAgnet = createAsyncThunk<any, IRejectParam>(
   'agent/reject',
   async ({ userId, callback }, thunkApi) => {
     try {
@@ -52,7 +59,7 @@ export const rejectAgnet = createAsyncThunk<any, IParams>(
   },
 );
 
-export const getOneAgent = createAsyncThunk<any, IParams>(
+export const getOneAgent = createAsyncThunk<IOneAgentResponce, IOneAgentParams>(
   'agent/one',
   async ({ userId, callback }, thunkApi) => {
     try {

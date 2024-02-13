@@ -6,6 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { items } from './constants';
 import { DataIndex, IhandleSearchProps, AgentTableRow } from './types';
 import { LinkButton } from '@/components/common/buttons';
+import { Icon } from '@/components';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -146,30 +147,47 @@ export const utils = () => {
       width: '20%',
     },
     {
+      title: 'Agent role',
+      dataIndex: 'userRoles',
+      key: 'login',
+      width: '20%',
+      render: (userRoles) => (
+        <span>
+          {userRoles.map((el: any) => (
+            <span key={el.userRolesId}>{el.role.name} </span>
+          ))}
+        </span>
+      ),
+    },
+    {
       title: 'View',
       dataIndex: 'userId',
       key: 'view',
       render: (userId: number) => {
-        return <LinkButton path={`/service-agent/view/${userId}`}>view</LinkButton>;
-      },
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'userId',
-      key: 'action',
-      render: () => {
         return (
-          <Dropdown menu={menuProps}>
-            <Button>
-              <Space>
-                Actions
-                <DownOutlined />
-              </Space>
-            </Button>
-          </Dropdown>
+          <LinkButton path={`/service-agent/view/${userId}`}>
+            <Icon name="EyeOutlined" />
+          </LinkButton>
         );
       },
     },
+    // {
+    //   title: 'Actions',
+    //   dataIndex: 'userId',
+    //   key: 'action',
+    //   render: () => {
+    //     return (
+    //       <Dropdown menu={menuProps}>
+    //         <Button>
+    //           <Space>
+    //             Actions
+    //             <DownOutlined />
+    //           </Space>
+    //         </Button>
+    //       </Dropdown>
+    //     );
+    //   },
+    // },
   ];
 
   return columns;

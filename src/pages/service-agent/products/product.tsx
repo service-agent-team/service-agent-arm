@@ -1,22 +1,34 @@
 import { AgenetProductsTable, PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
 import { ROUTES } from '@/constants';
-import { useActions } from '@/libs';
+import { useActions, useTypedSelector } from '@/libs';
 import { addNotification } from '@/libs/utils/addNotification';
+import { Select, Space } from 'antd';
 import { useEffect } from 'react';
 
 export function Products() {
-  const { getByProducts } = useActions();
+  const { getByProducts, setCategoryId } = useActions();
+  const { categoryId } = useTypedSelector((state) => state.product);
+
+  const changeCategory = (value: number) => {
+    setCategoryId(value);
+  };
+
   useEffect(() => {
     getByProducts({
-      categoryId: 6,
+      categoryId: categoryId,
       page: 0,
       size: 20,
       callback() {
         addNotification('successfully get users');
       },
     });
-  }, []);
+  }, [categoryId]);
+
+  const Selectoption = [
+    { label: 'UZS', value: 10 },
+    { label: 'USD', value: 11 },
+  ];
   return (
     <SimplePage>
       <PageTitle
@@ -25,6 +37,14 @@ export function Products() {
         route={ROUTES.agentProductCreate}
         label="Create"
       />
+      <Space>
+        <Select
+          onChange={changeCategory}
+          defaultValue={{ label: 'USD', value: 11 }}
+          style={{ width: '200px', marginBottom: '10px' }}
+          options={Selectoption}
+        />
+      </Space>
       <AgenetProductsTable />
     </SimplePage>
   );

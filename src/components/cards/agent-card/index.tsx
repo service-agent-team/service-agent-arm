@@ -1,10 +1,9 @@
 import { SimpleButton } from '@/components';
 import { Card } from '@/components/common/card';
 import { AgentForm } from '@/components/forms';
-import { history, useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/libs';
 import { IUserData } from '@/store/agent/contract/contract.interface';
-import { Badge, Flex, List, Typography } from 'antd';
+import { Badge, List, Typography } from 'antd';
 import { useEffect } from 'react';
 
 interface IProps {
@@ -12,48 +11,29 @@ interface IProps {
 }
 
 export const AgentCard = ({ data }: IProps) => {
-  const { getRoles, getCategory, getCompany, acceptAgnet, rejectAgnet } = useActions();
+  const { getRoles, getCategory, getCompany } = useActions();
   useEffect(() => {
     getRoles({ callback() {} });
     getCategory({ callback() {} });
     getCompany({ page: 0, size: 20 });
   }, []);
 
-  const { agent, roles, agentTariff, company } = useTypedSelector((state) => state);
-
-  const handleAccept = () => {
-    acceptAgnet({
-      callback() {
-        addNotification('Agent tasdiqlandi');
-        history.back();
-      },
-      userId: Number(agent.agent?.userId),
-    });
-  };
-  const handleReject = () => {
-    rejectAgnet({
-      callback() {
-        addNotification('Agent rad etildi');
-        history.back();
-      },
-      userId: Number(agent.agent?.userId),
-    });
-  };
+  const { roles, agentTariff, company } = useTypedSelector((state) => state);
   return (
     <Badge.Ribbon
       text={
         data?.contractStatus === 'success'
           ? 'Tasdiqlangan'
           : data?.contractStatus === 'view'
-            ? 'Kutilmoqda'
-            : 'Rad etilgan'
+          ? 'Kutilmoqda'
+          : 'Rad etilgan'
       }
       color={
         data?.contractStatus === 'success'
           ? 'green'
           : data?.contractStatus === 'view'
-            ? 'purple'
-            : 'red'
+          ? 'purple'
+          : 'red'
       }
     >
       <Card width="600px">
@@ -80,26 +60,41 @@ export const AgentCard = ({ data }: IProps) => {
             {data?.contractStatus === 'view'
               ? 'Tasdiqlanishi kutilmoqda'
               : data?.contractStatus === 'success'
-                ? 'Tasdiqlangan'
-                : null}
+              ? 'Tasdiqlangan'
+              : null}
+          </List.Item>
+          {data?.userRoles[0]?.role && (
+            <List.Item>
+              <Typography.Text strong>Role: </Typography.Text>
+              {data?.userRoles[0]?.role?.name}
+            </List.Item>
+          )}
+          {data?.userTariffPermissions[0]?.userTariff && (
+            <List.Item>
+              <Typography.Text strong>Category: </Typography.Text>
+              {data?.userTariffPermissions[0]?.userTariff?.tariffName}
+            </List.Item>
+          )}
+          {data?.userPermissions[0]?.permission && (
+            <List.Item>
+              <Typography.Text strong>Permission: </Typography.Text>
+              {data?.userPermissions[0]?.permission?.name}
+            </List.Item>
+          )}
+          <List.Item>
+            <Typography.Text strong>Company: </Typography.Text>
+            Service-agent
           </List.Item>
         </List>
-        <AgentForm
-          userId={agent.agent?.userId}
-          roles={roles.roles}
-          categories={agentTariff.tariffs}
-          companies={company.companies}
-        />
-        {
-          /*data?.contractStatus === '' && */ <Flex gap="large" justify="space-around">
-            <SimpleButton click={handleReject} color="--negative">
-              Rad etish
-            </SimpleButton>
-            <SimpleButton color="" click={handleAccept}>
-              Tasdiqlash
-            </SimpleButton>
-          </Flex>
-        }
+        {data?.contractStatus !== 'success' && (
+          <AgentForm
+            userId={data?.userId}
+            roles={roles.roles}
+            categories={agentTariff.tariffs}
+            companies={company.companies}
+          />
+        )}
+        {data?.contractStatus !== 'view' && <SimpleButton color="--warning ">Update</SimpleButton>}
       </Card>
     </Badge.Ribbon>
   );

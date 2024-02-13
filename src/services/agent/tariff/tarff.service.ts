@@ -8,4 +8,8 @@ export const TariffService = {
     const response = await $axios.get<IAgentTariffResponse>(agent.tariff.getAll);
     return response;
   },
+
+  // async addAgentCategory() {
+  //   const responce = await $axios.post(agent.tariff);
+  // },
 };
