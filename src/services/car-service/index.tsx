@@ -1,6 +1,6 @@
 import { $axios } from '@/config';
+import { ICarResponse } from '../../store/car/types';
 import { EndPointes } from '../endpoints';
-import { ICarResponse } from './../../store/car/types';
 export const CarService = {
   async getCar() {
     const response = await $axios.get<ICarResponse>(EndPointes.car.getAll);
@@ -27,7 +27,11 @@ export const CarService = {
     formdata.append('carNumber', body.carNumber);
     formdata.append('modelId', `${body.modelId}`);
 
-    const response = await $axios.post<any>(EndPointes.car.create, formdata);
+    const response = await $axios.post(EndPointes.car.create, formdata, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response;
   },
 
