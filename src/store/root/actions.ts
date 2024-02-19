@@ -35,6 +35,10 @@ import { AgentTariffPermissionSliceActions } from './../agent/tariffPermission/p
 import * as TariffPermissionActions from './../agent/tariffPermission/permission.action';
 import { AgentRolesPermissionSliceActions } from './../agent/role-permission/slice';
 import * as AgentRolesPermissionActions from './../agent/role-permission/actions';
+import { AgentOrderSliceActions } from './../agent/order/slices';
+import * as AgentOrdersActions from './../agent/order/actions';
+import { AgentStatisticSliceActions } from './../agent/statistic/slice';
+import * as AgentStatisticActions from './../agent/statistic/actions';
 
 export const AllActions = {
   ...CarActions,
@@ -73,4 +77,8 @@ export const AllActions = {
   ...AgentRolesPermissionActions,
   ...AgentPermissionSliceActions,
   ...AgentPermissionActions,
+  ...AgentOrderSliceActions,
+  ...AgentOrdersActions,
+  ...AgentStatisticSliceActions,
+  ...AgentStatisticActions,
 };

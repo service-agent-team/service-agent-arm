@@ -14,6 +14,8 @@ import { UserReducer } from '../users/slice';
 import { AgentContractReducer, AgentTariffReducer } from './../agent';
 import { OrderReducer } from './../order/slice';
 import { AgentRolesPermissionReducer } from './../agent/role-permission/slice';
+import { AgentOrderReducer } from '../agent/order/slices';
+import { AgentStatisticReducer } from '../agent/statistic/slice';
 
 export const reducer = {
   app: appReducer,
@@ -34,4 +36,6 @@ export const reducer = {
   roles: RolesReducer,
   agentRolesPermission: AgentRolesPermissionReducer,
   agentPermission: AgentPermissionReducer,
+  agentOrder: AgentOrderReducer,
+  agentStatistic: AgentStatisticReducer,
 };

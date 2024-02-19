@@ -33,6 +33,8 @@ export const EndPointes = {
       reject: '/agent/reject',
       getOne: '/agent',
     },
+    getAllOrder: '/order/all',
+    getAllOrderStatistic: '/order/statistica',
     tariff: {
       getAll: '/category/all',
     },
