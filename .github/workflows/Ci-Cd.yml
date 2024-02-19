@@ -4,6 +4,8 @@ on:
     branches:
       - 'main'
       - 'dev'
+
+    
 jobs:
   lint:
     name: Linting my code ⚡️
