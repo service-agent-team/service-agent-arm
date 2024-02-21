@@ -1,7 +1,7 @@
 //  Selected exposts
 export { Icon } from './common/icon';
 export { Table } from './common/table';
-export { ContentCenter } from './content/index';
+export { ContentCenter } from './content';
 export { PermisionsForm } from './forms';
 export { UsersForm } from './forms/users-form/index';
 export { Loading } from './loading';

@@ -1,4 +1,3 @@
-import { addNotification } from '@/common/utils/addNotification';
 import { PageTitle, TariffTable } from '@/components';
 import { ROUTES } from '@/constants';
 import { useActions } from '@/hooks';
@@ -10,9 +9,7 @@ export const Tariff = () => {
 
   useEffect(() => {
     getTariff({
-      callback() {
-        addNotification('successfully get tariff');
-      },
+      callback() {},
     });
   }, []);
 
