@@ -1,11 +1,21 @@
+import { addKeyProp, addNotification } from '@/common';
 import { Table } from '@/components';
-import { addKeyProp, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/hooks';
 import { ICarType } from '@/store/car-type/types';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
 
 export const CarTypetable: React.FC = () => {
+  const { getCarType } = useActions();
+
+  useEffect(() => {
+    getCarType({
+      page: 0,
+      size: 100,
+      callback() {},
+    });
+  }, []);
+
   const {
     carType,
     loading: { get },

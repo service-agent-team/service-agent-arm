@@ -1,4 +1,4 @@
-import { FONT_SIZE, FONT_WEIGHT } from '@/styles';
+import { FONT_SIZE, FONT_WEIGHT } from '@/common/styles';
 import { Input as AntInput } from 'antd';
 import styled from 'styled-components';
 

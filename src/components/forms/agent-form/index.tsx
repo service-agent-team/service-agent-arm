@@ -1,13 +1,13 @@
+import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/hooks';
+import { IRoles } from '@/store/agent/roles/types';
+import { ITaeiffData } from '@/store/agent/tariff/types';
+import { ICompany } from '@/store/company/types';
 import { Flex, Select } from 'antd';
 import React from 'react';
 import * as S from './styles';
-import { IRoles } from '@/store/agent/roles/types';
-import { ITaeiffData } from '@/store/agent/tariff/types';
 import { IParam } from './types';
-import { ICompany } from '@/store/company/types';
 
 // import { IValuesForm } from './types';
 

@@ -65,10 +65,10 @@ export const EndPointes = {
 
   carType: {
     create: '/car-type/create',
-    getAll: '/car-type/get-all',
-    edit: '/car-type/update/',
-    getOne: '/car-type/get-one/',
-    delete: '/car-type/delete/',
+    getAll: '/car-type',
+    edit: '/car-type/',
+    getOne: '/car-type/',
+    delete: '/car-type/',
   },
 
   driver: {
@@ -90,9 +90,13 @@ export const EndPointes = {
   },
 
   carModel: {
-    create: '/car-model/create',
-    update: '/car-model/update',
-    all: '/car-model/get-all',
+    setImage: '/car-model/set-image',
+    create: '/car-model',
+    update: '/car-model/',
+    all: '/car-model',
+    getOne: '/car-model/',
+    delete: '/car-model/',
+    changeImage: '/car-model/image/',
   },
   statistic: {
     getAll: '/order/get-all',

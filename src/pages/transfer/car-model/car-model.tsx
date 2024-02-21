@@ -1,7 +1,7 @@
+import { addNotification } from '@/common/utils/addNotification';
 import { PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/hooks';
 import { EditTwoTone } from '@ant-design/icons';
 import { Card } from 'antd';
 import React, { useEffect } from 'react';

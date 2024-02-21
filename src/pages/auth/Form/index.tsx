@@ -1,6 +1,6 @@
 import { PrimaryBtn } from '@/components';
 import { ROUTES } from '@/constants';
-import { useTypedSelector } from '@/libs';
+import { useTypedSelector } from '@/hooks';
 import { Form, Row, Typography } from 'antd';
 import classnameBind from 'classnames/bind';
 import { Link } from 'react-router-dom';

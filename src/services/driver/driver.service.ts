@@ -1,4 +1,4 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { IDriverResponse } from '@/store/driver/types';
 import { EndPointes } from '../endpoints';
 export const DriverService = {

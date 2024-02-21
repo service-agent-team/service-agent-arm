@@ -1,8 +1,9 @@
 import { Table } from '@/components';
-import { addKeyProp, useTypedSelector } from '@/libs';
 import React from 'react';
 import { utils } from './utils';
 import { ITaeiffData } from '@/store/agent/tariff/types';
+import { useTypedSelector } from '@/hooks';
+import { addKeyProp } from '@/common';
 
 export const AgenetTariffTable: React.FC = () => {
   const {

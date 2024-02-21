@@ -1,5 +1,6 @@
+import { addKeyProp } from '@/common';
 import { Table } from '@/components';
-import { addKeyProp, useTypedSelector } from '@/libs';
+import { useTypedSelector } from '@/hooks';
 import { IPermission } from '@/store/agent/permission/types';
 import React from 'react';
 import { utils } from './utils';

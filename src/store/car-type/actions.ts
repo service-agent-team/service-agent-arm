@@ -1,22 +1,22 @@
-import { errorCatch } from '@/helpers';
-import { addNotification } from '@/libs/utils/addNotification';
+import { errorCatch } from '@/common/helpers';
+import { addNotification } from '@/common/utils/addNotification';
 import { CarTypeService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IGetUserPayload } from '../users/types';
+import { IGetCarTypePayload } from '../users/types';
 import {
+  ICarType,
+  ICarTypeByIdPayload,
   ICarTypeCreatepayload,
-  ICarTypeEditResponse,
   ICarTypeResponse,
-  ICartypeCreateResponse,
   IcarTypeDeletePayload,
   ItariffEditpayload,
 } from './types';
 
-export const getCarType = createAsyncThunk<ICarTypeResponse, IGetUserPayload>(
+export const getCarType = createAsyncThunk<ICarTypeResponse, IGetCarTypePayload>(
   'get/carType',
-  async ({ callback }, thunkApi) => {
+  async ({ page, size, callback }, thunkApi) => {
     try {
-      const response = await CarTypeService.getCarType();
+      const response = await CarTypeService.getCarType(page, size);
 
       if (response.data) {
         callback();
@@ -30,11 +30,29 @@ export const getCarType = createAsyncThunk<ICarTypeResponse, IGetUserPayload>(
   },
 );
 
-export const createCarType = createAsyncThunk<ICartypeCreateResponse, ICarTypeCreatepayload>(
+export const getOneCarType = createAsyncThunk<ICarType, ICarTypeByIdPayload>(
+  'getOne/cartype',
+  async ({ id, callback }, thunkApi) => {
+    try {
+      const response = await CarTypeService.getCarTypeById(id);
+
+      if (response.data) {
+        callback();
+      }
+
+      return response.data;
+    } catch (error) {
+      addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const createCarType = createAsyncThunk<ICarTypeResponse, ICarTypeCreatepayload>(
   'create/carType',
-  async ({ withBaggage, numberOfSeats, callback }, thunkApi) => {
+  async ({ numberOfBaggages, numberOfSeats, callback }, thunkApi) => {
     try {
-      const response = await CarTypeService.createCarType({ withBaggage, numberOfSeats });
+      const response = await CarTypeService.createCarType({ numberOfBaggages, numberOfSeats });
       if (response.data) {
         callback();
       }
@@ -46,11 +64,11 @@ export const createCarType = createAsyncThunk<ICartypeCreateResponse, ICarTypeCr
   },
 );
 
-export const ediCarType = createAsyncThunk<ICarTypeEditResponse, ItariffEditpayload>(
+export const ediCarType = createAsyncThunk<ICarTypeResponse, ItariffEditpayload>(
   'edit/carType',
-  async ({ withBaggage, numberOfSeats, id, callback }, thunkApi) => {
+  async ({ numberOfBaggages, numberOfSeats, id, callback }, thunkApi) => {
     try {
-      const response = await CarTypeService.editCarType({ withBaggage, numberOfSeats }, id);
+      const response = await CarTypeService.editCarType({ numberOfBaggages, numberOfSeats }, id);
       if (response.data) {
         callback();
       }
@@ -61,7 +79,7 @@ export const ediCarType = createAsyncThunk<ICarTypeEditResponse, ItariffEditpayl
   },
 );
 
-export const deletCarType = createAsyncThunk<ICarTypeEditResponse, IcarTypeDeletePayload>(
+export const deletCarType = createAsyncThunk<ICarTypeResponse, IcarTypeDeletePayload>(
   'delete/CarType',
   async ({ callback, id }, thunkApi) => {
     try {

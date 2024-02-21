@@ -1,5 +1,5 @@
-import { errorCatch } from '@/helpers';
-import { addNotification } from '@/libs/utils/addNotification';
+import { errorCatch } from '@/common/helpers';
+import { addNotification } from '@/common/utils/addNotification';
 import { TariffService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IGetUserPayload } from '../users/types';

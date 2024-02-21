@@ -1,8 +1,8 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { IUserResponse } from '@/store/agent/contract/contract.interface';
 import { EndPointes } from '../../endpoints';
-const { agent } = EndPointes;
 import { IParam } from './types';
+const { agent } = EndPointes;
 
 export const ContractService = {
   async getAllUsers(statusName: string) {

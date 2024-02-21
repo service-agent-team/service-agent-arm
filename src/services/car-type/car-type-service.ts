@@ -1,16 +1,17 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { ICarTypeResponse } from '@/store/car-type/types';
-import { ITariffCreateResponse } from '@/store/tariff/types';
 import { EndPointes } from '../endpoints';
 
 export const CarTypeService = {
-  async getCarType() {
-    const response = await $axios.get<ICarTypeResponse>(EndPointes.carType.getAll);
+  async getCarType(page: number, size: number) {
+    const response = await $axios.get<ICarTypeResponse>(
+      EndPointes.carType.getAll + `?page=${page}&size=${size}`,
+    );
     return response;
   },
 
   async createCarType(body: any) {
-    const response = await $axios.post<ITariffCreateResponse>(EndPointes.carType.create, body);
+    const response = await $axios.post(EndPointes.carType.create, body);
     return response;
   },
 

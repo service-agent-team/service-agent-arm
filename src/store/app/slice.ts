@@ -1,4 +1,4 @@
-import { THEME, setLocalStorage } from '@/libs';
+import { THEME, setLocalStorage } from '@/common';
 import { createSlice } from '@reduxjs/toolkit';
 import { ENDPOINTS } from '../endpoints';
 import { ETheme, TInitialState } from './types';

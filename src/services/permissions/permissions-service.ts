@@ -1,4 +1,4 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { IPermissionCreateResponse, IPermissionResponse } from '@/store';
 import { EndPointes } from '../endpoints';
 import { ICreatePermissionAxiosPayload } from './../../store/permission/types';

@@ -1,4 +1,4 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { EndPointes } from '../../endpoints';
 const { agent } = EndPointes;
 // export { IParam } from './types';

@@ -1,5 +1,5 @@
+import { BORDER_RADIUS, LAYOUT } from '@/common/styles';
 import { media } from '@/constants';
-import { BORDER_RADIUS, LAYOUT } from '@/styles';
 import { Col, Collapse, Menu } from 'antd';
 import styled, { css } from 'styled-components';
 

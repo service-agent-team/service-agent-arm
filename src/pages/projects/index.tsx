@@ -1,9 +1,9 @@
+import { addNotification } from '@/common/utils/addNotification';
 import { ProjectCard } from '@/components/cards/project-card';
-import { Title, Wrapper } from './projects.styles';
-import { useEffect } from 'react';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/hooks';
 import { UserPermission } from '@/store/users/types';
+import { useEffect } from 'react';
+import { Title, Wrapper } from './projects.styles';
 
 export const ProjectsPage = () => {
   const { getMe } = useActions();

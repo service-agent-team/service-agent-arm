@@ -1,6 +1,7 @@
+import { addKeyProp } from '@/common';
+import { addNotification } from '@/common/utils/addNotification';
 import { Table } from '@/components';
-import { addKeyProp, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useTypedSelector } from '@/hooks';
 import { IProduct } from '@/store/product/types';
 import React, { useEffect } from 'react';
 import { utils } from './utils';

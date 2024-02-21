@@ -1,6 +1,6 @@
 import { PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions, useTypedSelector } from '@/libs';
+import { useActions, useTypedSelector } from '@/hooks';
 import { DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card, Skeleton } from 'antd';
 import Meta from 'antd/es/card/Meta';

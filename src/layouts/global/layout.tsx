@@ -1,5 +1,5 @@
 import { ROUTES } from '@/constants';
-import { useActions } from '@/libs';
+import { useActions } from '@/hooks';
 import { Layout as AntLayout, theme } from 'antd';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';

@@ -1,8 +1,8 @@
+import { addNotification } from '@/common/utils/addNotification';
 import { AgenetProductsTable, PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
 import { ROUTES } from '@/constants';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/hooks';
 import { Select, Space } from 'antd';
 import { useEffect } from 'react';
 

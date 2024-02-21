@@ -1,5 +1,5 @@
-import { normalizeProp } from '@/libs';
-import { BORDER_RADIUS, FONT_SIZE, FONT_WEIGHT } from '@/styles';
+import { BORDER_RADIUS, FONT_SIZE, FONT_WEIGHT } from '@/common/styles';
+import { normalizeProp } from '@/common';
 import { Select as AntSelect } from 'antd';
 import styled from 'styled-components';
 import { Dimension } from '../types';

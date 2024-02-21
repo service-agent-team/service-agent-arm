@@ -1,4 +1,4 @@
-import { FONT_SIZE, FONT_WEIGHT } from '@/styles';
+import { FONT_SIZE, FONT_WEIGHT } from '@/common/styles';
 import { Steps as AntdSteps, Button } from 'antd';
 import styled from 'styled-components';
 

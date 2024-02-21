@@ -1,4 +1,4 @@
-import { FONT_SIZE } from '@/styles';
+import { FONT_SIZE } from '@/common/styles';
 import { Table as AntdTable } from 'antd';
 import styled from 'styled-components';
 

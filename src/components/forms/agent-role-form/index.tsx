@@ -1,6 +1,6 @@
+import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/hooks';
 import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from '../users-form/styled';

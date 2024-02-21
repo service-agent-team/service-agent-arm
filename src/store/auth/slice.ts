@@ -1,4 +1,4 @@
-import { clearStorage } from '@/helpers';
+import { clearStorage } from '@/common/helpers';
 import { createSlice } from '@reduxjs/toolkit';
 import { SignIn } from './actions';
 import { InitialState } from './interface';

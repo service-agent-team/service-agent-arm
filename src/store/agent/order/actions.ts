@@ -1,9 +1,9 @@
-import { errorCatch } from '@/helpers';
-import { addNotification } from '@/libs/utils/addNotification';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { errorCatch } from '@/common/helpers';
+import { addNotification } from '@/common/utils/addNotification';
 import { AgentOrderService } from '@/services/agent';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
-import { IAgentOrderPay, IAgentOrderData } from './types';
+import { IAgentOrderData, IAgentOrderPay } from './types';
 
 export const getAgentOrders = createAsyncThunk<
   AxiosResponse<any, IAgentOrderData[]>,

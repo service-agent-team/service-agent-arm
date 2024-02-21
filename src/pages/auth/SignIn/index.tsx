@@ -1,5 +1,5 @@
-import { useActions } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { addNotification } from '@/common/utils/addNotification';
+import { useActions } from '@/hooks';
 import { PasswordField, UsernameField } from '@/pages/auth/Fields';
 import { AuthForm } from '@/pages/auth/Form';
 import { authLoadings } from '@/pages/auth/constants';

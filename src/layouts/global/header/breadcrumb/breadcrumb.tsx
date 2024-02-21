@@ -19,7 +19,7 @@ export const Breadcrumb = () => {
   };
 
   const pathSegments = useMemo(
-    () => pathname.split('/').filter((segment) => segment !== ''),
+    () => pathname?.split('/').filter((segment) => segment !== ''),
     [pathname],
   );
 

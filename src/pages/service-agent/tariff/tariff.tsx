@@ -1,7 +1,7 @@
+import { addNotification } from '@/common/utils/addNotification';
 import { AgenetTariffTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions } from '@/hooks';
 import { useEffect } from 'react';
 
 export function Tariff() {

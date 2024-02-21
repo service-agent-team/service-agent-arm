@@ -1,4 +1,4 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { ITariffCreateResponse, ITariffResponse } from '@/store/tariff/types';
 import { EndPointes } from '../endpoints';
 import { ITariffpayloadData } from './interfaces';

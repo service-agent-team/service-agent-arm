@@ -1,4 +1,4 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { ICarResponse } from '../../store/car/types';
 import { EndPointes } from '../endpoints';
 export const CarService = {

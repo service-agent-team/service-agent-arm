@@ -1,5 +1,6 @@
+import { generateMenuIconCreator, history } from '@/common';
+import { useTypedSelector } from '@/hooks';
 import { AntMenu } from '@/layouts/global/style';
-import { generateMenuIconCreator, history, useTypedSelector } from '@/libs';
 import { MenuProps } from 'antd';
 import { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';
 import { useLocation } from 'react-router-dom';

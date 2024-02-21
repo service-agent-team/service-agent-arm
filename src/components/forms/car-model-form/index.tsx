@@ -1,15 +1,12 @@
-import { history, useActions, useTypedSelector } from '@/libs';
-import { useNavigate, useParams } from 'react-router-dom';
-import * as S from '../users-form/styled';
+import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn } from '@/components';
+import { useActions, useTypedSelector } from '@/hooks';
 import { Input } from 'antd';
-import { addNotification } from '@/libs/utils/addNotification';
+import * as S from '../users-form/styled';
 
 export const CarModelForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { CreateCarModel, UpdateCarModel } = useActions();
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const { CreateCarModel } = useActions();
 
   const { loading } = useTypedSelector((state) => state.carType);
 
@@ -22,12 +19,12 @@ export const CarModelForm = ({ type }: { type: 'edit' | 'create' }) => {
         },
       });
     } else {
-      UpdateCarModel({
-        body: value,
-        callback(data: any) {
-          if (data) addNotification('Succesfully created model!');
-        },
-      });
+      // UpdateCarModel({
+      //   body: value,
+      //   callback(data: any) {
+      //     if (data) addNotification('created');
+      //   },
+      // });
     }
     form.resetFields();
     history.back();

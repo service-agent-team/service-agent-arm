@@ -4,10 +4,10 @@ import { Key } from 'react';
 export interface UserTableRow {
   key: number;
   carTypeId: number;
-  withBaggage: boolean;
+  numberOfBaggages: number;
   numberOfSeats: number;
   createdAt: string;
-  isDeleted: boolean;
+  updatedAt: string;
 }
 
 export interface Pagination {

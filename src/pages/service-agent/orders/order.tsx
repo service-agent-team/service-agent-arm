@@ -1,8 +1,7 @@
 import { AgentOrderCard } from '@/components/cards/agent-order';
-import { useActions, useTypedSelector } from '@/libs';
-import { Flex, Result, Skeleton } from 'antd';
+import { useActions, useTypedSelector } from '@/hooks';
+import { Flex, Result, Segmented, Skeleton } from 'antd';
 import { useEffect, useState } from 'react';
-import { Segmented } from 'antd';
 
 export const OrderPage = () => {
   const { getAgentOrders } = useActions();

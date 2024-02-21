@@ -1,9 +1,9 @@
+import { addNotification } from '@/common/utils/addNotification';
+import { AgentTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import * as S from './styles';
-import { PageTitle, AgentTable } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
+import { useActions, useTypedSelector } from '@/hooks';
 import { useEffect } from 'react';
-import { addNotification } from '@/libs/utils/addNotification';
+import * as S from './styles';
 
 export function AgentControl() {
   const { getAllUsers } = useActions();

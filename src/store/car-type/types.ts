@@ -1,3 +1,5 @@
+import { IBaseReponseTransfer, IPagination } from '@/common/interfaces';
+
 export interface ICarTypeInitalState {
   loading: {
     get: boolean;
@@ -5,43 +7,38 @@ export interface ICarTypeInitalState {
     patch: boolean;
     delete: boolean;
   };
+  carTypeOne: ICarType | null;
   carType: ICarType[] | null;
+  pagination: IPagination | null;
   errors: unknown | string[] | string;
 }
 
 export enum PayloadTariffEnum {
   get = 'get',
   post = 'post',
+  patch = 'patch',
+  delete = 'delete',
 }
 
 export interface ICarType {
   carTypeId: number;
-  withBaggage: boolean;
   numberOfSeats: number;
+  numberOfBaggages: number;
   createdAt: string;
-  isDeleted: boolean;
+  updatedAt: string;
 }
 
-export interface ICarTypeResponse {
-  data: ICarType[];
-}
-
-export interface ICarTypeByIdResponse {
-  data: ICarType;
-}
-
-export interface ICartypeCreateResponse {}
-export interface ICarTypeEditResponse {}
+export interface ICarTypeResponse extends IBaseReponseTransfer<ICarType> {}
 
 export interface ICarTypeCreatepayload {
-  withBaggage: boolean;
+  numberOfBaggages: number;
   numberOfSeats: number;
   callback: () => void;
 }
 
 export interface ItariffEditpayload {
   id: number | string;
-  withBaggage: boolean;
+  numberOfBaggages: number;
   numberOfSeats: number;
   callback: () => void;
 }

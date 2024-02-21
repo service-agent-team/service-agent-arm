@@ -1,10 +1,11 @@
+import { addKeyProp } from '@/common';
+import { addNotification } from '@/common/utils/addNotification';
 import { Tab, Table } from '@/components';
-import { addKeyProp, useActions, useTypedSelector } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { useActions, useTypedSelector } from '@/hooks';
 import { IUserData } from '@/store/agent/contract/contract.interface';
+import { TabsProps } from 'antd';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
-import { TabsProps } from 'antd';
 
 export const AgentTable: React.FC = () => {
   const { setContarctSatus } = useActions();

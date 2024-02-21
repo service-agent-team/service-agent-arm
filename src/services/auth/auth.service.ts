@@ -1,5 +1,5 @@
-import { $axios } from '@/config';
-import { saveStorage } from '@/helpers';
+import { $axios } from '@/common/config';
+import { saveStorage } from '@/common/helpers';
 import { IAuthResponse, IAuthSignIn } from '@/store/auth/interface';
 import { AxiosResponse } from 'axios';
 import { EndPointes } from '../endpoints';

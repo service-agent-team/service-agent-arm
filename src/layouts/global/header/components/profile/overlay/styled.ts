@@ -1,5 +1,5 @@
+import { media } from '@/common/styles';
 import { MenuItem as MenuItemBase } from '@/components';
-import { media } from '@/styles';
 import { Divider, Typography } from 'antd';
 import styled from 'styled-components';
 

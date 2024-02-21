@@ -1,12 +1,12 @@
-import { useActions, useTypedSelector } from '@/libs';
+import { useActions } from '@/hooks';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
   BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
 import { useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
@@ -56,8 +56,6 @@ export const Home = () => {
   useEffect(() => {
     getAgentOrdersStatis({ start: '12.01.2024', end: '12.02.2024' });
   }, [getAgentOrdersStatis]);
-  const { statistic } = useTypedSelector((state) => state.agentStatistic);
-  console.log(statistic);
 
   return <Bar options={options} data={data} />;
 };

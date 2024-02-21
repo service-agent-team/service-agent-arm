@@ -1,4 +1,4 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { IUserCreateResponse, IUserResponse } from '@/store/users/types';
 import { EndPointes } from '../endpoints';
 export const UserService = {

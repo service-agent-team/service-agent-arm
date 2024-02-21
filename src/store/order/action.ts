@@ -1,6 +1,6 @@
-import { $axios } from '@/config';
-import { errorCatch } from '@/helpers';
-import { addNotification } from '@/libs/utils/addNotification';
+import { $axios } from '@/common/config';
+import { errorCatch } from '@/common/helpers';
+import { addNotification } from '@/common/utils/addNotification';
 import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IStatisticaResponce } from './types';

@@ -1,4 +1,4 @@
-import { useActions, useTypedSelector } from '@/libs';
+import { useActions, useTypedSelector } from '@/hooks';
 import {
   CategoryScale,
   Chart as ChartJS,

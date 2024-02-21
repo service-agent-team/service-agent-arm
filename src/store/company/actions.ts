@@ -1,4 +1,4 @@
-import { errorCatch } from '@/helpers';
+import { errorCatch } from '@/common/helpers';
 import { ComapnyService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ICompanyPayload, ICompanyResponse } from './types';

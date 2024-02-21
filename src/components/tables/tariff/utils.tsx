@@ -1,6 +1,6 @@
-import { modal } from '@/app';
-import { useActions } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { addNotification } from '@/common/utils/addNotification';
+import { modal } from '@/components/app';
+import { useActions } from '@/hooks';
 import { CheckOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';

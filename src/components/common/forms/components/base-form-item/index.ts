@@ -1,4 +1,4 @@
-import { media } from '@/styles';
+import { media } from '@/common/styles';
 import { Form } from 'antd';
 import styled, { css } from 'styled-components';
 

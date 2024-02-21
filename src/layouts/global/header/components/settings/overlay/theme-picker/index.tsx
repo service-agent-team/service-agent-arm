@@ -1,5 +1,5 @@
 import { MoonSunSwitch } from '@/components';
-import { useActions, useTypedSelector } from '@/libs';
+import { useActions, useTypedSelector } from '@/hooks';
 import React from 'react';
 
 export const ThemePicker: React.FC = () => {

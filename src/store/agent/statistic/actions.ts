@@ -1,7 +1,7 @@
-import { errorCatch } from '@/helpers';
-import { addNotification } from '@/libs/utils/addNotification';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { errorCatch } from '@/common/helpers';
+import { addNotification } from '@/common/utils/addNotification';
 import { AgentStatistcService } from '@/services/agent/statistica';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import { IAgentOrderPay, IOrderStatistica } from './types';
 

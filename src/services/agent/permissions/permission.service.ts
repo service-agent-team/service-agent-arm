@@ -1,4 +1,4 @@
-import { $axios } from '@/config';
+import { $axios } from '@/common/config';
 import { IAgentPermissionResponse } from '@/store/agent/permission/types';
 import { ITariffCreateResponse } from '@/store/tariff/types';
 import { EndPointes } from '../../endpoints';

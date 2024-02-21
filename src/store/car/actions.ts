@@ -1,5 +1,5 @@
-import { errorCatch } from '@/helpers';
-import { addNotification } from '@/libs/utils/addNotification';
+import { errorCatch } from '@/common/helpers';
+import { addNotification } from '@/common/utils/addNotification';
 import { CarService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ICarTypeByIdPayload } from '../car-type/types';

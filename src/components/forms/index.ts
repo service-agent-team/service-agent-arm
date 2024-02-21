@@ -3,7 +3,6 @@ export { AgentPermissionForm } from './agent-permisison-form';
 export { AgentRolesForm } from './agent-role-form/index';
 export { CarModelForm } from './car-model-form';
 export { CarTypeForm } from './car-type-form';
-export { DriverForm } from './driver-form';
 export { PermisionsForm } from './permissions-form';
 export { ProductCreateForm } from './product-form';
 export { TariffForm } from './tariff-form';

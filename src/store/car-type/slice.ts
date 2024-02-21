@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createCarType, deletCarType, ediCarType, getCarType } from './actions';
-import { ICarTypeInitalState, PayloadTariffEnum } from './types';
+import { createCarType, deletCarType, ediCarType, getCarType, getOneCarType } from './actions';
+import { ICarType, ICarTypeInitalState, PayloadTariffEnum } from './types';
 
 const initialState: ICarTypeInitalState = {
   loading: {
@@ -9,7 +9,9 @@ const initialState: ICarTypeInitalState = {
     patch: false,
     delete: false,
   },
+  pagination: null,
   carType: null,
+  carTypeOne: null,
   errors: null,
 };
 
@@ -29,7 +31,9 @@ export const carTypeSlice = createSlice({
       })
       .addCase(getCarType.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.carType = payload.data;
+        const { content, ...all } = payload;
+        state.carType = content as ICarType[];
+        state.pagination = all;
         state.errors = null;
       })
       .addCase(getCarType.rejected, (state, { payload }) => {
@@ -46,6 +50,19 @@ export const carTypeSlice = createSlice({
       })
       .addCase(createCarType.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(getOneCarType.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneCarType.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.carTypeOne = payload;
+        state.errors = null;
+      })
+      .addCase(getOneCarType.rejected, (state, { payload }) => {
+        state.loading.get = false;
         state.errors = payload;
       })
       .addCase(ediCarType.pending, (state) => {

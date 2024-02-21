@@ -7,8 +7,6 @@ import * as CarTypeActions from '../car-type/actions';
 import { CarTypesliceActions } from '../car-type/slice';
 import * as CarActions from '../car/actions';
 import { CarSliceActions } from '../car/slice';
-import * as DriverActions from '../driver/actions';
-import { DriverSliceActions } from '../driver/slice';
 import * as PermissionActions from '../permission/actions';
 import { PermissionSliceActions } from '../permission/slice';
 import * as TariffActions from '../tariff/actions';
@@ -21,24 +19,24 @@ import {
   AgentTariffSliceActions,
   ContractSliceActions,
 } from './../agent';
+import * as AgentOrdersActions from './../agent/order/actions';
+import { AgentOrderSliceActions } from './../agent/order/slices';
 import { AgentPermissionSliceActions } from './../agent/permission/slice';
+import * as AgentRolesPermissionActions from './../agent/role-permission/actions';
+import { AgentRolesPermissionSliceActions } from './../agent/role-permission/slice';
+import * as AgentStatisticActions from './../agent/statistic/actions';
+import { AgentStatisticSliceActions } from './../agent/statistic/slice';
+import * as TariffPermissionActions from './../agent/tariffPermission/permission.action';
+import { AgentTariffPermissionSliceActions } from './../agent/tariffPermission/permission.slice';
 import { AuthSliceActions } from './../auth/slice';
 import * as CarModelActions from './../car-model/action';
 import { CarModelsliceActions } from './../car-model/slice';
+import * as CompanyAction from './../company/actions';
 import { CompanySliceActions } from './../company/slice';
 import * as OrderActions from './../order/action';
 import { OrderSliceActions } from './../order/slice';
 import * as ProductActions from './../product/action';
 import { ProductSliceActions } from './../product/slice';
-import * as CompanyAction from './../company/actions';
-import { AgentTariffPermissionSliceActions } from './../agent/tariffPermission/permission.slice';
-import * as TariffPermissionActions from './../agent/tariffPermission/permission.action';
-import { AgentRolesPermissionSliceActions } from './../agent/role-permission/slice';
-import * as AgentRolesPermissionActions from './../agent/role-permission/actions';
-import { AgentOrderSliceActions } from './../agent/order/slices';
-import * as AgentOrdersActions from './../agent/order/actions';
-import { AgentStatisticSliceActions } from './../agent/statistic/slice';
-import * as AgentStatisticActions from './../agent/statistic/actions';
 
 export const AllActions = {
   ...CarActions,
@@ -59,8 +57,6 @@ export const AllActions = {
   ...ProductSliceActions,
   ...CarTypeActions,
   ...CarTypesliceActions,
-  ...DriverActions,
-  ...DriverSliceActions,
   ...AgentTariffSliceActions,
   ...AgentTariffAction,
   ...CarModelsliceActions,

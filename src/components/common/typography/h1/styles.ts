@@ -13,7 +13,7 @@ export const Text = styled(Typography.Title)`
     }
 
     @media only screen and ${media.xl} {
-      font-size: 2.25rem;
+      font-size: 1.25rem;
     }
   }
 `;

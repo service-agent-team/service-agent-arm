@@ -1,7 +1,7 @@
-import { modal } from '@/app';
 import { Icon } from '@/components';
+import { modal } from '@/components/app';
 import { dictionary } from '@/layouts/global/dictionary';
-import { useActions } from '@/libs';
+import { useActions } from '@/hooks';
 import { LogoutOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import React from 'react';

@@ -26,6 +26,12 @@ export interface IGetUserPayload {
   callback: () => void;
 }
 
+export interface IGetCarTypePayload {
+  callback: () => void;
+  page: number;
+  size: number;
+}
+
 export interface IUserResponse {
   success: boolean;
   status: number;

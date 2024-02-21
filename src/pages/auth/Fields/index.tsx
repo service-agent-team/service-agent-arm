@@ -1,4 +1,4 @@
-import { passwordRegex } from '@/libs/utils';
+import { passwordRegex } from '@/common/utils';
 import { Form, Input } from 'antd';
 import classnameBind from 'classnames/bind';
 import { authDictionary } from '../dictionary';

@@ -1,4 +1,4 @@
-import { navigateBasedOnRole } from '@/middlewares';
+import { navigateBasedOnRole } from '@/common/middlewares';
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from './root/reducer';
 

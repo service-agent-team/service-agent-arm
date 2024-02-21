@@ -1,4 +1,4 @@
-import { modal } from '@/app';
+import { modal } from '@/components/app';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
@@ -7,8 +7,8 @@ import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
 import { AgentPermissionsRow, DataIndex, IhandleSearchProps } from './types';
 
-import { useActions } from '@/libs';
-import { addNotification } from '@/libs/utils/addNotification';
+import { addNotification } from '@/common/utils/addNotification';
+import { useActions } from '@/hooks';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 export const utils = () => {
