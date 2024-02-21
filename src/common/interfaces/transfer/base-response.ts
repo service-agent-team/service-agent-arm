@@ -1,5 +1,5 @@
 export interface IBaseReponseTransfer<T> {
-  content : T[] | TestStart
+  content: T[] | T;
   pageable: Pageable;
   totalElements: number;
   totalPages: number;
