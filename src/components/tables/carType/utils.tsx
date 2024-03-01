@@ -52,7 +52,9 @@ export const utils = () => {
       width: '20%',
       render: (_, { createdAt }) => {
         return (
-          <Tag>{`${new Date(createdAt).getDate()}-${new Date(createdAt).getMonth()}-${new Date(createdAt).getFullYear()}`}</Tag>
+          <Tag>{`${new Date(createdAt).getDate()}-${new Date(createdAt).getMonth()}-${new Date(
+            createdAt,
+          ).getFullYear()}`}</Tag>
         );
       },
     },

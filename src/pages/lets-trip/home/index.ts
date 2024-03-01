@@ -1,0 +1,1 @@
+export { LetsTripHome } from './home';
