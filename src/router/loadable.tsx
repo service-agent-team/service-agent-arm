@@ -45,3 +45,6 @@ export const CarModel = getLoadablePage('CarModel');
 export const CreateCarModel = getLoadablePage('CreateCarModel');
 export const UpdateCarModel = getLoadablePage('UpdateCarModel');
 export const CreateCarPage = getLoadablePage('CreateCarPage');
+
+//lets-trip
+export const LetsTripHomePage = getLoadablePage('LetsTripHome');

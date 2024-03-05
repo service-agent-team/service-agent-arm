@@ -50,4 +50,7 @@ export const ROUTES = {
   carModel: '/transfer/car-model',
   carModelCreate: '/transfer/car-model/create',
   carModelupdate: '/transfer/car-model/update',
+
+  // lets-trip
+  letsTripHome: '/lets-trip/home',
 } as const;

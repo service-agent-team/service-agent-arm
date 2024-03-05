@@ -4,6 +4,7 @@ import { useActions, useTypedSelector } from '@/hooks';
 import { UserPermission } from '@/store/users/types';
 import { useEffect } from 'react';
 import { Title, Wrapper } from './projects.styles';
+import { Skeleton } from 'antd';
 
 export const ProjectsPage = () => {
   const { getMe } = useActions();
@@ -15,7 +16,10 @@ export const ProjectsPage = () => {
     });
   }, []);
 
-  const { user } = useTypedSelector((state) => state.user);
+  const {
+    user,
+    loading: { get },
+  } = useTypedSelector((state) => state.user);
 
   return (
     <Wrapper>
@@ -24,11 +28,13 @@ export const ProjectsPage = () => {
         <ProjectCard name="Global" path={`/global`} />
       )}
       {user?.userPermission.map((el: UserPermission, i: number) => (
-        <ProjectCard
-          key={i}
-          name={el.project_id.project_name}
-          path={`/${el.project_id.project_name}/home`}
-        />
+        <Skeleton loading={get} key={i}>
+          <ProjectCard
+            key={i}
+            name={el.project_id.project_name}
+            path={`/${el.project_id.project_name}/home`}
+          />
+        </Skeleton>
       ))}
     </Wrapper>
   );

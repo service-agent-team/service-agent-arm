@@ -8,7 +8,7 @@ export interface IProps {
 export const ProjectCard = ({ name, path }: IProps) => {
   return (
     <Card width="400px">
-      <S.Text>{name}</S.Text>
+      <S.Text>{name.toUpperCase()}</S.Text>
       <S.Navigate to={path}>Permission</S.Navigate>
     </Card>
   );
