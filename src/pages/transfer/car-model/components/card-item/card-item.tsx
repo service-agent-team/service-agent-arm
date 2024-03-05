@@ -1,4 +1,4 @@
-import { useTypedSelector } from '@/hooks';
+import { useTypedSelector } from '@/common/hooks';
 import { ICarModel } from '@/types';
 import { DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card, Skeleton } from 'antd';

@@ -1,6 +1,6 @@
+import { useActions } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { modal } from '@/components/app';
-import { useActions } from '@/hooks';
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Row, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
@@ -24,7 +24,9 @@ export const utils = () => {
         deleteUsers({
           id: record.user_id,
           callback: () => {
-            getUsers({ callback: () => {} });
+            getUsers({
+              id: '',
+            });
             addNotification('Deleted.');
             return 'ok';
           },

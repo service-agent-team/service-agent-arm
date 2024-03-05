@@ -1,4 +1,4 @@
-import { useActions } from '@/hooks';
+import { useActions } from '@/common/hooks';
 import {
   BarElement,
   CategoryScale,

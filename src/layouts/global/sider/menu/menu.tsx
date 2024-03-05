@@ -1,5 +1,5 @@
 import { generateMenuIconCreator, history } from '@/common';
-import { useTypedSelector } from '@/hooks';
+import { useTypedSelector } from '@/common/hooks';
 import { AntMenu } from '@/layouts/global/style';
 import { MenuProps } from 'antd';
 import { ItemType, MenuItemType } from 'antd/lib/menu/hooks/useItems';

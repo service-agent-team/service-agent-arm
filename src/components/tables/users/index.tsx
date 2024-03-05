@@ -1,8 +1,8 @@
 import { addKeyProp } from '@/common';
+import { useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { Table } from '@/components';
-import { useTypedSelector } from '@/hooks';
-import { IUserResponseData } from '@/store/users/types';
+import { IUserResponseData } from '@/store/global/users/types';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
 

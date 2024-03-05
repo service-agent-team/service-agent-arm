@@ -1,20 +1,19 @@
-import { AgentPermissionReducer } from '../agent';
-import { AgentOrderReducer } from '../agent/order/slices';
-import { RolesReducer } from '../agent/roles/slice';
-import { AgentStatisticReducer } from '../agent/statistic/slice';
 import { appReducer } from '../app';
-import { AuthReducer } from '../auth/slice';
-import { CarModelReducer } from '../car-model/slice';
-import { CarTypeReducer } from '../car-type/slice';
-import { CarReducer } from '../car/slice';
-import { CompanyReducer } from '../company/slice';
-import { PermissionReducer } from '../permission/slice';
-import { ProductReducer } from '../product/slice';
-import { TariffReducer } from '../tariff/slice';
-import { UserReducer } from '../users/slice';
-import { AgentContractReducer, AgentTariffReducer } from './../agent';
-import { AgentRolesPermissionReducer } from './../agent/role-permission/slice';
-import { OrderReducer } from './../order/slice';
+import { AuthReducer } from '../global/auth/slice';
+import { PermissionReducer } from '../global/permission/slice';
+import { UserReducer } from '../global/users/slice';
+import { CarModelReducer } from '../lets-trip/car-model/slice';
+import { CarTypeReducer } from '../lets-trip/car-type/slice';
+import { CarReducer } from '../lets-trip/car/slice';
+import { CompanyReducer } from '../service-agent/company/slice';
+import { AgentContractReducer } from '../service-agent/contract/contract.slice';
+import { AgentOrderReducer } from '../service-agent/order/slices';
+import { AgentPermissionReducer } from '../service-agent/permission/slice';
+import { ProductReducer } from '../service-agent/product/slice';
+import { AgentRolesPermissionReducer } from '../service-agent/role-permission/slice';
+import { RolesReducer } from '../service-agent/roles/slice';
+import { AgentStatisticReducer } from '../service-agent/statistic/slice';
+import { AgentTariffReducer } from '../service-agent/tariff/tariff.slice';
 
 export const reducer = {
   app: appReducer,
@@ -23,14 +22,12 @@ export const reducer = {
   users: UserReducer,
   agent: AgentContractReducer,
   permission: PermissionReducer,
-  tariff: TariffReducer,
   company: CompanyReducer,
   product: ProductReducer,
   carType: CarTypeReducer,
   agentTariff: AgentTariffReducer,
   car: CarReducer,
   carModel: CarModelReducer,
-  tarnsferStatistika: OrderReducer,
   roles: RolesReducer,
   agentRolesPermission: AgentRolesPermissionReducer,
   agentPermission: AgentPermissionReducer,

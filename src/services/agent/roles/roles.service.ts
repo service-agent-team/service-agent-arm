@@ -1,5 +1,5 @@
 import { $axios } from '@/common/config';
-import { IRolesResponse } from '@/store/agent/roles/types';
+import { IRolesResponse } from '@/store/service-agent/roles/types';
 import { ITariffCreateResponse } from '@/store/tariff/types';
 import { EndPointes } from '../../endpoints';
 

@@ -1,6 +1,5 @@
 import { THEME, setLocalStorage } from '@/common';
 import { createSlice } from '@reduxjs/toolkit';
-import { ENDPOINTS } from '../endpoints';
 import { ETheme, TInitialState } from './types';
 
 const initialState: TInitialState = {
@@ -17,7 +16,7 @@ const initialState: TInitialState = {
 };
 
 const appSlice = createSlice({
-  name: ENDPOINTS.app,
+  name: 'app',
   initialState,
   reducers: {
     showDrawer: (state) => {

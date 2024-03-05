@@ -1,7 +1,7 @@
 import { $axios } from '@/common/config';
 import { IPermissionCreateResponse, IPermissionResponse } from '@/store';
+import { ICreatePermissionAxiosPayload } from '../../store/global/permission/types';
 import { EndPointes } from '../endpoints';
-import { ICreatePermissionAxiosPayload } from './../../store/permission/types';
 export const UserPermissionService = {
   async getPermissions() {
     const response = await $axios.get<IPermissionResponse>(EndPointes.permissions.getAll);

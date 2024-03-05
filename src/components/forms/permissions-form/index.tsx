@@ -1,6 +1,6 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, TextArea } from '@/components';
-import { useActions, useTypedSelector } from '@/hooks';
 import { IPermissionCreatePayload } from '@/store';
 import { Input } from 'antd';
 import React from 'react';

@@ -1,7 +1,7 @@
 import { addKeyProp, addNotification } from '@/common';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { Table } from '@/components';
-import { useActions, useTypedSelector } from '@/hooks';
-import { ICarType } from '@/store/car-type/types';
+import { ICarType } from '@/store/lets-trip/car-type/types';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
 

@@ -1,6 +1,6 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, InputPassword, PrimaryBtn } from '@/components';
-import { useActions, useTypedSelector } from '@/hooks';
 import { Input } from 'antd';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

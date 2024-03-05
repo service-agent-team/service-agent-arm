@@ -28,6 +28,10 @@
     "file": "assets/fon.jpg",
     "src": "src/assets/images/fon.jpg"
   },
+  "src/assets/images/lets-trip-logo.svg": {
+    "file": "assets/lets-trip-logo.svg",
+    "src": "src/assets/images/lets-trip-logo.svg"
+  },
   "src/assets/images/logo.png": {
     "file": "assets/logo.png",
     "src": "src/assets/images/logo.png"

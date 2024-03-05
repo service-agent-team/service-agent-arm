@@ -7,8 +7,8 @@ import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
 import { AgentPermissionsRow, DataIndex, IhandleSearchProps } from './types';
 
+import { useActions } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
-import { useActions } from '@/hooks';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 export const utils = () => {

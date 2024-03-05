@@ -1,3 +1,3 @@
-import { ICarTypeCreatepayload } from '@/store/car-type/types';
+import { ICarTypeCreatepayload } from '@/store/lets-trip/car-type/types';
 
 export interface ICreateCarTypeValues extends ICarTypeCreatepayload {}

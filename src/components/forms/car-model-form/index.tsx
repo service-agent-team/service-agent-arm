@@ -1,6 +1,6 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, Upload as FileUppload, PrimaryBtn, message } from '@/components';
-import { useActions, useTypedSelector } from '@/hooks';
 import { UploadOutlined } from '@ant-design/icons';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
 import { Input, Modal } from 'antd';

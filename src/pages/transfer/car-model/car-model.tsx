@@ -1,6 +1,6 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions, useTypedSelector } from '@/hooks';
 import React, { useEffect } from 'react';
 import { CardItem } from './components/card-item/card-item';
 import * as S from './styles';

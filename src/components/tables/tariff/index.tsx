@@ -1,7 +1,7 @@
 import { addKeyProp } from '@/common';
+import { useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { Table } from '@/components';
-import { useTypedSelector } from '@/hooks';
 import { ITariff } from '@/store/tariff/types';
 import React, { useEffect } from 'react';
 import { utils } from './utils';

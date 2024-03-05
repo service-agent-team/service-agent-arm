@@ -1,6 +1,6 @@
 import { addKeyProp } from '@/common';
+import { useTypedSelector } from '@/common/hooks';
 import { Table } from '@/components';
-import { useTypedSelector } from '@/hooks';
 import { IPermissionResponseData } from '@/store';
 import React from 'react';
 import { utils } from './utils';

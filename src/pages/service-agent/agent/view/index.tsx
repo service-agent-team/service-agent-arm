@@ -1,7 +1,7 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { AgentCard, PageTitle, VideoCard } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions, useTypedSelector } from '@/hooks';
 import { Flex } from 'antd';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';

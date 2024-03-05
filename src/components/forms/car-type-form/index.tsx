@@ -1,6 +1,6 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn } from '@/components';
-import { useActions, useTypedSelector } from '@/hooks';
 import { ICreateCarValues } from '@/pages/transfer/car/create-page/types.ts';
 import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';

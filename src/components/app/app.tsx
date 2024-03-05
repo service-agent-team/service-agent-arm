@@ -1,6 +1,6 @@
 import { history } from '@/common';
+import { useBootstrap } from '@/common/hooks';
 import { Loading } from '@/components';
-import { useBootstrap } from '@/hooks';
 import { Routes } from '@/router';
 import { Toaster } from 'react-hot-toast';
 import { HistoryRouter } from './history-router';

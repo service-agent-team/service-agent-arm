@@ -1,4 +1,4 @@
-import { useActions, useTypedSelector } from '@/hooks';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { Dropdown as AntDropdown, MenuProps, Radio } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { PropsWithChildren } from 'react';

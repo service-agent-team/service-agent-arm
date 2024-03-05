@@ -1,10 +1,10 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { ProjectCard } from '@/components/cards/project-card';
-import { useActions, useTypedSelector } from '@/hooks';
-import { UserPermission } from '@/store/users/types';
+import { UserPermission } from '@/store/global/users/types';
+import { Skeleton } from 'antd';
 import { useEffect } from 'react';
 import { Title, Wrapper } from './projects.styles';
-import { Skeleton } from 'antd';
 
 export const ProjectsPage = () => {
   const { getMe } = useActions();
