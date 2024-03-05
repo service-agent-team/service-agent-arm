@@ -1,7 +1,7 @@
 import { clearStorage } from '@/common/helpers';
 import { createSlice } from '@reduxjs/toolkit';
-import { SignIn } from './actions';
-import { InitialState } from './interface';
+import { SignIn, getMe } from './actions';
+import { InitialState } from '@/store/auth/interface.ts';
 
 const initialState: InitialState = {
   user: null,
@@ -9,6 +9,7 @@ const initialState: InitialState = {
   isAuth: false,
   loading: {
     sign: false,
+    get: false,
   },
   error: null,
 };
@@ -58,6 +59,19 @@ export const authSlice = createSlice({
         state.error = payload;
         state.loading.sign = false;
         state.isAuth = false;
+      })
+      .addCase(getMe.pending, (state) => {
+        state.loading.get = true;
+        state.error = null;
+      })
+      .addCase(getMe.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.user = payload.data;
+        state.error = null;
+      })
+      .addCase(getMe.rejected, (state) => {
+        state.loading.get = false;
+        state.error = null;
       });
   },
 });

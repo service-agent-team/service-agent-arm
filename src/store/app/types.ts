@@ -5,7 +5,10 @@ export type TInitialState = {
   path: string;
   isAdd: boolean;
   previewTitle: string;
+  previewImage: string;
   menu: IMenu[];
+  fileList: any[];
+  imageId: number;
 };
 
 export enum ETheme {

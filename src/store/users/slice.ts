@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createUser, getMe, getUsers } from './actions';
-import { ISetUserPayload, IUserInitalState, PayloadEnum } from './types';
+import { createUser, editUser, getOneUser, getUsers } from './actions';
+import { IUserInitalState, IUserResponseData, PayloadEnum } from '@/types';
 
 const initialState: IUserInitalState = {
   loading: {
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
       state.loading[payload] = !state.loading[payload];
     },
 
-    setUsers: (state, { payload }: ISetUserPayload) => {
+    setUsers: (state, { payload }) => {
       state.users = payload;
     },
 
@@ -44,26 +44,13 @@ export const userSlice = createSlice({
       })
       .addCase(getUsers.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.users = payload.data;
-        state.total = payload.data.length;
+        state.users = payload.data as IUserResponseData[];
+        state.total = (payload.data as IUserResponseData[]).length;
         state.errors = null;
       })
       .addCase(getUsers.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
-      })
-      .addCase(getMe.pending, (state) => {
-        state.loading.get = true;
-        state.errors = null;
-      })
-      .addCase(getMe.fulfilled, (state, { payload }) => {
-        state.loading.get = false;
-        state.user = payload.data;
-        state.errors = null;
-      })
-      .addCase(getMe.rejected, (state) => {
-        state.loading.get = false;
-        state.errors = null;
       })
       .addCase(createUser.pending, (state) => {
         state.loading.post = true;
@@ -75,6 +62,29 @@ export const userSlice = createSlice({
       })
       .addCase(createUser.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(getOneUser.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneUser.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.user = payload.data as IUserResponseData;
+      })
+      .addCase(getOneUser.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(editUser.pending, (state) => {
+        state.loading.put = true;
+      })
+      .addCase(editUser.fulfilled, (state, { payload }) => {
+        state.loading.put = false;
+        state.user = payload.data as IUserResponseData;
+      })
+      .addCase(editUser.rejected, (state, { payload }) => {
+        state.loading.put = false;
         state.errors = payload;
       });
   },

@@ -3,31 +3,53 @@ import { BaseForm, InputPassword, PrimaryBtn } from '@/components';
 import { useActions, useTypedSelector } from '@/hooks';
 import { Input } from 'antd';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './styled';
 import { IValuesForm } from './types';
 
-export const UsersForm: React.FC = () => {
+export const UsersForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
   const [form] = BaseForm.useForm();
-  const { createUser } = useActions();
+  const { createUser, editUser } = useActions();
   const navigate = useNavigate();
-
-  const { loading } = useTypedSelector((state) => state.users);
+  const { id } = useParams();
+  const { user, loading } = useTypedSelector((state) => state.users);
 
   const onFinish = (value: IValuesForm) => {
-    createUser({
-      userName: value.username,
-      email: value.email,
-      password: value.password,
-      callback: () => {
-        addNotification('user created');
-        navigate('/global/users');
-      },
-    });
+    if (type === 'create') {
+      createUser({
+        payload: {
+          userName: value.username,
+          email: value.email,
+          password: value.password,
+          role: value.role,
+        },
+        callback: () => {
+          addNotification('created');
+          navigate('/global/users');
+        },
+      });
+    } else {
+      editUser({
+        id: id as string,
+        payload: { email: value.email, userName: value.username },
+        callback: () => {
+          addNotification('edited');
+          navigate('/global/users');
+        },
+      });
+    }
   };
 
   return (
     <BaseForm
+      initialValues={
+        type === 'edit'
+          ? {
+              username: user?.user_name,
+              email: user?.email,
+            }
+          : {}
+      }
       name="usersForm"
       form={form}
       layout="vertical"
@@ -57,25 +79,6 @@ export const UsersForm: React.FC = () => {
         </BaseForm.Item>
 
         <BaseForm.Item
-          name="password"
-          label={'password'}
-          dependencies={['password']}
-          rules={[
-            { required: true, message: 'missing..' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from form!'));
-              },
-            }),
-          ]}
-        >
-          <InputPassword placeholder="Enter a password ?" />
-        </BaseForm.Item>
-
-        <BaseForm.Item
           name="email"
           label={'email'}
           rules={[
@@ -88,8 +91,39 @@ export const UsersForm: React.FC = () => {
         >
           <Input placeholder="Enter an email ?" />
         </BaseForm.Item>
-        <PrimaryBtn htmlType="submit" loading={loading.post}>
-          create
+        {type === 'create' ? (
+          <>
+            <BaseForm.Item
+              name="password"
+              label={'password'}
+              dependencies={['password']}
+              rules={[
+                { required: true, message: 'missing..' },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('error from form!'));
+                  },
+                }),
+              ]}
+            >
+              <InputPassword placeholder="Enter a password ?" />
+            </BaseForm.Item>
+
+            <BaseForm.Item
+              name={'role'}
+              label={'role'}
+              rules={[{ required: true, message: 'this is required field' }]}
+            >
+              <Input placeholder="Enter a role ?" />
+            </BaseForm.Item>
+          </>
+        ) : null}
+
+        <PrimaryBtn htmlType="submit" loading={loading.post || loading.put}>
+          {type === 'create' ? 'create' : 'edit'}
         </PrimaryBtn>
       </S.FormContent>
     </BaseForm>

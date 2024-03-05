@@ -1,3 +1,5 @@
+import { ICarModel, ImageSet } from '@/types';
+
 export interface ICarModelInitalState {
   loading: {
     get: boolean;
@@ -5,21 +7,20 @@ export interface ICarModelInitalState {
     patch: boolean;
     delete: boolean;
   };
-  carModel: ICarModel[] | null;
-  errors: unknown | string[] | string;
-}
-
-export interface ICarModel {
-  modelId: number;
-  name: string;
+  carModels: ICarModel[] | null;
+  image: ImageSet | null;
+  carModel: ICarModel | null;
+  errors: unknown | string[] | string | any;
 }
 
 export interface ICarModelResponse {
-  data: ICarModel[];
+  content: ICarModel[];
 }
 
 export interface ICarModelPayload {
   callback: (data: any) => void;
+  page?: number;
+  size?: number;
 }
 
 export interface ICarModelCreadPayload {

@@ -14,7 +14,7 @@ export const utils = () => {
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
   const navigate = useNavigate();
-  const { deleteUsers, getUsers } = useActions();
+  const { deleteUsers, getUsers, getOneUser } = useActions();
 
   const handleDelete = (record: any) => {
     modal.confirm({
@@ -150,7 +150,6 @@ export const utils = () => {
       dataIndex: 'created_at',
       key: 'created_at',
       width: '20%',
-      ...getColumnSearchProps('created_at'),
     },
     {
       title: 'Roles',
@@ -230,7 +229,12 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                navigate(`/global/users/edit/${record.user_id}`);
+                getOneUser({
+                  id: record.user_id,
+                  callback: () => {
+                    navigate(`/global/users/edit/${record.user_id}`);
+                  },
+                });
               }}
             >
               <EditOutlined />

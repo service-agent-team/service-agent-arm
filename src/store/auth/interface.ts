@@ -4,6 +4,7 @@ export interface InitialState {
   isAuth: boolean;
   loading: {
     sign: boolean;
+    get: boolean;
   };
   error: null | string | unknown;
 }

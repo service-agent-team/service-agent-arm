@@ -53,6 +53,8 @@ export const EndPointes = {
     getAll: '/users/get-all',
     createUser: '/users/create',
     delete: '/users/delete-user/',
+    getOne: '/users/get/',
+    edit: '/users/update-user/',
   },
 
   tariff: {

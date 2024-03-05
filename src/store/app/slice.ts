@@ -8,8 +8,11 @@ const initialState: TInitialState = {
   isDrawer: false,
   theme: ETheme.LIGHT,
   path: '',
+  imageId: 0,
+  fileList: [],
   isAdd: false,
   previewTitle: '',
+  previewImage: '',
   menu: [],
 };
 
@@ -36,6 +39,22 @@ const appSlice = createSlice({
 
     setMenu: (state, { payload }) => {
       state.menu = payload;
+    },
+
+    setImageId: (state, { payload }) => {
+      state.imageId = payload;
+    },
+
+    setFileList: (state, { payload }) => {
+      state.fileList = payload;
+    },
+
+    setPreviewImage: (state, { payload }) => {
+      state.previewImage = payload;
+    },
+
+    setPreviewTitle: (state, { payload }) => {
+      state.previewTitle = payload;
     },
   },
 });

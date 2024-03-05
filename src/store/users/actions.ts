@@ -3,13 +3,8 @@ import { addNotification } from '@/common/utils/addNotification';
 import { UserService } from '@/services/Users/user-service';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IRolesDisablePayload } from '../agent/roles/types';
-import {
-  IGetUserPayload,
-  IUserCreateData,
-  IUserCreateResponse,
-  IUserGetMeResponse,
-  IUserResponse,
-} from './types';
+import { ICreateUserPayload, IGetUserPayload, IUserEditPayload, IUserResponse } from '@/types';
+import { IGetAllPayload } from '@/types/common';
 
 export const getUsers = createAsyncThunk<IUserResponse, IGetUserPayload>(
   'get/users',
@@ -18,7 +13,9 @@ export const getUsers = createAsyncThunk<IUserResponse, IGetUserPayload>(
       const response = await UserService.getUsers();
 
       if (response.data.status == 200) {
-        callback();
+        if (callback) {
+          callback();
+        }
       }
       return response.data;
     } catch (error) {
@@ -28,26 +25,15 @@ export const getUsers = createAsyncThunk<IUserResponse, IGetUserPayload>(
   },
 );
 
-export const getMe = createAsyncThunk<IUserGetMeResponse, any>('get/me', async (thunkApi) => {
-  try {
-    const response = await UserService.getMe();
-    if (response.data.status === 200) {
-      addNotification('Successfully!');
-    }
-    return response.data;
-  } catch (error) {
-    addNotification(error);
-    return thunkApi.rejectWithValue({ error: errorCatch(error) });
-  }
-});
-
-export const createUser = createAsyncThunk<IUserCreateResponse, IUserCreateData>(
+export const createUser = createAsyncThunk<IUserResponse, ICreateUserPayload>(
   'create/user',
-  async ({ userName, password, email, callback }, thunkApi) => {
+  async ({ payload: { userName, password, email, role }, callback }, thunkApi) => {
     try {
-      const response = await UserService.createUser({ userName, password, email });
+      const response = await UserService.createUser({ userName, password, email, role: +role });
       if (response.data) {
-        callback();
+        if (callback) {
+          callback();
+        }
       }
       return response.data;
     } catch (error) {
@@ -57,34 +43,40 @@ export const createUser = createAsyncThunk<IUserCreateResponse, IUserCreateData>
   },
 );
 
-// export const getUserById = createAsyncThunk<IUsersByIdResponse, IRolesByIdPayload>(
-//   'get/roles/by.id',
-//   async ({ id }, thunkApi) => {
-//     try {
-//       const response = await RolesService.getRoleById(id);
+export const getOneUser = createAsyncThunk<IUserResponse, IGetAllPayload>(
+  'get/userOne',
+  async ({ id, callback }, thunkApi) => {
+    try {
+      const response = await UserService.getUserOne(id);
 
-//       return response.data;
-//     } catch (error) {
-//       addNotification(error);
-//       return thunkApi.rejectWithValue({ error: errorCatch(error) });
-//     }
-//   },
-// );
+      if (response.data) {
+        if (callback) {
+          callback();
+        }
+      }
 
-// export const editRoles = createAsyncThunk<IRolesEditResponse, IRolesEditpayload>(
-//   'edit/roles',
-//   async ({ name, description, callback, id }, thunkApi) => {
-//     try {
-//       const response = await RolesService.editRoles({ name, description }, id);
-//       if (response.data) {
-//         callback();
-//       }
-//       return response.data;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue({ error: errorCatch(error) });
-//     }
-//   },
-// );
+      return response.data;
+    } catch (error) {
+      addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const editUser = createAsyncThunk<IUserResponse, IUserEditPayload>(
+  'edit/userById',
+  async ({ payload: { userName, email }, callback, id }, thunkApi) => {
+    try {
+      const response = await UserService.editUser(id, { userName, email });
+      if (response.data && callback) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
 
 export const deleteUsers = createAsyncThunk<IUserResponse, IRolesDisablePayload>(
   'delete/users',

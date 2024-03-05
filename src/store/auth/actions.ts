@@ -3,6 +3,8 @@ import { addNotification } from '@/common/utils/addNotification';
 import { AuthService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IAuthResponse, IAuthSignIn } from './interface';
+import { IUserGetMeResponse } from '@/store/users/types.ts';
+import { UserService } from '@/services/Users/user-service.ts';
 
 export const SignIn = createAsyncThunk<IAuthResponse, IAuthSignIn>(
   'auth/signIn',
@@ -19,3 +21,14 @@ export const SignIn = createAsyncThunk<IAuthResponse, IAuthSignIn>(
     }
   },
 );
+
+export const getMe = createAsyncThunk<IUserGetMeResponse, any>('get/me', async (thunkApi) => {
+  try {
+    const response = await UserService.getMe();
+
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
