@@ -30,7 +30,9 @@ export const CardItem: React.FC<{ item: ICarModel }> = ({ item }: { item: ICarMo
         <Meta
           avatar={<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />}
           title={item.name}
-          description={`${new Date(item.createdAt).getDate()}-${new Date(item.createdAt).getMonth()}-${new Date(item.createdAt).getFullYear()}`}
+          description={`${new Date(item.createdAt).getDate()}-${new Date(
+            item.createdAt,
+          ).getMonth()}-${new Date(item.createdAt).getFullYear()}`}
         />
       </Card>
     </Skeleton>

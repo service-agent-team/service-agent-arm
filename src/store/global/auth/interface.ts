@@ -1,5 +1,5 @@
 export interface InitialState {
-  user: any | null;
+  user: IUserResponseData | null;
   token: string | null;
   isAuth: boolean;
   loading: {
@@ -9,6 +9,7 @@ export interface InitialState {
   error: null | string | unknown;
 }
 
+import { IUserResponseData } from '@/types';
 import { AxiosResponse } from 'axios';
 
 export interface IAuthAxiosResponse extends AxiosResponse {}

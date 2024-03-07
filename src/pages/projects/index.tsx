@@ -1,10 +1,10 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { ProjectCard } from '@/components/cards/project-card';
-import { UserPermission } from '@/store/global/users/types';
 import { Skeleton } from 'antd';
 import { useEffect } from 'react';
 import { Title, Wrapper } from './projects.styles';
+import { UserPermission, UserRoles } from '@/types';
 
 export const ProjectsPage = () => {
   const { getMe } = useActions();
@@ -19,15 +19,15 @@ export const ProjectsPage = () => {
   const {
     user,
     loading: { get },
-  } = useTypedSelector((state) => state.user);
-
+  } = useTypedSelector((state) => state.auth);
+  const isSupperAdmin = user?.userRoles?.find(
+    (el: UserRoles) => el.user_role_name === 'superadmin',
+  );
   return (
     <Wrapper>
       <Title>Sizning Proectlaringiz</Title>
-      {user?.userRoles[0].user_role_name.includes('superadmin') && (
-        <ProjectCard name="Global" path={`/global`} />
-      )}
-      {user?.userPermission.map((el: UserPermission, i: number) => (
+      {isSupperAdmin && <ProjectCard name="Global" path={`/global`} />}
+      {user?.userPermission?.map((el: UserPermission, i: number) => (
         <Skeleton loading={get} key={i}>
           <ProjectCard
             key={i}

@@ -12,7 +12,7 @@ export const OrderPage = () => {
   };
 
   useEffect(() => {
-    getAgentOrders({ start: '12.01.2024', end: '17.02.2024', status: status });
+    getAgentOrders({ start: '12.01.2024', end: '17.12.2024', status: status });
   }, [status]);
 
   return (
