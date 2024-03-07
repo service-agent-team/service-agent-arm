@@ -5,7 +5,16 @@ import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { SignIn, ProjectsPage } from './loadable';
 import { mainRouter, agentRouter, transferRouter, letsTrip } from './modules';
-import { global, GlobalConf, agent, AgentConf, transfer, TransferConf } from '@/constants/menus';
+import {
+  global,
+  GlobalConf,
+  agent,
+  AgentConf,
+  transfer,
+  TransferConf,
+  LetsTripConf,
+  letsTrip as letsTripMenu,
+} from '@/constants/menus';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
   useRoutes([
@@ -33,8 +42,8 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
           children: [...transferRouter],
         },
         {
-          path: ROUTES.letsTripHome,
-          element: <GlobalLayout isAuth={isAuth} items={transfer} conf={TransferConf} />,
+          path: ROUTES.letstrip,
+          element: <GlobalLayout isAuth={isAuth} items={letsTripMenu} conf={LetsTripConf} />,
           children: [...letsTrip],
         },
       ],

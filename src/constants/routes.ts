@@ -52,5 +52,8 @@ export const ROUTES = {
   carModelupdate: '/transfer/car-model/update',
 
   // lets-trip
+  letstrip: '/lets-trip',
   letsTripHome: '/lets-trip/home',
+  letsTripOrder: '/lets-trip/order',
+  letTripLuggage: '/lets-trip/luggage',
 } as const;

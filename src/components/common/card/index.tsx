@@ -9,6 +9,7 @@ export interface IProps {
   children: ReactNode;
   opasity?: string;
   color?: string;
+  title?: string;
 }
 
 export function Card({
@@ -19,10 +20,12 @@ export function Card({
   padding,
   opasity,
   color,
+  title,
   ...props
 }: IProps) {
   return (
     <S.Card
+      title={title}
       className={className}
       $with={width}
       $height={height}
