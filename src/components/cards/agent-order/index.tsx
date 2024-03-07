@@ -1,6 +1,6 @@
 import { Icon } from '@/components';
 import { Card } from '@/components/common/card';
-import { IAgentOrderData } from '@/store/agent/order/types';
+import { IAgentOrderData } from '@/store/service-agent/order/types';
 import { Flex, List, Tag, Typography } from 'antd';
 import * as S from './styles';
 export interface IProps {
@@ -19,13 +19,13 @@ export const AgentOrderCard = ({ order }: IProps) => {
           {OrderState === 4
             ? 'Active'
             : OrderState === 6
-            ? 'No active'
-            : OrderState === 217
-            ? 'pay pending'
-            : 'qoralama'}
+              ? 'No active'
+              : OrderState === 217
+                ? 'pay pending'
+                : 'qoralama'}
         </Tag>
       </Flex>
-      {/* <S.Text>{name}</S.Text> */}
+
       <S.List size="large" style={{ width: '250px' }}>
         <List.Item
           style={{

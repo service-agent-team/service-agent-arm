@@ -1,24 +1,33 @@
 import { $axios } from '@/common/config';
-import { IUserCreateResponse, IUserResponse } from '@/store/users/types';
 import { EndPointes } from '../endpoints';
+import { AxiosResponse } from 'axios';
+import { IUserCreatePayloadData, IUserResponse } from '@/types';
+
 export const UserService = {
   async getUsers() {
-    const response = await $axios.get<IUserResponse>(EndPointes.user.getAll);
-    return response;
+    return await $axios.get<IUserResponse>(EndPointes.user.getAll);
   },
 
   async getMe() {
-    const response = await $axios.get(EndPointes.auth.getme);
-    return response;
+    return await $axios.get(EndPointes.auth.getme);
   },
 
-  async createUser(body: any) {
-    const response = await $axios.post<IUserCreateResponse>(EndPointes.user.createUser, body);
-    return response;
+  async createUser(body: Partial<IUserCreatePayloadData>): Promise<AxiosResponse<IUserResponse>> {
+    return await $axios.post(EndPointes.user.createUser, body);
   },
 
   async delete(id: string) {
-    const response = await $axios.delete(EndPointes.user.delete + id);
-    return response;
+    return await $axios.delete(EndPointes.user.delete + id);
+  },
+
+  async getUserOne(id: number | string): Promise<AxiosResponse<IUserResponse>> {
+    return await $axios.get(EndPointes.user.getOne + id);
+  },
+
+  async editUser(
+    id: number | string,
+    body: Partial<IUserCreatePayloadData>,
+  ): Promise<AxiosResponse<IUserResponse>> {
+    return await $axios.put(EndPointes.user.edit + id, body);
   },
 };

@@ -1,3 +1,3 @@
-export * from './auth/interface';
-export * from './permission/types';
+export * from './global/auth/interface';
+export * from './global/permission/types';
 export * from './store';

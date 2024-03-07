@@ -1,6 +1,6 @@
+import { useActions } from '@/common/hooks';
 import { PageTitle, UserTable } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions } from '@/hooks';
 import { useEffect } from 'react';
 import * as S from './styled';
 

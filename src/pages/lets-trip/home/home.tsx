@@ -1,8 +1,9 @@
+import { useActions } from '@/common/hooks';
 import { LetsTripBarCard, LetstripMiniCard } from '@/components';
-import { useActions } from '@/hooks';
+
 import { Col, Row } from 'antd';
+
 import {
-  BarElement,
   CategoryScale,
   Chart as ChartJS,
   Legend,
@@ -13,7 +14,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import { useEffect } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 export const options = {

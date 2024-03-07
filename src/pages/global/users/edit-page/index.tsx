@@ -1,3 +1,10 @@
+import { PageTitle, UsersForm } from '@/components';
+
 export const EditUsers = () => {
-  return <div>EditUsers</div>;
+  return (
+    <>
+      <PageTitle label="ortga " title="Update User" icon="RollbackOutlined" route="/global/users" />
+      <UsersForm type={'edit'} />
+    </>
+  );
 };

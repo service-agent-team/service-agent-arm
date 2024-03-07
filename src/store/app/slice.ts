@@ -1,6 +1,5 @@
 import { THEME, setLocalStorage } from '@/common';
 import { createSlice } from '@reduxjs/toolkit';
-import { ENDPOINTS } from '../endpoints';
 import { ETheme, TInitialState } from './types';
 
 const initialState: TInitialState = {
@@ -8,13 +7,16 @@ const initialState: TInitialState = {
   isDrawer: false,
   theme: ETheme.LIGHT,
   path: '',
+  imageId: 0,
+  fileList: [],
   isAdd: false,
   previewTitle: '',
+  previewImage: '',
   menu: [],
 };
 
 const appSlice = createSlice({
-  name: ENDPOINTS.app,
+  name: 'app',
   initialState,
   reducers: {
     showDrawer: (state) => {
@@ -36,6 +38,22 @@ const appSlice = createSlice({
 
     setMenu: (state, { payload }) => {
       state.menu = payload;
+    },
+
+    setImageId: (state, { payload }) => {
+      state.imageId = payload;
+    },
+
+    setFileList: (state, { payload }) => {
+      state.fileList = payload;
+    },
+
+    setPreviewImage: (state, { payload }) => {
+      state.previewImage = payload;
+    },
+
+    setPreviewTitle: (state, { payload }) => {
+      state.previewTitle = payload;
     },
   },
 });

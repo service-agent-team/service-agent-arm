@@ -1,8 +1,8 @@
 import { addKeyProp } from '@/common';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { Tab, Table } from '@/components';
-import { useActions, useTypedSelector } from '@/hooks';
-import { IUserData } from '@/store/agent/contract/contract.interface';
+import { IUserData } from '@/store/service-agent/contract/contract.interface';
 import { TabsProps } from 'antd';
 import React, { useEffect } from 'react';
 import { utils } from './utils';

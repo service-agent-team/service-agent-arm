@@ -1,7 +1,6 @@
-import { addNotification } from '@/common/utils/addNotification';
+import { useActions } from '@/common/hooks';
 import { PageTitle, PermissionTable } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions } from '@/hooks';
 import { useEffect } from 'react';
 import * as S from './styled';
 
@@ -10,9 +9,7 @@ export const Permissions = () => {
 
   useEffect(() => {
     getPermisions({
-      callback: () => {
-        addNotification('successfully get permissions');
-      },
+      callback: () => {},
     });
   }, []);
 

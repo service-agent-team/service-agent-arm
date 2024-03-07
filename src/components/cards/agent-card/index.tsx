@@ -1,8 +1,8 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { SimpleButton } from '@/components';
 import { Card } from '@/components/common/card';
 import { AgentForm } from '@/components/forms';
-import { useActions, useTypedSelector } from '@/hooks';
-import { IUserData } from '@/store/agent/contract/contract.interface';
+import { IUserData } from '@/store/service-agent/contract/contract.interface';
 import { Badge, List, Typography } from 'antd';
 import { useEffect } from 'react';
 
@@ -25,15 +25,15 @@ export const AgentCard = ({ data }: IProps) => {
         data?.contractStatus === 'success'
           ? 'Tasdiqlangan'
           : data?.contractStatus === 'view'
-          ? 'Kutilmoqda'
-          : 'Rad etilgan'
+            ? 'Kutilmoqda'
+            : 'Rad etilgan'
       }
       color={
         data?.contractStatus === 'success'
           ? 'green'
           : data?.contractStatus === 'view'
-          ? 'purple'
-          : 'red'
+            ? 'purple'
+            : 'red'
       }
     >
       <Card width="600px">
@@ -60,8 +60,8 @@ export const AgentCard = ({ data }: IProps) => {
             {data?.contractStatus === 'view'
               ? 'Tasdiqlanishi kutilmoqda'
               : data?.contractStatus === 'success'
-              ? 'Tasdiqlangan'
-              : null}
+                ? 'Tasdiqlangan'
+                : null}
           </List.Item>
           {data?.userRoles[0]?.role && (
             <List.Item>

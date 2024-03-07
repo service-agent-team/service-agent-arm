@@ -1,6 +1,6 @@
+import { useActions } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { modal } from '@/components/app';
-import { useActions } from '@/hooks';
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Row, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
@@ -14,7 +14,7 @@ export const utils = () => {
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
   const navigate = useNavigate();
-  const { deleteUsers, getUsers } = useActions();
+  const { deleteUsers, getUsers, getOneUser } = useActions();
 
   const handleDelete = (record: any) => {
     modal.confirm({
@@ -24,7 +24,9 @@ export const utils = () => {
         deleteUsers({
           id: record.user_id,
           callback: () => {
-            getUsers({ callback: () => {} });
+            getUsers({
+              id: '',
+            });
             addNotification('Deleted.');
             return 'ok';
           },
@@ -150,7 +152,6 @@ export const utils = () => {
       dataIndex: 'created_at',
       key: 'created_at',
       width: '20%',
-      ...getColumnSearchProps('created_at'),
     },
     {
       title: 'Roles',
@@ -230,7 +231,12 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                navigate(`/global/users/edit/${record.user_id}`);
+                getOneUser({
+                  id: record.user_id,
+                  callback: () => {
+                    navigate(`/global/users/edit/${record.user_id}`);
+                  },
+                });
               }}
             >
               <EditOutlined />

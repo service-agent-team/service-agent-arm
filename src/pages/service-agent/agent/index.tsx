@@ -1,7 +1,7 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { AgentTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions, useTypedSelector } from '@/hooks';
 import { useEffect } from 'react';
 import * as S from './styles';
 

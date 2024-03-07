@@ -1,5 +1,5 @@
 import { $axios } from '@/common/config';
-import { IAgentTariffResponse } from '@/store/agent/tariff/types';
+import { IAgentTariffResponse } from '@/store/service-agent/tariff/types';
 import { EndPointes } from '../../endpoints';
 const { agent } = EndPointes;
 

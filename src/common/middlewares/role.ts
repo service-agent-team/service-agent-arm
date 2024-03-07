@@ -1,4 +1,4 @@
-import { SignIn } from '@/store/auth/actions';
+import { SignIn } from '@/store/global/auth/actions';
 import { Dispatch, MiddlewareAPI } from '@reduxjs/toolkit';
 
 export const navigateBasedOnRole = (_: MiddlewareAPI) => (next: Dispatch) => (action: any) => {

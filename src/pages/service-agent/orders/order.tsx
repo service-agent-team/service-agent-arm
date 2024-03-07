@@ -1,5 +1,5 @@
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { AgentOrderCard } from '@/components/cards/agent-order';
-import { useActions, useTypedSelector } from '@/hooks';
 import { Flex, Result, Segmented, Skeleton } from 'antd';
 import { useEffect, useState } from 'react';
 

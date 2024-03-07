@@ -1,24 +1,23 @@
-import { addNotification } from '@/common/utils/addNotification';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { useActions, useTypedSelector } from '@/hooks';
-import { EditTwoTone } from '@ant-design/icons';
-import { Card } from 'antd';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { CardItem } from './components/card-item/card-item';
 import * as S from './styles';
 
 export const CarModel: React.FC = () => {
   const { GetAllCarModel } = useActions();
+
   useEffect(() => {
     GetAllCarModel({
-      callback(data: any) {
-        if (data) addNotification('Successs');
-      },
+      callback() {},
+      page: 0,
+      size: 100,
     });
   }, []);
 
-  const { carModel } = useTypedSelector((state) => state.carModel);
+  const { carModels } = useTypedSelector((state) => state.carModel);
+
   return (
     <>
       <PageTitle
@@ -28,22 +27,7 @@ export const CarModel: React.FC = () => {
         label="create"
       />
       <S.Flex gap="large">
-        {carModel &&
-          carModel.map((el, i) => (
-            <Card
-              style={{ width: 300 }}
-              key={i}
-              title="Model"
-              bordered={true}
-              extra={
-                <Link to={`/transfer/car-model/update/${el.modelId}`}>
-                  <EditTwoTone />
-                </Link>
-              }
-            >
-              {el.name}
-            </Card>
-          ))}
+        {carModels && carModels.map((item, i) => <CardItem item={item} key={i} />)}
       </S.Flex>
     </>
   );

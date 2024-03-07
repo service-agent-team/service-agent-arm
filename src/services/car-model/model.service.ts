@@ -9,15 +9,13 @@ export const CarModelService = {
     return response;
   },
 
-  async createCarModel(body: CreateCarPayload) {
+  async createCarModel(body: CreateCarPayload): Promise<AxiosResponse<ICarModel>> {
     const response = await $axios.post(EndPointes.carModel.create, body);
     return response;
   },
 
   async getAllCarModel(page: number, size: number) {
-    const response = await $axios.get<AxiosResponse>(
-      EndPointes.carModel.all + `?page=${page}&size=${size}`,
-    );
+    const response = await $axios.get(EndPointes.carModel.all + `?page=${page}&size=${size}`);
     return response;
   },
 

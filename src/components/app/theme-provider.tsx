@@ -1,5 +1,5 @@
+import { useThemeDetector } from '@/common/hooks';
 import { GlobalStyles, antTheme } from '@/common/styles';
-import { useThemeDetector } from '@/hooks';
 import { ConfigProvider, Modal, message as antMessage } from 'antd';
 import { MessageInstance } from 'antd/es/message/interface';
 import { HookAPI } from 'antd/es/modal/useModal';
