@@ -32,6 +32,8 @@ import * as TariffActions from '../service-agent/tariff/tariff.action';
 import { AgentTariffSliceActions } from '../service-agent/tariff/tariff.slice';
 import * as TariffPermissionActions from '../service-agent/tariffPermission/permission.action';
 import { AgentTariffPermissionSliceActions } from '../service-agent/tariffPermission/permission.slice';
+import * as LetsTripOrderActions from '../lets-trip/order/actions';
+import { LetsTripOrderSliceActions } from '../lets-trip/order/slice';
 
 export const AllActions = {
   ...AgentTariffActions,
@@ -69,4 +71,6 @@ export const AllActions = {
   ...AgentOrdersActions,
   ...AgentStatisticSliceActions,
   ...AgentStatisticActions,
+  ...LetsTripOrderSliceActions,
+  ...LetsTripOrderActions,
 };
