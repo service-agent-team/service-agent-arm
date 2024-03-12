@@ -1,5 +1,5 @@
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, InputRef, MenuProps, Space, message } from 'antd';
+import { Button, Dropdown, Input, InputRef, MenuProps, Row, Space, Tag, message } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -147,16 +147,69 @@ export const utils = () => {
       width: '20%',
     },
     {
+      title: 'Projects',
+      dataIndex: 'userPermissions',
+      key: 'userPermissions',
+      width: '20%',
+      render: (userPermissions) => (
+        <Row style={{ gap: '4px' }}>
+          {userPermissions.map((el: any) => {
+            return (
+              <Tag color={'success'} key={el.permission.name}>
+                {el.project.name.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </Row>
+      ),
+    },
+    {
       title: 'Agent role',
       dataIndex: 'userRoles',
       key: 'login',
       width: '20%',
       render: (userRoles) => (
-        <span>
+        <Row style={{ gap: '4px' }}>
           {userRoles.map((el: any) => (
-            <span key={el.userRolesId}>{el.role.name} </span>
+            <Tag key={el.userRolesId} color={'success'}>
+              {el.role.name.toUpperCase()}
+            </Tag>
           ))}
-        </span>
+        </Row>
+      ),
+    },
+    {
+      title: 'User Permissions',
+      dataIndex: 'userPermissions',
+      key: 'userPermissions',
+      width: '20%',
+      render: (userPermissions) => (
+        <Row style={{ gap: '4px' }}>
+          {userPermissions.map((el: any) => {
+            return (
+              <Tag color={'success'} key={el.permission.name}>
+                {el.permission.name.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </Row>
+      ),
+    },
+    {
+      title: 'User Tariff Permissions',
+      dataIndex: 'userTariffPermissions',
+      key: 'userTariffPermissions',
+      width: '20%',
+      render: (userTariffPermissions) => (
+        <Row style={{ gap: '4px' }}>
+          {userTariffPermissions.map((el: any) => {
+            return (
+              <Tag color={'success'} key={el.permission.name}>
+                {el.permission.name.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </Row>
       ),
     },
     {
