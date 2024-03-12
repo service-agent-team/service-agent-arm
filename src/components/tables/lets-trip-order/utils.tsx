@@ -6,6 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
 import { ILetsTripOrder, LetsTripOrderStatus } from '@/store/lets-trip/order/types';
+import { dateParser } from '@/common/utils/format';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -171,6 +172,9 @@ export const utils = () => {
       dataIndex: 'createdAt',
       key: 'createdAt',
       width: '20%',
+      render: (date) => {
+        return dateParser(date);
+      },
     },
   ];
 
