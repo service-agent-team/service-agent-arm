@@ -20,7 +20,7 @@ export const Icon = ({ btn, name, color, fontSize, ...props }: Props) => {
   ) : (
     <AntdIcon
       style={{
-        fontSize: Number(fontSize),
+        fontSize: `${fontSize}px`,
         color: color,
       }}
       {...props}
