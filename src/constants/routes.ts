@@ -56,4 +56,6 @@ export const ROUTES = {
   letsTripHome: '/lets-trip/home',
   letsTripOrder: '/lets-trip/order',
   letTripLuggage: '/lets-trip/luggage',
+  letsTripTour: '/lets-trip/tour',
+  letsTripTransfer: '/lets-trip/transfer',
 } as const;

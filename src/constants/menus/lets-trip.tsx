@@ -17,6 +17,16 @@ export const letsTrip = [
     key: ROUTES.letsTripOrder,
     label: 'Orders',
   },
+  {
+    icon: 'CarOutlined',
+    key: ROUTES.letsTripTour,
+    label: 'Tours',
+  },
+  {
+    icon: 'LineChartOutlined',
+    key: ROUTES.letsTripTransfer,
+    label: 'Transfers',
+  },
 ];
 
 export const LetsTripConf = {

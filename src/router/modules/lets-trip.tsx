@@ -1,5 +1,11 @@
 import { Loading } from '@/components';
-import { LetsTripHomePage, LetsTripLuggagePage, LetsTripOrderPage } from '../loadable';
+import {
+  LetsTripHomePage,
+  LetsTripLuggagePage,
+  LetsTripOrderPage,
+  LetsTripTourPage,
+  LetsTripTransferPage,
+} from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
 
@@ -25,6 +31,22 @@ export const letsTrip = [
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripOrderPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripTour,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripTourPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripTransfer,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripTransferPage />
       </Suspense>
     ),
   },
