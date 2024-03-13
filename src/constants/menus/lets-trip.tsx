@@ -27,6 +27,11 @@ export const letsTrip = [
     key: ROUTES.letsTripTransfer,
     label: 'Transfers',
   },
+  {
+    icon: 'DiffOutlined',
+    key: ROUTES.letsTripEsimGo,
+    label: 'Esim Go',
+  },
 ];
 
 export const LetsTripConf = {

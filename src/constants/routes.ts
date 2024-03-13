@@ -60,4 +60,5 @@ export const ROUTES = {
   letsTripTourCreate: '/lets-trip/tour/create',
   letsTripTourView: '/lets-trip/tour/view/:id',
   letsTripTransfer: '/lets-trip/transfer',
+  letsTripEsimGo: '/lets-trip/esimgo',
 } as const;

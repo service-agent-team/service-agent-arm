@@ -142,9 +142,9 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
-      render: (id: number) => {
+      render: (_: number) => {
         return (
-          <LinkButton path={`/lets-trip/tour/view/${id}`}>
+          <LinkButton path={`#`}>
             <EyeOutlined />
           </LinkButton>
         );

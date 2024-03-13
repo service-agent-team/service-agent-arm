@@ -137,7 +137,6 @@ export const utils = () => {
       dataIndex: 'price',
       key: 'price',
       width: '20%',
-      ...getColumnSearchProps('price'),
     },
     {
       title: 'Status',

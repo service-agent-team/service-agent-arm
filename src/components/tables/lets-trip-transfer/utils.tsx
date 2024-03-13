@@ -142,9 +142,9 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
-      render: (id: number) => {
+      render: (_: number) => {
         return (
-          <LinkButton path={`/service-agent/view/${id}`}>
+          <LinkButton path={`#`}>
             <EyeOutlined />
           </LinkButton>
         );
