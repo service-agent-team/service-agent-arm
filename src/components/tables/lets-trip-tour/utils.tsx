@@ -144,7 +144,7 @@ export const utils = () => {
       key: 'view',
       render: (id: number) => {
         return (
-          <LinkButton path={`/service-agent/view/${id}`}>
+          <LinkButton path={`/lets-trip/tour/view/${id}`}>
             <EyeOutlined />
           </LinkButton>
         );
