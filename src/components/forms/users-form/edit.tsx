@@ -1,5 +1,5 @@
 import { BaseForm, InputPassword, PrimaryBtn } from '@/components';
-import { useTypedSelector } from '@/libs';
+import { useTypedSelector } from '@/common/hooks';
 import { Input } from 'antd';
 import React from 'react';
 import * as S from './styled';

@@ -1,11 +1,10 @@
 import { SearchOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Row, Space, Tag } from 'antd';
+import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
-import { ILetsTripOrder, LetsTripOrderStatus } from '@/store/lets-trip/order/types';
 import { dateParser } from '@/common/utils/format';
 
 export const utils = () => {
@@ -24,7 +23,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripOrder> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<any> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -102,7 +101,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<ILetsTripOrder> = [
+  const columns: ColumnsType<any> = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -110,6 +109,13 @@ export const utils = () => {
       width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Tour name',
+      dataIndex: 'name',
+      key: 'name',
+      width: '20%',
+      ...getColumnSearchProps('name'),
     },
     {
       title: 'User Id',
@@ -126,34 +132,11 @@ export const utils = () => {
       ...getColumnSearchProps('serviceOrderId'),
     },
     {
-      title: 'Product Id',
-      dataIndex: 'productId',
-      key: 'productId',
-      width: '20%',
-      ...getColumnSearchProps('productId'),
-    },
-    {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
       width: '20%',
       ...getColumnSearchProps('price'),
-    },
-    {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      width: '20%',
-      render: (_, { status }) => (
-        <Row style={{ gap: '4px' }}>
-          <Tag
-            key={Math.random() * 100}
-            color={`${status === LetsTripOrderStatus.active ? 'success' : status === LetsTripOrderStatus.pending ? 'warning' : status === LetsTripOrderStatus.rejected ? 'red' : 'primary'}`}
-          >
-            {status.toUpperCase()}
-          </Tag>
-        </Row>
-      ),
     },
     {
       title: 'View',

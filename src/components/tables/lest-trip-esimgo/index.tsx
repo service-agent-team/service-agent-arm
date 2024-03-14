@@ -4,7 +4,7 @@ import { ILetsTripOrder, LetsTripOrderStatus } from '@/store/lets-trip/order/typ
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from '@/common/hooks';
 
-export const LetsTripOrderTable = () => {
+export const LetsTripEsimGoTable = () => {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState(Orders(LetsTripOrderStatus.active));
   const { status } = useTypedSelector((state) => state.letsTripOrder);

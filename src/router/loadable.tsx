@@ -50,3 +50,7 @@ export const CreateCarPage = getLoadablePage('CreateCarPage');
 export const LetsTripHomePage = getLoadablePage('LetsTripHome');
 export const LetsTripLuggagePage = getLoadablePage('LetsTripLuggage');
 export const LetsTripOrderPage = getLoadablePage('LetsTripOrder');
+export const LetsTripTourPage = getLoadablePage('LetsTripTour');
+export const LetsTripTourCreatePage = getLoadablePage('LetsTripTourCreate');
+export const LetsTripTransferPage = getLoadablePage('LetsTripTransfer');
+export const LetsTripEsimGoPage = getLoadablePage('LetsTripEsimGo');
