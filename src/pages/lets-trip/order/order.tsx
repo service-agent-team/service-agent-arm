@@ -1,6 +1,6 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { SimplePage } from '@/components/common/page';
-import { LetsTripOrderTable } from '@/components/tables/lets-trip-order';
+import { LetsTripOrderTable } from '@/components/tables';
 import { LetsTripOrderStatus } from '@/store/lets-trip/order/types';
 import { Select } from 'antd';
 

@@ -1,18 +1,18 @@
 import { PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
-import { LetsTripTourTable } from '@/components/tables';
 import { ROUTES } from '@/constants';
+import { AgentUserPermissionCreateForm } from './create';
 
-export const LetsTripTour = () => {
+export const AgentUserPermission = () => {
   return (
     <SimplePage>
       <PageTitle
-        title="Tours"
+        title="Agent user permissions"
         icon="PlusOutlined"
-        route={ROUTES.letsTripTourCreate}
+        route={ROUTES.agentUserPermissionCreate}
         label="Create"
       />
-      <LetsTripTourTable />
+      <AgentUserPermissionCreateForm />
     </SimplePage>
   );
 };

@@ -2,10 +2,10 @@ import { BaseForm, Icon, InputPassword, PrimaryBtn, TextArea } from '@/component
 import { Flex, Input, Select, Typography, Upload } from 'antd';
 import React, { useEffect, useState } from 'react';
 import * as S from './styled';
-import { IValuesForm } from './types';
+import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
 
-export const LestTripTourCreate: React.FC = () => {
+export const AgentUserPermissionCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const [companyId, setCompanyId] = useState(null);
   const [currency, setCurrency] = useState(null);

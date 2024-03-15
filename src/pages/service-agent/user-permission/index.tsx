@@ -1,5 +1,2 @@
-import { SimplePage } from '@/components/common/page';
-
-export const AgentUserPermission = () => {
-  return <SimplePage>AgentUserPermission</SimplePage>;
-};
+export * from './create';
+export * from './user-permission';

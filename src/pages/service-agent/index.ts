@@ -12,3 +12,5 @@ export { Tariff as AgentTariff } from './tariff';
 export * from './orders';
 export * from './user-permission';
 export * from './user-role';
+export * from './user-permission';
+export * from './user-role';
