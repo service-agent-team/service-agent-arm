@@ -14,6 +14,7 @@ import { AgentRolesPermissionReducer } from '../service-agent/role-permission/sl
 import { RolesReducer } from '../service-agent/roles/slice';
 import { AgentStatisticReducer } from '../service-agent/statistic/slice';
 import { AgentTariffReducer } from '../service-agent/tariff/tariff.slice';
+import { AgentUserRoleReducer } from '../service-agent/user-role/slice';
 import { LetsTripOrderReduce } from '../lets-trip/order/slice';
 
 export const reducer = {
@@ -34,5 +35,6 @@ export const reducer = {
   agentPermission: AgentPermissionReducer,
   agentOrder: AgentOrderReducer,
   agentStatistic: AgentStatisticReducer,
+  agentUserRole: AgentUserRoleReducer,
   letsTripOrder: LetsTripOrderReduce,
 };

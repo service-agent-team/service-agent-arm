@@ -43,7 +43,7 @@ export const EndPointes = {
     },
     // permission
     getAllPermission: ``,
-    // user-rols
+    // user-roles
     createAgentRoles: '/agent-roles/create',
     updateAgentRoles: '/agent-roles',
     getOneAgentRoles: '/agent-roles/get-one',

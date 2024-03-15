@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components';
 import * as S from './styled';
 import { ROUTES } from '@/constants';
-import { AgentUserPermissionCreateForm } from '@/components/forms';
+import { AgentUserRoleCreateForm } from '@/components/forms';
 
 export const AgentUserRoleCreate = () => {
   return (
@@ -12,7 +12,7 @@ export const AgentUserRoleCreate = () => {
         route={ROUTES.agentUserRole}
         label="Back"
       />
-      <AgentUserPermissionCreateForm />
+      <AgentUserRoleCreateForm />
     </S.ViewStyled>
   );
 };

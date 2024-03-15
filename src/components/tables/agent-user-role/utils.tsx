@@ -1,11 +1,10 @@
-import { SearchOutlined, EyeOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { LinkButton } from '@/components/common/buttons';
-import { dateParser } from '@/common/utils/format';
+import { IAgentUserRoles } from '@/store/service-agent/user-role/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -102,63 +101,26 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<IAgentUserRoles> = [
     {
       title: 'Id',
       dataIndex: 'id',
       key: 'id',
-      width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
+      ...getColumnSearchProps('id'),
     },
     {
-      title: 'Tour name',
-      dataIndex: 'name',
-      key: 'name',
-      width: '20%',
-      ...getColumnSearchProps('name'),
+      title: 'Role id',
+      dataIndex: 'roleId',
+      key: 'roleId',
+      ...getColumnSearchProps('roleId'),
     },
     {
       title: 'User Id',
       dataIndex: 'userId',
       key: 'userId',
-      width: '20%',
       ...getColumnSearchProps('userId'),
-    },
-    {
-      title: 'Service Order Id',
-      dataIndex: 'serviceOrderId',
-      key: 'serviceOrderId',
-      width: '20%',
-      ...getColumnSearchProps('serviceOrderId'),
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      width: '20%',
-      ...getColumnSearchProps('price'),
-    },
-    {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      render: (_: number) => {
-        return (
-          <LinkButton path={`#`}>
-            <EyeOutlined />
-          </LinkButton>
-        );
-      },
-    },
-    {
-      title: 'Created At',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      width: '20%',
-      render: (date) => {
-        return dateParser(date);
-      },
     },
   ];
 

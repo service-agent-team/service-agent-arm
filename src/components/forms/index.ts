@@ -9,3 +9,4 @@ export { TariffForm } from './tariff-form';
 export { UsersForm } from './users-form';
 export * from './lets-trip-tour';
 export * from './agent-user-permission';
+export * from './agent-user-role';
