@@ -31,6 +31,7 @@ export const Orders = getLoadablePage('OrderPage');
 export const AgentUserPermissionPage = getLoadablePage('AgentUserPermission');
 export const AgentUserPermissionCreatePage = getLoadablePage('AgentUserPermissionCreate');
 export const AgentUserRolePage = getLoadablePage('AgentUserRole');
+export const AgentUserRoleCreatePage = getLoadablePage('AgentUserRoleCreate');
 
 // transfer
 export const TransferHome = getLoadablePage('TransferHome');

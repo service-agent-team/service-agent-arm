@@ -187,7 +187,7 @@ export const LestTripTourCreateForm: React.FC = () => {
         </BaseForm.Item>
         <BaseForm.Item
           name="pictures"
-          label={'country code'}
+          label={'pictures'}
           rules={[
             { required: true, message: 'pictures is required?' },
             {
@@ -196,7 +196,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             },
           ]}
         >
-          <Upload.Dragger name="pictures" multiple={true}>
+          <Upload.Dragger name="pictures" multiple={true} fileList={[]}>
             <Flex align="center" wrap="wrap" justify="center">
               <Typography.Text>Click or drag file to this area to upload</Typography.Text>
               <Icon fontSize="20" color="blue" name="InboxOutlined" />
