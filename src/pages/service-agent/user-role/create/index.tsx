@@ -7,7 +7,7 @@ export const AgentUserRoleCreate = () => {
   return (
     <S.ViewStyled>
       <PageTitle
-        title="Create Tour"
+        title="Create user role"
         icon="ArrowLeftOutlined"
         route={ROUTES.agentUserRole}
         label="Back"

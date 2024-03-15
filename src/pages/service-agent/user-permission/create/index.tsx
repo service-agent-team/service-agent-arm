@@ -7,7 +7,7 @@ export const AgentUserPermissionCreate = () => {
   return (
     <S.ViewStyled>
       <PageTitle
-        title="Create Tour"
+        title="Create user permission"
         icon="ArrowLeftOutlined"
         route={ROUTES.agentUserPermission}
         label="Back"

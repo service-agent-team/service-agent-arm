@@ -91,6 +91,7 @@ export const utils = () => {
     render: (text) =>
       searchedColumn === dataIndex ? (
         <Highlighter
+          key={1}
           highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
           searchWords={[searchText as string]}
           autoEscape
