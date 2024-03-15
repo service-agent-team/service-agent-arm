@@ -1,5 +1,4 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { SimpleButton } from '@/components';
 import { Card } from '@/components/common/card';
 import { AgentForm } from '@/components/forms';
 import { IUserData } from '@/store/service-agent/contract/contract.interface';
@@ -86,15 +85,13 @@ export const AgentCard = ({ data }: IProps) => {
             Service-agent
           </List.Item>
         </List>
-        {data?.contractStatus !== 'success' && (
-          <AgentForm
-            userId={data?.userId as number}
-            roles={roles.roles}
-            categories={agentTariff.tariffs}
-            companies={company.companies}
-          />
-        )}
-        {data?.contractStatus !== 'view' && <SimpleButton color="--warning ">Update</SimpleButton>}
+        <AgentForm
+          userId={data?.userId as number}
+          roles={roles.roles}
+          categories={agentTariff.tariffs}
+          companies={company.companies}
+          contractStatus={data?.contractStatus}
+        />
       </Card>
     </Badge.Ribbon>
   );

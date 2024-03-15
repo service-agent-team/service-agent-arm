@@ -5,7 +5,7 @@ import { ICompany } from '@/store/service-agent/company/types';
 import { IRoles } from '@/store/service-agent/roles/types';
 import { ITaeiffData } from '@/store/service-agent/tariff/types';
 import { Flex, Select } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './styles';
 import { IParam } from './types';
 
@@ -16,13 +16,22 @@ interface IProps {
   roles: IRoles[] | null;
   categories: ITaeiffData[] | null;
   companies: ICompany[] | null;
+  contractStatus: string | undefined;
 }
 
-export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, companies }) => {
+export const AgentForm: React.FC<IProps> = ({
+  userId,
+  roles,
+  categories,
+  companies,
+  contractStatus,
+}) => {
   const [form] = BaseForm.useForm();
-  const { acceptAgnet, rejectAgnet, addTariffPermission, createAgentRoles } = useActions();
+  const { acceptAgnet, rejectAgnet, addTariffPermission, createAgentRoles, getPermisions } =
+    useActions();
 
   const { loading } = useTypedSelector((state) => state.users);
+  const { permissions } = useTypedSelector((state) => state.permission);
 
   const onFinish = (value: IParam) => {
     acceptAgnet({
@@ -57,12 +66,18 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
     });
   };
 
+  useEffect(() => {
+    getPermisions({ callback() {} });
+  }, []);
+
   const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
   const CategorySelectedOptions = categories?.map((el) => ({
     label: el.tariffName,
     value: el.userTariffId,
   }));
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
+  const UserPermissionSelectOption =
+    permissions?.map((el) => ({ label: el.permission_name, value: el.permission_id })) || [];
   return (
     <BaseForm
       name="agentForm"
@@ -80,7 +95,7 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an option"
+            placeholder="Select an agent role option"
             options={RoleSelectOptions}
           />
         </BaseForm.Item>
@@ -92,7 +107,7 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an option"
+            placeholder="Select an category option"
             options={CategorySelectedOptions}
           />
         </BaseForm.Item>
@@ -104,7 +119,7 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an option"
+            placeholder="Select an company option"
             options={CompanySelectOption}
           />
         </BaseForm.Item>
@@ -116,21 +131,40 @@ export const AgentForm: React.FC<IProps> = ({ userId, roles, categories, compani
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an option"
+            placeholder="Select an currency option"
             options={[
               { label: 'UZS', value: 'UZS' },
               { label: 'USD', value: 'USD' },
             ]}
           />
         </BaseForm.Item>
-        <Flex gap="large" justify="space-around">
-          <SimpleButton click={handleReject} color="--negative">
-            Rad etish
-          </SimpleButton>
-          <PrimaryBtn htmlType="submit" loading={loading.post}>
-            Tasdiqlash
+        <BaseForm.Item
+          name="userPermission"
+          label={'User permission'}
+          hasFeedback
+          rules={[{ type: 'number', message: 'filed is required' }]}
+        >
+          <Select
+            style={{ height: 50 }}
+            placeholder="Select an user permission option"
+            options={UserPermissionSelectOption}
+          />
+        </BaseForm.Item>
+        {contractStatus !== 'success' && (
+          <Flex gap="large" justify="space-around">
+            <SimpleButton click={handleReject} color="--negative">
+              Rad etish
+            </SimpleButton>
+            <PrimaryBtn htmlType="submit" loading={loading.post}>
+              Tasdiqlash
+            </PrimaryBtn>
+          </Flex>
+        )}
+        {contractStatus === 'success' && (
+          <PrimaryBtn htmlType="submit" loading={loading.post} color="warning">
+            Update
           </PrimaryBtn>
-        </Flex>
+        )}
       </S.FormContent>
     </BaseForm>
   );

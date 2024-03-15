@@ -37,6 +37,16 @@ export const agent = [
     key: ROUTES.agentRole,
     icon: 'ApartmentOutlined',
   },
+  {
+    label: 'User Permissions',
+    key: ROUTES.agentUserPermission,
+    icon: 'SolutionOutlined',
+  },
+  {
+    label: 'User Roles',
+    key: ROUTES.agentUserRole,
+    icon: 'UserSwitchOutlined',
+  },
 ];
 
 export const AgentConf = {

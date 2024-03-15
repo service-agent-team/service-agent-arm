@@ -7,6 +7,8 @@ import {
   AgentHome,
   AgentProductCreate,
   AgentProducts,
+  AgentUserPermissionPage,
+  AgentUserRolePage,
   AgentView,
   CreateAgentPermission,
   CreateAgentRole,
@@ -118,6 +120,22 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <EditAgentPermission />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentUserPermission,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentUserPermissionPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentUserRole,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentUserRolePage />
       </Suspense>
     ),
   },
