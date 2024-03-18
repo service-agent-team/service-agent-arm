@@ -1,6 +1,6 @@
-import { BaseForm, PrimaryBtn } from '@/components';
+import { AutoComplete, BaseForm, PrimaryBtn } from '@/components';
 import { Select } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as S from './styled';
 import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
@@ -16,8 +16,9 @@ export const AgentUserRoleCreateForm: React.FC = () => {
   } = useTypedSelector((state) => state.agentUserRole);
 
   const onFinish = ({ userId, roleId }: IValuesForm) => {
+    userId = userId.split('-')[0];
     createAgentUserRole({
-      userId,
+      userId: +userId,
       roleId,
       callback() {
         addNotification('successfully created agent user role');
@@ -25,7 +26,7 @@ export const AgentUserRoleCreateForm: React.FC = () => {
     });
   };
   const selectOptionUserId = data?.map((user) => ({
-    value: user.userId,
+    value: `${user.userId}-${Math.random() * 100}`,
     label: `${user.userId}. ${user.firstName} ${user.lastName}`,
   }));
   const selectOptionRoleId = roles?.map((user: any) => ({
@@ -49,7 +50,13 @@ export const AgentUserRoleCreateForm: React.FC = () => {
           label={'agent user'}
           rules={[{ required: true, message: 'agent user is required!' }]}
         >
-          <Select placeholder="Select agent user?" options={selectOptionUserId} />
+          <AutoComplete
+            filterOption={(inputValue, option) =>
+              option?.label?.toLowerCase().includes(inputValue.toLowerCase())
+            }
+            placeholder="Select agent user?"
+            options={selectOptionUserId}
+          />
         </BaseForm.Item>
         <BaseForm.Item
           name="roleId"

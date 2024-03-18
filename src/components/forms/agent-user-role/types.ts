@@ -1,5 +1,5 @@
 export interface IValuesForm {
-  userId: number;
+  userId: string;
   roleId: number;
 }
 
