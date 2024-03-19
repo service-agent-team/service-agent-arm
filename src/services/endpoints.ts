@@ -120,6 +120,14 @@ export const EndPointes = {
     delete: '/permission/delete/',
   },
 
+  userPermissions: {
+    create: '/agent-permission/create',
+    getAll: '/agent-permission/all',
+    getOne: '/agent-permission/',
+    edit: '/agent-permission/update-agent-permission/',
+    delete: '/agent-permission/delete-agent-permission/',
+  },
+
   userRoles: {
     create: '/agent-roles/create',
     getAll: '/agent-roles/get-all',

@@ -1,12 +1,8 @@
-import { ILetsTripOrder } from '@/store/lets-trip/order/types';
+import { IAgentUserPermission } from '@/store/service-agent/user-permission/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
-interface ILetsTripTour extends ILetsTripOrder {
-  name: string;
-}
-
-export type DataIndex = keyof ILetsTripTour;
+export type DataIndex = keyof IAgentUserPermission;
 
 export interface IHandleSearchProps {
   selectedKeys: Key[];

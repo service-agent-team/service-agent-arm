@@ -1,6 +1,5 @@
 import { errorCatch } from '@/common/helpers';
 import { addNotification } from '@/common/utils/addNotification';
-import { RolesService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IAgentUserRolesCreatePayload,

@@ -1,11 +1,10 @@
-import { SearchOutlined, EyeOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { LinkButton } from '@/components/common/buttons';
-import { dateParser } from '@/common/utils/format';
+import { IAgentUserPermission } from '@/store/service-agent/user-permission/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -23,7 +22,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<any> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IAgentUserPermission> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -101,21 +100,14 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<IAgentUserPermission> = [
     {
       title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'user_permission_id',
+      key: 'user_permission_id',
       width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
-    },
-    {
-      title: 'Tour name',
-      dataIndex: 'name',
-      key: 'name',
-      width: '20%',
-      ...getColumnSearchProps('name'),
     },
     {
       title: 'User Id',
@@ -123,41 +115,35 @@ export const utils = () => {
       key: 'userId',
       width: '20%',
       ...getColumnSearchProps('userId'),
+      // render: (user_id) => (user_id ? user_id.user_name : ''),
     },
     {
-      title: 'Service Order Id',
-      dataIndex: 'serviceOrderId',
-      key: 'serviceOrderId',
+      title: 'Permission Id',
+      dataIndex: 'permissionId',
+      key: 'permissionId',
       width: '20%',
-      ...getColumnSearchProps('serviceOrderId'),
+      ...getColumnSearchProps('permissionId'),
+      // render: (permission) => (
+      //   <Row style={{ gap: '4px' }}>
+      //     <Tag key={permission.permission_id} color={'success'}>
+      //       {permission.permission_name}
+      //     </Tag>
+      //   </Row>
+      // ),
     },
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
+      title: 'Project Id',
+      dataIndex: 'projectId',
+      key: 'projectId',
       width: '20%',
-      ...getColumnSearchProps('price'),
-    },
-    {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      render: (_: number) => {
-        return (
-          <LinkButton path={`#`}>
-            <EyeOutlined />
-          </LinkButton>
-        );
-      },
-    },
-    {
-      title: 'Created At',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      width: '20%',
-      render: (date) => {
-        return dateParser(date);
-      },
+      ...getColumnSearchProps('projectId'),
+      // render: (project) => (
+      //   <Row style={{ gap: '4px' }}>
+      //     <Tag key={project.project_id} color={'blue'}>
+      //       {project.project_name}
+      //     </Tag>
+      //   </Row>
+      // ),
     },
   ];
 

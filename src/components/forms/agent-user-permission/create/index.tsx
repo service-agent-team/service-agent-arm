@@ -1,36 +1,55 @@
-import { BaseForm, PrimaryBtn } from '@/components';
+import { AutoComplete, BaseForm, PrimaryBtn } from '@/components';
 import { Select } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as S from './styled';
 import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
+import { addNotification } from '@/common';
 
 export const AgentUserPermissionCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const [userId, setUserId] = useState(null);
-  const [roleId, setRoleId] = useState(null);
-  const { roles } = useTypedSelector((state) => state.roles);
-  // const { getAllUsers } = useTypedSelector((state) => state.agent);
-  const { getCompany } = useActions();
+  const { getCompany, getAgentPermissions, getAllUsers, createAgentUserPermission } = useActions();
+  const { permissions } = useTypedSelector((state) => state.agentPermission);
+  const { data } = useTypedSelector((state) => state.agent);
+  const { companies } = useTypedSelector((state) => state.company);
 
-  const onFinish = (_: IValuesForm) => {};
-  const selectOptionUserId = roles?.map((role) => ({
-    value: role.id,
-    label: role.name,
-  }));
-  const selectOptionRoleId = []?.map((user: any) => ({
-    label: user.name,
-    value: user.id,
-  }));
-  const changeUserId = (value: any) => {
-    return setUserId(value);
+  const onFinish = ({ permissionId, projectId, userId }: IValuesForm) => {
+    createAgentUserPermission({
+      callback() {
+        addNotification('successfully created agent user permission');
+      },
+      permissionId,
+      projectId,
+      userId: +userId.split('-')[0],
+    });
   };
-  const changeRoleId = (value: any) => {
-    setRoleId(value);
-  };
+  const selectOptionPermission = permissions?.map((permission) => ({
+    value: permission.id,
+    label: permission.name,
+  }));
+  const selectOptionUserId = data?.map((user) => ({
+    label: `${user.userId}. ${user.firstName} ${user.lastName}`,
+    value: `${user.userId}-${Math.random() * 100}`,
+    // value: user.userId,
+  }));
+  const selectOptionCompanyId = companies?.map((company) => ({
+    label: company.name,
+    value: company.id,
+  }));
 
   useEffect(() => {
     getCompany({ page: 0, size: 20 });
+    getAgentPermissions({
+      callback() {
+        addNotification('get all agent permissions');
+      },
+    });
+    getAllUsers({
+      callback() {
+        addNotification('get all users');
+      },
+      statusName: 'success',
+    });
   }, []);
 
   return (
@@ -43,22 +62,31 @@ export const AgentUserPermissionCreateForm: React.FC = () => {
     >
       <S.FormContent>
         <BaseForm.Item
-          name="userId"
-          label={'userId'}
-          rules={[{ required: true, message: 'agent user is required!' }]}
+          name="projectId"
+          label={'project'}
+          rules={[{ required: true, message: 'Project is required!' }]}
         >
-          <Select
-            onChange={changeUserId}
+          <Select placeholder="Project company?" options={selectOptionCompanyId} />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="permissionId"
+          label={'permission'}
+          rules={[{ required: true, message: 'permission is required!' }]}
+        >
+          <Select placeholder="Select role?" options={selectOptionPermission} />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="userId"
+          label={'user'}
+          rules={[{ required: true, message: 'user is required!' }]}
+        >
+          <AutoComplete
+            filterOption={(inputValue, option) =>
+              option?.label?.toLowerCase().includes(inputValue.toLowerCase())
+            }
             placeholder="Select agent user?"
             options={selectOptionUserId}
           />
-        </BaseForm.Item>
-        <BaseForm.Item
-          name="roleId"
-          label={'roleId'}
-          rules={[{ required: true, message: 'role is required!' }]}
-        >
-          <Select onChange={changeRoleId} placeholder="Select role?" options={selectOptionRoleId} />
         </BaseForm.Item>
         <PrimaryBtn htmlType="submit">create</PrimaryBtn>
       </S.FormContent>
