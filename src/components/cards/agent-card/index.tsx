@@ -85,6 +85,7 @@ export const AgentCard = ({ data }: IProps) => {
             Service-agent
           </List.Item>
         </List>
+
         <AgentForm
           userId={data?.userId as number}
           roles={roles.roles}
