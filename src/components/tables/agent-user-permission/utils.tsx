@@ -1,15 +1,40 @@
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, DownOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { IAgentUserPermission } from '@/store/service-agent/user-permission/types';
+import { modal } from '@/components/app';
+import { useTypedSelector } from '@/common/hooks';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const navigate = useNavigate();
+
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
+      title: `You want to delete right ?`,
+      onOk: () => {
+        // deleteUsers({
+        //   id: record.user_id,
+        //   callback: () => {
+        //     getUsers({
+        //       id: '',
+        //     });
+        //     addNotification('Deleted.');
+        //     return 'ok';
+        //   },
+        // });
+      },
+    });
+  };
+  const { agentUserPermissions } = useTypedSelector((state) => state.agentUserPermission);
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -103,8 +128,8 @@ export const utils = () => {
   const columns: ColumnsType<IAgentUserPermission> = [
     {
       title: 'Id',
-      dataIndex: 'user_permission_id',
-      key: 'user_permission_id',
+      dataIndex: 'id',
+      key: 'id',
       width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
@@ -115,7 +140,6 @@ export const utils = () => {
       key: 'userId',
       width: '20%',
       ...getColumnSearchProps('userId'),
-      // render: (user_id) => (user_id ? user_id.user_name : ''),
     },
     {
       title: 'Permission Id',
@@ -123,13 +147,6 @@ export const utils = () => {
       key: 'permissionId',
       width: '20%',
       ...getColumnSearchProps('permissionId'),
-      // render: (permission) => (
-      //   <Row style={{ gap: '4px' }}>
-      //     <Tag key={permission.permission_id} color={'success'}>
-      //       {permission.permission_name}
-      //     </Tag>
-      //   </Row>
-      // ),
     },
     {
       title: 'Project Id',
@@ -137,13 +154,27 @@ export const utils = () => {
       key: 'projectId',
       width: '20%',
       ...getColumnSearchProps('projectId'),
-      // render: (project) => (
-      //   <Row style={{ gap: '4px' }}>
-      //     <Tag key={project.project_id} color={'blue'}>
-      //       {project.project_name}
-      //     </Tag>
-      //   </Row>
-      // ),
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'action',
+      key: 'action',
+      width: '10%',
+      render: (_: any, record: any) => {
+        return (
+          <Space>
+            <Button
+              key={1}
+              onClick={() => navigate(`${ROUTES.agentUserPermission}/edit/${record.id}`)}
+            >
+              <EditOutlined />
+            </Button>
+            <Button key={2} onClick={() => handleDelete(record)}>
+              <DeleteOutlined />
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
 

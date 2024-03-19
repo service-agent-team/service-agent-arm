@@ -6,6 +6,10 @@ import {
   IAgentUserPermissionGetResponsePayload,
   IAgentUserPermissionCreatePayload,
   IAgentUserPermissionCreateResponse,
+  IAgentUserPermissionUpdateResponse,
+  IAgentUserPermissionDeletePayload,
+  IAgentUserPermissionDeleteResponse,
+  IAgentUserPermissionUpdatePayload,
 } from './types';
 import { EndPointes } from '@/services/endpoints';
 import { AgentUserPermissionService } from '@/services/agent';
@@ -48,3 +52,44 @@ export const createAgentUserPermission = createAsyncThunk<
     }
   },
 );
+
+export const updateUserPermission = createAsyncThunk<
+  IAgentUserPermissionUpdateResponse,
+  IAgentUserPermissionUpdatePayload
+>(
+  EndPointes.userPermissions.create,
+  async ({ permissionId, userId, projectId, callback }, thunkApi) => {
+    try {
+      const response = await AgentUserPermissionService.createAgentUserPermission({
+        permissionId,
+        userId,
+        projectId,
+      });
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const deleteAgentUserPermission = createAsyncThunk<
+  IAgentUserPermissionDeleteResponse,
+  IAgentUserPermissionDeletePayload
+>(EndPointes.userPermissions.delete, async ({ permissionId, callback }, thunkApi) => {
+  try {
+    const response = await AgentUserPermissionService.deleteAgentUserPermission({
+      permissionId,
+    });
+    if (response.data) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
