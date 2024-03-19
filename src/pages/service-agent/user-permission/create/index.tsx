@@ -1,18 +1,18 @@
 import { PageTitle } from '@/components';
 import * as S from './styled';
 import { ROUTES } from '@/constants';
-import { LestTripTourCreateForm } from '@/components/forms';
+import { AgentUserPermissionCreateForm } from '@/components/forms';
 
-export const LetsTripTourCreate = () => {
+export const AgentUserPermissionCreate = () => {
   return (
     <S.ViewStyled>
       <PageTitle
-        title="Create Tour"
+        title="Create user permission"
         icon="ArrowLeftOutlined"
-        route={ROUTES.letsTripTour}
+        route={ROUTES.agentUserPermission}
         label="Back"
       />
-      <LestTripTourCreateForm />
+      <AgentUserPermissionCreateForm />
     </S.ViewStyled>
   );
 };

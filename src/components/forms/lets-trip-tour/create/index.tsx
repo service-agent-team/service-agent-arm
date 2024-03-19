@@ -2,10 +2,10 @@ import { BaseForm, Icon, InputPassword, PrimaryBtn, TextArea } from '@/component
 import { Flex, Input, Select, Typography, Upload } from 'antd';
 import React, { useEffect, useState } from 'react';
 import * as S from './styled';
-import { IValuesForm } from './types';
+import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
 
-export const LestTripTourCreate: React.FC = () => {
+export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const [companyId, setCompanyId] = useState(null);
   const [currency, setCurrency] = useState(null);
@@ -124,17 +124,17 @@ export const LestTripTourCreate: React.FC = () => {
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="location"
-            label={'location'}
+            name="longitude"
+            label={'longitude'}
             rules={[
-              { required: true, message: 'location is required?' },
+              { required: true, message: 'longitude is required?' },
               {
                 type: 'string',
-                message: 'Enter location ?',
+                message: 'Enter longitude ?',
               },
             ]}
           >
-            <Input name="location" type="number" placeholder="Enter a longitude ?" />
+            <Input name="longitude" type="number" placeholder="Enter a longitude ?" />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
@@ -187,7 +187,7 @@ export const LestTripTourCreate: React.FC = () => {
         </BaseForm.Item>
         <BaseForm.Item
           name="pictures"
-          label={'country code'}
+          label={'pictures'}
           rules={[
             { required: true, message: 'pictures is required?' },
             {
@@ -196,7 +196,7 @@ export const LestTripTourCreate: React.FC = () => {
             },
           ]}
         >
-          <Upload.Dragger name="pictures" multiple={true}>
+          <Upload.Dragger name="pictures" multiple={true} fileList={[]}>
             <Flex align="center" wrap="wrap" justify="center">
               <Typography.Text>Click or drag file to this area to upload</Typography.Text>
               <Icon fontSize="20" color="blue" name="InboxOutlined" />

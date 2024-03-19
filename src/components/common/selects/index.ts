@@ -1,1 +1,2 @@
-export { Select } from './select/index';
+export { Select } from './select';
+export { AutoComplete } from './auto-complete';

@@ -32,6 +32,10 @@ import * as TariffActions from '../service-agent/tariff/tariff.action';
 import { AgentTariffSliceActions } from '../service-agent/tariff/tariff.slice';
 import * as TariffPermissionActions from '../service-agent/tariffPermission/permission.action';
 import { AgentTariffPermissionSliceActions } from '../service-agent/tariffPermission/permission.slice';
+import * as AgentUserRoleActions from '../service-agent/user-role/action';
+import { AgentUserRoleSliceActions } from '../service-agent/user-role/slice';
+import * as AgentUserPermissionActions from '../service-agent/user-permission/action';
+import { AgentUserPermissionSliceActions } from '../service-agent/user-permission/slice';
 import * as LetsTripOrderActions from '../lets-trip/order/actions';
 import { LetsTripOrderSliceActions } from '../lets-trip/order/slice';
 
@@ -71,6 +75,10 @@ export const AllActions = {
   ...AgentOrdersActions,
   ...AgentStatisticSliceActions,
   ...AgentStatisticActions,
+  ...AgentUserRoleSliceActions,
+  ...AgentUserRoleActions,
   ...LetsTripOrderSliceActions,
   ...LetsTripOrderActions,
+  ...AgentUserPermissionActions,
+  ...AgentUserPermissionSliceActions,
 };

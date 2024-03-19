@@ -33,6 +33,10 @@ export const ROUTES = {
   agentProducts: '/service-agent/products',
   agentProductCreate: '/service-agent/products/create',
   agentOrders: '/service-agent/orders',
+  agentUserPermission: '/service-agent/user-permission',
+  agentUserPermissionCreate: '/service-agent/user-permission/create',
+  agentUserRole: '/service-agent/user-role',
+  agentUserRoleCreate: '/service-agent/user-role/create',
   // agent
 
   // tranfer
