@@ -1,4 +1,4 @@
-import { SearchOutlined, DownOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
@@ -6,7 +6,6 @@ import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { IAgentUserPermission } from '@/store/service-agent/user-permission/types';
 import { modal } from '@/components/app';
-import { useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 
@@ -20,21 +19,9 @@ export const utils = () => {
     modal.confirm({
       okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
       title: `You want to delete right ?`,
-      onOk: () => {
-        // deleteUsers({
-        //   id: record.user_id,
-        //   callback: () => {
-        //     getUsers({
-        //       id: '',
-        //     });
-        //     addNotification('Deleted.');
-        //     return 'ok';
-        //   },
-        // });
-      },
+      onOk: () => {},
     });
   };
-  const { agentUserPermissions } = useTypedSelector((state) => state.agentUserPermission);
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();

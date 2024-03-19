@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createAgentUserRole, getAllAgentUserRole } from './action';
+import {
+  createAgentUserRole,
+  deleteAgentUserRole,
+  getAllAgentUserRole,
+  getOneAgentUserRole,
+  updateAgentUserRole,
+} from './action';
 import { IAgentUserRolesInitialState } from './types';
 
 const initialState: IAgentUserRolesInitialState = {
@@ -9,8 +15,8 @@ const initialState: IAgentUserRolesInitialState = {
     patch: false,
     delete: false,
   },
+  agentUserOneRole: null,
   agentUserRoles: null,
-  // oneRole: null,
   errors: null,
 };
 
@@ -33,16 +39,54 @@ export const agentUserRoleSlice = createSlice({
         state.loading.get = false;
         state.errors = payload;
       })
+      .addCase(getOneAgentUserRole.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneAgentUserRole.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.agentUserOneRole = payload.data;
+        state.errors = null;
+      })
+      .addCase(getOneAgentUserRole.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
       .addCase(createAgentUserRole.pending, (state) => {
         state.loading.post = true;
         state.errors = null;
       })
-      .addCase(createAgentUserRole.fulfilled, (state, _) => {
+      .addCase(createAgentUserRole.fulfilled, (state, { payload }) => {
         state.loading.post = false;
+        state.agentUserRoles?.push(payload.data);
         state.errors = null;
       })
       .addCase(createAgentUserRole.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(updateAgentUserRole.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(updateAgentUserRole.fulfilled, (state, _) => {
+        state.loading.patch = false;
+        state.errors = null;
+      })
+      .addCase(updateAgentUserRole.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
+      .addCase(deleteAgentUserRole.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(deleteAgentUserRole.fulfilled, (state, _) => {
+        state.loading.delete = false;
+        state.errors = null;
+      })
+      .addCase(deleteAgentUserRole.rejected, (state, { payload }) => {
+        state.loading.delete = false;
         state.errors = payload;
       });
   },

@@ -5,23 +5,27 @@ import * as S from './styled';
 import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common';
+import { useParams } from 'react-router-dom';
 
-export const AgentUserRoleCreateForm: React.FC = () => {
+export const AgentUserRoleEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const { getRoles, getAllUsers, createAgentUserRole } = useActions();
+  const { updateAgentUserRole, getRoles, getAllUsers } = useActions();
+  const { loading, agentUserOneRole } = useTypedSelector((state) => state.agentUserRole);
   const { roles } = useTypedSelector((state) => state.roles);
   const { data } = useTypedSelector((state) => state.agent);
-  const {
-    loading: { post },
-  } = useTypedSelector((state) => state.agentUserRole);
+  const { id } = useParams();
+
+  const defaultUser = data?.find((user) => user.userId == agentUserOneRole?.userId);
+  const defaultRole = roles?.find((role) => role.id === agentUserOneRole?.roleId);
 
   const onFinish = ({ userId, roleId }: IValuesForm) => {
     userId = userId.split('-')[0];
-    createAgentUserRole({
+    updateAgentUserRole({
+      id: Number(id),
       userId: +userId,
       roleId,
       callback() {
-        addNotification('successfully created agent user role');
+        addNotification('successfully updated agent user role');
       },
     });
   };
@@ -33,7 +37,6 @@ export const AgentUserRoleCreateForm: React.FC = () => {
     label: user.name,
     value: user.id,
   }));
-
   useEffect(() => {
     getRoles({
       callback() {
@@ -49,7 +52,7 @@ export const AgentUserRoleCreateForm: React.FC = () => {
   }, []);
 
   return (
-    <BaseForm name="agentUserRoleCreateForm" form={form} layout="vertical" onFinish={onFinish}>
+    <BaseForm name="agentUserRoleEditForm" form={form} layout="vertical" onFinish={onFinish}>
       <S.FormContent>
         <BaseForm.Item
           name="userId"
@@ -57,6 +60,10 @@ export const AgentUserRoleCreateForm: React.FC = () => {
           rules={[{ required: true, message: 'agent user is required!' }]}
         >
           <AutoComplete
+            defaultValue={{
+              label: `${defaultUser?.userId}. ${defaultUser?.firstName} ${defaultUser?.lastName} `,
+              value: `${defaultUser?.userId}-${Math.random() * 100}`,
+            }}
             filterOption={(inputValue, option) =>
               option?.label?.toLowerCase().includes(inputValue.toLowerCase())
             }
@@ -69,9 +76,13 @@ export const AgentUserRoleCreateForm: React.FC = () => {
           label={'role'}
           rules={[{ required: true, message: 'role is required!' }]}
         >
-          <Select placeholder="Select role?" options={selectOptionRoleId} />
+          <Select
+            defaultValue={{ label: defaultRole?.name, value: defaultRole?.id }}
+            placeholder="Select role?"
+            options={selectOptionRoleId}
+          />
         </BaseForm.Item>
-        <PrimaryBtn htmlType="submit" loading={post}>
+        <PrimaryBtn htmlType="submit" loading={loading.post}>
           create
         </PrimaryBtn>
       </S.FormContent>

@@ -1,15 +1,37 @@
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { IAgentUserRoles } from '@/store/service-agent/user-role/types';
+import { modal } from '@/components/app';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants';
+import { useActions } from '@/common/hooks';
+import { addNotification } from '@/common';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const navigate = useNavigate();
+  const { getOneAgentUserRole, deleteAgentUserRole } = useActions();
+
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
+      title: `You want to delete right ?`,
+      onOk: () => {
+        deleteAgentUserRole({
+          id: record.id,
+          callback() {
+            addNotification('successfully deleted agent user role');
+          },
+        });
+      },
+    });
+  };
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -121,6 +143,32 @@ export const utils = () => {
       dataIndex: 'userId',
       key: 'userId',
       ...getColumnSearchProps('userId'),
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'action',
+      key: 'action',
+      width: '10%',
+      render: (_: any, record: any) => {
+        return (
+          <Space>
+            <Button
+              key={1}
+              onClick={() => {
+                return getOneAgentUserRole({
+                  id: record.id,
+                  callback: () => navigate(`${ROUTES.agentUserRole}/edit/${record.id}`),
+                });
+              }}
+            >
+              <EditOutlined />
+            </Button>
+            <Button key={2} onClick={() => handleDelete(record)}>
+              <DeleteOutlined />
+            </Button>
+          </Space>
+        );
+      },
     },
   ];
 

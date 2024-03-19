@@ -6,7 +6,7 @@ import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common';
 
-export const AgentUserPermissionCreateForm: React.FC = () => {
+export const AgentUserPermissionEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { getCompany, getAgentPermissions, getAllUsers, createAgentUserPermission } = useActions();
   const { permissions } = useTypedSelector((state) => state.agentPermission);

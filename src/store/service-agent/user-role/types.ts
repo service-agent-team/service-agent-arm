@@ -5,7 +5,7 @@ export interface IAgentUserRolesInitialState {
     patch: boolean;
     delete: boolean;
   };
-  // oneRole: IAgentUserRoles | null;
+  agentUserOneRole: IAgentUserRoles | null;
   agentUserRoles: IAgentUserRoles[] | null;
   errors: unknown | string[] | string;
 }
@@ -24,23 +24,32 @@ export interface IAgentUserRoles {
 }
 
 export interface IAgentUserRolesGetResponse {
-  data: IAgentUserRoles[];
   message: string;
+  data: IAgentUserRoles[];
+}
+
+export interface IAgentUserRolesGetOneResponse {
+  message: string;
+  data: IAgentUserRoles;
+}
+
+export interface IAgentUserRolesGetResponse {
+  message: string;
+  data: IAgentUserRoles[];
 }
 export interface IAgentUserRolesGetResponsePayload {
   callback: () => void;
 }
+export interface IAgentUserRolesGetOneResponsePayload {
+  id: number | string;
+  callback: () => void;
+}
 
-export interface IRolesByIdResponse {
+export interface IAgentUserRolesCreateResponse {
+  message: string;
   data: IAgentUserRoles;
 }
-
-export interface IRolesByIdPayload {
-  id: number | string;
-}
-
-export interface IAgentUserRolesCreateResponse {}
-export interface IRolesEditResponse {}
+export interface IAgentUserRolesEditResponse {}
 
 export interface IAgentUserRolesCreatePayload {
   userId: number;
@@ -48,7 +57,19 @@ export interface IAgentUserRolesCreatePayload {
   callback: () => void;
 }
 
-export interface IRolesEditPayload {
+export interface IAgentUserRolesUpdatePayload {
+  id: number | string;
+  userId: number;
+  roleId: number;
+  callback: () => void;
+}
+
+export interface IAgentUserRolesDeletePayload {
+  id: number | string;
+  callback: () => void;
+}
+
+export interface IAgentUserRolesEditPayload {
   id: number | string;
   name: string;
   description: string;

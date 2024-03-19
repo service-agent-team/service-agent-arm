@@ -37,6 +37,7 @@ export const ROUTES = {
   agentUserPermissionCreate: '/service-agent/user-permission/create',
   agentUserPermissionEdit: '/service-agent/user-permission/edit/:id',
   agentUserRole: '/service-agent/user-role',
+  agentUserRoleEdit: '/service-agent/user-role/edit/:id',
   agentUserRoleCreate: '/service-agent/user-role/create',
   // agent
 
