@@ -148,7 +148,15 @@ export const utils = () => {
         <Row style={{ gap: '4px' }}>
           <Tag
             key={Math.random() * 100}
-            color={`${status === LetsTripOrderStatus.active ? 'success' : status === LetsTripOrderStatus.pending ? 'warning' : status === LetsTripOrderStatus.rejected ? 'red' : 'primary'}`}
+            color={`${
+              status === LetsTripOrderStatus.active
+                ? 'success'
+                : status === LetsTripOrderStatus.pending
+                ? 'warning'
+                : status === LetsTripOrderStatus.rejected
+                ? 'red'
+                : 'primary'
+            }`}
           >
             {status.toUpperCase()}
           </Tag>
