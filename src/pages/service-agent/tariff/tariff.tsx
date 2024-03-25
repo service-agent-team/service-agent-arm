@@ -1,6 +1,6 @@
 import { useActions } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
-import { AgenetTariffTable, PageTitle } from '@/components';
+import { AgentTariffTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
 import { useEffect } from 'react';
 
@@ -16,8 +16,13 @@ export function Tariff() {
   }, []);
   return (
     <div>
-      <PageTitle title="Tariffs" icon="UserAddOutlined" route={ROUTES.create} label="Create" />
-      <AgenetTariffTable />
+      <PageTitle
+        title="Tariffs"
+        icon="PlusOutlined"
+        route={ROUTES.agentTariffCreate}
+        label="Create"
+      />
+      <AgentTariffTable />
     </div>
   );
 }

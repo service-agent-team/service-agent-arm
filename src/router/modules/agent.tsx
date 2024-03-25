@@ -7,6 +7,7 @@ import {
   AgentHome,
   AgentProductCreate,
   AgentProducts,
+  AgentTariffsCreate,
   AgentUserPermissionCreatePage,
   AgentUserPermissionEditPage,
   AgentUserPermissionPage,
@@ -76,6 +77,14 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <AgentTariff />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentTariffCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentTariffsCreate />
       </Suspense>
     ),
   },

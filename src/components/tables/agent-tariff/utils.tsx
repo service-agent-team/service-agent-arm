@@ -1,24 +1,29 @@
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, InputRef, MenuProps, Space, message } from 'antd';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Button, Input, InputRef, MenuProps, Space, message } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-// import { items } from './constants';
 import { DataIndex, IhandleSearchProps, AgentTariffRow } from './types';
-import { LinkButton } from '@/components/common/buttons';
+import { modal } from '@/components/app';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
 
-  const handleMenuClick: MenuProps['onClick'] = () => {
-    message.success('Click on menu item.');
-  };
-
-  const menuProps = {
-    // items: items,
-    onClick: handleMenuClick,
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
+      title: `You want to delete right ?`,
+      onOk: () => {
+        // deleteAgentUserRole({
+        //   id: record.id,
+        //   callback() {
+        //     addNotification('successfully deleted agent user role');
+        //   },
+        // });
+      },
+    });
   };
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
@@ -123,39 +128,36 @@ export const utils = () => {
       title: 'Name',
       dataIndex: 'tariffName',
       key: 'tariffName',
-      width: '20%',
       ...getColumnSearchProps('tariffName'),
     },
     {
       title: 'category',
       dataIndex: 'categoryId',
       key: 'gold',
-      width: '20%',
       ...getColumnSearchProps('categoryId'),
-    },
-
-    {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      render: (id: number) => {
-        return <LinkButton path={`/service-agent/view/${id}`}>view</LinkButton>;
-      },
     },
     {
       title: 'Actions',
       dataIndex: 'userId',
       key: 'action',
-      render: () => {
+      render: (_: any, record: any) => {
         return (
-          <Dropdown menu={menuProps}>
-            <Button>
-              <Space>
-                Actions
-                <DownOutlined />
-              </Space>
+          <Space>
+            <Button
+              key={1}
+              onClick={() => {
+                // return getOneAgentUserRole({
+                //   id: record.id,
+                //   callback: () => navigate(`${ROUTES.agentUserRole}/edit/${record.id}`),
+                // });
+              }}
+            >
+              <EditOutlined />
             </Button>
-          </Dropdown>
+            <Button key={2} onClick={() => handleDelete(record)}>
+              <DeleteOutlined />
+            </Button>
+          </Space>
         );
       },
     },

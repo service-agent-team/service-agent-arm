@@ -47,7 +47,7 @@ export const AgentTable: React.FC = () => {
   ];
 
   return (
-    <Flex align="center" justify="center" wrap="wrap" gap={23}>
+    <Flex align="center" justify="center" wrap="wrap" gap={13}>
       <Segmented
         size="large"
         defaultValue={status === 'success' ? '1' : status === 'view' ? '2' : '3'}
@@ -55,7 +55,7 @@ export const AgentTable: React.FC = () => {
         onChange={handleChange}
       />
       <Table
-        style={{ marginTop: '20px' }}
+        style={{ width: '100%' }}
         columns={utils()}
         dataSource={generateUserData ? (generateUserData as IUserData[]) : []}
         loading={get}

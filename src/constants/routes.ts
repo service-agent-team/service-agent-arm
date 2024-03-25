@@ -22,6 +22,7 @@ export const ROUTES = {
   agentControl: '/service-agent/control',
   agentView: '/service-agent/view/:id',
   agentTariff: '/service-agent/tariff',
+  agentTariffCreate: '/service-agent/tariff/create',
   agentComapany: '/service-agent/company',
   agentPermission: '/service-agent/permissions',
   agentPermissionCreate: '/service-agent/permissions/create',

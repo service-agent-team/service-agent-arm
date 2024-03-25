@@ -3,7 +3,7 @@ import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
 import { ICompany } from '@/store/service-agent/company/types';
 import { IRoles } from '@/store/service-agent/roles/types';
-import { ITaeiffData } from '@/store/service-agent/tariff/types';
+import { ITariffData } from '@/store/service-agent/tariff/types';
 import { Flex, Select } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styles';
@@ -14,7 +14,7 @@ import { IParam } from './types';
 interface IProps {
   userId: number;
   roles: IRoles[] | null;
-  categories: ITaeiffData[] | null;
+  categories: ITariffData[] | null;
   companies: ICompany[] | null;
   contractStatus: string | undefined;
 }

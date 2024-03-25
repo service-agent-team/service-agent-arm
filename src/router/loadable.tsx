@@ -21,6 +21,7 @@ export const AgentView = getLoadablePage('AgentView');
 export const AgentProducts = getLoadablePage('AgentProduct');
 export const AgentProductCreate = getLoadablePage('AgentProductCreate');
 export const AgentTariffs = getLoadablePage('AgentTariff');
+export const AgentTariffsCreate = getLoadablePage('AgentTariffCreate');
 export const AgentRoles = getLoadablePage('AgentRoles');
 export const CreateAgentRole = getLoadablePage('CreateAgentRole');
 export const EditAgentRole = getLoadablePage('EditAgentRole');
