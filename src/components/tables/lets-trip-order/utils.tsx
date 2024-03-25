@@ -152,10 +152,10 @@ export const utils = () => {
               status === LetsTripOrderStatus.active
                 ? 'success'
                 : status === LetsTripOrderStatus.pending
-                ? 'warning'
-                : status === LetsTripOrderStatus.rejected
-                ? 'red'
-                : 'primary'
+                  ? 'warning'
+                  : status === LetsTripOrderStatus.rejected
+                    ? 'red'
+                    : 'primary'
             }`}
           >
             {status.toUpperCase()}

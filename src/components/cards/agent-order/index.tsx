@@ -19,10 +19,10 @@ export const AgentOrderCard = ({ order }: IProps) => {
           {OrderState === 4
             ? 'Active'
             : OrderState === 6
-            ? 'No active'
-            : OrderState === 217
-            ? 'pay pending'
-            : 'qoralama'}
+              ? 'No active'
+              : OrderState === 217
+                ? 'pay pending'
+                : 'qoralama'}
         </Tag>
       </Flex>
 
