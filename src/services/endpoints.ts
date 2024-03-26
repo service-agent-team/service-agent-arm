@@ -41,9 +41,9 @@ export const EndPointes = {
     getAllOrder: '/order/all',
     getAllOrderStatistic: '/order/statistica',
     tariff: {
-      getAll: '/category/all',
-      delete: '/category/delete/',
-      create: '/category/create/',
+      getAll: '/tariff-category/all',
+      delete: '/tariff-category/delete/',
+      create: '/tariff-category/create/',
     },
     tariffPer: {
       add: '/category/permission/create',

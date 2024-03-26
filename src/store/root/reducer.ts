@@ -17,7 +17,7 @@ import { AgentTariffReducer } from '../service-agent/tariff/tariff.slice';
 import { AgentUserRoleReducer } from '../service-agent/user-role/slice';
 import { AgentUserPermissionReducer } from '../service-agent/user-permission/slice';
 import { LetsTripOrderReduce } from '../lets-trip/order/slice';
-import { ProjectReducer } from '../service-agent/project/slice';
+import { ProjectReducer } from '../global/project/slice';
 
 export const reducer = {
   app: appReducer,
