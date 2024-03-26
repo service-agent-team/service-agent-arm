@@ -21,6 +21,11 @@ export const EndPointes = {
     getAllCompany: 'company/get-all',
   },
 
+  // PROJECT
+  project: {
+    getAll: '/projects/get-all',
+  },
+
   // AGENT
   agentContract: {
     allUsers: '/agent/all',

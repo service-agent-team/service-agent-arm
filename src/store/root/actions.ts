@@ -38,6 +38,8 @@ import * as AgentUserPermissionActions from '../service-agent/user-permission/ac
 import { AgentUserPermissionSliceActions } from '../service-agent/user-permission/slice';
 import * as LetsTripOrderActions from '../lets-trip/order/actions';
 import { LetsTripOrderSliceActions } from '../lets-trip/order/slice';
+import * as ProjectActions from '../service-agent/project/actions';
+import { ProjectSliceActions } from '../service-agent/project/slice';
 
 export const AllActions = {
   ...AgentTariffActions,
@@ -81,4 +83,6 @@ export const AllActions = {
   ...LetsTripOrderActions,
   ...AgentUserPermissionActions,
   ...AgentUserPermissionSliceActions,
+  ...ProjectSliceActions,
+  ...ProjectActions,
 };
