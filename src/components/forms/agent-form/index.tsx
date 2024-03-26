@@ -33,12 +33,12 @@ export const AgentForm: React.FC<IProps> = ({
     addTariffPermission,
     createAgentRoles,
     getAgentPermissions,
-    getAllProject,
+    getAllAgentProject,
   } = useActions();
 
   const { loading } = useTypedSelector((state) => state.users);
   const { permissions } = useTypedSelector((state) => state.agentPermission);
-  const { projects } = useTypedSelector((state) => state.project);
+  const { agentProjects } = useTypedSelector((state) => state.agentProject);
 
   const onFinish = (value: IParam) => {
     acceptAgnet({
@@ -75,7 +75,7 @@ export const AgentForm: React.FC<IProps> = ({
 
   useEffect(() => {
     getAgentPermissions({ callback() {} });
-    getAllProject({ callback() {} });
+    getAllAgentProject({ callback() {} });
   }, []);
 
   const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
@@ -86,8 +86,7 @@ export const AgentForm: React.FC<IProps> = ({
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   const UserPermissionSelectOption =
     permissions?.map((el) => ({ label: el.name, value: el.id })) || [];
-  const ProjectSelectOption =
-    projects?.map((el) => ({ label: el.project_name, value: el.project_id })) || [];
+  const ProjectSelectOption = agentProjects?.map((el) => ({ label: el.name, value: el.id })) || [];
   return (
     <BaseForm
       name="agentForm"
@@ -164,7 +163,7 @@ export const AgentForm: React.FC<IProps> = ({
           name="projectId"
           label={'Project'}
           hasFeedback
-          rules={[{ type: 'string', message: 'field is required' }]}
+          rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}

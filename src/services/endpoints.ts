@@ -48,6 +48,10 @@ export const EndPointes = {
     tariffPer: {
       add: '/category/permission/create',
     },
+    // projects
+    project: {
+      getAll: '/agent-projects/get-all',
+    },
     // permission
     getAllPermission: ``,
     // user-roles
