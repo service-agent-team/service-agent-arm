@@ -27,11 +27,11 @@ export const AgentForm: React.FC<IProps> = ({
   contractStatus,
 }) => {
   const [form] = BaseForm.useForm();
-  const { acceptAgnet, rejectAgnet, addTariffPermission, createAgentRoles, getPermisions } =
+  const { acceptAgnet, rejectAgnet, addTariffPermission, createAgentRoles, getAgentPermissions } =
     useActions();
 
   const { loading } = useTypedSelector((state) => state.users);
-  const { permissions } = useTypedSelector((state) => state.permission);
+  const { permissions } = useTypedSelector((state) => state.agentPermission);
 
   const onFinish = (value: IParam) => {
     acceptAgnet({
@@ -67,7 +67,7 @@ export const AgentForm: React.FC<IProps> = ({
   };
 
   useEffect(() => {
-    getPermisions({ callback() {} });
+    getAgentPermissions({ callback() {} });
   }, []);
 
   const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
@@ -77,7 +77,7 @@ export const AgentForm: React.FC<IProps> = ({
   }));
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   const UserPermissionSelectOption =
-    permissions?.map((el) => ({ label: el.permission_name, value: el.permission_id })) || [];
+    permissions?.map((el) => ({ label: el.name, value: el.id })) || [];
   return (
     <BaseForm
       name="agentForm"

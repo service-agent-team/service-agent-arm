@@ -8,7 +8,7 @@ export const Text = styled.p`
   text-align: center;
 `;
 
-export const VideoContiner = styled.video`
+export const VideoContainer = styled.video`
   width: 600px;
   height: 450px;
 `;
