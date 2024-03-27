@@ -1,7 +1,14 @@
 import { errorCatch } from '@/common/helpers';
 import { addNotification } from '@/common/utils/addNotification';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IAgentProjectPayload, IAgentProjectResponse } from './types';
+import {
+  IAgentProjectPayload,
+  IAgentProjectResponse,
+  ICreateAgentProjectResponse,
+  ICreteAgentProjectPayload,
+  IDeleteAgentProjectPayload,
+  IDeleteAgentProjectResponse,
+} from './types';
 import { AgentProjectService } from '@/services';
 import { EndPointes } from '@/services/endpoints';
 
@@ -10,8 +17,7 @@ export const getAllAgentProject = createAsyncThunk<IAgentProjectResponse, IAgent
   async ({ callback }, thunkApi) => {
     try {
       const response = await AgentProjectService.getAllAgentProject();
-
-      if (response.data.status == 200) {
+      if (response.status == 200) {
         callback();
       }
       return response.data;
@@ -21,3 +27,35 @@ export const getAllAgentProject = createAsyncThunk<IAgentProjectResponse, IAgent
     }
   },
 );
+
+export const createAgentProject = createAsyncThunk<
+  ICreateAgentProjectResponse,
+  ICreteAgentProjectPayload
+>(EndPointes.agent.project.create, async ({ callback, name, description }, thunkApi) => {
+  try {
+    const response = await AgentProjectService.createAgentProject({ name, description });
+    if (response.data.status == 201) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const deleteAgentProject = createAsyncThunk<
+  IDeleteAgentProjectResponse,
+  IDeleteAgentProjectPayload
+>(EndPointes.agent.project.delete, async ({ callback, id }, thunkApi) => {
+  try {
+    const response = await AgentProjectService.deleteAgentProject(id);
+    if (response.status == 200) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});

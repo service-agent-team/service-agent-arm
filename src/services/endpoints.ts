@@ -51,6 +51,8 @@ export const EndPointes = {
     // projects
     project: {
       getAll: '/agent-projects/get-all',
+      create: '/agent-projects/create',
+      delete: '/agent-projects/delete/',
     },
     // permission
     getAllPermission: ``,

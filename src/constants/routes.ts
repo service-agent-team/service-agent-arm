@@ -40,6 +40,8 @@ export const ROUTES = {
   agentUserRole: '/service-agent/user-role',
   agentUserRoleEdit: '/service-agent/user-role/edit/:id',
   agentUserRoleCreate: '/service-agent/user-role/create',
+  agentProject: '/service-agent/project',
+  agentProjectCreate: '/service-agent/project/create',
   // agent
 
   // tranfer

@@ -6,4 +6,12 @@ export const AgentProjectService = {
     const response = await $axios.get(EndPointes.agent.project.getAll);
     return response;
   },
+  async createAgentProject(body: { name: string; description: string }) {
+    const response = await $axios.post(EndPointes.agent.project.create, body);
+    return response;
+  },
+  async deleteAgentProject(id: number | string) {
+    const response = await $axios.delete(EndPointes.agent.project.delete + id);
+    return response;
+  },
 };
