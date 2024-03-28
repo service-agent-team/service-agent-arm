@@ -2,6 +2,7 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 import { AgentOrderCard } from '@/components/cards/agent-order';
 import { Flex, Result, Segmented, Skeleton } from 'antd';
 import { useEffect, useState } from 'react';
+import * as S from './styled';
 
 export const OrderPage = () => {
   const { getAgentOrders } = useActions();
@@ -34,9 +35,9 @@ export const OrderPage = () => {
           onChange={(value: any) => handleStatus(value)}
         />
       </Flex>
-      <Flex style={{ width: '100%' }} gap={23} justify="center" wrap="wrap">
-        {orders?.length ? (
-          orders?.map((el, i) => (
+      {orders?.length ? (
+        <S.List>
+          {orders?.map((el, i) => (
             <Skeleton
               key={i}
               style={{ width: '300px', height: '400px' }}
@@ -46,15 +47,15 @@ export const OrderPage = () => {
             >
               <AgentOrderCard order={el} key={i} />
             </Skeleton>
-          ))
-        ) : (
-          <Result
-            status="404"
-            title="Hozircha malumotlar yo'q"
-            subTitle="Har bir jarayon shu yerda ko'rinadi"
-          />
-        )}
-      </Flex>
+          ))}
+        </S.List>
+      ) : (
+        <Result
+          status="404"
+          title="Hozircha malumotlar yo'q"
+          subTitle="Har bir jarayon shu yerda ko'rinadi"
+        />
+      )}
     </div>
   );
 };

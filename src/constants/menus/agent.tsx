@@ -47,6 +47,11 @@ export const agent = [
     key: ROUTES.agentUserRole,
     icon: 'UserSwitchOutlined',
   },
+  {
+    label: 'Projects',
+    key: ROUTES.agentProject,
+    icon: 'ProductOutlined',
+  },
 ];
 
 export const AgentConf = {

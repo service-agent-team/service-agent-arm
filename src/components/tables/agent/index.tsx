@@ -1,9 +1,9 @@
 import { addKeyProp } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
-import { Tab, Table } from '@/components';
+import { Table } from '@/components';
 import { IUserData } from '@/store/service-agent/contract/contract.interface';
-import { TabsProps } from 'antd';
+import { Flex, Segmented } from 'antd';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
 
@@ -13,6 +13,7 @@ export const AgentTable: React.FC = () => {
     data,
     loading: { get },
     error,
+    status,
   } = useTypedSelector((state) => state.agent);
   useEffect(() => {
     if (error) {
@@ -20,54 +21,46 @@ export const AgentTable: React.FC = () => {
     }
   }, [data]);
   const generateUserData = addKeyProp<IUserData>(data as IUserData[]);
-  const onChange = (key: string) => {
-    if (key === '1') {
+  const handleChange = (value: string) => {
+    if (value === '1') {
       setContarctSatus('success');
-    } else if (key === '2') {
+    } else if (value === '2') {
       setContarctSatus('view');
     } else {
       setContarctSatus('reject');
     }
   };
 
-  const items: TabsProps['items'] = [
+  const items = [
     {
-      key: '1',
+      value: '1',
       label: 'Tasdiqlangan',
-      children: (
-        <Table
-          columns={utils()}
-          dataSource={generateUserData ? (generateUserData as IUserData[]) : []}
-          loading={get}
-          bordered
-        />
-      ),
     },
     {
-      key: '2',
+      value: '2',
       label: 'Kutilayotgan',
-      children: (
-        <Table
-          columns={utils()}
-          dataSource={generateUserData ? (generateUserData as IUserData[]) : []}
-          loading={get}
-          bordered
-        />
-      ),
     },
     {
-      key: '3',
+      value: '3',
       label: 'Rad etilgan',
-      children: (
-        <Table
-          columns={utils()}
-          dataSource={generateUserData ? (generateUserData as IUserData[]) : []}
-          loading={get}
-          bordered
-        />
-      ),
     },
   ];
 
-  return <Tab defaultActiveKey="1" items={items} onChange={onChange} />;
+  return (
+    <Flex align="center" justify="center" wrap="wrap" gap={13}>
+      <Segmented
+        size="large"
+        defaultValue={status === 'success' ? '1' : status === 'view' ? '2' : '3'}
+        options={items}
+        onChange={handleChange}
+      />
+      <Table
+        style={{ width: '100%' }}
+        columns={utils()}
+        dataSource={generateUserData ? (generateUserData as IUserData[]) : []}
+        loading={get}
+        bordered
+      />
+    </Flex>
+  );
 };

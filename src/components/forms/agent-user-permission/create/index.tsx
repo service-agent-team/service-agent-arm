@@ -64,7 +64,7 @@ export const AgentUserPermissionCreateForm: React.FC = () => {
         <BaseForm.Item
           name="projectId"
           label={'project'}
-          rules={[{ required: true, message: 'Project is required!' }]}
+          rules={[{ required: true, message: 'project is required!' }]}
         >
           <Select placeholder="Project company?" options={selectOptionCompanyId} />
         </BaseForm.Item>

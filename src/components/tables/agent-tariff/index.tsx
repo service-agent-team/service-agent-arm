@@ -1,21 +1,21 @@
 import { addKeyProp } from '@/common';
 import { useTypedSelector } from '@/common/hooks';
 import { Table } from '@/components';
-import { ITaeiffData } from '@/store/service-agent/tariff/types';
+import { ITariffData } from '@/store/service-agent/tariff/types';
 import React from 'react';
 import { utils } from './utils';
 
-export const AgenetTariffTable: React.FC = () => {
+export const AgentTariffTable: React.FC = () => {
   const {
     tariffs,
     loading: { get },
   } = useTypedSelector((state) => state.agentTariff);
-  const generateUserData = addKeyProp<ITaeiffData>(tariffs as ITaeiffData[]);
+  const generateUserData = addKeyProp<ITariffData>(tariffs as ITariffData[]);
 
   return (
     <Table
       columns={utils()}
-      dataSource={generateUserData ? (generateUserData as ITaeiffData[]) : []}
+      dataSource={generateUserData ? (generateUserData as ITariffData[]) : []}
       loading={get}
       bordered
     />

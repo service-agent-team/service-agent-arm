@@ -22,6 +22,7 @@ export const ROUTES = {
   agentControl: '/service-agent/control',
   agentView: '/service-agent/view/:id',
   agentTariff: '/service-agent/tariff',
+  agentTariffCreate: '/service-agent/tariff/create',
   agentComapany: '/service-agent/company',
   agentPermission: '/service-agent/permissions',
   agentPermissionCreate: '/service-agent/permissions/create',
@@ -35,8 +36,12 @@ export const ROUTES = {
   agentOrders: '/service-agent/orders',
   agentUserPermission: '/service-agent/user-permission',
   agentUserPermissionCreate: '/service-agent/user-permission/create',
+  agentUserPermissionEdit: '/service-agent/user-permission/edit/:id',
   agentUserRole: '/service-agent/user-role',
+  agentUserRoleEdit: '/service-agent/user-role/edit/:id',
   agentUserRoleCreate: '/service-agent/user-role/create',
+  agentProject: '/service-agent/project',
+  agentProjectCreate: '/service-agent/project/create',
   // agent
 
   // tranfer

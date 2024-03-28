@@ -10,7 +10,7 @@ export interface IProps {
 export const AgentOrderCard = ({ order }: IProps) => {
   const { OrderState } = order.order;
   return (
-    <Card width="300px" color="#5474e6">
+    <Card width="100%" color="#5474e6">
       <Flex justify="space-between">
         <Typography.Text style={{ color: '#FEFBF6' }} strong>
           {order.order.ServiceOrderId}
@@ -19,10 +19,10 @@ export const AgentOrderCard = ({ order }: IProps) => {
           {OrderState === 4
             ? 'Active'
             : OrderState === 6
-            ? 'No active'
-            : OrderState === 217
-            ? 'pay pending'
-            : 'qoralama'}
+              ? 'No active'
+              : OrderState === 217
+                ? 'pay pending'
+                : 'qoralama'}
         </Tag>
       </Flex>
 

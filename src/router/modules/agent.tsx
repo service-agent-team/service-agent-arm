@@ -7,9 +7,14 @@ import {
   AgentHome,
   AgentProductCreate,
   AgentProducts,
+  AgentProjectCreatePage,
+  AgentProjectPage,
+  AgentTariffsCreate,
   AgentUserPermissionCreatePage,
+  AgentUserPermissionEditPage,
   AgentUserPermissionPage,
   AgentUserRoleCreatePage,
+  AgentUserRoleEditPage,
   AgentUserRolePage,
   AgentView,
   CreateAgentPermission,
@@ -78,6 +83,14 @@ export const agentRouter = [
     ),
   },
   {
+    path: ROUTES.agentTariffCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentTariffsCreate />
+      </Suspense>
+    ),
+  },
+  {
     path: ROUTES.agentRole,
     element: (
       <Suspense fallback={<Loading />}>
@@ -142,6 +155,14 @@ export const agentRouter = [
     ),
   },
   {
+    path: ROUTES.agentUserPermissionEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentUserPermissionEditPage />
+      </Suspense>
+    ),
+  },
+  {
     path: ROUTES.agentUserRole,
     element: (
       <Suspense fallback={<Loading />}>
@@ -154,6 +175,30 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <AgentUserRoleCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentUserRoleEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentUserRoleEditPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentProject,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentProjectPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentProjectCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentProjectCreatePage />
       </Suspense>
     ),
   },

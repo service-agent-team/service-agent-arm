@@ -21,6 +21,11 @@ export const EndPointes = {
     getAllCompany: 'company/get-all',
   },
 
+  // PROJECT
+  project: {
+    getAll: '/projects/get-all',
+  },
+
   // AGENT
   agentContract: {
     allUsers: '/agent/all',
@@ -36,10 +41,18 @@ export const EndPointes = {
     getAllOrder: '/order/all',
     getAllOrderStatistic: '/order/statistica',
     tariff: {
-      getAll: '/category/all',
+      getAll: '/tariff-category/all',
+      delete: '/tariff-category/delete/',
+      create: '/tariff-category/create/',
     },
     tariffPer: {
       add: '/category/permission/create',
+    },
+    // projects
+    project: {
+      getAll: '/agent-projects/get-all',
+      create: '/agent-projects/create',
+      delete: '/agent-projects/delete/',
     },
     // permission
     getAllPermission: ``,
@@ -124,8 +137,8 @@ export const EndPointes = {
     create: '/agent-permission/create',
     getAll: '/agent-permission/all',
     getOne: '/agent-permission/',
-    edit: '/agent-permission/update-agent-permission/',
-    delete: '/agent-permission/delete-agent-permission/',
+    edit: '/agent-permission/update/',
+    delete: '/agent-permission/delete/',
   },
 
   userRoles: {

@@ -35,9 +35,15 @@ export const AgentUserRoleCreateForm: React.FC = () => {
   }));
 
   useEffect(() => {
-    getRoles({ callback() {} });
+    getRoles({
+      callback() {
+        addNotification('get all user roles');
+      },
+    });
     getAllUsers({
-      callback() {},
+      callback() {
+        addNotification('get all agent users');
+      },
       statusName: 'success',
     });
   }, []);

@@ -1,6 +1,6 @@
 export interface InitialState {
-  tariffs: ITaeiffData[] | null;
-  tariff: ITaeiffData | null;
+  tariffs: ITariffData[] | null;
+  tariff: ITariffData | null;
   status: string;
   loading: {
     get: boolean;
@@ -16,10 +16,20 @@ import { AxiosResponse } from 'axios';
 export interface IAuthAxiosResponse extends AxiosResponse {}
 
 export interface IAgentTariffResponse extends AxiosResponse {
-  data: ITaeiffData[] | null;
+  data: ITariffData[] | null;
 }
 
-export interface ITaeiffData {
+export interface ITariffDeletePayload {
+  id: number | string;
+  callback: () => void;
+}
+
+export interface ITariffCreatePayload {
+  tariffName: string;
+  categoryId: number;
+  callback: () => void;
+}
+export interface ITariffData {
   userTariffId: number;
   tariffName: string;
   categoryId: number;

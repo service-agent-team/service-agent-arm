@@ -1,5 +1,3 @@
-import { IPermission } from '../permission/types';
-
 export interface IAgentUserPermissionInitialState {
   loading: {
     get: boolean;
@@ -37,12 +35,26 @@ export interface IRolesByIdResponse {
   data: IAgentUserPermission;
 }
 
-export interface IRolesByIdPayload {
-  id: number | string;
+export interface IAgentUserPermissionCreateResponse {
+  status: number;
+  success: boolean;
+  code: number;
+  message: string;
+  data: IAgentUserPermission;
+}
+export interface IAgentUserPermissionUpdateResponse {
+  status: number;
+  message: string;
+  success: boolean;
+  data: IAgentUserPermission[];
 }
 
-export interface IAgentUserPermissionCreateResponse {}
-export interface IRolesEditResponse {}
+export interface IAgentUserPermissionDeleteResponse {
+  status: number;
+  message: string;
+  success: boolean;
+  // data: IAgentUserPermission;
+}
 
 export interface IAgentUserPermissionCreatePayload {
   userId: number;
@@ -51,10 +63,16 @@ export interface IAgentUserPermissionCreatePayload {
   callback: () => void;
 }
 
-export interface IRolesEditPayload {
-  id: number | string;
-  name: string;
-  description: string;
+export interface IAgentUserPermissionDeletePayload {
+  permissionId: number;
+  callback: () => void;
+}
+
+export interface IAgentUserPermissionUpdatePayload {
+  userId: number;
+  permissionId: number;
+  projectId: number;
+
   callback: () => void;
 }
 

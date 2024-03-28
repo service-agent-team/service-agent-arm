@@ -14,3 +14,5 @@ export * from './user-permission';
 export * from './user-role';
 export * from './user-permission';
 export * from './user-role';
+export * from './tariff';
+export * from './project';

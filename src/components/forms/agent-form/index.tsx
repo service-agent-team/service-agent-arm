@@ -3,7 +3,7 @@ import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
 import { ICompany } from '@/store/service-agent/company/types';
 import { IRoles } from '@/store/service-agent/roles/types';
-import { ITaeiffData } from '@/store/service-agent/tariff/types';
+import { ITariffData } from '@/store/service-agent/tariff/types';
 import { Flex, Select } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styles';
@@ -14,7 +14,7 @@ import { IParam } from './types';
 interface IProps {
   userId: number;
   roles: IRoles[] | null;
-  categories: ITaeiffData[] | null;
+  categories: ITariffData[] | null;
   companies: ICompany[] | null;
   contractStatus: string | undefined;
 }
@@ -27,11 +27,18 @@ export const AgentForm: React.FC<IProps> = ({
   contractStatus,
 }) => {
   const [form] = BaseForm.useForm();
-  const { acceptAgnet, rejectAgnet, addTariffPermission, createAgentRoles, getPermisions } =
-    useActions();
+  const {
+    acceptAgnet,
+    rejectAgnet,
+    addTariffPermission,
+    createAgentRoles,
+    getAgentPermissions,
+    getAllAgentProject,
+  } = useActions();
 
   const { loading } = useTypedSelector((state) => state.users);
-  const { permissions } = useTypedSelector((state) => state.permission);
+  const { permissions } = useTypedSelector((state) => state.agentPermission);
+  const { agentProjects } = useTypedSelector((state) => state.agentProject);
 
   const onFinish = (value: IParam) => {
     acceptAgnet({
@@ -67,7 +74,8 @@ export const AgentForm: React.FC<IProps> = ({
   };
 
   useEffect(() => {
-    getPermisions({ callback() {} });
+    getAgentPermissions({ callback() {} });
+    getAllAgentProject({ callback() {} });
   }, []);
 
   const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
@@ -77,7 +85,8 @@ export const AgentForm: React.FC<IProps> = ({
   }));
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   const UserPermissionSelectOption =
-    permissions?.map((el) => ({ label: el.permission_name, value: el.permission_id })) || [];
+    permissions?.map((el) => ({ label: el.name, value: el.id })) || [];
+  const ProjectSelectOption = agentProjects?.map((el) => ({ label: el.name, value: el.id })) || [];
   return (
     <BaseForm
       name="agentForm"
@@ -91,7 +100,7 @@ export const AgentForm: React.FC<IProps> = ({
           name="roleId"
           label={'Agent Roles'}
           hasFeedback
-          rules={[{ type: 'number', message: 'filed is required' }]}
+          rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
@@ -103,7 +112,7 @@ export const AgentForm: React.FC<IProps> = ({
           name="categoryId"
           label={'Agent Category'}
           hasFeedback
-          rules={[{ type: 'number', message: 'filed is required' }]}
+          rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
@@ -115,7 +124,7 @@ export const AgentForm: React.FC<IProps> = ({
           name="companyId"
           label={'Agent Company'}
           hasFeedback
-          rules={[{ type: 'number', message: 'filed is required' }]}
+          rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
@@ -127,7 +136,7 @@ export const AgentForm: React.FC<IProps> = ({
           name="currency"
           label={'Agent currency'}
           hasFeedback
-          rules={[{ type: 'string', message: 'filed is required' }]}
+          rules={[{ type: 'string', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
@@ -142,12 +151,24 @@ export const AgentForm: React.FC<IProps> = ({
           name="userPermission"
           label={'User permission'}
           hasFeedback
-          rules={[{ type: 'number', message: 'filed is required' }]}
+          rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
             placeholder="Select an user permission option"
             options={UserPermissionSelectOption}
+          />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="projectId"
+          label={'Project'}
+          hasFeedback
+          rules={[{ type: 'number', message: 'field is required' }]}
+        >
+          <Select
+            style={{ height: 50 }}
+            placeholder="Select an project option"
+            options={ProjectSelectOption}
           />
         </BaseForm.Item>
         {contractStatus !== 'success' && (

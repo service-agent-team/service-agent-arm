@@ -13,8 +13,16 @@ export const AgentUserPermissionService = {
     const response = await $axios.get(`${userPermissions.getAll}`);
     return response;
   },
-  async createAgentUserPermission({ permissionId, projectId, userId }: IParam) {
-    const response = await $axios.post(userPermissions.create, { permissionId, projectId, userId });
+  async createAgentUserPermission(body: IParam) {
+    const response = await $axios.post(userPermissions.create, body);
+    return response;
+  },
+  async updateAgentUserPermission(id: number | string, body: IParam) {
+    const response = await $axios.put(userPermissions.edit + id, body);
+    return response;
+  },
+  async deleteAgentUserPermission({ permissionId }: { permissionId: number }) {
+    const response = await $axios.delete(`${userPermissions.delete}${permissionId}`);
     return response;
   },
 };
