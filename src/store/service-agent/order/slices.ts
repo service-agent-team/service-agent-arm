@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadTariffEnum } from '../../lets-trip/car-type/types';
 import { getAgentOrders } from './actions';
-import { IAgentPermissionInitalState } from './types';
+import { IAgentPermissionInitialState } from './types';
 
-const initialState: IAgentPermissionInitalState = {
+const initialState: IAgentPermissionInitialState = {
   loading: {
     get: false,
     post: false,
@@ -12,8 +12,8 @@ const initialState: IAgentPermissionInitalState = {
   },
   order: null,
   orders: null,
-  errors: null,
   status: 4,
+  errors: null,
 };
 
 export const agentOrderSlice = createSlice({
@@ -23,7 +23,7 @@ export const agentOrderSlice = createSlice({
     setTariffLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
       state.loading[payload] = !state.loading[payload];
     },
-    setOrderSatus: (state, { payload }) => {
+    setAgentOrderStatus: (state, { payload }) => {
       state.status = payload;
     },
   },
