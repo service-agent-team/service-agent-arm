@@ -23,7 +23,7 @@ export interface IUserResponse {
 }
 
 export interface IUserData {
-  id: number
+  id: number;
   userInfoId: number;
   userId: number;
   firstName: string;
@@ -142,6 +142,6 @@ export interface IData {
   currency: string;
 }
 
-export interface IOneAgentResponce extends AxiosResponse {
+export interface IOneAgentResponse extends AxiosResponse {
   date: IUserData;
 }

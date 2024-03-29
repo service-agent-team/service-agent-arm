@@ -3,5 +3,6 @@ export interface IParam {
   companyId: number;
   currency: string;
   roleId: number;
-  projectId: number;
+  projectId: number[];
+  permissionId: number;
 }

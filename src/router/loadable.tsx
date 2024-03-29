@@ -29,12 +29,6 @@ export const PermissionPage = getLoadablePage('PermissionPage');
 export const CreateAgentPermission = getLoadablePage('CreateAgentPermission');
 export const EditAgentPermission = getLoadablePage('EditAgentPermission');
 export const Orders = getLoadablePage('OrderPage');
-export const AgentUserPermissionPage = getLoadablePage('AgentUserPermission');
-export const AgentUserPermissionCreatePage = getLoadablePage('AgentUserPermissionCreate');
-export const AgentUserPermissionEditPage = getLoadablePage('AgentUserPermissionEdit');
-export const AgentUserRolePage = getLoadablePage('AgentUserRole');
-export const AgentUserRoleCreatePage = getLoadablePage('AgentUserRoleCreate');
-export const AgentUserRoleEditPage = getLoadablePage('AgentUserRoleEdit');
 export const AgentProjectPage = getLoadablePage('AgentProject');
 export const AgentProjectCreatePage = getLoadablePage('AgentProjectCreate');
 

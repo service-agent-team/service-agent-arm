@@ -29,7 +29,7 @@ export const View = () => {
         label="Back"
       />
       <Flex gap="large" justify="space-evenly" style={{ marginTop: '20px' }}>
-        <VideoCard url={agent?.videoContentId} />
+        <VideoCard />
         <AgentCard data={agent} />
       </Flex>
     </S.viewStyled>

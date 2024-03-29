@@ -216,9 +216,9 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'userId',
       key: 'view',
-      render: (userId: number) => {
+      render: (userId: number, record: any) => {
         return (
-          <LinkButton path={`/service-agent/view/${userId}`}>
+          <LinkButton path={`/service-agent/view/${userId}?video=${record.videoContentId}`}>
             <Icon name="EyeOutlined" />
           </LinkButton>
         );

@@ -38,16 +38,6 @@ export const agent = [
     icon: 'ApartmentOutlined',
   },
   {
-    label: 'User Permissions',
-    key: ROUTES.agentUserPermission,
-    icon: 'SolutionOutlined',
-  },
-  {
-    label: 'User Roles',
-    key: ROUTES.agentUserRole,
-    icon: 'UserSwitchOutlined',
-  },
-  {
     label: 'Projects',
     key: ROUTES.agentProject,
     icon: 'ProductOutlined',

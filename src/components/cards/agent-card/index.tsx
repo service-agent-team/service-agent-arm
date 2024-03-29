@@ -92,6 +92,7 @@ export const AgentCard = ({ data }: IProps) => {
           categories={agentTariff.tariffs}
           companies={company.companies}
           contractStatus={data?.contractStatus}
+          userPermissions={data?.userPermissions}
         />
       </Card>
     </Badge.Ribbon>

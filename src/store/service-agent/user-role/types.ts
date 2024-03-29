@@ -33,10 +33,6 @@ export interface IAgentUserRolesGetOneResponse {
   data: IAgentUserRoles;
 }
 
-export interface IAgentUserRolesGetResponse {
-  message: string;
-  data: IAgentUserRoles[];
-}
 export interface IAgentUserRolesGetResponsePayload {
   callback: () => void;
 }

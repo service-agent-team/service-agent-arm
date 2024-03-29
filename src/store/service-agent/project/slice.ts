@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createAgentProject, deleteAgentProject, getAllAgentProject } from './actions';
+import { createAgentProjectByAgent, deleteAgentProject, getAllAgentProject } from './actions';
 import { IAgentProjectInitialState } from './types';
 
 const initialState: IAgentProjectInitialState = {
@@ -30,13 +30,13 @@ export const agentProjectSlice = createSlice({
         state.loading.get = false;
         state.errors = payload;
       })
-      .addCase(createAgentProject.pending, (state) => {
+      .addCase(createAgentProjectByAgent.pending, (state) => {
         state.loading.post = true;
       })
-      .addCase(createAgentProject.fulfilled, (state) => {
+      .addCase(createAgentProjectByAgent.fulfilled, (state) => {
         state.loading.post = false;
       })
-      .addCase(createAgentProject.rejected, (state, { payload }) => {
+      .addCase(createAgentProjectByAgent.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })

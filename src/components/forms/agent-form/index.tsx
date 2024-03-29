@@ -8,8 +8,7 @@ import { Flex, Select } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styles';
 import { IParam } from './types';
-
-// import { IValuesForm } from './types';
+import { UserPermission } from '@/store/service-agent/contract/contract.interface';
 
 interface IProps {
   userId: number;
@@ -17,6 +16,7 @@ interface IProps {
   categories: ITariffData[] | null;
   companies: ICompany[] | null;
   contractStatus: string | undefined;
+  userPermissions: UserPermission[] | undefined;
 }
 
 export const AgentForm: React.FC<IProps> = ({
@@ -25,6 +25,7 @@ export const AgentForm: React.FC<IProps> = ({
   categories,
   companies,
   contractStatus,
+  userPermissions,
 }) => {
   const [form] = BaseForm.useForm();
   const {
@@ -34,6 +35,7 @@ export const AgentForm: React.FC<IProps> = ({
     createAgentRoles,
     getAgentPermissions,
     getAllAgentProject,
+    createAgentUserPermission,
   } = useActions();
 
   const { loading } = useTypedSelector((state) => state.users);
@@ -41,18 +43,22 @@ export const AgentForm: React.FC<IProps> = ({
   const { agentProjects } = useTypedSelector((state) => state.agentProject);
 
   const onFinish = (value: IParam) => {
-    acceptAgnet({
-      userId: Number(userId),
-      companyId: value.companyId,
-      currency: value.currency,
-      callback() {
-        addNotification('Agent tasdiqlandi');
-        history.back();
-      },
-    });
+    if (contractStatus !== 'success') {
+      acceptAgnet({
+        userId: Number(userId),
+        companyId: value.companyId,
+        currency: value.currency,
+        callback() {
+          addNotification('Agent tasdiqlandi');
+          history.back();
+        },
+      });
+    }
     if (value.categoryId) {
       addTariffPermission({
-        callback() {},
+        callback() {
+          addNotification('Agentga tarif ruxsat berildi');
+        },
         permissionId: 1,
         userTariffId: value.categoryId,
         userId,
@@ -60,6 +66,20 @@ export const AgentForm: React.FC<IProps> = ({
     }
     if (value.roleId) {
       createAgentRoles({ callback() {}, roleId: value.roleId, userId });
+    }
+    if (value.projectId && value.permissionId) {
+      value.projectId.forEach((projectId) => {
+        createAgentUserPermission({
+          callback() {
+            addNotification(
+              `Agentga ${agentProjects ? agentProjects[projectId].name : ''} project uchun ruxsat berildi`,
+            );
+          },
+          userId,
+          projectId,
+          permissionId: value.permissionId,
+        });
+      });
     }
   };
 
@@ -86,7 +106,21 @@ export const AgentForm: React.FC<IProps> = ({
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   const UserPermissionSelectOption =
     permissions?.map((el) => ({ label: el.name, value: el.id })) || [];
-  const ProjectSelectOption = agentProjects?.map((el) => ({ label: el.name, value: el.id })) || [];
+  const ProjectSelectOption = agentProjects?.map((el) => {
+    if (userPermissions) {
+      const isChecked = userPermissions.some((permission) => permission.project.id === el.id);
+      return {
+        label: el.name,
+        value: el.id,
+        disabled: isChecked,
+      };
+    }
+    return {
+      label: el.name,
+      value: el.id,
+    };
+  });
+
   return (
     <BaseForm
       name="agentForm"
@@ -148,7 +182,7 @@ export const AgentForm: React.FC<IProps> = ({
           />
         </BaseForm.Item>
         <BaseForm.Item
-          name="userPermission"
+          name="permissionId"
           label={'User permission'}
           hasFeedback
           rules={[{ type: 'number', message: 'field is required' }]}
@@ -163,9 +197,10 @@ export const AgentForm: React.FC<IProps> = ({
           name="projectId"
           label={'Project'}
           hasFeedback
-          rules={[{ type: 'number', message: 'field is required' }]}
+          rules={[{ type: 'array', message: 'field is required' }]}
         >
           <Select
+            mode="multiple"
             style={{ height: 50 }}
             placeholder="Select an project option"
             options={ProjectSelectOption}
