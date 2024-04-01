@@ -19,6 +19,8 @@ import { AgentUserPermissionReducer } from '../service-agent/user-permission/sli
 import { LetsTripOrderReduce } from '../lets-trip/order/slice';
 import { ProjectReducer } from '../global/project/slice';
 import { AgentProjectReducer } from '../service-agent/project/slice';
+import { UserRoleReducer } from '../global/user-role/slice';
+import { RoleReducer } from '../global/role/slice';
 
 export const reducer = {
   app: appReducer,
@@ -30,6 +32,8 @@ export const reducer = {
   company: CompanyReducer,
   product: ProductReducer,
   project: ProjectReducer,
+  role: RoleReducer,
+  userRole: UserRoleReducer,
   carType: CarTypeReducer,
   agentTariff: AgentTariffReducer,
   car: CarReducer,

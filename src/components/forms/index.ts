@@ -12,3 +12,4 @@ export * from './agent-user-permission';
 export * from './agent-user-role';
 export * from './agent-tariff';
 export * from './agent-project';
+export * from './user-role';

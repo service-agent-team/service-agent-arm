@@ -9,6 +9,7 @@ import {
   Projects,
   UserCreatePage,
   UserPermissions,
+  UserRoleCreate,
   UserRoles,
   Users,
 } from '../loadable';
@@ -67,6 +68,14 @@ export const mainRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <UserRoles />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.userRolesCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <UserRoleCreate />
       </Suspense>
     ),
   },

@@ -5,6 +5,10 @@ import * as PermissionActions from '../global/permission/actions';
 import { PermissionSliceActions } from '../global/permission/slice';
 import * as UserActions from '../global/users/actions';
 import { UserSliceActions } from '../global/users/slice';
+import * as RoleActions from '../global/role/actions';
+import { RoleSliceActions } from '../global/role/slice';
+import * as UserRoleActions from '../global/user-role/actions';
+import { UserRoleSliceActions } from '../global/user-role/slice';
 import * as CarModelActions from '../lets-trip/car-model/action';
 import { CarModelsliceActions } from '../lets-trip/car-model/slice';
 import * as CarTypeActions from '../lets-trip/car-type/actions';
@@ -58,6 +62,10 @@ export const AllActions = {
   ...UserActions,
   ...PermissionActions,
   ...PermissionSliceActions,
+  ...RoleActions,
+  ...RoleSliceActions,
+  ...UserRoleActions,
+  ...UserRoleSliceActions,
   ...TariffActions,
   ...ProductActions,
   ...ProductSliceActions,

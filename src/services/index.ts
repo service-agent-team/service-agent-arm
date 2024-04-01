@@ -14,3 +14,5 @@ export { UserPermissionService } from './permissions/permissions-service';
 export * from './product';
 export * from './project';
 export * from './agent-project';
+export * from './user-role';
+export * from './role';

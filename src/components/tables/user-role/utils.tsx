@@ -1,21 +1,20 @@
-import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Row, Space, Tag } from 'antd';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { Icon } from '@/components';
-import { IAgentOrderData } from '@/store/service-agent/order/types';
-import { dateParser } from '@/common/utils/format';
-import { useNavigate } from 'react-router-dom';
-import { useActions } from '@/common/hooks';
+import { IUserRole } from '@/store/global/user-role/types';
+import { addNotification } from '@/common';
+import { useActions, useTypedSelector } from '@/common/hooks';
+import { modal } from '@/components';
 
 export const utils = () => {
-  const { getOneAgent } = useActions();
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const navigate = useNavigate();
+  const { deleteUserRole, setUserRoles } = useActions();
+  const { userRoles } = useTypedSelector((state) => state.userRole);
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -28,7 +27,25 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IAgentOrderData> => ({
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
+      title: `You want to delete right ?`,
+      onOk: () => {
+        deleteUserRole({
+          id: Number(record.user_roles_id),
+          callback: () => {
+            addNotification('successfully deleted');
+          },
+        });
+        setUserRoles(
+          userRoles?.filter((userRole) => userRole.user_roles_id !== record.user_roles_id),
+        );
+      },
+    });
+  };
+
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IUserRole> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -106,75 +123,83 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<IAgentOrderData> = [
+  const columns: ColumnsType<IUserRole> = [
     {
       title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'user_roles_id',
+      key: 'user_roles_id',
       width: '4%',
-      sorter: (a, b) => a.id - b.id,
+      sorter: (a, b) => a.user_roles_id - b.user_roles_id,
       sortDirections: ['descend', 'ascend'],
-      ...getColumnSearchProps('id'),
     },
     {
-      title: 'Tariff Plane Name',
-      dataIndex: 'order',
-      key: 'order',
+      title: 'Username',
+      dataIndex: 'user_id',
+      key: 'user_id',
+      width: '4%',
+      render: (_, { user_id }) => user_id?.user_name,
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
       width: '20%',
-      render: (order) => order.TariffPlanName,
+      render: (_, { user_id }) => user_id?.email,
     },
     {
-      title: 'Phone Number',
-      dataIndex: 'order',
-      key: 'order',
+      title: 'User Role',
+      dataIndex: 'user_role_name',
+      key: 'user_role_name',
       width: '20%',
-      render: (order) => order.PhoneNumber,
+      render: (user_role) => <Tag color="success">{user_role.toUpperCase()}</Tag>,
     },
     {
-      title: 'Is Resident',
-      dataIndex: 'isResident',
-      key: 'isResident',
-      width: '15%',
-      render: (isResident) =>
-        isResident ? <Tag color="success">Resident</Tag> : <Tag color="error">Not Resident</Tag>,
+      title: 'User Role Description',
+      dataIndex: 'user_role_description',
+      key: 'user_role_description',
+      width: '20%',
     },
     {
-      title: 'Is Esim',
-      dataIndex: 'order',
-      key: 'order',
-      width: '15%',
-      render: (order) =>
-        order.IsESIM ? <Tag color="success">E-SIM</Tag> : <Tag color="error">PHYSIC</Tag>,
+      title: 'Role',
+      dataIndex: 'role_id',
+      key: 'role_id',
+      width: '20%',
+      render: (_, { role_id }) => <Tag color="success">{role_id?.role_name.toUpperCase()}</Tag>,
     },
     {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      width: '3%',
-      render: (id: number, order: IAgentOrderData) => {
+      title: 'Role Description',
+      dataIndex: 'role_id',
+      key: 'role_id',
+      width: '20%',
+      render: (_, { role_id }) => role_id?.description,
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'action',
+      key: 'action',
+      width: '10%',
+      render: (_, record: any) => {
         return (
-          <Button
-            onClick={() => {
-              getOneAgent({
-                callback: () => {
-                  navigate(`/service-agent/orders/view/${id}`);
-                },
-                userId: order.userId,
-              });
-            }}
-          >
-            <Icon name="EyeOutlined" />
-          </Button>
+          <Space>
+            <Button
+              key={1}
+              onClick={() => {
+                // getOneUser({
+                //   id: record.user_id,
+                //   callback: () => {
+                //     navigate(`/global/users/edit/${record.user_id}`);
+                //   },
+                // });
+              }}
+            >
+              <EditOutlined />
+            </Button>
+            <Button key={2} onClick={() => handleDelete(record)}>
+              <DeleteOutlined />
+            </Button>
+          </Space>
         );
       },
-    },
-    {
-      title: 'Created At',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      width: '20%',
-      ...getColumnSearchProps('createdAt'),
-      render: (date) => dateParser(date),
     },
   ];
 
