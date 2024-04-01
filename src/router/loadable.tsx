@@ -29,6 +29,7 @@ export const PermissionPage = getLoadablePage('PermissionPage');
 export const CreateAgentPermission = getLoadablePage('CreateAgentPermission');
 export const EditAgentPermission = getLoadablePage('EditAgentPermission');
 export const Orders = getLoadablePage('OrderPage');
+export const AgentOrderViewPage = getLoadablePage('AgentOrderView');
 export const AgentProjectPage = getLoadablePage('AgentProject');
 export const AgentProjectCreatePage = getLoadablePage('AgentProjectCreate');
 

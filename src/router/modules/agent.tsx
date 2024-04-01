@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import {
   AgentControl,
   AgentHome,
+  AgentOrderViewPage,
   AgentProductCreate,
   AgentProducts,
   AgentProjectCreatePage,
@@ -49,6 +50,14 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <Orders />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentOrdersView,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentOrderViewPage />
       </Suspense>
     ),
   },

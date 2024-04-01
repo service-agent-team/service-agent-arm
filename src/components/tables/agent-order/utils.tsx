@@ -4,15 +4,18 @@ import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { LinkButton } from '@/components/common/buttons';
 import { Icon } from '@/components';
 import { IAgentOrderData } from '@/store/service-agent/order/types';
 import { dateParser } from '@/common/utils/format';
+import { useNavigate } from 'react-router-dom';
+import { useActions } from '@/common/hooks';
 
 export const utils = () => {
+  const { getOneAgent } = useActions();
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -106,10 +109,10 @@ export const utils = () => {
   const columns: ColumnsType<IAgentOrderData> = [
     {
       title: 'Id',
-      dataIndex: 'userId',
-      key: 'userId',
+      dataIndex: 'id',
+      key: 'id',
       width: '4%',
-      sorter: (a, b) => a.userId - b.userId,
+      sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
       ...getColumnSearchProps('id'),
     },
@@ -145,14 +148,19 @@ export const utils = () => {
     },
     {
       title: 'View',
-      dataIndex: 'userId',
+      dataIndex: 'id',
       key: 'view',
       width: '3%',
-      render: () => {
+      render: (id: number, order: IAgentOrderData) => {
         return (
-          <LinkButton path={`#`}>
+          <Button
+            onClick={() => {
+              getOneAgent({ callback: () => {}, userId: order.userId });
+              navigate(`/service-agent/orders/view/${id}`);
+            }}
+          >
             <Icon name="EyeOutlined" />
-          </LinkButton>
+          </Button>
         );
       },
     },
