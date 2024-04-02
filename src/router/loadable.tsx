@@ -8,6 +8,7 @@ export const Permissions = getLoadablePage('Permissions');
 export const Roles = getLoadablePage('Roles');
 export const UserRoles = getLoadablePage('UserRoles');
 export const UserRoleCreate = getLoadablePage('UserRoleCreate');
+export const UserRoleEdit = getLoadablePage('UserRoleEdit');
 export const UserPermissions = getLoadablePage('UserPermissions');
 export const Projects = getLoadablePage('Projects');
 export const ProjectsPage = getLoadablePage('ProjectsPage');

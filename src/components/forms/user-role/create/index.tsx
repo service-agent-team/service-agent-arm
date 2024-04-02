@@ -9,10 +9,9 @@ import { ROUTES } from '@/constants';
 
 export const UserRoleForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { createUserRole, getUsers, getAllRole } = useActions();
+  const { createUserRole, getUsers, getAllRole, updateUserRole } = useActions();
   const navigate = useNavigate();
   const { id } = useParams();
-
   const { loading, roles } = useTypedSelector((state) => state.role);
   const { users } = useTypedSelector((state) => state.users);
 
@@ -29,19 +28,20 @@ export const UserRoleForm = ({ type }: { type: 'edit' | 'create' }) => {
         },
       });
       form.resetFields();
+    } else if (type === 'edit') {
+      updateUserRole({
+        id: Number(id),
+        roleId: +value.roleId,
+        userId: +value.userId,
+        userRoleName: value.userRoleName,
+        userRoleDescription: value.userRoleDescription,
+        callback: () => {
+          addNotification('successfully edited');
+          navigate(ROUTES.userRoles);
+        },
+      });
+      form.resetFields();
     }
-    // else if (type === 'edit') {
-    // editAgentPermission({
-    //   id: id as string,
-    //   name: value.name,
-    //   description: value.description,
-    //   createdByUser: +value.createdByUser,
-    //   callback: () => {
-    //     addNotification('edited !');
-    //     navigate('/service-agent/permissions');
-    //   },
-    // });
-    // }
   };
   const UserIdOptions = users?.map((user) => ({
     label: user.email,

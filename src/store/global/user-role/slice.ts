@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createUserRole, deleteUserRole, getAllUserRole } from './actions';
+import {
+  createUserRole,
+  deleteUserRole,
+  getAllUserRole,
+  getOneUserRole,
+  updateUserRole,
+} from './actions';
 import { IUserRoleInitialState } from './types';
 
 const initialState: IUserRoleInitialState = {
@@ -10,6 +16,7 @@ const initialState: IUserRoleInitialState = {
     delete: false,
   },
   userRoles: null,
+  userRole: null,
   errors: null,
 };
 
@@ -37,6 +44,20 @@ export const userRoleSlice = createSlice({
         state.loading.get = false;
         state.errors = payload;
       })
+      .addCase(getOneUserRole.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+        state.userRoles = null;
+      })
+      .addCase(getOneUserRole.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.userRoles = payload.data;
+        state.errors = null;
+      })
+      .addCase(getOneUserRole.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
       .addCase(createUserRole.pending, (state) => {
         state.loading.post = true;
         state.errors = null;
@@ -48,6 +69,22 @@ export const userRoleSlice = createSlice({
       })
       .addCase(createUserRole.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(updateUserRole.pending, (state) => {
+        state.loading.put = true;
+        state.errors = null;
+      })
+      .addCase(updateUserRole.fulfilled, (state, { payload }) => {
+        state.loading.put = false;
+        const index = state.userRoles?.findIndex(
+          (el) => el.user_roles_id === Number(payload.data.user_roles_id),
+        );
+        if (state.userRoles && index) state.userRoles[index] = payload.data;
+        state.errors = null;
+      })
+      .addCase(updateUserRole.rejected, (state, { payload }) => {
+        state.loading.put = false;
         state.errors = payload;
       })
       .addCase(deleteUserRole.pending, (state) => {

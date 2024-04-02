@@ -6,8 +6,16 @@ export const UserRoleService = {
     const response = await $axios.get<IUserRoleResponse>(EndPointes.userRole.getAll);
     return response;
   },
+  async getAOneUserRole(id: number) {
+    const response = await $axios.get<IUserRoleResponse>(EndPointes.userRole.getOne + id);
+    return response;
+  },
   async createUserRole(body: any) {
     const response = await $axios.post(EndPointes.userRole.create, body);
+    return response;
+  },
+  async updateUserRole(id: number, body: any) {
+    const response = await $axios.put(EndPointes.userRole.edit + id, body);
     return response;
   },
   async deleteUserRole(id: number | string) {

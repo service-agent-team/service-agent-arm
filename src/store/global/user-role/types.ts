@@ -6,6 +6,7 @@ export interface IUserRoleInitialState {
     delete: boolean;
   };
   userRoles: IUserRole[] | null;
+  userRole: IUserRole | null;
   errors: unknown | string[] | string;
 }
 
@@ -18,6 +19,11 @@ export interface IUserRoleResponse {
 
 export interface IUserRolePayload {
   callback(): void;
+}
+
+export interface IGetUserRolePayload {
+  callback(): void;
+  id: number;
 }
 
 export interface IUserRoleCreateResponse {
@@ -33,6 +39,10 @@ export interface IUserRoleCreatePayload {
   userRoleDescription: string;
   roleId: number;
   callback(): void;
+}
+
+export interface IUserRoleUpdatePayload extends IUserRoleCreatePayload {
+  id: number;
 }
 
 export interface IUserRoleDeleteResponse {

@@ -8,13 +8,15 @@ import { IUserRole } from '@/store/global/user-role/types';
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { modal } from '@/components';
+import { useNavigate } from 'react-router-dom';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { deleteUserRole, setUserRoles } = useActions();
+  const { deleteUserRole, setUserRoles, getOneUserRole } = useActions();
   const { userRoles } = useTypedSelector((state) => state.userRole);
+  const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -184,12 +186,12 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                // getOneUser({
-                //   id: record.user_id,
-                //   callback: () => {
-                //     navigate(`/global/users/edit/${record.user_id}`);
-                //   },
-                // });
+                getOneUserRole({
+                  id: Number(record.user_roles_id),
+                  callback: () => {
+                    navigate(`/global/user-roles/edit/${record.user_roles_id}`);
+                  },
+                });
               }}
             >
               <EditOutlined />

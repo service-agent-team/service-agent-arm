@@ -10,6 +10,7 @@ import {
   UserCreatePage,
   UserPermissions,
   UserRoleCreate,
+  UserRoleEdit,
   UserRoles,
   Users,
 } from '../loadable';
@@ -76,6 +77,14 @@ export const mainRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <UserRoleCreate />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.userRolesEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <UserRoleEdit />
       </Suspense>
     ),
   },
