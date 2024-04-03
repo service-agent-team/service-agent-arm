@@ -8,6 +8,8 @@ import { UserSliceActions } from '../global/users/slice';
 import * as RoleActions from '../global/role/actions';
 import { RoleSliceActions } from '../global/role/slice';
 import * as UserRoleActions from '../global/user-role/actions';
+import { UserPermissionSliceActions } from '../global/user-permission/slice';
+import * as UserPermissionActions from '../global/user-permission/actions';
 import { UserRoleSliceActions } from '../global/user-role/slice';
 import * as CarModelActions from '../lets-trip/car-model/action';
 import { CarModelsliceActions } from '../lets-trip/car-model/slice';
@@ -75,6 +77,8 @@ export const AllActions = {
   ...CarModelActions,
   ...RolesSlice,
   ...RolesSliceActions,
+  ...UserPermissionSliceActions,
+  ...UserPermissionActions,
   ...CompanySliceActions,
   ...CompanyAction,
   ...AgentTariffPermissionSliceActions,

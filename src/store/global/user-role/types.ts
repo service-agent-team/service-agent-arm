@@ -16,6 +16,12 @@ export interface IUserRoleResponse {
   msg: string;
   data: IUserRole[];
 }
+export interface IOneUserRoleResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IUserRole;
+}
 
 export interface IUserRolePayload {
   callback(): void;
@@ -81,33 +87,6 @@ interface IRole_Id {
   role_id: number;
   role_name: string;
   description: string;
-  created_at: string;
-  updated_at: string;
-}
-
-//
-export interface PermissionId {
-  permission_id: number;
-  permission_name: string;
-  permission_description: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface ProjectId {
-  project_id: number;
-  project_name: string;
-  project_description: string;
-  status: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface UserId {
-  user_id: number;
-  user_name: string;
-  password: string;
-  email: string;
   created_at: string;
   updated_at: string;
 }

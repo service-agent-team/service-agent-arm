@@ -3,6 +3,7 @@ import { addNotification } from '@/common/utils/addNotification';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IGetUserRolePayload,
+  IOneUserRoleResponse,
   IUserRoleCreatePayload,
   IUserRoleCreateResponse,
   IUserRoleDeletePayload,
@@ -29,7 +30,7 @@ export const getAllUserRole = createAsyncThunk<IUserRoleResponse, IUserRolePaylo
   },
 );
 
-export const getOneUserRole = createAsyncThunk<IUserRoleResponse, IGetUserRolePayload>(
+export const getOneUserRole = createAsyncThunk<IOneUserRoleResponse, IGetUserRolePayload>(
   EndPointes.userRole.getOne,
   async ({ callback, id }, thunkApi) => {
     try {

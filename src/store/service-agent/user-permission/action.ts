@@ -53,7 +53,7 @@ export const createAgentUserPermission = createAsyncThunk<
   },
 );
 
-export const updateUserPermission = createAsyncThunk<
+export const updateAgentUserPermission = createAsyncThunk<
   IAgentUserPermissionUpdateResponse,
   IAgentUserPermissionUpdatePayload
 >(

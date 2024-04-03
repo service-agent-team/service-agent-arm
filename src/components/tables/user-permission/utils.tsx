@@ -1,10 +1,10 @@
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
-import { Key, useRef, useState } from 'react';
+import { Key, useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { IUserRole } from '@/store/global/user-role/types';
+import { IUserPermission } from '@/store/global/user-permission/types';
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { modal } from '@/components';
@@ -14,8 +14,8 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { deleteUserRole, setUserRoles, getOneUserRole } = useActions();
-  const { userRoles } = useTypedSelector((state) => state.userRole);
+  const { deleteUserPermission, setUserPermission, getOneUserPermission } = useActions();
+  const { userPermissions, errors } = useTypedSelector((state) => state.userPermission);
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -29,25 +29,31 @@ export const utils = () => {
     setSearchText('');
   };
 
+  useEffect(() => {
+    if (errors) addNotification(errors);
+  }, [errors]);
+
   const handleDelete = (record: any) => {
     modal.confirm({
       okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
       title: `You want to delete right ?`,
       onOk: () => {
-        deleteUserRole({
-          id: Number(record.user_roles_id),
+        deleteUserPermission({
+          id: Number(record.user_permission_id),
           callback: () => {
             addNotification('successfully deleted');
+            setUserPermission(
+              userPermissions?.filter(
+                (userPermission) => userPermission.user_permission_id !== record.user_permission_id,
+              ),
+            );
           },
         });
-        setUserRoles(
-          userRoles?.filter((userRole) => userRole.user_roles_id !== record.user_roles_id),
-        );
       },
     });
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IUserRole> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IUserPermission> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -125,15 +131,15 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<IUserRole> = [
+  const columns: ColumnsType<IUserPermission> = [
     {
       title: 'Id',
-      dataIndex: 'user_roles_id',
-      key: 'user_roles_id',
+      dataIndex: 'user_permission_id',
+      key: 'user_permission_id',
       width: '4%',
-      sorter: (a, b) => a.user_roles_id - b.user_roles_id,
+      sorter: (a, b) => a.user_permission_id - b.user_permission_id,
       sortDirections: ['descend', 'ascend'],
-      ...getColumnSearchProps('user_roles_id'),
+      ...getColumnSearchProps('user_permission_id'),
     },
     {
       title: 'Username',
@@ -150,31 +156,29 @@ export const utils = () => {
       render: (_, { user_id }) => user_id?.email,
     },
     {
-      title: 'User Role',
-      dataIndex: 'user_role_name',
-      key: 'user_role_name',
+      title: 'Permsission',
+      dataIndex: 'permission_id',
+      key: 'permission_id',
       width: '20%',
-      render: (user_role) => <Tag color="success">{user_role.toUpperCase()}</Tag>,
+      render: (_, { permission_id }) => (
+        <Tag color="success">{permission_id?.permission_name.toUpperCase()}</Tag>
+      ),
     },
     {
-      title: 'User Role Description',
-      dataIndex: 'user_role_description',
-      key: 'user_role_description',
+      title: 'Permission Description',
+      dataIndex: 'permission_id',
+      key: 'permission_id',
       width: '20%',
+      render: (_, { permission_id }) => permission_id?.permission_description,
     },
     {
-      title: 'Role',
-      dataIndex: 'role_id',
-      key: 'role_id',
+      title: 'Project',
+      dataIndex: 'project_id',
+      key: 'project_id',
       width: '20%',
-      render: (_, { role_id }) => <Tag color="success">{role_id?.role_name.toUpperCase()}</Tag>,
-    },
-    {
-      title: 'Role Description',
-      dataIndex: 'role_id',
-      key: 'role_id',
-      width: '20%',
-      render: (_, { role_id }) => role_id?.description,
+      render: (_, { project_id }) => (
+        <Tag color="success">{project_id?.project_name?.toUpperCase()}</Tag>
+      ),
     },
     {
       title: 'Actions',
@@ -187,10 +191,10 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                getOneUserRole({
-                  id: Number(record.user_roles_id),
+                getOneUserPermission({
+                  id: Number(record.user_permission_id),
                   callback: () => {
-                    navigate(`/global/user-roles/edit/${record.user_roles_id}`);
+                    navigate(`/global/user-permissions/edit/${record.user_permission_id}`);
                   },
                 });
               }}

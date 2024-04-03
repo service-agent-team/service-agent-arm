@@ -21,6 +21,7 @@ import { ProjectReducer } from '../global/project/slice';
 import { AgentProjectReducer } from '../service-agent/project/slice';
 import { UserRoleReducer } from '../global/user-role/slice';
 import { RoleReducer } from '../global/role/slice';
+import { UserPermissionReducer } from '../global/user-permission/slice';
 
 export const reducer = {
   app: appReducer,
@@ -34,6 +35,7 @@ export const reducer = {
   project: ProjectReducer,
   role: RoleReducer,
   userRole: UserRoleReducer,
+  userPermission: UserPermissionReducer,
   carType: CarTypeReducer,
   agentTariff: AgentTariffReducer,
   car: CarReducer,

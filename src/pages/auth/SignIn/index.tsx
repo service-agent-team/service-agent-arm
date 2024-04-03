@@ -7,19 +7,26 @@ import { authDictionary } from '@/pages/auth/dictionary';
 import { IAuthResponse } from '@/store';
 import { Typography } from 'antd';
 import { IValues } from './types';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants';
 
 export const SignIn = () => {
   const { SignIn } = useActions();
   const login = { email: 'mke@gmail.com', password: '1234567a' };
+  const navigate = useNavigate();
 
   const handleFinish = async (values: IValues) => {
-    SignIn({
-      email: values.email,
-      password: values.password,
-      callback: (_: IAuthResponse) => {
-        addNotification('Successfully logged In');
-      },
-    });
+    try {
+      SignIn({
+        email: values.email,
+        password: values.password,
+        callback: (_: IAuthResponse) => {
+          addNotification('Successfully logged In');
+        },
+      });
+    } catch {
+      return navigate(ROUTES.login);
+    }
   };
 
   return (

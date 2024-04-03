@@ -14,6 +14,7 @@ export const UserRoleForm = ({ type }: { type: 'edit' | 'create' }) => {
   const { id } = useParams();
   const { loading, roles } = useTypedSelector((state) => state.role);
   const { users } = useTypedSelector((state) => state.users);
+  const { userRole } = useTypedSelector((state) => state.userRole);
 
   const onFinish = (value: ICreateRolesValues) => {
     if (type === 'create') {
@@ -81,7 +82,10 @@ export const UserRoleForm = ({ type }: { type: 'edit' | 'create' }) => {
             }),
           ]}
         >
-          <Input placeholder="Enter user role name ?" />
+          <Input
+            defaultValue={type === 'edit' ? userRole?.user_role_name : ''}
+            placeholder="Enter user role name ?"
+          />
         </BaseForm.Item>
 
         <BaseForm.Item
@@ -102,7 +106,10 @@ export const UserRoleForm = ({ type }: { type: 'edit' | 'create' }) => {
             }),
           ]}
         >
-          <Input placeholder="Enter user role description ?" />
+          <Input
+            defaultValue={type === 'edit' ? userRole?.user_role_description : ''}
+            placeholder="Enter user role description ?"
+          />
         </BaseForm.Item>
         <BaseForm.Item
           name="userId"

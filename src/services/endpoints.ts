@@ -26,6 +26,14 @@ export const EndPointes = {
     delete: '/user-roles/delete-user-role/',
   },
 
+  userPermission: {
+    create: '/user-permissions/create',
+    getAll: '/user-permissions/get-all',
+    getOne: '/user-permissions/get/',
+    edit: '/user-permissions/update-user-permission/',
+    delete: '/user-permissions/delete-user-permission/',
+  },
+
   // AUTH
   login: '/login',
 

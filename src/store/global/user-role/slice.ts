@@ -33,7 +33,6 @@ export const userRoleSlice = createSlice({
       .addCase(getAllUserRole.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
-        state.userRoles = null;
       })
       .addCase(getAllUserRole.fulfilled, (state, { payload }) => {
         state.loading.get = false;
@@ -47,11 +46,10 @@ export const userRoleSlice = createSlice({
       .addCase(getOneUserRole.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
-        state.userRoles = null;
       })
       .addCase(getOneUserRole.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.userRoles = payload.data;
+        state.userRole = payload.data;
         state.errors = null;
       })
       .addCase(getOneUserRole.rejected, (state, { payload }) => {

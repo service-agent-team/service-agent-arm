@@ -7,7 +7,7 @@ export const UserRoleService = {
     return response;
   },
   async getAOneUserRole(id: number) {
-    const response = await $axios.get<IUserRoleResponse>(EndPointes.userRole.getOne + id);
+    const response = await $axios.get(EndPointes.userRole.getOne + id);
     return response;
   },
   async createUserRole(body: any) {
