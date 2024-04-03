@@ -6,6 +6,7 @@ export interface IProductInitialState {
     delete: boolean;
   };
   projects: IProject[] | null;
+  project: IProject | null;
   errors: unknown | string[] | string;
 }
 
