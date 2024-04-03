@@ -49,6 +49,10 @@ export const EndPointes = {
   // PROJECT
   project: {
     getAll: '/projects/get-all',
+    getOne: '/projects/get-all',
+    create: '/projects/create',
+    edit: '/projects/update-project/',
+    delete: '/projects/delete-project/',
   },
 
   // AGENT
