@@ -71,7 +71,10 @@ export const projectSlice = createSlice({
         const index = state.projects?.findIndex(
           (el) => Number(el.project_id) === Number(payload.data.project_id),
         );
-        if (state.projects && index) state.projects[index] = payload.data;
+        if (state.projects && index) {
+          state.project = payload.data;
+          state.projects[index] = payload.data;
+        }
       })
       .addCase(updateProject.rejected, (state, { payload }) => {
         state.loading.put = false;

@@ -4,11 +4,10 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '@/constants';
-import { updateProject } from '@/store/global/project/actions';
 
 export const ProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { createProject } = useActions();
+  const { createProject, updateProject } = useActions();
   const { loading, project } = useTypedSelector((state) => state.project);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -33,6 +32,7 @@ export const ProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
         status: true,
         callback() {
           addNotification('successfully delete project !');
+          navigate(ROUTES.projects);
         },
       });
       form.resetFields();
@@ -44,8 +44,9 @@ export const ProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
       <BaseForm.Item
         name="projectName"
         label={'project name'}
+        initialValue={project?.project_name}
         rules={[
-          { required: true, type: 'string', message: 'filed is required' },
+          { required: true, type: 'string', message: 'project name field is required' },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value) {
@@ -59,15 +60,13 @@ export const ProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
           }),
         ]}
       >
-        <Input
-          defaultValue={type === 'edit' ? project?.project_name : ''}
-          placeholder="Enter project name ?"
-        />
+        <Input placeholder="Enter project name ?" />
       </BaseForm.Item>
 
       <BaseForm.Item
         name="projectDescription"
         label={'project description'}
+        initialValue={project?.project_description}
         rules={[
           { required: true, type: 'string', message: 'filed is required' },
           ({ getFieldValue }) => ({
@@ -83,10 +82,7 @@ export const ProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
           }),
         ]}
       >
-        <Input
-          defaultValue={type === 'edit' ? project?.project_description : ''}
-          placeholder="Enter project description ?"
-        />
+        <Input placeholder="Enter project description ?" />
       </BaseForm.Item>
       <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
         {type === 'create' ? 'create' : 'edit'}

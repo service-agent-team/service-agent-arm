@@ -65,7 +65,7 @@ export const updateProject = createAsyncThunk<IOneProductResponse, IUpdateProduc
   async ({ callback, id, ...body }, thunkApi) => {
     try {
       const response = await ProjectService.updateProject(id, body);
-      if (response.data.status == 201) {
+      if (response.data.status == 200) {
         callback();
       }
       return response.data;

@@ -10,7 +10,6 @@ export const ProjectEdit = () => {
         icon="RollbackOutlined"
         route={ROUTES.projects}
       />
-
       <ProjectForm type="edit" />
     </>
   );
