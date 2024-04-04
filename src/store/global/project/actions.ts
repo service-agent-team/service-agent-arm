@@ -28,11 +28,11 @@ export const getAllProject = createAsyncThunk<IProductResponse, IProductPayload>
   },
 );
 
-export const getOneProject = createAsyncThunk<IOneProductResponse, IProductPayload>(
+export const getOneProject = createAsyncThunk<IOneProductResponse, IDeleteProductPayload>(
   EndPointes.project.getOne,
-  async ({ callback }, thunkApi) => {
+  async ({ callback, id }, thunkApi) => {
     try {
-      const response = await ProjectService.getOneProject();
+      const response = await ProjectService.getOneProject(id);
       if (response.data.status == 200) {
         callback();
       }
@@ -77,7 +77,7 @@ export const updateProject = createAsyncThunk<IOneProductResponse, IUpdateProduc
 );
 
 export const deleteProject = createAsyncThunk<IOneProductResponse, IDeleteProductPayload>(
-  EndPointes.project.edit,
+  EndPointes.project.delete,
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await ProjectService.deleteProject(id);

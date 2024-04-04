@@ -23,7 +23,11 @@ const initialState: IProductInitialState = {
 export const projectSlice = createSlice({
   name: 'project',
   initialState,
-  reducers: {},
+  reducers: {
+    setProjects(state, { payload }) {
+      state.projects = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllProject.pending, (state) => {

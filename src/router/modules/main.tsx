@@ -6,6 +6,8 @@ import {
   Home,
   PermissionCreatePage,
   Permissions,
+  ProjectCreate,
+  ProjectEdit,
   Projects,
   UserCreatePage,
   UserPermissionCreate,
@@ -119,6 +121,22 @@ export const mainRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <Projects />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.projectCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProjectCreate />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.projectEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <ProjectEdit />
       </Suspense>
     ),
   },

@@ -41,7 +41,7 @@ export interface ICreateProductResponse {
 export interface ICreateProductPayload {
   projectName: string;
   projectDescription: string;
-  status: string;
+  status: boolean;
   callback(): void;
 }
 
@@ -55,7 +55,7 @@ export interface IDeleteProductPayload {
 }
 
 export interface IProject {
-  project_id: string;
+  project_id: number;
   project_name: string;
   project_description: string;
   status: boolean;

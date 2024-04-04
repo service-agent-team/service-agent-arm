@@ -18,6 +18,8 @@ export const ROUTES = {
   userPermissionCreate: '/global/user-permissions/create',
   userPermissionEdit: '/global/user-permissions/edit/:id',
   projects: '/global/project',
+  projectCreate: '/global/project/create',
+  projectEdit: '/global/project/edit/:id',
   projectsPage: '/projects',
 
   // agent

@@ -6,8 +6,8 @@ export const ProjectService = {
     const response = await $axios.get(EndPointes.project.getAll);
     return response;
   },
-  async getOneProject() {
-    const response = await $axios.get(EndPointes.project.getOne);
+  async getOneProject(id: number) {
+    const response = await $axios.get(EndPointes.project.getOne + id);
     return response;
   },
   async createProject(body: any) {
