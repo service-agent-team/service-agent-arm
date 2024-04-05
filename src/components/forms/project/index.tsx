@@ -40,7 +40,20 @@ export const ProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
   };
 
   return (
-    <BaseForm name="projectForm" form={form} layout="vertical" onFinish={onFinish}>
+    <BaseForm
+      initialValues={
+        type === 'edit'
+          ? {
+              projectName: project?.project_name,
+              projectDescription: project?.project_description,
+            }
+          : {}
+      }
+      name="projectForm"
+      form={form}
+      layout="vertical"
+      onFinish={onFinish}
+    >
       <BaseForm.Item
         name="projectName"
         label={'project name'}

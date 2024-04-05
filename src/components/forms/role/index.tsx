@@ -8,7 +8,7 @@ import { ROUTES } from '@/constants';
 export const RoleForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
   const { createRole, updateRole } = useActions();
-  const { loading } = useTypedSelector((state) => state.role);
+  const { role, loading } = useTypedSelector((state) => state.role);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -38,7 +38,20 @@ export const RoleForm = ({ type }: { type: 'edit' | 'create' }) => {
   };
 
   return (
-    <BaseForm name="roleForm" form={form} layout="vertical" onFinish={onFinish}>
+    <BaseForm
+      initialValues={
+        type === 'edit'
+          ? {
+              roleName: role?.role_name,
+              roleDescription: role?.description,
+            }
+          : {}
+      }
+      name="roleForms"
+      form={form}
+      layout="vertical"
+      onFinish={onFinish}
+    >
       <BaseForm.Item
         name="roleName"
         label={'role name'}

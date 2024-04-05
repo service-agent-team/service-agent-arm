@@ -12,5 +12,5 @@ export const PermissionTable: React.FC = () => {
     permissions as IPermissionResponseData[],
   );
 
-  return <Table columns={utils()} bordered dataSource={generateUserData} loading={loading.get} />;
+  return <Table bordered columns={utils()} dataSource={generateUserData} loading={loading.get} />;
 };

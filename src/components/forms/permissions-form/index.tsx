@@ -13,6 +13,7 @@ export const PermisionsForm = ({ type }: { type: 'edit' | 'create' }) => {
   const { createPermission, updatePermission } = useActions();
   const navigate = useNavigate();
   const { id } = useParams();
+  const { permission } = useTypedSelector((state) => state.permission);
 
   const onFinish = (value: IPermissionCreatePayload) => {
     if (type === 'create') {
@@ -39,6 +40,14 @@ export const PermisionsForm = ({ type }: { type: 'edit' | 'create' }) => {
 
   return (
     <BaseForm
+      initialValues={
+        type === 'edit'
+          ? {
+              permissionName: permission?.permission_name,
+              permissionDescription: permission?.permission_name,
+            }
+          : {}
+      }
       name="permissionsForm"
       form={form}
       layout="vertical"

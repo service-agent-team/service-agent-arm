@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createRole, deleteRole, getAllRole, updateRole } from './actions';
+import { createRole, deleteRole, getAllRole, getOneRole, updateRole } from './actions';
 import { IRoleInitialState } from './types';
 
 const initialState: IRoleInitialState = {
@@ -35,6 +35,19 @@ export const roleSlice = createSlice({
         state.errors = null;
       })
       .addCase(getAllRole.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getOneRole.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneRole.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.role = payload.data;
+        state.errors = null;
+      })
+      .addCase(getOneRole.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
