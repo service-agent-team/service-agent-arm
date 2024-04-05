@@ -1,7 +1,7 @@
 export { Permissions } from './permission';
 export { PermissionCreatePage } from './permission/create-page/index';
 export * from './projects';
-export { Roles } from './roles';
+export * from './roles';
 export * from './user-permissions';
 export * from './user-roles';
 export { Users } from './users';

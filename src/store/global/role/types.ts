@@ -7,6 +7,7 @@ export interface IRoleInitialState {
     delete: boolean;
   };
   roles: IRole[] | null;
+  role: IRole | null;
   errors: unknown | string[] | string;
 }
 
@@ -17,24 +18,38 @@ export interface IRoleResponse {
   data: IRole[];
 }
 
+export interface IGetOneRoleResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IRole;
+}
+
 export interface IRolePayload {
   callback(): void;
 }
 
-// export interface IRoleCreateResponse {
-//   success: boolean;
-//   status: number;
-//   msg: string;
-//   data: IRole;
-// }
+export interface IRoleCreateResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IRole;
+}
 
-// export interface IRoleCreatePayload {
-//   userRoleName: string;
-//   userId: number;
-//   userRoleDescription: string;
-//   roleId: number;
-//   callback(): void;
-// }
+export interface IRoleCreatePayload {
+  roleName: string;
+  roleDescription: number;
+  callback(): void;
+}
+
+export interface IRoleUpdatePayload extends IRoleCreatePayload {
+  id: number;
+}
+
+export interface IRoleDeletePayload {
+  id: number;
+  callback(): void;
+}
 
 export interface IRole {
   role_id: 14;
@@ -42,10 +57,10 @@ export interface IRole {
   description: string;
   created_at: string;
   updated_at: string;
-  userRoles: IUser_Roles[] | [];
+  userRoles: IUserRole[] | [];
 }
 
-interface IUser_Roles {
+interface IUserRole {
   user_roles_id: number;
   user_role_name: string;
   user_role_description: string;

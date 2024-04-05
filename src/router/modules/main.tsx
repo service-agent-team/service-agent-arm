@@ -9,6 +9,9 @@ import {
   ProjectCreate,
   ProjectEdit,
   Projects,
+  RoleCreate,
+  RoleEdit,
+  Roles,
   UserCreatePage,
   UserPermissionCreate,
   UserPermissionEdit,
@@ -64,7 +67,23 @@ export const mainRouter = [
     path: ROUTES.roles,
     element: (
       <Suspense fallback={<Loading />}>
-        <Permissions />
+        <Roles />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.roleCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <RoleCreate />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.roleEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <RoleEdit />
       </Suspense>
     ),
   },

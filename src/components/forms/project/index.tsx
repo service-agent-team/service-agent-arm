@@ -31,7 +31,7 @@ export const ProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
         projectDescription,
         status: true,
         callback() {
-          addNotification('successfully delete project !');
+          addNotification('successfully update project !');
           navigate(ROUTES.projects);
         },
       });
