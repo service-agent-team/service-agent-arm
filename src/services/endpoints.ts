@@ -6,7 +6,10 @@ export const EndPointes = {
 
   permissions: {
     getAll: '/permissions/get-all',
+    getOne: '/permissions/get/',
     create: '/permissions/create',
+    edit: '/permissions/update-permission/',
+    delete: '/permissions/delete-permission/',
   },
 
   role: {

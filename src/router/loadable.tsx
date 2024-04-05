@@ -5,6 +5,7 @@ export const Home = getLoadablePage('Home');
 export const Users = getLoadablePage('Users');
 export const SignIn = getLoadablePage('SignIn');
 export const Permissions = getLoadablePage('Permissions');
+export const PermissionEdit = getLoadablePage('PermissionEdit');
 export const Roles = getLoadablePage('Roles');
 export const RoleCreate = getLoadablePage('RoleCreate');
 export const RoleEdit = getLoadablePage('RoleEdit');

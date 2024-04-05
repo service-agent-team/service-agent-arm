@@ -1,4 +1,4 @@
-export { Permissions } from './permission';
+export * from './permission';
 export { PermissionCreatePage } from './permission/create-page/index';
 export * from './projects';
 export * from './roles';

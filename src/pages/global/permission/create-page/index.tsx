@@ -10,7 +10,7 @@ export const PermissionCreatePage: React.FC = () => {
         icon="RollbackOutlined"
         route="/global/permissions"
       />
-      <PermisionsForm />
+      <PermisionsForm type="create" />
     </div>
   );
 };

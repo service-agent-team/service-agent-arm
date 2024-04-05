@@ -1,10 +1,3 @@
-export interface IPermissionResponse {
-  success: boolean;
-  status: number;
-  msg: string;
-  data: IPermissionResponseData[];
-}
-
 export interface IPermissionInitalState {
   loading: {
     get: boolean;
@@ -13,7 +6,7 @@ export interface IPermissionInitalState {
     delete: boolean;
   };
   permissions: IPermissionResponseData[] | null;
-  permission: UserPermission | null;
+  permission: IPermissionResponseData | null;
   errors: unknown | string[] | string;
 }
 
@@ -24,6 +17,20 @@ export enum PayloadEnum {
   delete = 'delete',
 }
 
+export interface IPermissionResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IPermissionResponseData[];
+}
+
+export interface IOnePermissionResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IPermissionResponseData;
+}
+
 export interface IPermissionResponseData {
   permission_id: number;
   permission_name: string;
@@ -31,6 +38,15 @@ export interface IPermissionResponseData {
   created_at: string;
   updated_at: string;
   userPermission: UserPermission[];
+}
+
+export interface IPermissionPayload {
+  callback(): void;
+}
+
+export interface IDeletePermissionPayload {
+  callback(): void;
+  id: number;
 }
 
 export interface UserPermission {
@@ -70,6 +86,11 @@ export interface IPermissionCreatePayload {
   permissionName: string;
   permissionDescription: string;
   callback: () => void;
+}
+
+export interface IPermissionUploadPayload extends IPermissionCreatePayload {
+  callback: () => void;
+  id: number;
 }
 
 export interface IPermissionCreateResponse {

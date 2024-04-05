@@ -5,27 +5,31 @@ import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IhandleSearchProps, PermissionTableRow } from './types';
+import { useActions, useTypedSelector } from '@/common/hooks';
+import { addNotification } from '@/common';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const { getOnePermision, deletePermission, setPermissions } = useActions();
+  const { permissions } = useTypedSelector((state) => state.permission);
+  const navigate = useNavigate();
 
   const handleDelete = (record: any) => {
     modal.confirm({
       okText: 'delete',
       title: `You want to delete right ?`,
       onOk: () => {
-        // deleteUsers({
-        //   id: record.user_id,
-        //   callback: () => {
-        //     getUsers({
-        //       id: '',
-        //     });
-        //     addNotification('Deleted.');
-        //     return 'ok';
-        //   },
-        // });
+        deletePermission({
+          id: record.permission_id,
+          callback: () => {
+            setPermissions(permissions?.filter((el) => el.permission_id !== record.permission_id));
+            addNotification('successfully permission deleted !');
+          },
+        });
       },
     });
   };
@@ -217,12 +221,12 @@ export const utils = () => {
         <Space>
           <Button
             onClick={() => {
-              // getOneUser({
-              //   id: record.user_id,
-              //   callback: () => {
-              //     navigate(`/global/users/edit/${record.user_id}`);
-              //   },
-              // });
+              getOnePermision({
+                id: record.permission_id,
+                callback: () => {
+                  navigate(`${ROUTES.permissions}/edit/${record.permission_id}`);
+                },
+              });
             }}
           >
             <EditOutlined />

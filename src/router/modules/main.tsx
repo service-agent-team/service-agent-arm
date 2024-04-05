@@ -5,6 +5,7 @@ import {
   EditUsers,
   Home,
   PermissionCreatePage,
+  PermissionEdit,
   Permissions,
   ProjectCreate,
   ProjectEdit,
@@ -48,6 +49,14 @@ export const mainRouter = [
     ),
   },
   {
+    path: ROUTES.permissions,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <Permissions />
+      </Suspense>
+    ),
+  },
+  {
     path: ROUTES.permissionCreate,
     element: (
       <Suspense fallback={<Loading />}>
@@ -56,10 +65,10 @@ export const mainRouter = [
     ),
   },
   {
-    path: ROUTES.permissions,
+    path: ROUTES.permissionEdit,
     element: (
       <Suspense fallback={<Loading />}>
-        <Permissions />
+        <PermissionEdit />
       </Suspense>
     ),
   },

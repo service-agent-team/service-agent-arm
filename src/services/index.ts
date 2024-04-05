@@ -10,7 +10,7 @@ export { CarModelService } from './car-model/model.service';
 export { CarService } from './car-service';
 export { CarTypeService } from './car-type/car-type-service';
 export { DriverService } from './driver/driver.service';
-export { UserPermissionService } from './permissions/permissions-service';
+export * from './permissions/permissions-service';
 export * from './product';
 export * from './project';
 export * from './agent-project';

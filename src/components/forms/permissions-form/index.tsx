@@ -3,26 +3,38 @@ import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, TextArea } from '@/components';
 import { IPermissionCreatePayload } from '@/store';
 import { Input } from 'antd';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './styled';
+import { ROUTES } from '@/constants';
 
-export const PermisionsForm: React.FC = () => {
+export const PermisionsForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { createPermission } = useActions();
-  const navigate = useNavigate();
-
   const { loading } = useTypedSelector((state) => state.permission);
+  const { createPermission, updatePermission } = useActions();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const onFinish = (value: IPermissionCreatePayload) => {
-    createPermission({
-      permissionName: value.permissionName,
-      permissionDescription: value.permissionDescription,
-      callback: () => {
-        addNotification('permission created');
-        navigate('/global/permissions');
-      },
-    });
+    if (type === 'create') {
+      createPermission({
+        permissionName: value.permissionName,
+        permissionDescription: value.permissionDescription,
+        callback: () => {
+          addNotification('permission created');
+          navigate(ROUTES.permissions);
+        },
+      });
+    } else if (type === 'edit') {
+      updatePermission({
+        id: Number(id),
+        permissionName: value.permissionName,
+        permissionDescription: value.permissionDescription,
+        callback() {
+          addNotification('successfully permission update !');
+          navigate(ROUTES.permissions);
+        },
+      });
+    }
   };
 
   return (
@@ -68,8 +80,8 @@ export const PermisionsForm: React.FC = () => {
         >
           <TextArea rows={4} placeholder="Enter short description" />
         </BaseForm.Item>
-        <PrimaryBtn htmlType="submit" loading={loading.post}>
-          create
+        <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
+          {type === 'create' ? 'create' : 'edit'}
         </PrimaryBtn>
       </S.FormContent>
     </BaseForm>
