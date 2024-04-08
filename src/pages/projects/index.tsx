@@ -26,16 +26,17 @@ export const ProjectsPage = () => {
   return (
     <Wrapper>
       <Title>Sizning Proectlaringiz</Title>
-      {isSupperAdmin && <ProjectCard name="Global" path={`/global`} />}
-      {user?.userPermission?.map((el: UserPermission, i: number) => (
-        <Skeleton loading={get} key={i}>
-          <ProjectCard
-            key={i}
-            name={el.project_id.project_name}
-            path={`/${el.project_id.project_name}/home`}
-          />
-        </Skeleton>
-      ))}
+      {!get && isSupperAdmin && <ProjectCard name="Global" path={`/global`} />}
+      {!get &&
+        user?.userPermission?.map((el: UserPermission, i: number) => (
+          <Skeleton loading={get} key={i}>
+            <ProjectCard
+              key={i}
+              name={el.project_id.project_name}
+              path={`/${el.project_id.project_name}/home`}
+            />
+          </Skeleton>
+        ))}
     </Wrapper>
   );
 };
