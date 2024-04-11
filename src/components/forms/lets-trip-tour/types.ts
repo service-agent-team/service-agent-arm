@@ -1,28 +1,23 @@
+import { Attributes, CountyCodeType, CurrencyType } from '@/store/lets-trip/tour/types';
+import { UploadChangeParam } from 'antd/lib/upload/interface';
+
 export interface IValuesForm {
-  name: string;
+  nameUz: string;
   nameRu: string;
+  nameEn: string;
   categoryId: number;
   companyId: number;
-  description: number;
+  descriptionUz: string;
+  descriptionEn: string;
+  descriptionRu: string;
   upTo2: number;
   upTo6: number;
   upTo10: number;
   upTo20: number;
-  pictures: string | null[];
+  pictures: UploadChangeParam;
   currency: CurrencyType;
-  attributes: Attributes;
-  countryCode: string; // 'AE';
+  countryCode: CountyCodeType;
   longitude: number;
   latitude: number;
-}
-
-export enum CurrencyType {
-  uzs = 'UZS',
-  usd = 'USD',
-}
-
-export interface Attributes {
-  additionalProp1: string;
-  additionalProp2: string;
-  additionalProp3: string;
+  attributes?: Attributes;
 }

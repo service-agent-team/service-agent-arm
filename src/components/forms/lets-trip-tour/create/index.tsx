@@ -1,16 +1,66 @@
-import { BaseForm, Icon, InputPassword, PrimaryBtn, TextArea } from '@/components';
+import { BaseForm, Icon, PrimaryBtn } from '@/components';
 import { Flex, Input, Select, Typography, Upload } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as S from './styled';
 import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
+import { useNavigate } from 'react-router-dom';
+import { addNotification } from '@/common';
+import { BASE_URL, ROUTES } from '@/constants';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { companies } = useTypedSelector((state) => state.company);
-  const { getCompany } = useActions();
+  const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
+  const { getCompany, createLetsTripTour, getAllCategory } = useActions();
+  const navigate = useNavigate();
 
-  const onFinish = (_: IValuesForm) => {};
+  const onFinish = ({
+    nameUz,
+    nameRu,
+    nameEn,
+    categoryId,
+    companyId,
+    descriptionEn,
+    descriptionRu,
+    descriptionUz,
+    countryCode,
+    pictures,
+    currency,
+    longitude,
+    latitude,
+    upTo2,
+    upTo6,
+    upTo10,
+    upTo20,
+    attributes,
+  }: IValuesForm) => {
+    createLetsTripTour({
+      callback() {
+        addNotification('successfully added tour');
+        navigate(ROUTES.letsTripTour);
+      },
+      names: { uz: nameEn, en: nameUz, ru: nameRu },
+      categoryId,
+      companyId,
+      descriptions: { uz: descriptionEn, en: descriptionUz, ru: descriptionRu },
+      upTo2,
+      upTo6,
+      upTo10,
+      upTo20,
+      pictures: pictures.fileList,
+      currency,
+      countryCode,
+      longitude,
+      latitude,
+      attributes,
+    });
+  };
+
+  const selectOptionCategory = categories?.map((category) => ({
+    label: category.name,
+    value: category.id,
+  }));
   const selectOptionCompany = companies?.map((company) => ({
     label: company.name,
     value: company.id,
@@ -28,39 +78,71 @@ export const LestTripTourCreateForm: React.FC = () => {
 
   useEffect(() => {
     getCompany({ page: 0, size: 20 });
+    getAllCategory({ callback() {} });
   }, []);
 
   return (
     <BaseForm
-      name="letsTripCreateForm"
+      name="letsTripTourCreateForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={() => {}}
     >
       <S.FormContent>
-        <BaseForm.Item
-          name="name"
-          label={'name'}
-          rules={[
-            { required: true, message: 'field is required' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value) {
-                  return Promise.reject(new Error('field is required'));
-                }
-                if (getFieldValue('name') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from form!'));
+        <Flex gap={'15px'}>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="nameUz"
+            label={'name uz'}
+            rules={[
+              { required: true, message: 'name uz is required?' },
+              {
+                type: 'string',
+                message: 'Enter name uz name ?',
               },
-            }),
-          ]}
+            ]}
+          >
+            <Input name="nameUz" type="string" placeholder="Enter a uz name ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="nameEn"
+            label={'name en'}
+            rules={[
+              { required: true, message: 'name en is required?' },
+              {
+                type: 'string',
+                message: 'Enter en name ?',
+              },
+            ]}
+          >
+            <Input name="nameEn" type="string" placeholder="Enter a en name ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="nameRu"
+            label={'name ru'}
+            rules={[
+              { required: true, message: 'name ru is required?' },
+              {
+                type: 'string',
+                message: 'Enter ru name ?',
+              },
+            ]}
+          >
+            <Input name="nameRu" type="string" placeholder="Enter a ru name ? " />
+          </BaseForm.Item>
+        </Flex>
+        <BaseForm.Item
+          name="categoryId"
+          label={'category'}
+          rules={[{ required: true, message: 'category is required!' }]}
         >
-          <Input placeholder="Enter tour name ?" />
+          <Select placeholder="Select category?" options={selectOptionCategory} />
         </BaseForm.Item>
         <BaseForm.Item
-          name="company"
+          name="companyId"
           label={'company'}
           rules={[{ required: true, message: 'company is required!' }]}
         >
@@ -73,50 +155,47 @@ export const LestTripTourCreateForm: React.FC = () => {
         >
           <Select placeholder="Select currency?" options={selectOptionCurrency} />
         </BaseForm.Item>
-        <BaseForm.Item
-          name="password"
-          label={'password'}
-          dependencies={['password']}
-          rules={[
-            { required: true, message: 'password required!' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (value || getFieldValue('password') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from form!'));
-              },
-            }),
-          ]}
-        >
-          <InputPassword placeholder="Enter a password ?" />
-        </BaseForm.Item>
-        <BaseForm.Item
-          name="email"
-          label={'email'}
-          rules={[
-            { required: true, message: 'email is required?' },
-            {
-              type: 'email',
-              message: 'Enter email the user ?',
-            },
-          ]}
-        >
-          <Input placeholder="Enter an email ?" />
-        </BaseForm.Item>
 
+        <Flex gap={'15px'}>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="upTo2"
+            label={'along with 2 person'}
+            rules={[{ required: true, message: 'upTo2 is required?' }]}
+          >
+            <Input name="upTo2" type="number" placeholder="Enter along 2 person price ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="upTo6"
+            label={'along with 6 person'}
+            rules={[{ required: true, message: 'upTo6 is required?' }]}
+          >
+            <Input name="upTo6" type="number" placeholder="Enter along 6 person price ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="upTo10"
+            label={'along with 10 person'}
+            rules={[{ required: true, message: 'upTo10 is required?' }]}
+          >
+            <Input name="upTo10" type="number" placeholder="Enter along 10 person price ? " />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="upTo20"
+            label={'along with 20 person'}
+            rules={[{ required: true, message: 'upTo20 is required?' }]}
+          >
+            <Input name="upTo20" type="number" placeholder="Enter along 20 person price ? " />
+          </BaseForm.Item>
+        </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="longitude"
             label={'longitude'}
-            rules={[
-              { required: true, message: 'longitude is required?' },
-              {
-                type: 'string',
-                message: 'Enter longitude ?',
-              },
-            ]}
+            rules={[{ required: true, message: 'longitude is required?' }]}
           >
             <Input name="longitude" type="number" placeholder="Enter a longitude ?" />
           </BaseForm.Item>
@@ -124,13 +203,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             style={{ width: '100%' }}
             name="latitude"
             label={'latitude'}
-            rules={[
-              { required: true, message: 'latitude is required?' },
-              {
-                type: 'string',
-                message: 'Enter latitude ?',
-              },
-            ]}
+            rules={[{ required: true, message: 'latitude is required?' }]}
           >
             <Input name="latitude" type="number" placeholder="Enter a latitude ?" />
           </BaseForm.Item>
@@ -149,26 +222,50 @@ export const LestTripTourCreateForm: React.FC = () => {
             <Input name="countryCode" type="string" placeholder="Enter a country code ? : UZ" />
           </BaseForm.Item>
         </Flex>
-        <BaseForm.Item
-          name="description"
-          label={'description'}
-          rules={[
-            { required: true, message: 'field is required' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value) {
-                  return Promise.reject(new Error('field is required'));
-                }
-                if (getFieldValue('description') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from form!'));
+        <Flex gap={'15px'}>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="descriptionUz"
+            label={'description uz'}
+            rules={[
+              { required: true, message: 'description uz is required?' },
+              {
+                type: 'string',
+                message: 'Enter uz description ?',
               },
-            }),
-          ]}
-        >
-          <TextArea placeholder="Enter tour description ?" />
-        </BaseForm.Item>
+            ]}
+          >
+            <Input name="descriptionUz" type="string" placeholder="Enter a uz description ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="descriptionEn"
+            label={'description en'}
+            rules={[
+              { required: true, message: 'description en is required?' },
+              {
+                type: 'string',
+                message: 'Enter en description ?',
+              },
+            ]}
+          >
+            <Input name="descriptionEn" type="string" placeholder="Enter a en description ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="descriptionRu"
+            label={'description ru'}
+            rules={[
+              { required: true, message: 'description ru is required?' },
+              {
+                type: 'string',
+                message: 'Enter ru description ?',
+              },
+            ]}
+          >
+            <Input name="descriptionRu" type="string" placeholder="Enter a ru description ? " />
+          </BaseForm.Item>
+        </Flex>
         <BaseForm.Item
           name="pictures"
           label={'pictures'}
@@ -180,14 +277,16 @@ export const LestTripTourCreateForm: React.FC = () => {
             },
           ]}
         >
-          <Upload.Dragger name="pictures" multiple={true} fileList={[]}>
+          <Upload.Dragger name="pictures" multiple={true} action={`${BASE_URL}/file`}>
             <Flex align="center" wrap="wrap" justify="center">
               <Typography.Text>Click or drag file to this area to upload</Typography.Text>
               <Icon fontSize="20" color="blue" name="InboxOutlined" />
             </Flex>
           </Upload.Dragger>
         </BaseForm.Item>
-        <PrimaryBtn htmlType="submit">create</PrimaryBtn>
+        <PrimaryBtn htmlType="submit" loading={loading.post}>
+          create
+        </PrimaryBtn>
       </S.FormContent>
     </BaseForm>
   );

@@ -6,4 +6,12 @@ export const LetsTripTourService = {
     const response = await $axios.get(`${EndPointes.letsTripTour.getAll}?page=0&size=10&lang=UZ`);
     return response;
   },
+  async getAllCategory() {
+    const response = await $axios.get(`${EndPointes.category.getAll}?page=0&size=10`);
+    return response;
+  },
+  async create(body: any) {
+    const response = await $axios.post(EndPointes.letsTripTour.create, body);
+    return response;
+  },
 };

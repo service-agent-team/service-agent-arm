@@ -184,5 +184,10 @@ export const EndPointes = {
 
   letsTripTour: {
     getAll: '/products/tours',
+    create: '/products/tour',
+  },
+
+  category: {
+    getAll: 'category/get-all',
   },
 } as const;

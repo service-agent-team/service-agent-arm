@@ -7,6 +7,7 @@ export interface ILetsTripTourInitialState {
   };
   tours: ILetsTripTour[] | null;
   tour: ILetsTripTour | null;
+  categories: Category[] | null;
   errors: unknown | string[] | string;
 }
 
@@ -49,8 +50,48 @@ export interface ILetsTripTourResponse {
   empty: boolean;
 }
 
+export interface ICategoryResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: {
+    content: Category[];
+  };
+}
+
+export interface ILetsTripTourCreateResponse extends ILetsTripTour {}
+
 export interface ILetsTripPayload {
   callback(): void;
+}
+
+export interface ILetsTripTourCreatePayload {
+  callback(): void;
+  names: Names;
+  categoryId: number;
+  companyId: number;
+  descriptions: Descriptions;
+  upTo2: number;
+  upTo6: number;
+  upTo10: number;
+  upTo20: number;
+  pictures: any[];
+  currency: CurrencyType;
+  countryCode: CountyCodeType;
+  longitude: number;
+  latitude: number;
+  attributes?: Attributes;
+}
+
+export enum CurrencyType {
+  uzs = 'UZS',
+  usd = 'USD',
+}
+
+export enum CountyCodeType {
+  uz = 'UZ',
+  ae = 'AE',
+  tr = 'TR',
 }
 
 export interface Names {
