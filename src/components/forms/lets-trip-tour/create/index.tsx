@@ -7,8 +7,6 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const [companyId, setCompanyId] = useState(null);
-  const [currency, setCurrency] = useState(null);
   const { companies } = useTypedSelector((state) => state.company);
   const { getCompany } = useActions();
 
@@ -27,12 +25,6 @@ export const LestTripTourCreateForm: React.FC = () => {
       value: 'USD',
     },
   ];
-  const changeCompany = (value: any) => {
-    return setCompanyId(value);
-  };
-  const changeCurrency = (value: any) => {
-    setCurrency(value);
-  };
 
   useEffect(() => {
     getCompany({ page: 0, size: 20 });
@@ -72,22 +64,14 @@ export const LestTripTourCreateForm: React.FC = () => {
           label={'company'}
           rules={[{ required: true, message: 'company is required!' }]}
         >
-          <Select
-            onChange={changeCompany}
-            placeholder="Select company?"
-            options={selectOptionCompany}
-          />
+          <Select placeholder="Select company?" options={selectOptionCompany} />
         </BaseForm.Item>
         <BaseForm.Item
           name="currency"
           label={'currency'}
           rules={[{ required: true, message: 'currency is required!' }]}
         >
-          <Select
-            onChange={changeCurrency}
-            placeholder="Select currency?"
-            options={selectOptionCurrency}
-          />
+          <Select placeholder="Select currency?" options={selectOptionCurrency} />
         </BaseForm.Item>
         <BaseForm.Item
           name="password"

@@ -48,6 +48,8 @@ import * as ProjectActions from '../global/project/actions';
 import { ProjectSliceActions } from '../global/project/slice';
 import * as AgentProjectActions from '../service-agent/project/actions';
 import { AgentProjectSliceActions } from '../service-agent/project/slice';
+import * as LetsTripTourActions from '../lets-trip/tour/actions';
+import { LetsTripTourSliceActions } from '../lets-trip/tour/slice';
 
 export const AllActions = {
   ...AgentTariffActions,
@@ -101,4 +103,6 @@ export const AllActions = {
   ...ProjectActions,
   ...AgentProjectActions,
   ...AgentProjectSliceActions,
+  ...LetsTripTourActions,
+  ...LetsTripTourSliceActions,
 };

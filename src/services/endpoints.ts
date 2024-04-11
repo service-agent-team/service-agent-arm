@@ -181,4 +181,8 @@ export const EndPointes = {
     edit: '/agent-roles/update/',
     delete: '/agent-roles/delete/',
   },
+
+  letsTripTour: {
+    getAll: '/products/tours',
+  },
 } as const;
