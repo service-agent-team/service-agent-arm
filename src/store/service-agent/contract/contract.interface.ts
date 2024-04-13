@@ -23,7 +23,7 @@ export interface IUserResponse {
 }
 
 export interface IUserData {
-  id: number
+  id: number;
   userInfoId: number;
   userId: number;
   firstName: string;
