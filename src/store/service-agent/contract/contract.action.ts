@@ -4,7 +4,7 @@ import { ContractService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IOneAgentParams,
-  IOneAgentResponce,
+  IOneAgentResponse,
   IParams,
   IRejectParam,
   IUser,
@@ -59,7 +59,7 @@ export const rejectAgnet = createAsyncThunk<any, IRejectParam>(
   },
 );
 
-export const getOneAgent = createAsyncThunk<IOneAgentResponce, IOneAgentParams>(
+export const getOneAgent = createAsyncThunk<IOneAgentResponse, IOneAgentParams>(
   'agent/one',
   async ({ userId, callback }, thunkApi) => {
     try {

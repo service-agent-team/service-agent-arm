@@ -1,5 +1,5 @@
 import { FONT_SIZE, FONT_WEIGHT } from '@/common/styles';
-import { Steps as AntdSteps, Button } from 'antd';
+import { Steps as AntdSteps, Button, Checkbox } from 'antd';
 import styled from 'styled-components';
 
 export const Steps = styled(AntdSteps)`
@@ -67,4 +67,17 @@ export const DetailsValue = styled.div`
   color: var(--text-main-color);
   font-size: ${FONT_SIZE.md};
   font-weight: ${FONT_WEIGHT.semibold};
+`;
+
+export const ProjectButton = styled(Button)`
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+`;
+
+export const ProjectCheckbox = styled(Checkbox)`
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
 `;

@@ -24,6 +24,7 @@ export interface ICreteAgentProjectPayload {
   callback: () => void;
   name: string;
   description: string;
+  createdByUser: number;
 }
 export interface IDeleteAgentProjectPayload {
   callback: () => void;

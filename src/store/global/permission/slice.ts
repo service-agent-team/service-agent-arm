@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPermission, getPermisions } from './actions';
+import {
+  createPermission,
+  deletePermission,
+  getOnePermision,
+  getPermisions,
+  updatePermission,
+} from './actions';
 import { IPermissionInitalState, PayloadEnum } from './types';
 
 const initialState: IPermissionInitalState = {
@@ -21,13 +27,15 @@ export const permissionSlice = createSlice({
     setPermissionLoading: (state, { payload }: { payload: PayloadEnum }) => {
       state.loading[payload] = !state.loading[payload];
     },
+    setPermissions: (state, { payload }) => {
+      state.permissions = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getPermisions.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
-        state.permissions = null;
       })
       .addCase(getPermisions.fulfilled, (state, { payload }) => {
         state.loading.get = false;
@@ -35,6 +43,19 @@ export const permissionSlice = createSlice({
         state.errors = null;
       })
       .addCase(getPermisions.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getOnePermision.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOnePermision.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.permission = payload.data;
+        state.errors = null;
+      })
+      .addCase(getOnePermision.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
@@ -48,6 +69,37 @@ export const permissionSlice = createSlice({
       })
       .addCase(createPermission.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(updatePermission.pending, (state) => {
+        state.loading.put = true;
+        state.errors = null;
+      })
+      .addCase(updatePermission.fulfilled, (state, { payload }) => {
+        state.loading.put = false;
+        const index = state.permissions?.findIndex(
+          (el) => Number(el.permission_id) === Number(payload.data.permission_id),
+        );
+        if (state.permissions && index) {
+          state.permission = payload.data;
+          state.permissions[index] = payload.data;
+        }
+        state.errors = null;
+      })
+      .addCase(updatePermission.rejected, (state, { payload }) => {
+        state.loading.put = false;
+        state.errors = payload;
+      })
+      .addCase(deletePermission.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(deletePermission.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.errors = null;
+      })
+      .addCase(deletePermission.rejected, (state, { payload }) => {
+        state.loading.delete = false;
         state.errors = payload;
       });
   },

@@ -6,7 +6,35 @@ export const EndPointes = {
 
   permissions: {
     getAll: '/permissions/get-all',
+    getOne: '/permissions/get/',
     create: '/permissions/create',
+    edit: '/permissions/update-permission/',
+    delete: '/permissions/delete-permission/',
+  },
+
+  role: {
+    getAll: '/roles/get-all',
+    create: '/roles/create',
+    getOne: '/roles/get/',
+    edit: '/roles/update-role/',
+    delete: '/roles/delete-role/',
+    deleteByUserRoles: '/roles/delete/user-roles/',
+  },
+
+  userRole: {
+    create: '/user-roles/create',
+    getAll: '/user-roles/get-all',
+    getOne: '/user-roles/get/',
+    edit: '/user-roles/update-user-role/',
+    delete: '/user-roles/delete-user-role/',
+  },
+
+  userPermission: {
+    create: '/user-permissions/create',
+    getAll: '/user-permissions/get-all',
+    getOne: '/user-permissions/get/',
+    edit: '/user-permissions/update-user-permission/',
+    delete: '/user-permissions/delete-user-permission/',
   },
 
   // AUTH
@@ -24,6 +52,10 @@ export const EndPointes = {
   // PROJECT
   project: {
     getAll: '/projects/get-all',
+    getOne: '/projects/get/',
+    create: '/projects/create',
+    edit: '/projects/update-project/',
+    delete: '/projects/delete-project/',
   },
 
   // AGENT
@@ -148,5 +180,14 @@ export const EndPointes = {
     getExist: '/agent-roles/get-exist/',
     edit: '/agent-roles/update/',
     delete: '/agent-roles/delete/',
+  },
+
+  letsTripTour: {
+    getAll: '/products/tours',
+    create: '/products/tour',
+  },
+
+  category: {
+    getAll: 'category/get-all',
   },
 } as const;

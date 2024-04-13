@@ -1,18 +1,19 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, InputPassword, PrimaryBtn } from '@/components';
-import { Input } from 'antd';
-import React from 'react';
+import { Input, Select } from 'antd';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from './styled';
 import { IValuesForm } from './types';
 
 export const UsersForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
   const [form] = BaseForm.useForm();
-  const { createUser, editUser } = useActions();
+  const { createUser, editUser, getAllRole } = useActions();
   const navigate = useNavigate();
   const { id } = useParams();
   const { user, loading } = useTypedSelector((state) => state.users);
+  const { roles } = useTypedSelector((state) => state.role);
 
   const onFinish = (value: IValuesForm) => {
     if (type === 'create') {
@@ -39,6 +40,14 @@ export const UsersForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
       });
     }
   };
+  const RoleOptionId = roles?.map((el) => ({ label: el.role_name, value: el.role_id }));
+  useEffect(() => {
+    getAllRole({
+      callback() {
+        addNotification('successfully get all role !');
+      },
+    });
+  }, []);
 
   return (
     <BaseForm
@@ -117,7 +126,7 @@ export const UsersForm: React.FC<{ type: 'create' | 'edit' }> = ({ type }) => {
               label={'role'}
               rules={[{ required: true, message: 'this is required field' }]}
             >
-              <Input placeholder="Enter a role ?" />
+              <Select options={RoleOptionId} placeholder="Select role option" />
             </BaseForm.Item>
           </>
         ) : null}

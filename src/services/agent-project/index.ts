@@ -6,7 +6,11 @@ export const AgentProjectService = {
     const response = await $axios.get(EndPointes.agent.project.getAll);
     return response;
   },
-  async createAgentProject(body: { name: string; description: string }) {
+  async createAgentProjectByAgent(body: {
+    name: string;
+    description: string;
+    createdByUser: number;
+  }) {
     const response = await $axios.post(EndPointes.agent.project.create, body);
     return response;
   },

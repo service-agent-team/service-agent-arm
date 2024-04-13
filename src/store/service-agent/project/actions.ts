@@ -28,21 +28,28 @@ export const getAllAgentProject = createAsyncThunk<IAgentProjectResponse, IAgent
   },
 );
 
-export const createAgentProject = createAsyncThunk<
+export const createAgentProjectByAgent = createAsyncThunk<
   ICreateAgentProjectResponse,
   ICreteAgentProjectPayload
->(EndPointes.agent.project.create, async ({ callback, name, description }, thunkApi) => {
-  try {
-    const response = await AgentProjectService.createAgentProject({ name, description });
-    if (response.data.status == 201) {
-      callback();
+>(
+  EndPointes.agent.project.create,
+  async ({ callback, name, description, createdByUser }, thunkApi) => {
+    try {
+      const response = await AgentProjectService.createAgentProjectByAgent({
+        name,
+        description,
+        createdByUser,
+      });
+      if (response.data.status == 201) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
-    return response.data;
-  } catch (error) {
-    addNotification(error);
-    return thunkApi.rejectWithValue({ error: errorCatch(error) });
-  }
-});
+  },
+);
 
 export const deleteAgentProject = createAsyncThunk<
   IDeleteAgentProjectResponse,

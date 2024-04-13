@@ -5,17 +5,12 @@ import { Suspense } from 'react';
 import {
   AgentControl,
   AgentHome,
+  AgentOrderViewPage,
   AgentProductCreate,
   AgentProducts,
   AgentProjectCreatePage,
   AgentProjectPage,
   AgentTariffsCreate,
-  AgentUserPermissionCreatePage,
-  AgentUserPermissionEditPage,
-  AgentUserPermissionPage,
-  AgentUserRoleCreatePage,
-  AgentUserRoleEditPage,
-  AgentUserRolePage,
   AgentView,
   CreateAgentPermission,
   CreateAgentRole,
@@ -55,6 +50,14 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <Orders />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentOrdersView,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentOrderViewPage />
       </Suspense>
     ),
   },
@@ -135,54 +138,6 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <EditAgentPermission />
-      </Suspense>
-    ),
-  },
-  {
-    path: ROUTES.agentUserPermission,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <AgentUserPermissionPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: ROUTES.agentUserPermissionCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <AgentUserPermissionCreatePage />
-      </Suspense>
-    ),
-  },
-  {
-    path: ROUTES.agentUserPermissionEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <AgentUserPermissionEditPage />
-      </Suspense>
-    ),
-  },
-  {
-    path: ROUTES.agentUserRole,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <AgentUserRolePage />
-      </Suspense>
-    ),
-  },
-  {
-    path: ROUTES.agentUserRoleCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <AgentUserRoleCreatePage />
-      </Suspense>
-    ),
-  },
-  {
-    path: ROUTES.agentUserRoleEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <AgentUserRoleEditPage />
       </Suspense>
     ),
   },

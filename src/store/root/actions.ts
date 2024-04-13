@@ -5,6 +5,12 @@ import * as PermissionActions from '../global/permission/actions';
 import { PermissionSliceActions } from '../global/permission/slice';
 import * as UserActions from '../global/users/actions';
 import { UserSliceActions } from '../global/users/slice';
+import * as RoleActions from '../global/role/actions';
+import { RoleSliceActions } from '../global/role/slice';
+import * as UserRoleActions from '../global/user-role/actions';
+import { UserPermissionSliceActions } from '../global/user-permission/slice';
+import * as UserPermissionActions from '../global/user-permission/actions';
+import { UserRoleSliceActions } from '../global/user-role/slice';
 import * as CarModelActions from '../lets-trip/car-model/action';
 import { CarModelsliceActions } from '../lets-trip/car-model/slice';
 import * as CarTypeActions from '../lets-trip/car-type/actions';
@@ -42,6 +48,8 @@ import * as ProjectActions from '../global/project/actions';
 import { ProjectSliceActions } from '../global/project/slice';
 import * as AgentProjectActions from '../service-agent/project/actions';
 import { AgentProjectSliceActions } from '../service-agent/project/slice';
+import * as LetsTripTourActions from '../lets-trip/tour/actions';
+import { LetsTripTourSliceActions } from '../lets-trip/tour/slice';
 
 export const AllActions = {
   ...AgentTariffActions,
@@ -58,6 +66,10 @@ export const AllActions = {
   ...UserActions,
   ...PermissionActions,
   ...PermissionSliceActions,
+  ...RoleActions,
+  ...RoleSliceActions,
+  ...UserRoleActions,
+  ...UserRoleSliceActions,
   ...TariffActions,
   ...ProductActions,
   ...ProductSliceActions,
@@ -67,6 +79,8 @@ export const AllActions = {
   ...CarModelActions,
   ...RolesSlice,
   ...RolesSliceActions,
+  ...UserPermissionSliceActions,
+  ...UserPermissionActions,
   ...CompanySliceActions,
   ...CompanyAction,
   ...AgentTariffPermissionSliceActions,
@@ -89,4 +103,6 @@ export const AllActions = {
   ...ProjectActions,
   ...AgentProjectActions,
   ...AgentProjectSliceActions,
+  ...LetsTripTourActions,
+  ...LetsTripTourSliceActions,
 };

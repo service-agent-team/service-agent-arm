@@ -5,6 +5,7 @@ import { UserService } from '@/services/Users/user-service.ts';
 import { IUserGetMeResponse } from '@/store/global/users/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IAuthResponse, IAuthSignIn } from './interface';
+import { clearStorage, removeTokensCookie } from '@/common/helpers/cookie';
 
 export const SignIn = createAsyncThunk<IAuthResponse, IAuthSignIn>(
   'auth/signIn',
@@ -28,6 +29,8 @@ export const getMe = createAsyncThunk<IUserGetMeResponse, any>('get/me', async (
 
     return response.data;
   } catch (error) {
+    removeTokensCookie();
+    clearStorage();
     addNotification(error);
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }

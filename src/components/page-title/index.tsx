@@ -16,8 +16,8 @@ export const PageTitle = ({
   return (
     <Row justify={'space-between'} style={{ margin: '20px 0px' }}>
       <H1>{title}</H1>
-      <Button>
-        <Link to={route}>
+      <Button style={{ padding: 0 }}>
+        <Link style={{ padding: '10px 20px' }} to={route}>
           {label} <Icon title={icon} name={icon} />
         </Link>
       </Button>

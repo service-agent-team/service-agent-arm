@@ -1,4 +1,4 @@
-export interface IAgentPermissionInitalState {
+export interface IAgentPermissionInitialState {
   loading: {
     get: boolean;
     post: boolean;

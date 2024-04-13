@@ -142,6 +142,6 @@ export interface IData {
   currency: string;
 }
 
-export interface IOneAgentResponce extends AxiosResponse {
+export interface IOneAgentResponse extends AxiosResponse {
   date: IUserData;
 }

@@ -6,6 +6,7 @@ export interface IProductInitialState {
     delete: boolean;
   };
   projects: IProject[] | null;
+  project: IProject | null;
   errors: unknown | string[] | string;
 }
 
@@ -23,8 +24,38 @@ export interface IProductResponse {
   data: IProject[];
 }
 
+export interface IOneProductResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IProject;
+}
+
+export interface ICreateProductResponse {
+  success: boolean;
+  status: number;
+  msg: string;
+  data: IProject;
+}
+
+export interface ICreateProductPayload {
+  projectName: string;
+  projectDescription: string;
+  status: boolean;
+  callback(): void;
+}
+
+export interface IUpdateProductPayload extends ICreateProductPayload {
+  id: number;
+}
+
+export interface IDeleteProductPayload {
+  id: number;
+  callback(): void;
+}
+
 export interface IProject {
-  project_id: string;
+  project_id: number;
   project_name: string;
   project_description: string;
   status: boolean;
