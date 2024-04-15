@@ -47,12 +47,6 @@ export interface ILetsTripTransferPayload {
   callback(): void;
 }
 
-export interface ICategoryResponse {
-  success: boolean;
-  status: number;
-  msg: string;
-}
-
 export interface ILetsTripTransferCreateResponse extends ILetsTripTransfer {}
 
 export interface ILetsTripPayload {
@@ -61,6 +55,20 @@ export interface ILetsTripPayload {
 
 export interface ILetsTripTransferCreatePayload {
   callback(): void;
+  name: string;
+  categoryId: number;
+  companyId: number;
+  hourly: number;
+  transfer: number;
+  mediaLinks: string[];
+  currency: string;
+  releaseDate: string;
+  attributes: Attributes;
+  countryCode: string;
+}
+
+export interface Attributes {
+  any: any;
 }
 
 export interface Category {

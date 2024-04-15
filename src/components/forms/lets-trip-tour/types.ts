@@ -14,7 +14,7 @@ export interface IValuesForm {
   upTo6: number;
   upTo10: number;
   upTo20: number;
-  pictures: UploadChangeParam;
+  pictures: UploadChangeParam[];
   currency: CurrencyType;
   countryCode: CountyCodeType;
   longitude: number;

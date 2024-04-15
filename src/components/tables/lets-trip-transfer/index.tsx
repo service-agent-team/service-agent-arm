@@ -6,14 +6,14 @@ import { addNotification } from '@/common';
 import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
 
 export const LetsTripTransferTable = () => {
-  const { getAllLetsTripTour } = useActions();
+  const { getAllLetsTripTransfer } = useActions();
   const {
     loading: { get },
     transfers,
   } = useTypedSelector((state) => state.letsTripTransfer);
 
   useEffect(() => {
-    getAllLetsTripTour({
+    getAllLetsTripTransfer({
       callback() {
         addNotification('successfully get all transfer');
       },

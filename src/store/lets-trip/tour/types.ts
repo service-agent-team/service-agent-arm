@@ -1,3 +1,5 @@
+import { UploadChangeParam } from 'antd/es/upload';
+
 export interface ILetsTripTourInitialState {
   loading: {
     get: boolean;
@@ -75,7 +77,7 @@ export interface ILetsTripTourCreatePayload {
   upTo6: number;
   upTo10: number;
   upTo20: number;
-  pictures: any[];
+  pictures: UploadChangeParam[];
   currency: CurrencyType;
   countryCode: CountyCodeType;
   longitude: number;

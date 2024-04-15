@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ILetsTripTransferInitialState } from './types';
-import { getAllLetsTripTransfer } from './actions';
+import { createLetsTripTransfer, getAllLetsTripTransfer } from './actions';
 
 const initialState: ILetsTripTransferInitialState = {
   loading: {
@@ -32,33 +32,20 @@ export const letsTripTransferSlice = createSlice({
       .addCase(getAllLetsTripTransfer.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
+      })
+      .addCase(createLetsTripTransfer.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createLetsTripTransfer.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        state.transfers?.push(payload);
+        state.errors = null;
+      })
+      .addCase(createLetsTripTransfer.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
       });
-    // .addCase(getAllCategory.pending, (state) => {
-    //   state.loading.get = true;
-    //   state.errors = null;
-    // })
-    // .addCase(getAllCategory.fulfilled, (state, { payload }) => {
-    //   state.loading.get = false;
-    //   state.categories = payload.data.content;
-    //   state.errors = null;
-    // })
-    // .addCase(getAllCategory.rejected, (state, { payload }) => {
-    //   state.loading.get = false;
-    //   state.errors = payload;
-    // })
-    // .addCase(createLetsTripTour.pending, (state) => {
-    //   state.loading.post = true;
-    //   state.errors = null;
-    // })
-    // .addCase(createLetsTripTour.fulfilled, (state, { payload }) => {
-    //   state.loading.post = false;
-    //   state.tours?.push(payload);
-    //   state.errors = null;
-    // })
-    // .addCase(createLetsTripTour.rejected, (state, { payload }) => {
-    //   state.loading.post = false;
-    //   state.errors = payload;
-    // });
   },
 });
 

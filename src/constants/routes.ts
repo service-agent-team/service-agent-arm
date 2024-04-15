@@ -79,5 +79,6 @@ export const ROUTES = {
   letsTripTourCreate: '/lets-trip/tour/create',
   letsTripTourView: '/lets-trip/tour/view/:id',
   letsTripTransfer: '/lets-trip/transfer',
+  letsTripTransferCreate: '/lets-trip/transfer/create',
   letsTripEsimGo: '/lets-trip/esimgo',
 } as const;

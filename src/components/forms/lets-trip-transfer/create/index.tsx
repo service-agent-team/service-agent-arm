@@ -6,54 +6,41 @@ import { IValuesForm } from '../types';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { addNotification } from '@/common';
-import { ROUTES } from '@/constants';
+// import { ROUTES } from '@/constants';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { companies } = useTypedSelector((state) => state.company);
   const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
-  const { getCompany, createLetsTripTour, getAllCategory } = useActions();
-  const navigate = useNavigate();
+  const { getCompany, createLetsTripTransfer, getAllCategory } = useActions();
+  // const navigate = useNavigate();
 
   const onFinish = ({
-    nameUz,
-    nameRu,
-    nameEn,
+    name,
     categoryId,
     companyId,
-    descriptionEn,
-    descriptionRu,
-    descriptionUz,
-    countryCode,
+    hourly,
+    transfer,
+    mediaLinks,
     currency,
-    longitude,
-    latitude,
-    upTo2,
-    upTo6,
-    upTo10,
-    upTo20,
+    releaseDate,
     attributes,
-    pictures,
+    countryCode,
   }: IValuesForm) => {
-    createLetsTripTour({
+    createLetsTripTransfer({
       callback() {
-        addNotification('successfully added tour');
-        navigate(ROUTES.letsTripTour);
+        addNotification('successfully create transfer');
       },
-      names: { uz: nameEn, en: nameUz, ru: nameRu },
+      name,
       categoryId,
       companyId,
-      descriptions: { uz: descriptionEn, en: descriptionUz, ru: descriptionRu },
-      upTo2,
-      upTo6,
-      upTo10,
-      upTo20,
-      pictures,
+      hourly,
+      transfer,
+      mediaLinks,
       currency,
-      countryCode,
-      longitude,
-      latitude,
+      releaseDate,
       attributes,
+      countryCode,
     });
   };
 
@@ -83,57 +70,27 @@ export const LestTripTourCreateForm: React.FC = () => {
 
   return (
     <BaseForm
-      name="letsTripTourCreateForm"
+      name="letsTripTransferCreateForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={() => {}}
     >
       <S.FormContent>
-        <Flex gap={'15px'}>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="nameUz"
-            label={'name uz'}
-            rules={[
-              { required: true, message: 'name uz is required?' },
-              {
-                type: 'string',
-                message: 'Enter name uz name ?',
-              },
-            ]}
-          >
-            <Input name="nameUz" type="string" placeholder="Enter a uz name ?" />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="nameEn"
-            label={'name en'}
-            rules={[
-              { required: true, message: 'name en is required?' },
-              {
-                type: 'string',
-                message: 'Enter en name ?',
-              },
-            ]}
-          >
-            <Input name="nameEn" type="string" placeholder="Enter a en name ?" />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="nameRu"
-            label={'name ru'}
-            rules={[
-              { required: true, message: 'name ru is required?' },
-              {
-                type: 'string',
-                message: 'Enter ru name ?',
-              },
-            ]}
-          >
-            <Input name="nameRu" type="string" placeholder="Enter a ru name ? " />
-          </BaseForm.Item>
-        </Flex>
+        <BaseForm.Item
+          style={{ width: '100%' }}
+          name="name"
+          label={'name'}
+          rules={[
+            { required: true, message: 'name is required?' },
+            {
+              type: 'string',
+              message: 'Enter name ?',
+            },
+          ]}
+        >
+          <Input name="name" type="string" placeholder="Enter a name ?" />
+        </BaseForm.Item>
         <Flex gap={'15px'}>
           <BaseForm.Item
             name="categoryId"
