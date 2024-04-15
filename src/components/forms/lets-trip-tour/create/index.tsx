@@ -1,5 +1,5 @@
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
-import { Flex, Input, Select, Typography, Upload } from 'antd';
+import { Button, Flex, Form, Input, Select, Space, Typography, Upload } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styled';
 import { IValuesForm } from '../types';
@@ -7,6 +7,7 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -33,7 +34,6 @@ export const LestTripTourCreateForm: React.FC = () => {
     upTo10,
     upTo20,
     attributes,
-    pictures,
   }: IValuesForm) => {
     createLetsTripTour({
       callback() {
@@ -48,12 +48,12 @@ export const LestTripTourCreateForm: React.FC = () => {
       upTo6,
       upTo10,
       upTo20,
-      pictures,
+      pictures: ['image.jpg', 'image.png'],
       currency,
       countryCode,
       longitude,
       latitude,
-      attributes,
+      attributes: { ...attributes },
     });
   };
 
@@ -317,11 +317,36 @@ export const LestTripTourCreateForm: React.FC = () => {
         >
           <Upload.Dragger name="pictures" multiple={true} /*action={`${BASE_URL}/file`} */>
             <Flex align="center" wrap="wrap" justify="center">
-              <Typography.Text>Click or drag file to this area to upload</Typography.Text>
-              <Icon fontSize="20" color="blue" name="InboxOutlined" />
+              <Typography.Text>
+                Click or drag file to this area to upload{' '}
+                <Icon fontSize="20" color="blue" name="InboxOutlined" />
+              </Typography.Text>
             </Flex>
           </Upload.Dragger>
         </BaseForm.Item>
+        <BaseForm.List name="attributes">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name, ...restField }) => (
+                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                  <BaseForm.Item
+                    {...restField}
+                    name={[name, 'key']}
+                    rules={[{ required: true, message: 'Missing property' }]}
+                  >
+                    <Input placeholder={`Additional property ${key}`} />
+                  </BaseForm.Item>
+                  <MinusCircleOutlined width={'100%'} onClick={() => remove(name)} />
+                </Space>
+              ))}
+              <BaseForm.Item>
+                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                  Add field
+                </Button>
+              </BaseForm.Item>
+            </>
+          )}
+        </BaseForm.List>
         <PrimaryBtn htmlType="submit" loading={loading.post}>
           create
         </PrimaryBtn>

@@ -27,7 +27,7 @@ export interface ILetsTripTour {
   upTo20: number;
   pictures: string[];
   currency: string;
-  attributes: Attributes;
+  attributes: any;
   countryCode: string;
   departures: any[];
   itenararyLocalization?: ItenararyLocalization;
@@ -77,7 +77,7 @@ export interface ILetsTripTourCreatePayload {
   upTo6: number;
   upTo10: number;
   upTo20: number;
-  pictures: UploadChangeParam[];
+  pictures: string[];
   currency: CurrencyType;
   countryCode: CountyCodeType;
   longitude: number;

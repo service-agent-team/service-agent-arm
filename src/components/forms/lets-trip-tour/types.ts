@@ -1,5 +1,4 @@
 import { CountyCodeType, CurrencyType } from '@/store/lets-trip/tour/types';
-import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 export interface IValuesForm {
   nameUz: string;
@@ -14,10 +13,10 @@ export interface IValuesForm {
   upTo6: number;
   upTo10: number;
   upTo20: number;
-  pictures: UploadChangeParam[];
+  pictures: string[];
   currency: CurrencyType;
   countryCode: CountyCodeType;
   longitude: number;
   latitude: number;
-  attributes?: any[];
+  attributes?: any;
 }
