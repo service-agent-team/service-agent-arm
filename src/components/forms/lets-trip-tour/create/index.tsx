@@ -34,26 +34,6 @@ export const LestTripTourCreateForm: React.FC = () => {
     upTo20,
     attributes,
   }: IValuesForm) => {
-    console.log(
-      nameUz,
-      nameRu,
-      nameEn,
-      categoryId,
-      companyId,
-      descriptionEn,
-      descriptionRu,
-      descriptionUz,
-      countryCode,
-      currency,
-      longitude,
-      latitude,
-      upTo2,
-      upTo6,
-      upTo10,
-      upTo20,
-      attributes,
-    );
-
     createLetsTripTour({
       callback() {
         addNotification('successfully added tour');

@@ -1,11 +1,12 @@
 import { SearchOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space } from 'antd';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
 import { dateParser } from '@/common/utils/format';
+import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -23,7 +24,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<any> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripTransfer> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -101,7 +102,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<ILetsTripTransfer> = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -111,37 +112,38 @@ export const utils = () => {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Tour name',
+      title: 'Transfer name',
       dataIndex: 'name',
       key: 'name',
       width: '20%',
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'User Id',
-      dataIndex: 'userId',
-      key: 'userId',
+      title: 'Category',
+      dataIndex: 'category',
+      key: 'category',
       width: '20%',
-      ...getColumnSearchProps('userId'),
+      render: (item) => <Tag color="success">{item.name.toUpperCase()}</Tag>,
     },
     {
-      title: 'Service Order Id',
-      dataIndex: 'serviceOrderId',
-      key: 'serviceOrderId',
+      title: 'Company',
+      dataIndex: 'company',
+      key: 'company',
       width: '20%',
-      ...getColumnSearchProps('serviceOrderId'),
+      render: (item) => <Tag color="success">{item.name.toUpperCase()}</Tag>,
     },
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      width: '20%',
-      ...getColumnSearchProps('price'),
+      title: 'Country Code',
+      dataIndex: 'countryCode',
+      key: 'countryCode',
+      width: '5%',
+      render: (countryCode) => <Tag color="success">{countryCode}</Tag>,
     },
     {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
+      width: '5%',
       render: (_: number) => {
         return (
           <LinkButton path={`#`}>

@@ -80,7 +80,7 @@ export interface ILetsTripTourCreatePayload {
   countryCode: CountyCodeType;
   longitude: number;
   latitude: number;
-  attributes?: Attributes;
+  attributes?: any[];
 }
 
 export enum CurrencyType {
@@ -141,27 +141,11 @@ export interface Attributes2 {
 }
 
 export interface En {
-  attributes: Attributes3;
-}
-
-export interface Attributes3 {
-  '08:00': string;
-  '10:30': string;
-  '14:00': string;
-  '13:00': string;
-  '07:00': string;
+  attributes: Attributes2;
 }
 
 export interface Ru {
-  attributes: Attributes4;
-}
-
-export interface Attributes4 {
-  '08:00': string;
-  '10:30': string;
-  '14:00': string;
-  '13:00': string;
-  '07:00': string;
+  attributes: Attributes2;
 }
 
 export interface Pageable {

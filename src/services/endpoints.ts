@@ -190,4 +190,9 @@ export const EndPointes = {
   category: {
     getAll: 'category/get-all',
   },
+
+  letsTripTransfer: {
+    getAll: '/products/transfers',
+    create: '/products/transfers',
+  },
 } as const;
