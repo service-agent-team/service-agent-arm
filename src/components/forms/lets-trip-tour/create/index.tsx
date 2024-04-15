@@ -1,12 +1,12 @@
+import { addNotification } from '@/common';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
+import { ROUTES } from '@/constants';
 import { Flex, Input, Select, Typography, Upload } from 'antd';
 import React, { useEffect } from 'react';
-import * as S from './styled';
-import { IValuesForm } from '../types';
-import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
-import { addNotification } from '@/common';
-import { ROUTES } from '@/constants';
+import { IValuesForm } from '../types';
+import * as S from './styled';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -34,26 +34,6 @@ export const LestTripTourCreateForm: React.FC = () => {
     upTo20,
     attributes,
   }: IValuesForm) => {
-    console.log(
-      nameUz,
-      nameRu,
-      nameEn,
-      categoryId,
-      companyId,
-      descriptionEn,
-      descriptionRu,
-      descriptionUz,
-      countryCode,
-      currency,
-      longitude,
-      latitude,
-      upTo2,
-      upTo6,
-      upTo10,
-      upTo20,
-      attributes,
-    );
-
     createLetsTripTour({
       callback() {
         addNotification('successfully added tour');
