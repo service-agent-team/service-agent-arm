@@ -1,11 +1,12 @@
 import { SearchOutlined, EyeOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space } from 'antd';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
 import { dateParser } from '@/common/utils/format';
+import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -23,7 +24,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<any> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripTransfer> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -101,7 +102,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<ILetsTripTransfer> = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -111,32 +112,66 @@ export const utils = () => {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Tour name',
+      title: 'TransferName',
       dataIndex: 'name',
       key: 'name',
       width: '20%',
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'User Id',
-      dataIndex: 'userId',
-      key: 'userId',
+      title: 'category',
+      dataIndex: 'category',
+      key: 'category',
       width: '20%',
-      ...getColumnSearchProps('userId'),
+      render: (value) => value.name,
     },
     {
-      title: 'Service Order Id',
-      dataIndex: 'serviceOrderId',
-      key: 'serviceOrderId',
+      title: 'company',
+      dataIndex: 'company',
+      key: 'company',
       width: '20%',
-      ...getColumnSearchProps('serviceOrderId'),
+      render: (value) => value.name,
     },
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
+      title: 'description',
+      dataIndex: 'description',
+      key: 'description',
       width: '20%',
-      ...getColumnSearchProps('price'),
+    },
+    {
+      title: 'startingPrice',
+      dataIndex: 'startingPrice',
+      key: 'startingPrice',
+      width: '20%',
+      render: (value, parent) =>
+        value && (parent.currency === 'USD' ? `${value} $` : `${value} uzs`),
+    },
+    {
+      title: 'sellingPrice',
+      dataIndex: 'sellingPrice',
+      key: 'sellingPrice',
+      width: '20%',
+      render: (value, parent) =>
+        value && (parent.currency === 'USD' ? `${value} $` : `${value} uzs`),
+    },
+    {
+      title: 'currency',
+      dataIndex: 'currency',
+      key: 'currency',
+      width: '20%',
+    },
+    {
+      title: 'countryCode',
+      dataIndex: 'countryCode',
+      key: 'countryCode',
+      width: '20%',
+      render: (value) => <Tag color="success">{value}</Tag>,
+    },
+    {
+      title: 'hourly',
+      dataIndex: 'hourly',
+      key: 'hourly',
+      width: '20%',
     },
     {
       title: 'View',

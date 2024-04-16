@@ -187,6 +187,11 @@ export const EndPointes = {
     create: '/products/tour',
   },
 
+  letsTripTransfer: {
+    getAll: '/products/transfers',
+    create: '/products/transfers',
+  },
+
   category: {
     getAll: 'category/get-all',
   },
