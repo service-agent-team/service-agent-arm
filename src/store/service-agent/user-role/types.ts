@@ -23,11 +23,6 @@ export interface IAgentUserRoles {
   roleId: number;
 }
 
-export interface IAgentUserRolesGetResponse {
-  message: string;
-  data: IAgentUserRoles[];
-}
-
 export interface IAgentUserRolesGetOneResponse {
   message: string;
   data: IAgentUserRoles;

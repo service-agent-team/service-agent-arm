@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { IUserPermission } from '@/store/global/user-permission/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
