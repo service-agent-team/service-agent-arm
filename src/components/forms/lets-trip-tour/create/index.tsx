@@ -1,12 +1,11 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
-import { Button, Flex, Form, Input, Select, Space, Typography, Upload } from 'antd';
+import { Button, Flex, Input, Select, Space, Typography, Upload } from 'antd';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from '../types';
 import * as S from './styled';
-import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 

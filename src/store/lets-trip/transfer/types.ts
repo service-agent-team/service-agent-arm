@@ -63,12 +63,8 @@ export interface ILetsTripTransferCreatePayload {
   mediaLinks: string[];
   currency: string;
   releaseDate: string;
-  attributes: Attributes;
+  attributes: any;
   countryCode: string;
-}
-
-export interface Attributes {
-  any: any;
 }
 
 export interface Category {
