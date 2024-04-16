@@ -1,11 +1,9 @@
-import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
-import { ROUTES } from '@/constants';
-import { Button, DatePicker, Flex, Input, Select, Space, Typography, Upload } from 'antd';
+import { Button, Flex, Input, Select, Space, Typography, Upload } from 'antd';
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { IValuesForm } from '../types';
+// import { useNavigate } from 'react-router-dom';
+// import { IValuesForm } from '../types';
 import * as S from './styled';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { CustomDatePicker } from '@/components/common/date-picker';
@@ -14,21 +12,10 @@ export const LestTripTransferCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { companies } = useTypedSelector((state) => state.company);
   const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
-  const { getCompany, createLetsTripTransfer, getAllCategory } = useActions();
-  const navigate = useNavigate();
+  const { getCompany, getAllCategory } = useActions();
+  // const navigate = useNavigate();
 
-  const onFinish = ({
-    name,
-    categoryId,
-    companyId,
-    hourly,
-    transfer,
-    mediaLinks,
-    currency,
-    releaseDate,
-    attributes,
-    countryCode,
-  }: IValuesForm) => {
+  const onFinish = () => {
     // createLetsTripTransfer({
     //   callback() {
     //     addNotification('successfully added transfer');

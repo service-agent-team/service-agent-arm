@@ -2,11 +2,12 @@ import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
 import { ROUTES } from '@/constants';
-import { Flex, Input, Select, Typography, Upload } from 'antd';
+import { Button, Flex, Input, Select, Space, Typography, Upload } from 'antd';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from '../types';
 import * as S from './styled';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -52,7 +53,7 @@ export const LestTripTourCreateForm: React.FC = () => {
       countryCode,
       longitude,
       latitude,
-      attributes,
+      attributes: { ...attributes },
     });
   };
 
@@ -73,6 +74,11 @@ export const LestTripTourCreateForm: React.FC = () => {
       label: 'USD',
       value: 'USD',
     },
+  ];
+  const selectCountryCode = [
+    { label: 'AE', value: 'AE' },
+    { label: 'UZ', value: 'UZ' },
+    { label: 'TR', value: 'TR' },
   ];
 
   useEffect(() => {
@@ -192,15 +198,9 @@ export const LestTripTourCreateForm: React.FC = () => {
             style={{ width: '100%' }}
             name="countryCode"
             label={'country code'}
-            rules={[
-              { required: true, message: 'countryCode is required?' },
-              {
-                type: 'string',
-                message: 'Enter countryCode ?',
-              },
-            ]}
+            rules={[{ required: true, message: 'countryCode is required?' }]}
           >
-            <Input name="countryCode" type="string" placeholder="Enter a country code ? : UZ" />
+            <Select placeholder="Select country code ?" options={selectCountryCode} />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
@@ -306,21 +306,45 @@ export const LestTripTourCreateForm: React.FC = () => {
         <BaseForm.Item
           name="pictures"
           label={'pictures'}
-          rules={[
-            { required: true, message: 'pictures is required?' },
-            {
-              type: 'object',
-              message: 'Enter pictures ?',
-            },
-          ]}
+          rules={[{ required: true, message: 'pictures is required?', type: 'object' }]}
         >
-          <Upload.Dragger name="pictures" multiple={true} /*action={`${BASE_URL}/file`} */>
+          <Upload.Dragger name="pictures" multiple={true}>
             <Flex align="center" wrap="wrap" justify="center">
               <Typography.Text>Click or drag file to this area to upload</Typography.Text>
               <Icon fontSize="20" color="blue" name="InboxOutlined" />
             </Flex>
           </Upload.Dragger>
         </BaseForm.Item>
+        <BaseForm.List name="attributes">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name, ...restField }) => (
+                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                  <BaseForm.Item
+                    {...restField}
+                    name={[name, 'key']}
+                    rules={[{ required: true, message: 'Missing key' }]}
+                  >
+                    <Input placeholder={`Additional property key ${key + 1}`} />
+                  </BaseForm.Item>
+                  <BaseForm.Item
+                    {...restField}
+                    name={[name, 'value']}
+                    rules={[{ required: true, message: 'Missing value' }]}
+                  >
+                    <Input placeholder={`Additional property value ${key + 1}`} />
+                  </BaseForm.Item>
+                  <MinusCircleOutlined onClick={() => remove(name)} />
+                </Space>
+              ))}
+              <BaseForm.Item>
+                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                  Add field
+                </Button>
+              </BaseForm.Item>
+            </>
+          )}
+        </BaseForm.List>
         <PrimaryBtn htmlType="submit" loading={loading.post}>
           create
         </PrimaryBtn>
