@@ -1,3 +1,5 @@
+import { UploadChangeParam } from 'antd/es/upload';
+
 export interface ILetsTripTourInitialState {
   loading: {
     get: boolean;
@@ -25,7 +27,7 @@ export interface ILetsTripTour {
   upTo20: number;
   pictures: string[];
   currency: string;
-  attributes: Attributes;
+  attributes: any;
   countryCode: string;
   departures: any[];
   itenararyLocalization?: ItenararyLocalization;
@@ -75,12 +77,12 @@ export interface ILetsTripTourCreatePayload {
   upTo6: number;
   upTo10: number;
   upTo20: number;
-  pictures: any[];
+  pictures: string[];
   currency: CurrencyType;
   countryCode: CountyCodeType;
   longitude: number;
   latitude: number;
-  attributes?: Attributes;
+  attributes?: any[];
 }
 
 export enum CurrencyType {
@@ -141,27 +143,11 @@ export interface Attributes2 {
 }
 
 export interface En {
-  attributes: Attributes3;
-}
-
-export interface Attributes3 {
-  '08:00': string;
-  '10:30': string;
-  '14:00': string;
-  '13:00': string;
-  '07:00': string;
+  attributes: Attributes2;
 }
 
 export interface Ru {
-  attributes: Attributes4;
-}
-
-export interface Attributes4 {
-  '08:00': string;
-  '10:30': string;
-  '14:00': string;
-  '13:00': string;
-  '07:00': string;
+  attributes: Attributes2;
 }
 
 export interface Pageable {

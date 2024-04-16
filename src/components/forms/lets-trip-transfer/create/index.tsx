@@ -1,60 +1,46 @@
-import { addNotification } from '@/common';
-import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
-import { Button, Flex, Form, Input, Select, Space, Typography, Upload } from 'antd';
+import { Flex, Input, Select, Typography, Upload } from 'antd';
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { IValuesForm } from '../types';
 import * as S from './styled';
+import { IValuesForm } from '../types';
+import { useActions, useTypedSelector } from '@/common/hooks';
+import { useNavigate } from 'react-router-dom';
 import { addNotification } from '@/common';
-import { ROUTES } from '@/constants';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+// import { ROUTES } from '@/constants';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { companies } = useTypedSelector((state) => state.company);
   const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
-  const { getCompany, createLetsTripTour, getAllCategory } = useActions();
-  const navigate = useNavigate();
+  const { getCompany, createLetsTripTransfer, getAllCategory } = useActions();
+  // const navigate = useNavigate();
 
   const onFinish = ({
-    nameUz,
-    nameRu,
-    nameEn,
+    name,
     categoryId,
     companyId,
-    descriptionEn,
-    descriptionRu,
-    descriptionUz,
-    countryCode,
+    hourly,
+    transfer,
+    mediaLinks,
     currency,
-    longitude,
-    latitude,
-    upTo2,
-    upTo6,
-    upTo10,
-    upTo20,
+    releaseDate,
     attributes,
+    countryCode,
   }: IValuesForm) => {
-    createLetsTripTour({
+    createLetsTripTransfer({
       callback() {
-        addNotification('successfully added tour');
-        navigate(ROUTES.letsTripTour);
+        addNotification('successfully create transfer');
       },
-      names: { uz: nameEn, en: nameUz, ru: nameRu },
+      name,
       categoryId,
       companyId,
-      descriptions: { uz: descriptionEn, en: descriptionUz, ru: descriptionRu },
-      upTo2,
-      upTo6,
-      upTo10,
-      upTo20,
-      pictures: ['image.jpg', 'image.png'],
+      hourly,
+      transfer,
+      mediaLinks,
       currency,
+      releaseDate,
+      attributes,
       countryCode,
-      longitude,
-      latitude,
-      attributes: { ...attributes },
     });
   };
 
@@ -84,57 +70,27 @@ export const LestTripTourCreateForm: React.FC = () => {
 
   return (
     <BaseForm
-      name="letsTripTourCreateForm"
+      name="letsTripTransferCreateForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={() => {}}
     >
       <S.FormContent>
-        <Flex gap={'15px'}>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="nameUz"
-            label={'name uz'}
-            rules={[
-              { required: true, message: 'name uz is required?' },
-              {
-                type: 'string',
-                message: 'Enter name uz name ?',
-              },
-            ]}
-          >
-            <Input name="nameUz" type="string" placeholder="Enter a uz name ?" />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="nameEn"
-            label={'name en'}
-            rules={[
-              { required: true, message: 'name en is required?' },
-              {
-                type: 'string',
-                message: 'Enter en name ?',
-              },
-            ]}
-          >
-            <Input name="nameEn" type="string" placeholder="Enter a en name ?" />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="nameRu"
-            label={'name ru'}
-            rules={[
-              { required: true, message: 'name ru is required?' },
-              {
-                type: 'string',
-                message: 'Enter ru name ?',
-              },
-            ]}
-          >
-            <Input name="nameRu" type="string" placeholder="Enter a ru name ? " />
-          </BaseForm.Item>
-        </Flex>
+        <BaseForm.Item
+          style={{ width: '100%' }}
+          name="name"
+          label={'name'}
+          rules={[
+            { required: true, message: 'name is required?' },
+            {
+              type: 'string',
+              message: 'Enter name ?',
+            },
+          ]}
+        >
+          <Input name="name" type="string" placeholder="Enter a name ?" />
+        </BaseForm.Item>
         <Flex gap={'15px'}>
           <BaseForm.Item
             name="categoryId"
@@ -318,36 +274,11 @@ export const LestTripTourCreateForm: React.FC = () => {
         >
           <Upload.Dragger name="pictures" multiple={true} /*action={`${BASE_URL}/file`} */>
             <Flex align="center" wrap="wrap" justify="center">
-              <Typography.Text>
-                Click or drag file to this area to upload{' '}
-                <Icon fontSize="20" color="blue" name="InboxOutlined" />
-              </Typography.Text>
+              <Typography.Text>Click or drag file to this area to upload</Typography.Text>
+              <Icon fontSize="20" color="blue" name="InboxOutlined" />
             </Flex>
           </Upload.Dragger>
         </BaseForm.Item>
-        <BaseForm.List name="attributes">
-          {(fields, { add, remove }) => (
-            <>
-              {fields.map(({ key, name, ...restField }) => (
-                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                  <BaseForm.Item
-                    {...restField}
-                    name={[name, 'key']}
-                    rules={[{ required: true, message: 'Missing property' }]}
-                  >
-                    <Input placeholder={`Additional property ${key}`} />
-                  </BaseForm.Item>
-                  <MinusCircleOutlined width={'100%'} onClick={() => remove(name)} />
-                </Space>
-              ))}
-              <BaseForm.Item>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                  Add field
-                </Button>
-              </BaseForm.Item>
-            </>
-          )}
-        </BaseForm.List>
         <PrimaryBtn htmlType="submit" loading={loading.post}>
           create
         </PrimaryBtn>
