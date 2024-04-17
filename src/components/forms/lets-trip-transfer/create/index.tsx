@@ -1,6 +1,6 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
-import { Button, Flex, Input, Select, Space, Typography, Upload } from 'antd';
+import { Button, DatePicker, Flex, Input, Select, Space, Typography, Upload } from 'antd';
 import React, { useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import { IValuesForm } from '../types';
@@ -18,7 +18,7 @@ export const LestTripTransferCreateForm: React.FC = () => {
   const onFinish = () => {
     // createLetsTripTransfer({
     //   callback() {
-    //     addNotification('successfully added transfer');
+    //     addNotification('successfully added transfer');z
     //     navigate(ROUTES.letsTripTransfer);
     //   },
     //   name,
@@ -85,7 +85,14 @@ export const LestTripTransferCreateForm: React.FC = () => {
             style={{ width: '100%' }}
             name="releaseDate"
             label={'release date'}
-            rules={[{ required: true, message: 'releaseDate is required?', type: 'number' }]}
+            rules={[
+              {
+                required: false,
+                message: 'releaseDate is required?',
+                whitespace: true,
+                type: 'object',
+              },
+            ]}
           >
             <S.Block>
               <CustomDatePicker />

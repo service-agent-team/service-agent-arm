@@ -21,3 +21,31 @@ export interface IValuesForm {
   latitude: number;
   attributes?: Attributes;
 }
+
+export interface IFileResponse {
+  groupId: string;
+  mediaList: IMediaList[];
+  directory: Directory2;
+  size: number;
+}
+export interface IMediaList {
+  id: number;
+  originalName: string;
+  contentType: string;
+  extension: string;
+  size: number;
+  directory: Directory;
+  type: string;
+}
+
+export interface Directory {
+  directoryId: string;
+  name: string;
+  createdAt: string;
+}
+
+export interface Directory2 {
+  directoryId: string;
+  name: string;
+  createdAt: string;
+}

@@ -1,13 +1,14 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
-import { ROUTES } from '@/constants';
-import { Button, Flex, Input, Select, Space, Typography, Upload } from 'antd';
-import React, { useEffect } from 'react';
+import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
+import { Button, Flex, Image, Input, Select, Space, Upload } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IValuesForm } from '../types';
+import { IMediaList, IValuesForm } from '../types';
 import * as S from './styled';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import type { GetProp, UploadFile, UploadProps } from 'antd';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -15,6 +16,9 @@ export const LestTripTourCreateForm: React.FC = () => {
   const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
   const { getCompany, createLetsTripTour, getAllCategory } = useActions();
   const navigate = useNavigate();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const onFinish = ({
     nameUz,
@@ -34,6 +38,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     upTo10,
     upTo20,
     attributes,
+    pictures,
   }: IValuesForm) => {
     createLetsTripTour({
       callback() {
@@ -48,7 +53,11 @@ export const LestTripTourCreateForm: React.FC = () => {
       upTo6,
       upTo10,
       upTo20,
-      pictures: ['image1.png', 'image2.png'],
+      pictures: pictures.fileList
+        .map((item: UploadFile) =>
+          item?.response?.mediaList?.map((file: IMediaList) => `${FILE_URL}/${file.id}`),
+        )
+        .flat(Infinity),
       currency,
       countryCode,
       longitude,
@@ -80,6 +89,28 @@ export const LestTripTourCreateForm: React.FC = () => {
     { label: 'UZ', value: 'UZ' },
     { label: 'TR', value: 'TR' },
   ];
+
+  type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
+  const getBase64 = (file: FileType): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as FileType);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+  };
 
   useEffect(() => {
     getCompany({ page: 0, size: 20 });
@@ -308,11 +339,29 @@ export const LestTripTourCreateForm: React.FC = () => {
           label={'pictures'}
           rules={[{ required: true, message: 'pictures is required?', type: 'object' }]}
         >
-          <Upload.Dragger name="pictures" multiple={true}>
-            <Flex align="center" wrap="wrap" justify="center">
-              <Typography.Text>Click or drag file to this area to upload</Typography.Text>
-              <Icon fontSize="20" color="blue" name="InboxOutlined" />
-            </Flex>
+          <Upload.Dragger
+            style={{ width: '100%' }}
+            name="files"
+            multiple={true}
+            fileList={fileList}
+            onChange={handleChange}
+            onPreview={handlePreview}
+            action={`${BASE_URL}/file`}
+          >
+            <Icon fontSize="20" color="blue" name="InboxOutlined" />
+            <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+            {previewImage && (
+              <Image
+                height={100}
+                wrapperStyle={{ display: 'none' }}
+                preview={{
+                  visible: previewOpen,
+                  onVisibleChange: (visible) => setPreviewOpen(visible),
+                  afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                }}
+                src={previewImage}
+              />
+            )}
           </Upload.Dragger>
         </BaseForm.Item>
         <BaseForm.List name="attributes">
