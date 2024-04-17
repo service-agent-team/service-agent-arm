@@ -2,13 +2,13 @@ import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
 import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
-import { Button, Flex, Image, Input, Select, Space, Upload } from 'antd';
+import { Button, Flex, GetProp, Image, Input, Select, Space, Upload, UploadProps } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IMediaList, IValuesForm } from '../types';
 import * as S from './styled';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import type { GetProp, UploadFile, UploadProps } from 'antd';
+import { UploadFile } from 'antd/lib';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
