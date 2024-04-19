@@ -112,38 +112,71 @@ export const utils = () => {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Transfer name',
+      title: 'TransferName',
       dataIndex: 'name',
       key: 'name',
       width: '20%',
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'Category',
+      title: 'category',
       dataIndex: 'category',
       key: 'category',
       width: '20%',
-      render: (item) => <Tag color="success">{item.name.toUpperCase()}</Tag>,
+      render: (value) => value.name,
     },
     {
-      title: 'Company',
+      title: 'company',
       dataIndex: 'company',
       key: 'company',
       width: '20%',
-      render: (item) => <Tag color="success">{item.name.toUpperCase()}</Tag>,
+      render: (value) => value.name,
     },
     {
-      title: 'Country Code',
+      title: 'description',
+      dataIndex: 'description',
+      key: 'description',
+      width: '20%',
+    },
+    {
+      title: 'startingPrice',
+      dataIndex: 'startingPrice',
+      key: 'startingPrice',
+      width: '20%',
+      render: (value, parent) =>
+        value && (parent.currency === 'USD' ? `${value} $` : `${value} uzs`),
+    },
+    {
+      title: 'sellingPrice',
+      dataIndex: 'sellingPrice',
+      key: 'sellingPrice',
+      width: '20%',
+      render: (value, parent) =>
+        value && (parent.currency === 'USD' ? `${value} $` : `${value} uzs`),
+    },
+    {
+      title: 'currency',
+      dataIndex: 'currency',
+      key: 'currency',
+      width: '20%',
+    },
+    {
+      title: 'countryCode',
       dataIndex: 'countryCode',
       key: 'countryCode',
-      width: '5%',
-      render: (countryCode) => <Tag color="success">{countryCode}</Tag>,
+      width: '20%',
+      render: (value) => <Tag color="success">{value}</Tag>,
+    },
+    {
+      title: 'hourly',
+      dataIndex: 'hourly',
+      key: 'hourly',
+      width: '20%',
     },
     {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
-      width: '5%',
       render: (_: number) => {
         return (
           <LinkButton path={`#`}>

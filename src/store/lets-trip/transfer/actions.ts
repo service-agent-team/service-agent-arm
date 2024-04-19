@@ -1,20 +1,20 @@
+import { errorCatch } from '@/common';
+import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  ILetsTripTransferResponse,
-  ILetsTripTransferPayload,
   ILetsTripTransferCreatePayload,
   ILetsTripTransferCreateResponse,
+  ILetsTripTransferPayload,
+  ILetsTripTransferResponse,
 } from './types';
-import { EndPointes } from '@/services/endpoints';
-import { LetsTripTransferService } from '@/services/lets-trip-transfer';
-import { errorCatch } from '@/common';
+import { LetsTripTransferService } from '@/services';
 
 export const getAllLetsTripTransfer = createAsyncThunk<
   ILetsTripTransferResponse,
   ILetsTripTransferPayload
 >(EndPointes.letsTripTransfer.getAll, async ({ callback }, thunkApi) => {
   try {
-    const response = await LetsTripTransferService.getAllTour();
+    const response = await LetsTripTransferService.getAllTransfer();
     if (response.data) {
       callback();
     }

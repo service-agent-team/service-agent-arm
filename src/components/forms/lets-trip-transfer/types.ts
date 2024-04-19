@@ -1,5 +1,3 @@
-import { Attributes } from '@/store/lets-trip/transfer/types';
-
 export interface IValuesForm {
   name: string;
   categoryId: number;
@@ -9,6 +7,6 @@ export interface IValuesForm {
   mediaLinks: string[];
   currency: string;
   releaseDate: string;
-  attributes: Attributes;
+  attributes: any;
   countryCode: string;
 }

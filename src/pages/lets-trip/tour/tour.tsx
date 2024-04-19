@@ -1,6 +1,6 @@
 import { PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
-import { LetsTripTourTable } from '@/components/tables';
+import { LetsTripTourTable } from '@/components';
 import { ROUTES } from '@/constants';
 
 export const LetsTripTour = () => {

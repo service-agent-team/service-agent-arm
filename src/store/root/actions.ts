@@ -50,7 +50,7 @@ import * as AgentProjectActions from '../service-agent/project/actions';
 import { AgentProjectSliceActions } from '../service-agent/project/slice';
 import * as LetsTripTourActions from '../lets-trip/tour/actions';
 import { LetsTripTourSliceActions } from '../lets-trip/tour/slice';
-import * as LetsTripTransferActions from '../lets-trip/transfer/actions';
+import * as LetsTripTransferReduce from '../lets-trip/transfer/actions';
 import { LetsTripTransferSliceActions } from '../lets-trip/transfer/slice';
 
 export const AllActions = {
@@ -107,6 +107,6 @@ export const AllActions = {
   ...AgentProjectSliceActions,
   ...LetsTripTourActions,
   ...LetsTripTourSliceActions,
-  ...LetsTripTransferActions,
+  ...LetsTripTransferReduce,
   ...LetsTripTransferSliceActions,
 };

@@ -68,3 +68,10 @@ export const DetailsValue = styled.div`
   font-size: ${FONT_SIZE.md};
   font-weight: ${FONT_WEIGHT.semibold};
 `;
+
+export const Block = styled.div`
+  width: 100%;
+  & div {
+    width: 100%;
+  }
+`;

@@ -15,18 +15,20 @@ export interface ILetsTripTransfer {
   name: string;
   category: Category;
   company: Company;
-  description: string;
-  startingPrice: number;
-  sellingPrice: number;
-  pictures: any[];
+  description?: string;
+  startingPrice?: number;
+  sellingPrice?: number;
+  pictures: string[];
   currency: string;
   attributes: Attributes;
-  countryCode: string;
+  countryCode: CountryCodes;
   departures: any[];
   releaseDate: string;
   createdAt: string;
   updatedAt: string;
   deleted: boolean;
+  hourly?: number;
+  transfer?: number;
 }
 
 export interface ILetsTripTransferResponse {
@@ -43,13 +45,9 @@ export interface ILetsTripTransferResponse {
   empty: boolean;
 }
 
-export interface ILetsTripTransferPayload {
-  callback(): void;
-}
-
 export interface ILetsTripTransferCreateResponse extends ILetsTripTransfer {}
 
-export interface ILetsTripPayload {
+export interface ILetsTripTransferPayload {
   callback(): void;
 }
 
@@ -80,9 +78,13 @@ export interface Company {
 }
 
 export interface Attributes {
-  numberOfSeats: string;
-  carName: string;
-  numberOfbuggage: string;
+  numberOfSeats?: string;
+  carName?: string;
+  numberOfbuggage?: string;
+  transferId?: string;
+  carColor?: string;
+  carModel?: string;
+  carBaggage?: string;
 }
 
 export interface Pageable {
@@ -92,4 +94,10 @@ export interface Pageable {
   offset: number;
   paged: boolean;
   unpaged: boolean;
+}
+
+export enum CountryCodes {
+  AE = 'AE',
+  UZ = 'UZ',
+  TR = 'TR',
 }

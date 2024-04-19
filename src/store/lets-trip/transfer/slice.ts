@@ -9,8 +9,8 @@ const initialState: ILetsTripTransferInitialState = {
     patch: false,
     delete: false,
   },
-  transfer: null,
   transfers: null,
+  transfer: null,
   errors: null,
 };
 

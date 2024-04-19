@@ -12,7 +12,7 @@ import { ROUTES } from '@/constants';
 
 export const SignIn = () => {
   const { SignIn } = useActions();
-  const login = { email: 'mke@gmail.com', password: '1234567a' };
+  const login = { email: '', password: '' };
   const navigate = useNavigate();
 
   const handleFinish = async (values: IValues) => {

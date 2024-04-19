@@ -11,7 +11,7 @@ export const ProjectsPage = () => {
   useEffect(() => {
     getMe({
       callback: () => {
-        addNotification('Successfuliy!');
+        addNotification('Successfully logged!');
       },
     });
   }, []);

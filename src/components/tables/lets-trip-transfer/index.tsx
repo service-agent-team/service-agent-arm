@@ -3,19 +3,17 @@ import { utils } from './utils';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common';
-import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
 
 export const LetsTripTransferTable = () => {
   const { getAllLetsTripTransfer } = useActions();
   const {
-    loading: { get },
     transfers,
+    loading: { get },
   } = useTypedSelector((state) => state.letsTripTransfer);
-
   useEffect(() => {
     getAllLetsTripTransfer({
       callback() {
-        addNotification('successfully get all transfer');
+        addNotification('successfully get all transfers');
       },
     });
   }, []);
@@ -23,7 +21,7 @@ export const LetsTripTransferTable = () => {
   return (
     <Table
       columns={utils()}
-      dataSource={transfers ? (transfers as ILetsTripTransfer[]) : []}
+      dataSource={transfers ? (transfers as any[]) : []}
       loading={get}
       bordered
     />

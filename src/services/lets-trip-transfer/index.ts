@@ -2,7 +2,7 @@ import { $axios } from '@/common/config';
 import { EndPointes } from '../endpoints';
 
 export const LetsTripTransferService = {
-  async getAllTour() {
+  async getAllTransfer() {
     const response = await $axios.get(`${EndPointes.letsTripTransfer.getAll}?page=0&size=10`);
     return response;
   },

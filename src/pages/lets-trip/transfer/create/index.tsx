@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components';
 import * as S from './styled';
 import { ROUTES } from '@/constants';
-import { LestTripTourCreateForm } from '@/components/forms';
+import { LestTripTransferCreateForm } from '@/components';
 
 export const LetsTripTransferCreate = () => {
   return (
@@ -9,10 +9,10 @@ export const LetsTripTransferCreate = () => {
       <PageTitle
         title="Create Transfer"
         icon="ArrowLeftOutlined"
-        route={ROUTES.letsTripTransfer}
+        route={ROUTES.letsTripTransferCreate}
         label="Back"
       />
-      <LestTripTourCreateForm />
+      <LestTripTransferCreateForm />
     </S.ViewStyled>
   );
 };
