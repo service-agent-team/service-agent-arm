@@ -77,6 +77,7 @@ export const ROUTES = {
   letTripLuggage: '/lets-trip/luggage',
   letsTripTour: '/lets-trip/tour',
   letsTripTourCreate: '/lets-trip/tour/create',
+  letsTripTourEdit: '/lets-trip/tour/edit/:id',
   letsTripTourView: '/lets-trip/tour/view/:id',
   letsTripTransfer: '/lets-trip/transfer',
   letsTripTransferCreate: '/lets-trip/transfer/create',

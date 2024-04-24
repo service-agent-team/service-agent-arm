@@ -8,6 +8,7 @@ import {
   LetsTripTransferPage,
   LetsTripEsimGoPage,
   LetsTripTransferCreatePage,
+  LetsTripTourEditPage,
 } from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
@@ -50,6 +51,14 @@ export const letsTrip = [
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripTourCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripTourEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripTourEditPage />
       </Suspense>
     ),
   },

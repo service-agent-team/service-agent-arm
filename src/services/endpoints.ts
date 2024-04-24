@@ -184,7 +184,9 @@ export const EndPointes = {
 
   letsTripTour: {
     getAll: '/products/tours',
+    getOne: '/products/tour',
     create: '/products/tour',
+    delete: '/products/tour',
   },
 
   letsTripTransfer: {

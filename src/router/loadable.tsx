@@ -65,6 +65,7 @@ export const LetsTripLuggagePage = getLoadablePage('LetsTripLuggage');
 export const LetsTripOrderPage = getLoadablePage('LetsTripOrder');
 export const LetsTripTourPage = getLoadablePage('LetsTripTour');
 export const LetsTripTourCreatePage = getLoadablePage('LetsTripTourCreate');
+export const LetsTripTourEditPage = getLoadablePage('LetsTripTourEdit');
 export const LetsTripTransferPage = getLoadablePage('LetsTripTransfer');
 export const LetsTripTransferCreatePage = getLoadablePage('LetsTripTransferCreate');
 export const LetsTripEsimGoPage = getLoadablePage('LetsTripEsimGo');

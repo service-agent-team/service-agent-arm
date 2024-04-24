@@ -1,4 +1,4 @@
-import { SearchOutlined, EyeOutlined } from '@ant-design/icons';
+import { SearchOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
@@ -6,16 +6,38 @@ import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
 import { dateParser } from '@/common/utils/format';
+import { modal } from '@/components';
+import { useActions } from '@/common/hooks';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const { getOneLetsTripTour } = useActions();
+  const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
+  };
+
+  const handleDelete = (record: any) => {
+    modal.confirm({
+      okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
+      title: `You want to delete right ?`,
+      onOk: () => {
+        //   deleteAgentProject({
+        //     callback() {
+        //       addNotification('project successfully deleted');
+        //     },
+        //     id: record.id,
+        //   });
+        //   if (errors) addNotification(errors);
+      },
+    });
   };
 
   const handleReset = (clearFilters: () => void) => {
@@ -135,7 +157,16 @@ export const utils = () => {
       title: 'Currency',
       dataIndex: 'currency',
       key: 'currency',
+      width: '5%',
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
       width: '20%',
+      render: (date) => {
+        return dateParser(date);
+      },
     },
     {
       title: 'View',
@@ -150,12 +181,31 @@ export const utils = () => {
       },
     },
     {
-      title: 'Created At',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      width: '20%',
-      render: (date) => {
-        return dateParser(date);
+      title: 'Actions',
+      dataIndex: 'action',
+      key: 'action',
+      width: '10%',
+      render: (_: any, record: any) => {
+        return (
+          <Space>
+            <Button
+              key={1}
+              onClick={() =>
+                getOneLetsTripTour({
+                  callback() {
+                    navigate(`${ROUTES.letsTripTour}/edit/${record.id}`);
+                  },
+                  id: record.id,
+                })
+              }
+            >
+              <EditOutlined />
+            </Button>
+            <Button key={2} onClick={() => handleDelete(record)}>
+              <DeleteOutlined />
+            </Button>
+          </Space>
+        );
       },
     },
   ];

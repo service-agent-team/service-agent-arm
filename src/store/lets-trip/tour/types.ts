@@ -50,6 +50,8 @@ export interface ILetsTripTourResponse {
   empty: boolean;
 }
 
+export interface IGetOneLetsTripTourResponse extends ILetsTripTour {}
+
 export interface ICategoryResponse {
   success: boolean;
   status: number;
@@ -63,6 +65,10 @@ export interface ILetsTripTourCreateResponse extends ILetsTripTour {}
 
 export interface ILetsTripPayload {
   callback(): void;
+}
+
+export interface ILetsTripTourGetOnePayload extends ILetsTripPayload {
+  id: string;
 }
 
 export interface ILetsTripTourCreatePayload {

@@ -6,12 +6,20 @@ export const LetsTripTourService = {
     const response = await $axios.get(`${EndPointes.letsTripTour.getAll}?page=0&size=10&lang=UZ`);
     return response;
   },
+  async getOneTour(id: string) {
+    const response = await $axios.get(`${EndPointes.letsTripTour.getOne}/${id}`);
+    return response;
+  },
   async getAllCategory() {
     const response = await $axios.get(`${EndPointes.category.getAll}?page=0&size=10`);
     return response;
   },
   async create(body: any) {
     const response = await $axios.post(EndPointes.letsTripTour.create, body);
+    return response;
+  },
+  async delete(id: string) {
+    const response = await $axios.delete(EndPointes.letsTripTour.delete + id);
     return response;
   },
 };

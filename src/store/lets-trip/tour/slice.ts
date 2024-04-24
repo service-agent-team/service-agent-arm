@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ILetsTripTourInitialState } from './types';
-import { createLetsTripTour, getAllCategory, getAllLetsTripTour } from './actions';
+import {
+  createLetsTripTour,
+  getAllCategory,
+  getAllLetsTripTour,
+  getOneLetsTripTour,
+} from './actions';
 
 const initialState: ILetsTripTourInitialState = {
   loading: {
@@ -31,6 +36,19 @@ export const letsTripTourSlice = createSlice({
         state.errors = null;
       })
       .addCase(getAllLetsTripTour.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getOneLetsTripTour.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneLetsTripTour.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.tour = payload;
+        state.errors = null;
+      })
+      .addCase(getOneLetsTripTour.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
