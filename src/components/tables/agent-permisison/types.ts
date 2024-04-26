@@ -1,3 +1,4 @@
+import { IAgentPermissionV2 } from '@/store/service-agent/permission/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
@@ -14,10 +15,11 @@ export interface Pagination {
   pageSize?: number;
   total?: number;
 }
+export interface AgentPermissionRowV2 extends IAgentPermissionV2 {}
 
-export type DataIndex = keyof AgentPermissionsRow;
+export type DataIndex = keyof AgentPermissionRowV2;
 
-export interface IhandleSearchProps {
+export interface IHandleSearchProps {
   selectedKeys: Key[];
   confirm: (param?: FilterConfirmProps) => void;
   dataIndex: DataIndex;

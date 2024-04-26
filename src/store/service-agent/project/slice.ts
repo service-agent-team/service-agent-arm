@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createAgentProjectByAgent, deleteAgentProject, getAllAgentProject } from './actions';
-import { IAgentProjectInitialState } from './types';
+import {
+  createAgentProjectByAgent,
+  deleteAgentProject,
+  editAgentProjectByAgent,
+  getAllAgentProject,
+  getOneAgentProject,
+} from './actions';
+import { IAgentProjectInitialState, IAgentProjectV2 } from './types';
 
 const initialState: IAgentProjectInitialState = {
   loading: {
@@ -10,13 +16,18 @@ const initialState: IAgentProjectInitialState = {
     put: false,
   },
   agentProjects: null,
+  agentProject: null,
   errors: null,
 };
 
 export const agentProjectSlice = createSlice({
   name: 'agentProject',
   initialState,
-  reducers: {},
+  reducers: {
+    setAgentProject: (state, { payload }: { payload: IAgentProjectV2[] }) => {
+      state.agentProjects = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllAgentProject.pending, (state) => {
@@ -24,19 +35,46 @@ export const agentProjectSlice = createSlice({
       })
       .addCase(getAllAgentProject.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.agentProjects = payload.data;
+        state.agentProjects = payload.data.content;
       })
       .addCase(getAllAgentProject.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getOneAgentProject.pending, (state) => {
+        state.loading.get = true;
+      })
+      .addCase(getOneAgentProject.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.agentProject = payload.data;
+      })
+      .addCase(getOneAgentProject.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
       .addCase(createAgentProjectByAgent.pending, (state) => {
         state.loading.post = true;
       })
-      .addCase(createAgentProjectByAgent.fulfilled, (state) => {
+      .addCase(createAgentProjectByAgent.fulfilled, (state, { payload }) => {
+        state.agentProjects?.push(payload.data);
         state.loading.post = false;
       })
       .addCase(createAgentProjectByAgent.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(editAgentProjectByAgent.pending, (state) => {
+        state.loading.post = true;
+      })
+      .addCase(editAgentProjectByAgent.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        const { data } = payload;
+        const findIndex = state.agentProjects?.findIndex((el) => el.projectId === data.projectId);
+        if (findIndex && state.agentProjects) {
+          state.agentProjects[findIndex] = data;
+        }
+      })
+      .addCase(editAgentProjectByAgent.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })

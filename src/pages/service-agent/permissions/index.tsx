@@ -1,5 +1,5 @@
 import { useActions } from '@/common/hooks';
-import { AgenetPermissionTable, PageTitle } from '@/components';
+import { AgentPermissionTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
 import { useEffect } from 'react';
 
@@ -19,7 +19,7 @@ export const PermissionPage = () => {
         route={ROUTES.agentPermissionCreate}
         label="Create"
       />
-      <AgenetPermissionTable />
+      <AgentPermissionTable />
     </div>
   );
 };

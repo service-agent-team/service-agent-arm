@@ -5,14 +5,14 @@ import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from '../users-form/styled';
 import { ICreateRolesValues } from './types';
+import { useEffect } from 'react';
 
 export const AgentRolesForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { createRoles, editRoles } = useActions();
+  const { createRoles, editRoles, getRolesById } = useActions();
   const navigate = useNavigate();
   const { id } = useParams();
-
-  const { loading } = useTypedSelector((state) => state.roles);
+  const { loading, oneRole } = useTypedSelector((state) => state.roles);
 
   const onFinish = (value: ICreateRolesValues) => {
     if (type === 'create') {
@@ -40,7 +40,20 @@ export const AgentRolesForm = ({ type }: { type: 'edit' | 'create' }) => {
 
   return (
     <>
-      <BaseForm name="usersForm" form={form} layout="vertical" onFinish={onFinish}>
+      <BaseForm
+        name="usersForm"
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        initialValues={
+          type === 'edit'
+            ? {
+                name: oneRole?.name,
+                description: oneRole?.description,
+              }
+            : {}
+        }
+      >
         <S.FormContent>
           <BaseForm.Item
             name="name"

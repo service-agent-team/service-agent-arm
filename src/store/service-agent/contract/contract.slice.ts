@@ -67,7 +67,7 @@ export const contractSlice = createSlice({
       })
       .addCase(getOneAgent.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.agent = payload;
+        state.agent = payload.data;
         state.error = null;
       })
       .addCase(getOneAgent.rejected, (state, { payload }) => {

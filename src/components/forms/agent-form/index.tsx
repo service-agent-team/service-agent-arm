@@ -2,8 +2,8 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
 import { ICompany } from '@/store/service-agent/company/types';
-import { IRoles } from '@/store/service-agent/roles/types';
-import { ITariffData } from '@/store/service-agent/tariff/types';
+import { IRolesV2 } from '@/store/service-agent/roles/types';
+import { IAgentTariff } from '@/store/service-agent/tariff/types';
 import { Flex, Select } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styles';
@@ -12,8 +12,8 @@ import { UserPermission } from '@/store/service-agent/contract/contract.interfac
 
 interface IProps {
   userId: number;
-  roles: IRoles[] | null;
-  categories: ITariffData[] | null;
+  roles: IRolesV2[] | null;
+  categories: IAgentTariff[] | null;
   companies: ICompany[] | null;
   contractStatus: string | undefined;
   userPermissions: UserPermission[] | undefined;

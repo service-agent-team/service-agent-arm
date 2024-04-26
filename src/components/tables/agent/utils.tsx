@@ -4,7 +4,7 @@ import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { items } from './constants';
-import { DataIndex, IhandleSearchProps, AgentTableRow } from './types';
+import { DataIndex, IHandleSearchProps, AgentTableRowV2 } from './types';
 import { LinkButton } from '@/components/common/buttons';
 import { Icon } from '@/components';
 
@@ -22,7 +22,7 @@ export const utils = () => {
     onClick: handleMenuClick,
   };
 
-  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
+  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
@@ -33,7 +33,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<AgentTableRow> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<AgentTableRowV2> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -111,7 +111,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<AgentTableRow> = [
+  const columns: ColumnsType<AgentTableRowV2> = [
     {
       title: 'Id',
       dataIndex: 'userId',
@@ -146,49 +146,49 @@ export const utils = () => {
       key: 'login',
       width: '20%',
     },
+    // {
+    //   title: 'Projects',
+    //   dataIndex: 'userPermissions',
+    //   key: 'userPermissions',
+    //   width: '20%',
+    //   render: (userPermissions) => (
+    //     <Row style={{ gap: '4px' }}>
+    //       {userPermissions.map((el: any) => {
+    //         return (
+    //           <Tag color={'success'} key={el.permission.name}>
+    //             {el.project.name.toUpperCase()}
+    //           </Tag>
+    //         );
+    //       })}
+    //     </Row>
+    //   ),
+    // },
+    // {
+    //   title: 'Agent role',
+    //   dataIndex: 'userRoles',
+    //   key: 'login',
+    //   width: '20%',
+    //   render: (userRoles) => (
+    //     <Row style={{ gap: '4px' }}>
+    //       {userRoles.map((el: any) => (
+    //         <Tag key={el.userRolesId} color={'success'}>
+    //           {el.role.name.toUpperCase()}
+    //         </Tag>
+    //       ))}
+    //     </Row>
+    //   ),
+    // },
     {
-      title: 'Projects',
-      dataIndex: 'userPermissions',
-      key: 'userPermissions',
+      title: 'Role Permissions',
+      dataIndex: 'rolePermissions',
+      key: 'rolePermissions',
       width: '20%',
-      render: (userPermissions) => (
+      render: (rolePermissions) => (
         <Row style={{ gap: '4px' }}>
-          {userPermissions.map((el: any) => {
+          {rolePermissions.map((el: any) => {
             return (
-              <Tag color={'success'} key={el.permission.name}>
-                {el.project.name.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </Row>
-      ),
-    },
-    {
-      title: 'Agent role',
-      dataIndex: 'userRoles',
-      key: 'login',
-      width: '20%',
-      render: (userRoles) => (
-        <Row style={{ gap: '4px' }}>
-          {userRoles.map((el: any) => (
-            <Tag key={el.userRolesId} color={'success'}>
-              {el.role.name.toUpperCase()}
-            </Tag>
-          ))}
-        </Row>
-      ),
-    },
-    {
-      title: 'User Permissions',
-      dataIndex: 'userPermissions',
-      key: 'userPermissions',
-      width: '20%',
-      render: (userPermissions) => (
-        <Row style={{ gap: '4px' }}>
-          {userPermissions.map((el: any) => {
-            return (
-              <Tag color={'success'} key={el.permission.name}>
-                {el.permission.name.toUpperCase()}
+              <Tag color={'success'} key={el.role.id}>
+                {el.role.name.toUpperCase()}
               </Tag>
             );
           })}

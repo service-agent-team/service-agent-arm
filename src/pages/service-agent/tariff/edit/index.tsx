@@ -3,16 +3,16 @@ import { PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
 
-export const AgentTariffCreate = () => {
+export const AgentTariffEdit = () => {
   return (
     <S.ViewStyled>
       <PageTitle
-        title="Create tariff"
+        title="Edit tariff"
         icon="ArrowLeftOutlined"
         route={ROUTES.agentTariff}
         label="Back"
       />
-      <AgentTariffCategoryForm type="create" />
+      <AgentTariffCategoryForm type="edit" />
     </S.ViewStyled>
   );
 };

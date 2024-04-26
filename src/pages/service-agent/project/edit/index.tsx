@@ -3,16 +3,16 @@ import * as S from './styled';
 import { ROUTES } from '@/constants';
 import { AgentProjectForm } from '@/components/';
 
-export const AgentProjectCreate = () => {
+export const AgentProjectEdit = () => {
   return (
     <S.ViewStyled>
       <PageTitle
-        title="Create agent project"
+        title="Update agent project"
         icon="ArrowLeftOutlined"
         route={ROUTES.agentProject}
         label="Back"
       />
-      <AgentProjectForm type="create" />
+      <AgentProjectForm type="edit" />
     </S.ViewStyled>
   );
 };

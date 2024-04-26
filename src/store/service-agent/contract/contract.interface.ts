@@ -1,6 +1,6 @@
 export interface InitialState {
-  data: IUserData[] | null;
-  agent: IUserData | null;
+  data: IUserDataV2[] | null;
+  agent: IUserDataV2 | null;
   status: string;
   loading: {
     get: boolean;
@@ -19,7 +19,7 @@ export interface IUserResponse {
   status: number;
   success: boolean;
   message: string;
-  data: IUserData[] | null;
+  data: IUserDataV2[] | null;
 }
 
 export interface IUserData {
@@ -57,6 +57,40 @@ export interface IUserData {
   contractStatusAt: string;
 }
 
+export interface IUserDataV2 {
+  userId: number;
+  login: string;
+  firstName?: string;
+  middleName: string;
+  lastName: string;
+  birthDate: string;
+  gender: string;
+  citizenship: string;
+  country: string;
+  city: string;
+  address: string;
+  photoURL: string[] | string;
+  userCurrentStatus: string;
+  isRegistrationMyId: boolean;
+  isRegistrationContract: boolean;
+  userContractId: number;
+  isContracted: boolean;
+  videoContentId: any;
+  signatureId: any;
+  contractStatus: any;
+  startDate: any;
+  finishDate: any;
+  userTariffPermissions: UserTariffPermission[];
+  userProjectPermissions: any[];
+  rolePermissions: RolePermission[];
+}
+
+export interface RolePermission {
+  id: number;
+  role: Role;
+  permissions: Permission[];
+}
+
 export interface UserTariffPermission {
   userTariffPermissionId: number;
   userTariff: UserTariff;
@@ -78,6 +112,11 @@ export interface Permission {
   updateDateTime: string;
 }
 
+export interface UserPermission {
+  userPermissionId: number;
+  project: Project;
+  permission: Permission2;
+}
 export interface UserPermission {
   userPermissionId: number;
   project: Project;
@@ -143,5 +182,5 @@ export interface IData {
 }
 
 export interface IOneAgentResponse extends AxiosResponse {
-  date: IUserData;
+  date: IUserDataV2;
 }

@@ -2,7 +2,7 @@ import { addKeyProp } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { Table } from '@/components';
-import { IUserData } from '@/store/service-agent/contract/contract.interface';
+import { IUserDataV2 } from '@/store/service-agent/contract/contract.interface';
 import { Flex, Segmented } from 'antd';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
@@ -20,7 +20,7 @@ export const AgentTable: React.FC = () => {
       addNotification(error);
     }
   }, [data]);
-  const generateUserData = addKeyProp<IUserData>(data as IUserData[]);
+  const generateUserData = addKeyProp<IUserDataV2>(data as IUserDataV2[]);
   const handleChange = (value: string) => {
     if (value === '1') {
       setContarctSatus('success');
@@ -45,6 +45,7 @@ export const AgentTable: React.FC = () => {
       label: 'Rad etilgan',
     },
   ];
+  console.log('its work');
 
   return (
     <Flex align="center" justify="center" wrap="wrap" gap={13}>
@@ -57,7 +58,7 @@ export const AgentTable: React.FC = () => {
       <Table
         style={{ width: '100%' }}
         columns={utils()}
-        dataSource={generateUserData ? (generateUserData as IUserData[]) : []}
+        dataSource={generateUserData ? (generateUserData as IUserDataV2[]) : []}
         loading={get}
         bordered
       />

@@ -31,6 +31,7 @@ export const AgentProducts = getLoadablePage('AgentProduct');
 export const AgentProductCreate = getLoadablePage('AgentProductCreate');
 export const AgentTariffs = getLoadablePage('AgentTariff');
 export const AgentTariffsCreate = getLoadablePage('AgentTariffCreate');
+export const AgentTariffsEdit = getLoadablePage('AgentTariffEdit');
 export const AgentRoles = getLoadablePage('AgentRoles');
 export const CreateAgentRole = getLoadablePage('CreateAgentRole');
 export const EditAgentRole = getLoadablePage('EditAgentRole');
@@ -41,6 +42,7 @@ export const Orders = getLoadablePage('OrderPage');
 export const AgentOrderViewPage = getLoadablePage('AgentOrderView');
 export const AgentProjectPage = getLoadablePage('AgentProject');
 export const AgentProjectCreatePage = getLoadablePage('AgentProjectCreate');
+export const AgentProjectEditPage = getLoadablePage('AgentProjectEdit');
 
 // transfer
 export const TransferHome = getLoadablePage('TransferHome');

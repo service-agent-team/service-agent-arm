@@ -1,3 +1,4 @@
+import { IRolesV2 } from '@/store/service-agent/roles/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
@@ -15,9 +16,11 @@ export interface Pagination {
   total?: number;
 }
 
-export type DataIndex = keyof AgentRolesRow;
+export interface AgentRolesRowV2 extends IRolesV2 {}
 
-export interface IhandleSearchProps {
+export type DataIndex = keyof AgentRolesRowV2;
+
+export interface IHandleSearchProps {
   selectedKeys: Key[];
   confirm: (param?: FilterConfirmProps) => void;
   dataIndex: DataIndex;

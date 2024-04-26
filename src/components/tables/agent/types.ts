@@ -1,3 +1,4 @@
+import { IUserDataV2 } from '@/store/service-agent/contract/contract.interface';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
@@ -24,6 +25,8 @@ export interface AgentTableRow {
   isRegistrationContract: boolean;
 }
 
+export interface AgentTableRowV2 extends IUserDataV2 {}
+
 export interface Pagination {
   current?: number;
   pageSize?: number;
@@ -32,7 +35,7 @@ export interface Pagination {
 
 export type DataIndex = keyof AgentTableRow;
 
-export interface IhandleSearchProps {
+export interface IHandleSearchProps {
   selectedKeys: Key[];
   confirm: (param?: FilterConfirmProps) => void;
   dataIndex: DataIndex;

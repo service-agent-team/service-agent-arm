@@ -1,11 +1,11 @@
 import { modal } from '@/components/app';
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space } from 'antd';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
-import { AgentPermissionsRow, DataIndex, IhandleSearchProps } from './types';
+import { AgentPermissionRowV2, DataIndex, IHandleSearchProps } from './types';
 
 import { useActions } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
@@ -17,7 +17,7 @@ export const utils = () => {
   const searchInput = useRef<InputRef>(null);
 
   const navigate = useNavigate();
-  const { deleteAgentPermission, getAgentPermissions } = useActions();
+  const { deleteAgentPermission, getAgentPermissions, getAgentPermissionByID } = useActions();
 
   const handleDelete = (record: any) => {
     modal.confirm({
@@ -36,7 +36,7 @@ export const utils = () => {
     });
   };
 
-  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
+  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
@@ -47,7 +47,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<AgentPermissionsRow> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<AgentPermissionRowV2> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -125,13 +125,13 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<AgentPermissionsRow> = [
+  const columns: ColumnsType<AgentPermissionRowV2> = [
     {
       title: 'Id',
-      dataIndex: 'id',
-      key: 'userTariffId',
+      dataIndex: 'permissionId',
+      key: 'permissionId',
       width: '4%',
-      sorter: (a, b) => a.id - b.id,
+      sorter: (a, b) => a.permissionId - b.permissionId,
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -148,15 +148,14 @@ export const utils = () => {
       width: '20%',
       ...getColumnSearchProps('description'),
     },
-
     {
-      title: 'CreatedDateTime',
-      dataIndex: 'createdDateTime',
-      key: 'createdDateTime',
+      title: 'type',
+      dataIndex: 'type',
+      key: 'type',
       width: '20%',
-      ...getColumnSearchProps('createdDateTime'),
+      ...getColumnSearchProps('type'),
+      render: (value) => <Tag color="success">{value?.toUpperCase()}</Tag>,
     },
-
     {
       title: 'Actions',
       dataIndex: 'action',
@@ -168,7 +167,12 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                navigate(`/service-agent/permissions/edit/${record.id}`);
+                getAgentPermissionByID({
+                  callback() {
+                    navigate(`/service-agent/permissions/edit/${record.id}`);
+                  },
+                  id: record.id,
+                });
               }}
             >
               <EditOutlined />

@@ -3,30 +3,41 @@ import { Button, Input, InputRef, MenuProps, Space, message } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-import { DataIndex, IhandleSearchProps, AgentTariffRow } from './types';
+import { DataIndex, IHandleSearchProps } from './types';
 import { modal } from '@/components/app';
+import { IAgentTariffV2 } from '@/store/service-agent/tariff/types';
+import { useActions, useTypedSelector } from '@/common/hooks';
+import { addNotification } from '@/common';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const { deleteAgentTariffCategory, getOneAgentTariffCategory, setAgentTariffCategory } =
+    useActions();
+  const { tariffs } = useTypedSelector((state) => state.agentTariff);
+  const navigate = useNavigate();
 
   const handleDelete = (record: any) => {
     modal.confirm({
       okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
       title: `You want to delete right ?`,
       onOk: () => {
-        // deleteAgentUserRole({
-        //   id: record.id,
-        //   callback() {
-        //     addNotification('successfully deleted agent user role');
-        //   },
-        // });
+        deleteAgentTariffCategory({
+          id: record.tariffId,
+          callback() {
+            addNotification('successfully deleted agent tariff');
+            const data = tariffs?.filter((el) => el.tariffId !== record.tariffId);
+            if (data) setAgentTariffCategory(data);
+          },
+        });
       },
     });
   };
 
-  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
+  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
@@ -37,7 +48,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<AgentTariffRow> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IAgentTariffV2> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -115,20 +126,20 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<AgentTariffRow> = [
+  const columns: ColumnsType<IAgentTariffV2> = [
     {
       title: 'Id',
-      dataIndex: 'userTariffId',
-      key: 'userTariffId',
+      dataIndex: 'tariffId',
+      key: 'tariffId',
       width: '4%',
-      sorter: (a, b) => a.userTariffId - b.userTariffId,
+      sorter: (a, b) => a.tariffId - b.tariffId,
       sortDirections: ['descend', 'ascend'],
     },
     {
       title: 'Name',
-      dataIndex: 'tariffName',
-      key: 'tariffName',
-      ...getColumnSearchProps('tariffName'),
+      dataIndex: 'name',
+      key: 'name',
+      ...getColumnSearchProps('name'),
     },
     {
       title: 'category',
@@ -146,10 +157,10 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                // return getOneAgentUserRole({
-                //   id: record.id,
-                //   callback: () => navigate(`${ROUTES.agentUserRole}/edit/${record.id}`),
-                // });
+                return getOneAgentTariffCategory({
+                  id: record.tariffId,
+                  callback: () => navigate(`${ROUTES.agentTariff}/edit/${record.tariffId}`),
+                });
               }}
             >
               <EditOutlined />

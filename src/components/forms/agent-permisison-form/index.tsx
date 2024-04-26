@@ -1,10 +1,10 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
-import { BaseForm, PrimaryBtn } from '@/components';
+import { BaseForm, PrimaryBtn, Select } from '@/components';
 import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from '../users-form/styled';
-import { ICreateRolesValues } from './types';
+import { IAgentPermissionValues } from './types';
 
 export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
@@ -14,12 +14,12 @@ export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
 
   const { loading } = useTypedSelector((state) => state.roles);
 
-  const onFinish = (value: ICreateRolesValues) => {
+  const onFinish = (value: IAgentPermissionValues) => {
     if (type === 'create') {
       createAgentPermission({
         name: value.name,
         description: value.description,
-        createdByUser: +value.createdByUser,
+        type: value.type,
         callback: () => {
           addNotification('created !');
           navigate('/service-agent/permissions');
@@ -31,7 +31,7 @@ export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
         id: id as string,
         name: value.name,
         description: value.description,
-        createdByUser: +value.createdByUser,
+        type: value.type,
         callback: () => {
           addNotification('edited !');
           navigate('/service-agent/permissions');
@@ -39,6 +39,12 @@ export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
       });
     }
   };
+
+  const typeOptions = [
+    { label: 'FOR_USER_ROLE', value: 'FOR_USER_ROLE' },
+    { label: 'FOR_USER_TARIFF', value: 'FOR_USER_PROJECT' },
+    { label: 'FOR_USER_PROJECT', value: 'FOR_USER_PROJECT' },
+  ];
 
   return (
     <>
@@ -87,11 +93,11 @@ export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
           </BaseForm.Item>
 
           <BaseForm.Item
-            name="createdByUser"
-            label={'createdByUser'}
+            name="type"
+            label={'type'}
             rules={[{ required: true, message: 'filed is required' }]}
           >
-            <Input placeholder="Enter createdByUser ?" />
+            <Select options={typeOptions} placeholder="Select permission type" />
           </BaseForm.Item>
 
           <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.patch : loading.post}>

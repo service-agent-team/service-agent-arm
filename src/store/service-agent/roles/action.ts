@@ -2,23 +2,26 @@ import { errorCatch } from '@/common/helpers';
 import { addNotification } from '@/common/utils/addNotification';
 import { RolesService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IGetUserPayload } from '../../global/users/types';
 import {
   IRolesByIdPayload,
   IRolesByIdResponse,
-  IRolesCreateResponse,
-  IRolesCreatepayload,
+  IRolesCreatePayload,
   IRolesDisablePayload,
   IRolesEditResponse,
-  IRolesEditpayload,
-  IRolesResponse,
+  IRolesEditPayload,
+  IRolesPayloadV2,
+  IRolesResponseV2,
+  IRolesCreateResponseV2,
+  IRolesDeleteResponseV2,
 } from './types';
+import { EndPointesV2 } from '@/services/endpoints-v2';
+import { AxiosResponse } from 'axios';
 
-export const getRoles = createAsyncThunk<IRolesResponse, IGetUserPayload>(
-  'get/Roles',
-  async ({ callback }, thunkApi) => {
+export const getRoles = createAsyncThunk<IRolesResponseV2, IRolesPayloadV2>(
+  EndPointesV2.roles.getAll,
+  async ({ callback, pageNumber, pageSize }, thunkApi) => {
     try {
-      const response = await RolesService.getRoles();
+      const response = await RolesService.getRoles(pageNumber, pageSize);
 
       if (response.data) {
         callback();
@@ -32,28 +35,30 @@ export const getRoles = createAsyncThunk<IRolesResponse, IGetUserPayload>(
   },
 );
 
-export const createRoles = createAsyncThunk<IRolesCreateResponse, IRolesCreatepayload>(
-  'create/Roles',
-  async ({ name, description, callback }, thunkApi) => {
-    try {
-      const response = await RolesService.createRoles({ name, description });
-      if (response.data) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      addNotification(error);
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+export const createRoles = createAsyncThunk<
+  AxiosResponse<IRolesCreateResponseV2>,
+  IRolesCreatePayload
+>(EndPointesV2.roles.create, async ({ name, description, callback }, thunkApi) => {
+  try {
+    const response = await RolesService.createRoles({ name, description });
+    if (response.data) {
+      callback();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
 export const getRolesById = createAsyncThunk<IRolesByIdResponse, IRolesByIdPayload>(
-  'get/roles/by.id',
-  async ({ id }, thunkApi) => {
+  EndPointesV2.roles.getOne + 'id',
+  async ({ callback, id }, thunkApi) => {
     try {
       const response = await RolesService.getRoleById(id);
-
+      if (response.data) {
+        callback();
+      }
       return response.data;
     } catch (error) {
       addNotification(error);
@@ -62,7 +67,7 @@ export const getRolesById = createAsyncThunk<IRolesByIdResponse, IRolesByIdPaylo
   },
 );
 
-export const editRoles = createAsyncThunk<IRolesEditResponse, IRolesEditpayload>(
+export const editRoles = createAsyncThunk<IRolesEditResponse, IRolesEditPayload>(
   'edit/roles',
   async ({ name, description, callback, id }, thunkApi) => {
     try {
@@ -77,17 +82,17 @@ export const editRoles = createAsyncThunk<IRolesEditResponse, IRolesEditpayload>
   },
 );
 
-export const deleteRoles = createAsyncThunk<IRolesEditResponse, IRolesDisablePayload>(
-  'disbale/roles',
-  async ({ callback, id }, thunkApi) => {
-    try {
-      const response = await RolesService.delete(id);
-      if (response.data) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+export const deleteRoles = createAsyncThunk<
+  AxiosResponse<IRolesDeleteResponseV2>,
+  IRolesDisablePayload
+>(EndPointesV2.roles.delete, async ({ callback, id }, thunkApi) => {
+  try {
+    const response = await RolesService.delete(id);
+    if (response.data) {
+      callback();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
