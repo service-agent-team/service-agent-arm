@@ -1,6 +1,6 @@
 export interface InitialState {
-  data: IUserData[] | null;
-  agent: IUserData | null;
+  data: IUserDataV2[] | null;
+  agent: IUserDataV2 | null;
   status: string;
   loading: {
     get: boolean;
@@ -12,6 +12,9 @@ export interface InitialState {
 }
 
 import { AxiosResponse } from 'axios';
+import { IAgentPermissionV2 } from '../permission/types';
+import { IAgentTariffV2 } from '../tariff/types';
+import { IAgentProjectV2 } from '../project/types';
 
 export interface IAuthAxiosResponse extends AxiosResponse {}
 
@@ -19,7 +22,7 @@ export interface IUserResponse {
   status: number;
   success: boolean;
   message: string;
-  data: IUserData[] | null;
+  data: IUserDataV2[] | null;
 }
 
 export interface IUserData {
@@ -57,17 +60,48 @@ export interface IUserData {
   contractStatusAt: string;
 }
 
-export interface UserTariffPermission {
-  userTariffPermissionId: number;
-  userTariff: UserTariff;
-  permission: Permission;
+export interface IUserDataV2 {
+  userId: number;
+  login: string;
+  firstName?: string;
+  middleName: string;
+  lastName: string;
+  birthDate: string;
+  gender: string;
+  citizenship: string;
+  country: string;
+  city: string;
+  address: string;
+  photoURL: string[] | string;
+  userCurrentStatus: string;
+  isRegistrationMyId: boolean;
+  isRegistrationContract: boolean;
+  userContractId: number;
+  isContracted: boolean;
+  videoContentId: any;
+  signatureId: any;
+  contractStatus: any;
+  startDate: any;
+  finishDate: any;
+  userTariffPermissions: UserTariffPermission[];
+  userProjectPermissions: UserProjectPermission[];
+  userRolePermissions: RolePermission[];
 }
 
-export interface UserTariff {
-  userTariffId: number;
-  tariffName: string;
-  categoryId: number;
-  createAt: string;
+export interface UserTariffPermission {
+  tariff: IAgentTariffV2;
+  permissions: IAgentPermissionV2;
+}
+
+export interface UserProjectPermission {
+  project?: IAgentProjectV2;
+  permissions: IAgentPermissionV2[];
+}
+
+export interface RolePermission {
+  id: number;
+  role: Role;
+  permissions: IAgentPermissionV2[];
 }
 
 export interface Permission {
@@ -76,6 +110,13 @@ export interface Permission {
   description: string;
   createdDateTime: string;
   updateDateTime: string;
+}
+
+export interface UserTariff {
+  userTariffId: number;
+  tariffName: string;
+  categoryId: number;
+  createAt: string;
 }
 
 export interface UserPermission {
@@ -103,7 +144,7 @@ export interface Permission2 {
 
 export interface UserRole {
   userRolesId: number;
-  role: Role;
+  role: RoleV2;
 }
 
 export interface Role {
@@ -112,6 +153,12 @@ export interface Role {
   description: string;
   createdDateTime: string;
   updateDateTime: string;
+}
+
+export interface RoleV2 {
+  roleId: number;
+  name: string;
+  description: string;
 }
 
 export interface IUser {
@@ -143,5 +190,5 @@ export interface IData {
 }
 
 export interface IOneAgentResponse extends AxiosResponse {
-  date: IUserData;
+  date: IUserDataV2;
 }

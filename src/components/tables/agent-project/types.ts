@@ -1,8 +1,8 @@
-import { IAgentProject } from '@/store/service-agent/project/types';
+import { IAgentProjectV2 } from '@/store/service-agent/project/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
-export type DataIndex = keyof IAgentProject;
+export type DataIndex = keyof IAgentProjectV2;
 
 export interface IHandleSearchProps {
   selectedKeys: Key[];

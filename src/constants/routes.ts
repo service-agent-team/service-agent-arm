@@ -32,6 +32,7 @@ export const ROUTES = {
   agentView: '/service-agent/view/:id',
   agentTariff: '/service-agent/tariff',
   agentTariffCreate: '/service-agent/tariff/create',
+  agentTariffEdit: '/service-agent/tariff/edit/:id',
   agentComapany: '/service-agent/company',
   agentPermission: '/service-agent/permissions',
   agentPermissionCreate: '/service-agent/permissions/create',
@@ -52,6 +53,7 @@ export const ROUTES = {
   agentUserRoleCreate: '/service-agent/user-role/create',
   agentProject: '/service-agent/project',
   agentProjectCreate: '/service-agent/project/create',
+  agentProjectEdit: '/service-agent/project/edit/:id',
   // agent
 
   // tranfer
@@ -77,6 +79,7 @@ export const ROUTES = {
   letTripLuggage: '/lets-trip/luggage',
   letsTripTour: '/lets-trip/tour',
   letsTripTourCreate: '/lets-trip/tour/create',
+  letsTripTourEdit: '/lets-trip/tour/edit/:id',
   letsTripTourView: '/lets-trip/tour/view/:id',
   letsTripTransfer: '/lets-trip/transfer',
   letsTripTransferCreate: '/lets-trip/transfer/create',

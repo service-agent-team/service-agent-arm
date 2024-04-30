@@ -1,23 +1,23 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { Card } from '@/components/common/card';
 import { AgentForm } from '@/components/forms';
-import { IUserData } from '@/store/service-agent/contract/contract.interface';
+import { IUserDataV2 } from '@/store/service-agent/contract/contract.interface';
 import { Badge, List, Typography } from 'antd';
 import { useEffect } from 'react';
 
 interface IProps {
-  data: IUserData | null;
+  data: IUserDataV2 | null;
 }
 
 export const AgentCard = ({ data }: IProps) => {
-  const { getRoles, getCategory, getCompany } = useActions();
+  const { getRoles, getAllAgentTariffCategory, getCompany } = useActions();
   useEffect(() => {
-    getRoles({ callback() {} });
-    getCategory({ callback() {} });
+    getRoles({ callback() {}, pageNumber: 0, pageSize: 20 });
+    getAllAgentTariffCategory({ callback() {} });
     getCompany({ page: 0, size: 20 });
   }, []);
-
   const { roles, agentTariff, company } = useTypedSelector((state) => state);
+
   return (
     <Badge.Ribbon
       text={
@@ -39,14 +39,14 @@ export const AgentCard = ({ data }: IProps) => {
         <List>
           <List.Item>
             <Typography.Text strong>
-              {data?.firstName} {data?.lastName} {data?.middleName}
+              {data?.firstName || ''} {data?.lastName || ''} {data?.middleName ?? ''}
             </Typography.Text>
           </List.Item>
           <List.Item>
             <Typography.Text strong>Fuqoroligi: </Typography.Text> {data?.citizenship}
           </List.Item>
           <List.Item>
-            <Typography.Text strong>{"Tug'ulgan sana"}: </Typography.Text> {data?.birthDate}
+            <Typography.Text strong>{"Tug'ilgan sana"}: </Typography.Text> {data?.birthDate}
           </List.Item>
           <List.Item>
             <Typography.Text strong>Manzil: </Typography.Text> {data?.address}
@@ -54,7 +54,7 @@ export const AgentCard = ({ data }: IProps) => {
           <List.Item>
             <Typography.Text strong>Ariza qoldirgan sanasi: </Typography.Text> {data?.startDate}
           </List.Item>
-          <List.Item>
+          {/* <List.Item>
             <Typography.Text strong>Ariza holati: </Typography.Text>{' '}
             {data?.contractStatus === 'view'
               ? 'Tasdiqlanishi kutilmoqda'
@@ -83,16 +83,16 @@ export const AgentCard = ({ data }: IProps) => {
           <List.Item>
             <Typography.Text strong>Company: </Typography.Text>
             Service-agent
-          </List.Item>
+          </List.Item> */}
         </List>
 
         <AgentForm
           userId={data?.userId as number}
-          roles={roles.roles}
+          roles={roles.allRole}
           categories={agentTariff.tariffs}
           companies={company.companies}
           contractStatus={data?.contractStatus}
-          userPermissions={data?.userPermissions}
+          userPermissions={data?.userRolePermissions}
         />
       </Card>
     </Badge.Ribbon>

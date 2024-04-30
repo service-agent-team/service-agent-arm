@@ -1,31 +1,31 @@
 import { $axios } from '@/common/config';
-import { IRolesResponse } from '@/store/service-agent/roles/types';
-import { ITariffCreateResponse } from '@/store/tariff/types';
-import { EndPointes } from '../../endpoints';
+import { EndPointesV2 } from '@/services/endpoints-v2';
 
 export const RolesService = {
-  async getRoles() {
-    const response = await $axios.get<IRolesResponse>(EndPointes.roles.getAll);
+  async getRoles(pageNumber = 0, pageSize = 10) {
+    const response = await $axios.get(
+      `${EndPointesV2.roles.getAll}?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+    );
     return response;
   },
 
   async createRoles(body: any) {
-    const response = await $axios.post<ITariffCreateResponse>(EndPointes.roles.create, body);
+    const response = await $axios.post(EndPointesV2.roles.create, body);
     return response;
   },
 
   async getRoleById(id: number | string) {
-    const response = await $axios.get(EndPointes.roles.getOne + id);
+    const response = await $axios.get(EndPointesV2.roles.getOne + id);
     return response;
   },
 
   async editRoles(body: any, id: number | string) {
-    const response = await $axios.patch(EndPointes.roles.edit + id, body);
+    const response = await $axios.patch(EndPointesV2.roles.edit + id, body);
     return response;
   },
 
   async delete(id: number | string) {
-    const response = await $axios.delete(EndPointes.roles.delete + id);
+    const response = await $axios.delete(EndPointesV2.roles.delete + id);
     return response;
   },
 };

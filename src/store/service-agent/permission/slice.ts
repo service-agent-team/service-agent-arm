@@ -7,9 +7,9 @@ import {
   getAgentPermissionByID,
   getAgentPermissions,
 } from './action';
-import { IAgentPermissionInitalState, IPermission } from './types';
+import { IAgentPermissionInitialState, IAgentPermissionV2 } from './types';
 
-const initialState: IAgentPermissionInitalState = {
+const initialState: IAgentPermissionInitialState = {
   loading: {
     get: false,
     post: false,
@@ -21,15 +21,15 @@ const initialState: IAgentPermissionInitalState = {
   errors: null,
 };
 
-export const permissionSlice = createSlice({
-  name: 'permission',
+export const agentPermissionSlice = createSlice({
+  name: 'agentPermission',
   initialState,
   reducers: {
     setTariffLoading: (state, { payload }: { payload: PayloadTariffEnum }) => {
       state.loading[payload] = !state.loading[payload];
     },
 
-    setPermission: (state, { payload }: { payload: IPermission[] }) => {
+    setPermission: (state, { payload }: { payload: IAgentPermissionV2[] }) => {
       state.permissions = payload;
     },
   },
@@ -41,7 +41,7 @@ export const permissionSlice = createSlice({
       })
       .addCase(getAgentPermissions.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.permissions = payload.data;
+        state.permissions = payload.data.content;
         state.errors = null;
       })
       .addCase(getAgentPermissions.rejected, (state, { payload }) => {
@@ -52,8 +52,9 @@ export const permissionSlice = createSlice({
         state.loading.post = true;
         state.errors = null;
       })
-      .addCase(createAgentPermission.fulfilled, (state, _) => {
+      .addCase(createAgentPermission.fulfilled, (state, { payload }) => {
         state.loading.post = false;
+        state.permissions?.push(payload.data.data);
         state.errors = null;
       })
       .addCase(createAgentPermission.rejected, (state, { payload }) => {
@@ -67,7 +68,7 @@ export const permissionSlice = createSlice({
       .addCase(getAgentPermissionByID.fulfilled, (state, { payload }) => {
         state.loading.get = false;
         state.errors = null;
-        state.permission = payload.data;
+        state.permission = payload.data.data;
       })
       .addCase(getAgentPermissionByID.rejected, (state, { payload }) => {
         state.loading.get = false;
@@ -100,5 +101,5 @@ export const permissionSlice = createSlice({
   },
 });
 
-export const AgentPermissionReducer = permissionSlice.reducer;
-export const AgentPermissionSliceActions = permissionSlice.actions;
+export const AgentPermissionReducer = agentPermissionSlice.reducer;
+export const AgentPermissionSliceActions = agentPermissionSlice.actions;

@@ -1,4 +1,4 @@
 export interface IValuesForm {
-  tariffName: string;
+  name: string;
   categoryId: number;
 }

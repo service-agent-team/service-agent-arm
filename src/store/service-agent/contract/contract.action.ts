@@ -10,9 +10,10 @@ import {
   IUser,
   IUserResponse,
 } from './contract.interface';
+import { EndPointesV2 } from '@/services/endpoints-v2';
 
 export const getAllUsers = createAsyncThunk<IUserResponse, IUser>(
-  'agent/all',
+  EndPointesV2.agent.contract.getAllUsers,
   async ({ callback, statusName }, thunkApi) => {
     try {
       const response = await ContractService.getAllUsers(statusName);

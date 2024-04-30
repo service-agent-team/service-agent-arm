@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components';
 import * as S from './styled';
 import { ROUTES } from '@/constants';
-import { AgentProjectCreateForm } from '@/components/';
+import { AgentProjectForm } from '@/components/';
 
 export const AgentProjectCreate = () => {
   return (
@@ -12,7 +12,7 @@ export const AgentProjectCreate = () => {
         route={ROUTES.agentProject}
         label="Back"
       />
-      <AgentProjectCreateForm />
+      <AgentProjectForm type="create" />
     </S.ViewStyled>
   );
 };

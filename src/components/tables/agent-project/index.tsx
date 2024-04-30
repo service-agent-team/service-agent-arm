@@ -4,13 +4,13 @@ import { addNotification } from '@/common/utils/addNotification';
 import { Table } from '@/components';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
-import { IAgentProject } from '@/store/service-agent/project/types';
+import { IAgentProjectV2 } from '@/store/service-agent/project/types';
 
 export const AgentProjectTable: React.FC = () => {
   const { getAllAgentProject } = useActions();
   const {
     agentProjects,
-    loading: { get },
+    loading: { get, post },
   } = useTypedSelector((state) => state.agentProject);
 
   useEffect(() => {
@@ -18,16 +18,18 @@ export const AgentProjectTable: React.FC = () => {
       callback() {
         addNotification('successfully get all agent projects');
       },
+      pageNumber: 0,
+      pageSize: 20,
     });
   }, []);
 
-  const generateUserData = addKeyProp<IAgentProject>(agentProjects as IAgentProject[]);
+  const generateUserData = addKeyProp<IAgentProjectV2>(agentProjects as IAgentProjectV2[]);
 
   return (
     <Table
       columns={utils()}
-      dataSource={generateUserData ? (generateUserData as IAgentProject[]) : []}
-      loading={get}
+      dataSource={generateUserData ? (generateUserData as IAgentProjectV2[]) : []}
+      loading={get || post}
       bordered
     />
   );

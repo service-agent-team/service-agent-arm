@@ -1,21 +1,24 @@
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space } from 'antd';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { IAgentProject } from '@/store/service-agent/project/types';
-import { dateParser } from '@/common/utils/format';
+import { IAgentProjectV2 } from '@/store/service-agent/project/types';
 import { modal } from '@/components/app';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common';
+import { ROUTES } from '@/constants';
+import { useNavigate } from 'react-router-dom';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { deleteAgentProject } = useActions();
+  const { deleteAgentProject, setAgentProject, getOneAgentProject } = useActions();
   const { errors } = useTypedSelector((state) => state.agentProject);
+  const { agentProjects } = useTypedSelector((state) => state.agentProject);
+  const navigate = useNavigate();
 
   const handleDelete = (record: any) => {
     modal.confirm({
@@ -25,8 +28,10 @@ export const utils = () => {
         deleteAgentProject({
           callback() {
             addNotification('project successfully deleted');
+            const data = agentProjects?.filter((el) => el.projectId !== record.projectId);
+            if (data) setAgentProject(data);
           },
-          id: record.id,
+          id: record.projectId,
         });
 
         if (errors) addNotification(errors);
@@ -45,7 +50,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IAgentProject> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IAgentProjectV2> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -123,13 +128,13 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<IAgentProject> = [
+  const columns: ColumnsType<IAgentProjectV2> = [
     {
       title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'projectId',
+      key: 'projectId',
       width: '4%',
-      sorter: (a, b) => a.id - b.id,
+      sorter: (a, b) => a.projectId - b.projectId,
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -146,11 +151,11 @@ export const utils = () => {
       width: '20%',
     },
     {
-      title: 'Created At',
-      dataIndex: 'createdDateTime',
-      key: 'createdDateTime',
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
       width: '20%',
-      render: (date) => dateParser(date),
+      render: (value) => <Tag color="success">{value}</Tag>,
     },
     {
       title: 'Actions',
@@ -162,7 +167,14 @@ export const utils = () => {
           <Space>
             <Button
               key={1}
-              // onClick={() => navigate(`${ROUTES.agentUserPermission}/edit/${record.id}`)}
+              onClick={() =>
+                getOneAgentProject({
+                  callback() {
+                    navigate(`${ROUTES.agentProject}/edit/${record.projectId}`);
+                  },
+                  id: record.projectId,
+                })
+              }
             >
               <EditOutlined />
             </Button>

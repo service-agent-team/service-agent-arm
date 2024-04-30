@@ -1,13 +1,14 @@
 import { $axios } from '@/common/config';
 import { IUserResponse } from '@/store/service-agent/contract/contract.interface';
-import { EndPointes } from '../../endpoints';
 import { IParam } from './types';
-const { agent } = EndPointes;
+import { EndPointesV2 } from '@/services/endpoints-v2';
+const { agent } = EndPointesV2;
 
 export const ContractService = {
-  async getAllUsers(statusName: string) {
+  async getAllUsers(statusName: string, pageNumber = 0, pageSize = 10) {
     const response = await $axios.get<IUserResponse>(
-      agent.contract.getAllUsers + `?status=${statusName}`,
+      agent.contract.getAllUsers +
+        `?status=${statusName}&pageNumber=${pageNumber}&pageSize=${pageSize}`,
     );
     return response;
   },

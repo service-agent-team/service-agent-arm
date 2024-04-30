@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadTariffEnum } from '../../lets-trip/car-type/types';
 import { createRoles, deleteRoles, editRoles, getRoles, getRolesById } from './action';
-import { IRoles, IRolesInitalState } from './types';
+import { IRolesInitialState, IRolesV2 } from './types';
 
-const initialState: IRolesInitalState = {
+const initialState: IRolesInitialState = {
   loading: {
     get: false,
     post: false,
     patch: false,
     delete: false,
   },
-  roles: null,
+  allRole: null,
   oneRole: null,
   errors: null,
 };
@@ -23,8 +23,8 @@ export const rolesSlice = createSlice({
       state.loading[payload] = !state.loading[payload];
     },
 
-    setRoles: (state, { payload }: { payload: IRoles[] }) => {
-      state.roles = payload;
+    setRoles: (state, { payload }: { payload: IRolesV2[] }) => {
+      state.allRole = payload;
     },
   },
   extraReducers: (builder) => {
@@ -35,7 +35,7 @@ export const rolesSlice = createSlice({
       })
       .addCase(getRoles.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.roles = payload.data;
+        state.allRole = payload.data.content;
         state.errors = null;
       })
       .addCase(getRoles.rejected, (state, { payload }) => {
@@ -46,9 +46,10 @@ export const rolesSlice = createSlice({
         state.loading.post = true;
         state.errors = null;
       })
-      .addCase(createRoles.fulfilled, (state, _) => {
+      .addCase(createRoles.fulfilled, (state, { payload }) => {
         state.loading.post = false;
         state.errors = null;
+        state.allRole?.push(payload.data.data);
       })
       .addCase(createRoles.rejected, (state, { payload }) => {
         state.loading.post = false;

@@ -1,4 +1,4 @@
-import { AgentTariffCreateForm } from '@/components';
+import { AgentTariffCategoryForm } from '@/components';
 import { PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
@@ -12,7 +12,7 @@ export const AgentTariffCreate = () => {
         route={ROUTES.agentTariff}
         label="Back"
       />
-      <AgentTariffCreateForm />
+      <AgentTariffCategoryForm type="create" />
     </S.ViewStyled>
   );
 };

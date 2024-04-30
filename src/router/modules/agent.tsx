@@ -9,8 +9,10 @@ import {
   AgentProductCreate,
   AgentProducts,
   AgentProjectCreatePage,
+  AgentProjectEditPage,
   AgentProjectPage,
   AgentTariffsCreate,
+  AgentTariffsEdit,
   AgentView,
   CreateAgentPermission,
   CreateAgentRole,
@@ -94,6 +96,14 @@ export const agentRouter = [
     ),
   },
   {
+    path: ROUTES.agentTariffEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentTariffsEdit />
+      </Suspense>
+    ),
+  },
+  {
     path: ROUTES.agentRole,
     element: (
       <Suspense fallback={<Loading />}>
@@ -154,6 +164,14 @@ export const agentRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <AgentProjectCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.agentProjectEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AgentProjectEditPage />
       </Suspense>
     ),
   },

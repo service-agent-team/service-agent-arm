@@ -1,3 +1,4 @@
+import { IAgentTariffV2 } from '@/store/service-agent/tariff/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
@@ -14,9 +15,9 @@ export interface Pagination {
   total?: number;
 }
 
-export type DataIndex = keyof AgentTariffRow;
+export type DataIndex = keyof IAgentTariffV2;
 
-export interface IhandleSearchProps {
+export interface IHandleSearchProps {
   selectedKeys: Key[];
   confirm: (param?: FilterConfirmProps) => void;
   dataIndex: DataIndex;

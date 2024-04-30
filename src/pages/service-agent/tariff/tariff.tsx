@@ -5,10 +5,10 @@ import { ROUTES } from '@/constants';
 import { useEffect } from 'react';
 
 export function Tariff() {
-  const { getCategory } = useActions();
+  const { getAllAgentTariffCategory } = useActions();
 
   useEffect(() => {
-    getCategory({
+    getAllAgentTariffCategory({
       callback() {
         addNotification('successfully get users');
       },

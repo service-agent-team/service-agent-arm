@@ -3,58 +3,92 @@ import { addNotification } from '@/common/utils/addNotification';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IAgentProjectPayload,
-  IAgentProjectResponse,
+  IAgentProjectResponseV2,
+  IAgentProjectV2,
   ICreateAgentProjectResponse,
   ICreteAgentProjectPayload,
   IDeleteAgentProjectPayload,
-  IDeleteAgentProjectResponse,
+  IDeleteAgentProjectResponseV2,
+  IUpdateProjectPayloadV2,
 } from './types';
 import { AgentProjectService } from '@/services';
-import { EndPointes } from '@/services/endpoints';
+import { AxiosResponse } from 'axios';
+import { EndPointesV2 } from '@/services/endpoints-v2';
 
-export const getAllAgentProject = createAsyncThunk<IAgentProjectResponse, IAgentProjectPayload>(
-  EndPointes.agent.project.getAll,
-  async ({ callback }, thunkApi) => {
-    try {
-      const response = await AgentProjectService.getAllAgentProject();
-      if (response.status == 200) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      addNotification(error);
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+export const getAllAgentProject = createAsyncThunk<
+  AxiosResponse<IAgentProjectResponseV2>,
+  IAgentProjectPayload
+>(EndPointesV2.agent.project.getAll, async ({ callback, pageNumber, pageSize }, thunkApi) => {
+  try {
+    const response = await AgentProjectService.getAllAgentProject(pageNumber, pageSize);
+    if (response.status == 200) {
+      callback();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const getOneAgentProject = createAsyncThunk<
+  AxiosResponse<IAgentProjectV2>,
+  IDeleteAgentProjectPayload
+>(EndPointesV2.agent.project.getOne, async ({ callback, id }, thunkApi) => {
+  try {
+    const response = await AgentProjectService.getOneAgentProject(id);
+    if (response.status == 200) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
 export const createAgentProjectByAgent = createAsyncThunk<
   ICreateAgentProjectResponse,
   ICreteAgentProjectPayload
->(
-  EndPointes.agent.project.create,
-  async ({ callback, name, description, createdByUser }, thunkApi) => {
-    try {
-      const response = await AgentProjectService.createAgentProjectByAgent({
-        name,
-        description,
-        createdByUser,
-      });
-      if (response.data.status == 201) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      addNotification(error);
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+>(EndPointesV2.agent.project.create, async ({ callback, name, description }, thunkApi) => {
+  try {
+    const response = await AgentProjectService.createAgentProjectByAgent({
+      name,
+      description,
+    });
+    if (response.status === 201) {
+      callback();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const editAgentProjectByAgent = createAsyncThunk<
+  ICreateAgentProjectResponse,
+  IUpdateProjectPayloadV2
+>(EndPointesV2.agent.project.edit, async ({ id, callback, name, description }, thunkApi) => {
+  try {
+    const response = await AgentProjectService.updateAgentProjectByAgent(id, {
+      name,
+      description,
+    });
+    if (response.status === 200) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
 export const deleteAgentProject = createAsyncThunk<
-  IDeleteAgentProjectResponse,
+  IDeleteAgentProjectResponseV2,
   IDeleteAgentProjectPayload
->(EndPointes.agent.project.delete, async ({ callback, id }, thunkApi) => {
+>(EndPointesV2.agent.project.delete, async ({ callback, id }, thunkApi) => {
   try {
     const response = await AgentProjectService.deleteAgentProject(id);
     if (response.status == 200) {

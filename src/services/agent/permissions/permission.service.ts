@@ -1,31 +1,29 @@
 import { $axios } from '@/common/config';
-import { IAgentPermissionResponse } from '@/store/service-agent/permission/types';
-import { ITariffCreateResponse } from '@/store/tariff/types';
-import { EndPointes } from '../../endpoints';
+import { EndPointesV2 } from '@/services/endpoints-v2';
 
 export const PermissionService = {
   async getRoles() {
-    const response = await $axios.get<IAgentPermissionResponse>(EndPointes.permisions.getAll);
+    const response = await $axios.get(EndPointesV2.agentPermission.getAll);
     return response;
   },
 
   async create(body: any) {
-    const response = await $axios.post<ITariffCreateResponse>(EndPointes.permisions.create, body);
+    const response = await $axios.post(EndPointesV2.agentPermission.create, body);
     return response;
   },
 
   async getById(id: number | string) {
-    const response = await $axios.get(EndPointes.permisions.getOne + id);
+    const response = await $axios.get(EndPointesV2.agentPermission.getOne + id);
     return response;
   },
 
-  async edit(body: any, id: number | string) {
-    const response = await $axios.patch(EndPointes.permisions.edit + id, body);
+  async edit(id: number | string, body: any) {
+    const response = await $axios.patch(EndPointesV2.agentPermission.edit + id, body);
     return response;
   },
 
   async delete(id: number | string) {
-    const response = await $axios.delete(EndPointes.permisions.delete + id);
+    const response = await $axios.delete(EndPointesV2.agentPermission.delete + id);
     return response;
   },
 };

@@ -5,9 +5,9 @@ import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
-import { AgentRolesRow, DataIndex, IhandleSearchProps } from './types';
+import { AgentRolesRowV2, DataIndex, IHandleSearchProps } from './types';
 
-import { useActions } from '@/common/hooks';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -17,26 +17,27 @@ export const utils = () => {
   const searchInput = useRef<InputRef>(null);
 
   const navigate = useNavigate();
-  const { deleteRoles, getRoles } = useActions();
+  const { deleteRoles, setRoles, getRolesById } = useActions();
+  const { allRole } = useTypedSelector((state) => state.roles);
 
   const handleDelete = (record: any) => {
     modal.confirm({
-      okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
+      okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
       title: `You want to delete right ?`,
       onOk: () => {
         deleteRoles({
           id: record.id,
           callback: () => {
-            getRoles({ callback: () => {} });
-            addNotification('Deleted.');
-            return 'ok';
+            addNotification('Successfully deleted !');
+            const data = allRole?.filter((el) => el.roleId !== record.roleId);
+            if (data) setRoles(data);
           },
         });
       },
     });
   };
 
-  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IhandleSearchProps) => {
+  const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
@@ -47,7 +48,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<AgentRolesRow> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<AgentRolesRowV2> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -125,13 +126,13 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<AgentRolesRow> = [
+  const columns: ColumnsType<AgentRolesRowV2> = [
     {
       title: 'Id',
-      dataIndex: 'id',
-      key: 'userTariffId',
+      dataIndex: 'roleId',
+      key: 'roleId',
       width: '4%',
-      sorter: (a, b) => a.id - b.id,
+      sorter: (a, b) => a.roleId - b.roleId,
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -148,15 +149,6 @@ export const utils = () => {
       width: '20%',
       ...getColumnSearchProps('description'),
     },
-
-    {
-      title: 'CreatedDateTime',
-      dataIndex: 'createdDateTime',
-      key: 'createdDateTime',
-      width: '20%',
-      ...getColumnSearchProps('createdDateTime'),
-    },
-
     {
       title: 'Actions',
       dataIndex: 'action',
@@ -168,7 +160,12 @@ export const utils = () => {
             <Button
               key={1}
               onClick={() => {
-                navigate(`/service-agent/roles/edit/${record.id}`);
+                getRolesById({
+                  id: record.roleId,
+                  callback() {
+                    navigate(`/service-agent/roles/edit/${record.roleId}`);
+                  },
+                });
               }}
             >
               <EditOutlined />

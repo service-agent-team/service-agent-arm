@@ -22,5 +22,5 @@ export const CustomDatePicker: React.FC = () => {
       </div>
     );
   }, []);
-  return <DatePicker cellRender={cellRender} />;
+  return <DatePicker cellRender={cellRender} style={{ width: '100%' }} />;
 };

@@ -2,68 +2,71 @@ import { errorCatch } from '@/common/helpers';
 import { addNotification } from '@/common/utils/addNotification';
 import { PermissionService } from '@/services/agent';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IGetUserPayload } from '../../global/users/types';
 import { IRolesByIdPayload, IRolesDisablePayload } from '../roles/types';
 import {
-  IAgentPermisionByID,
-  IAgentPermissionResponse,
-  IPermissionCreatepayload,
-  IPermissionEditpayload,
+  IAgentPermissionByID,
+  IAgentPermissionCreatePayloadV2,
+  IAgentPermissionCreateResponseV2,
+  IAgentPermissionEditPayloadV2,
+  IAgentPermissionPayload,
+  IAgentPermissionResponseV2,
 } from './types';
+import { EndPointesV2 } from '@/services/endpoints-v2';
+import { AxiosResponse } from 'axios';
 
-export const getAgentPermissions = createAsyncThunk<IAgentPermissionResponse, IGetUserPayload>(
-  'get/Permissions/agent',
-  async ({ callback }, thunkApi) => {
-    try {
-      const response = await PermissionService.getRoles();
-
-      if (response.data) {
-        callback();
-      }
-
-      return response.data;
-    } catch (error) {
-      addNotification(error);
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+export const getAgentPermissions = createAsyncThunk<
+  AxiosResponse<IAgentPermissionResponseV2>,
+  IAgentPermissionPayload
+>(EndPointesV2.agentPermission.getAll, async ({ callback }, thunkApi) => {
+  try {
+    const response = await PermissionService.getRoles();
+    if (response.data) {
+      callback();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
-export const createAgentPermission = createAsyncThunk<any, IPermissionCreatepayload>(
-  'create/Permission/agent',
-  async ({ name, description, createdByUser, callback }, thunkApi) => {
-    try {
-      const response = await PermissionService.create({ createdByUser, name, description });
-      if (response.data) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      addNotification(error);
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+export const createAgentPermission = createAsyncThunk<
+  AxiosResponse<IAgentPermissionCreateResponseV2>,
+  IAgentPermissionCreatePayloadV2
+>(EndPointesV2.agentPermission.create, async ({ name, description, type, callback }, thunkApi) => {
+  try {
+    const response = await PermissionService.create({ name, description, type });
+    if (response.data) {
+      callback();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
-export const getAgentPermissionByID = createAsyncThunk<IAgentPermisionByID, IRolesByIdPayload>(
-  'get/permissions/by/id',
-  async ({ id }, thunkApi) => {
-    try {
-      const response = await PermissionService.getById(id);
-
-      return response.data;
-    } catch (error) {
-      addNotification(error);
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+export const getAgentPermissionByID = createAsyncThunk<
+  AxiosResponse<IAgentPermissionByID>,
+  IRolesByIdPayload
+>(EndPointesV2.agentPermission.getOne, async ({ id, callback }, thunkApi) => {
+  try {
+    const response = await PermissionService.getById(id);
+    if (response.data) {
+      callback();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    addNotification(error);
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
-export const editAgentPermission = createAsyncThunk<any, IPermissionEditpayload>(
-  'edit/Permission/agent',
-  async ({ name, description, createdByUser, callback, id }, thunkApi) => {
+export const editAgentPermission = createAsyncThunk<any, IAgentPermissionEditPayloadV2>(
+  EndPointesV2.agentPermission.edit,
+  async ({ id, callback, name, description, type }, thunkApi) => {
     try {
-      const response = await PermissionService.edit({ createdByUser, name, description }, id);
+      const response = await PermissionService.edit(id, { name, description, type });
       if (response.data) {
         callback();
       }
@@ -75,7 +78,7 @@ export const editAgentPermission = createAsyncThunk<any, IPermissionEditpayload>
 );
 
 export const deleteAgentPermission = createAsyncThunk<any, IRolesDisablePayload>(
-  'disbale/permision/delete',
+  EndPointesV2.agentPermission.delete,
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await PermissionService.delete(id);

@@ -69,9 +69,9 @@ export const authSlice = createSlice({
         state.user = payload.data;
         state.error = null;
       })
-      .addCase(getMe.rejected, (state) => {
+      .addCase(getMe.rejected, (state, { error }) => {
         state.loading.get = false;
-        state.error = null;
+        state.error = error;
       });
   },
 });

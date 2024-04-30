@@ -1,3 +1,7 @@
-import { IPermissionCreatepayload } from '@/store/service-agent/permission/types';
+import { IAgentPermissionType } from '@/store/service-agent/permission/types';
 
-export interface ICreateRolesValues extends IPermissionCreatepayload {}
+export interface IAgentPermissionValues {
+  name: string;
+  description: string;
+  type: IAgentPermissionType;
+}

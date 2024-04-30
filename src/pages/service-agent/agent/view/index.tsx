@@ -23,7 +23,7 @@ export const View = () => {
   return (
     <S.viewStyled>
       <PageTitle
-        title={`${agent?.firstName} ${agent?.lastName} ${agent?.middleName}`}
+        title={`${agent?.firstName || ''} ${agent?.lastName || ''} ${agent?.middleName || ''}`}
         icon="ArrowLeftOutlined"
         route={ROUTES.agentControl}
         label="Back"
