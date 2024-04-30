@@ -1,3 +1,4 @@
+import { ExtraInformation } from '@/store/lets-trip/tour/types';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 export interface IValuesForm {
@@ -8,19 +9,19 @@ export interface IValuesForm {
   priceNoteRu: string;
   priceNoteEn: string;
   startingPrice: number;
-  priceNotIncludeRu: string[];
-  priceNotIncludeEn: string[];
+  priceNotIncludeRu: string;
+  priceNotIncludeEn: string;
   extraInformation: any;
-  priceIncludeRu: string[];
-  priceIncludeEn: string[];
+  priceIncludeRu: string;
+  priceIncludeEn: string;
   images: UploadChangeParam;
   descriptionRu: string;
   descriptionEn: string;
   longitude: number;
   latitude: number;
-  availableMonth: number;
-  availableYear: number;
-  transferPrice: number;
+  availableMonth: string;
+  availableYear: string;
+  availablePrice: number;
   transferTypeRu: string;
   transferTypeEn: string;
   transferDate: string;
@@ -28,7 +29,7 @@ export interface IValuesForm {
   itineraryTitleRu: string;
   itineraryDescEn: string;
   itineraryDescRu: string;
-  itineraryImgUrl: string;
+  itineraryImgUrl: UploadChangeParam;
 }
 
 export interface IFileResponse {

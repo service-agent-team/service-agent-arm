@@ -12,7 +12,7 @@ export const LestTripTransferCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { companies } = useTypedSelector((state) => state.company);
   const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
-  const { getCompany, getAllCategory } = useActions();
+  const { getCompany } = useActions();
   // const navigate = useNavigate();
 
   const onFinish = () => {
@@ -60,7 +60,6 @@ export const LestTripTransferCreateForm: React.FC = () => {
 
   useEffect(() => {
     getCompany({ page: 0, size: 20 });
-    getAllCategory({ callback() {} });
   }, []);
 
   return (

@@ -11,3 +11,12 @@ export const dateFormatter = (date: string) => {
 export const dateParser = (date: string) => {
   return dayjs(date).format('dddd D MMMM YYYY, h:mm A');
 };
+
+export const generateUTC = (date: string | Date): string => {
+  const currentDate = new Date(date);
+  return currentDate.toISOString();
+};
+
+export const dateFormatDayJs = (date: string, format?: string) => {
+  return dayjs(date).format(format ? format : 'YYYY-MM-DD');
+};

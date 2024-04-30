@@ -11,6 +11,7 @@ export interface ILetsTripCountryInitialState {
 }
 
 export interface ILetsTripCountry {
+  id: number;
   name?: string;
   code: string;
   regions: any[];
