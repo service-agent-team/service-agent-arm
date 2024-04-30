@@ -21,8 +21,6 @@ export interface ILetsTripCountryResponse {
   data: ILetsTripCountry[];
 }
 
-export interface ILetsTripCountryPayload {}
-
 export interface IGetOneLetsTripTourResponse extends ILetsTripCountry {}
 
 export interface ILetsTripCountryCreateResponse extends ILetsTripCountry {}

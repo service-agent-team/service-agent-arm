@@ -124,11 +124,6 @@ export interface UserPermission {
   project: Project;
   permission: Permission2;
 }
-export interface UserPermission {
-  userPermissionId: number;
-  project: Project;
-  permission: Permission2;
-}
 
 export interface Project {
   id: number;
