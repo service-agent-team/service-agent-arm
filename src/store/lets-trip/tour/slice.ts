@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ILetsTripTourInitialState } from './types';
-import {
-  createLetsTripTour,
-  getAllCategory,
-  getAllLetsTripTour,
-  getOneLetsTripTour,
-} from './actions';
+import { ILetsTripGroupTourInitialState } from './types';
+import { createLetsTripGroupTour, getAllLetsTripGroupTour, getOneLetsTripTour } from './actions';
 
-const initialState: ILetsTripTourInitialState = {
+const initialState: ILetsTripGroupTourInitialState = {
   loading: {
     get: false,
     post: false,
@@ -16,7 +11,6 @@ const initialState: ILetsTripTourInitialState = {
   },
   tours: null,
   tour: null,
-  categories: null,
   errors: null,
 };
 
@@ -26,16 +20,16 @@ export const letsTripTourSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllLetsTripTour.pending, (state) => {
+      .addCase(getAllLetsTripGroupTour.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
       })
-      .addCase(getAllLetsTripTour.fulfilled, (state, { payload }) => {
+      .addCase(getAllLetsTripGroupTour.fulfilled, (state, { payload }) => {
         state.loading.get = false;
         state.tours = payload.content;
         state.errors = null;
       })
-      .addCase(getAllLetsTripTour.rejected, (state, { payload }) => {
+      .addCase(getAllLetsTripGroupTour.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
@@ -52,29 +46,16 @@ export const letsTripTourSlice = createSlice({
         state.loading.get = false;
         state.errors = payload;
       })
-      .addCase(getAllCategory.pending, (state) => {
-        state.loading.get = true;
-        state.errors = null;
-      })
-      .addCase(getAllCategory.fulfilled, (state, { payload }) => {
-        state.loading.get = false;
-        state.categories = payload.data.content;
-        state.errors = null;
-      })
-      .addCase(getAllCategory.rejected, (state, { payload }) => {
-        state.loading.get = false;
-        state.errors = payload;
-      })
-      .addCase(createLetsTripTour.pending, (state) => {
+      .addCase(createLetsTripGroupTour.pending, (state) => {
         state.loading.post = true;
         state.errors = null;
       })
-      .addCase(createLetsTripTour.fulfilled, (state, { payload }) => {
+      .addCase(createLetsTripGroupTour.fulfilled, (state, { payload }) => {
         state.loading.post = false;
         state.tours?.push(payload);
         state.errors = null;
       })
-      .addCase(createLetsTripTour.rejected, (state, { payload }) => {
+      .addCase(createLetsTripGroupTour.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       });

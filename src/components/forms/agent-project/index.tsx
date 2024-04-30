@@ -15,7 +15,6 @@ export const AgentProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
   } = useTypedSelector((state) => state.agentProject);
   const { id } = useParams();
   const navigate = useNavigate();
-  console.log(agentProject);
 
   const onFinish = ({ name, description }: IValuesForm) => {
     if (type === 'create') {

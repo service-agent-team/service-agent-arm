@@ -1,51 +1,41 @@
-import { Attributes, CountyCodeType, CurrencyType } from '@/store/lets-trip/tour/types';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 export interface IValuesForm {
   nameUz: string;
   nameRu: string;
   nameEn: string;
-  categoryId: number;
-  companyId: number;
-  descriptionUz: string;
-  descriptionEn: string;
+  countryId: number;
+  priceNoteRu: string;
+  priceNoteEn: string;
+  startingPrice: number;
+  priceNotIncludeRu: string[];
+  priceNotIncludeEn: string[];
+  extraInformation: any;
+  priceIncludeRu: string[];
+  priceIncludeEn: string[];
+  images: UploadChangeParam;
   descriptionRu: string;
-  upTo2: number;
-  upTo6: number;
-  upTo10: number;
-  upTo20: number;
-  pictures: UploadChangeParam;
-  currency: CurrencyType;
-  countryCode: CountyCodeType;
+  descriptionEn: string;
   longitude: number;
   latitude: number;
-  attributes?: Attributes;
+  availableMonth: number;
+  availableYear: number;
+  transferPrice: number;
+  transferTypeRu: string;
+  transferTypeEn: string;
+  transferDate: string;
+  itineraryTitleEn: string;
+  itineraryTitleRu: string;
+  itineraryDescEn: string;
+  itineraryDescRu: string;
+  itineraryImgUrl: string;
 }
 
 export interface IFileResponse {
-  groupId: string;
-  mediaList: IMediaList[];
-  directory: Directory2;
+  ids: Id[];
   size: number;
 }
-export interface IMediaList {
+
+export interface Id {
   id: number;
-  originalName: string;
-  contentType: string;
-  extension: string;
-  size: number;
-  directory: Directory;
-  type: string;
-}
-
-export interface Directory {
-  directoryId: string;
-  name: string;
-  createdAt: string;
-}
-
-export interface Directory2 {
-  directoryId: string;
-  name: string;
-  createdAt: string;
 }

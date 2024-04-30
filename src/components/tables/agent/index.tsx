@@ -45,7 +45,6 @@ export const AgentTable: React.FC = () => {
       label: 'Rad etilgan',
     },
   ];
-  console.log('its work');
 
   return (
     <Flex align="center" justify="center" wrap="wrap" gap={13}>

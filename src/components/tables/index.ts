@@ -8,7 +8,7 @@ export { PermissionTable } from './permission';
 export { TariffTable } from './tariff/index';
 export { UserTable } from './users';
 export * from './lets-trip-order';
-export * from './lets-trip-tour';
+export * from './lets-trip-group-tour';
 export * from './lets-trip-transfer';
 export * from './lest-trip-esimgo';
 export * from './agent-order';

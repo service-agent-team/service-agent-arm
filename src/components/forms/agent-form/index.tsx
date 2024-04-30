@@ -3,20 +3,19 @@ import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
 import { ICompany } from '@/store/service-agent/company/types';
 import { IRolesV2 } from '@/store/service-agent/roles/types';
-import { IAgentTariff } from '@/store/service-agent/tariff/types';
+import { IAgentTariffV2 } from '@/store/service-agent/tariff/types';
 import { Flex, Select } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styles';
 import { IParam } from './types';
-import { UserPermission } from '@/store/service-agent/contract/contract.interface';
 
 interface IProps {
   userId: number;
   roles: IRolesV2[] | null;
-  categories: IAgentTariff[] | null;
+  categories: IAgentTariffV2[] | null;
   companies: ICompany[] | null;
   contractStatus: string | undefined;
-  userPermissions: UserPermission[] | undefined;
+  userPermissions: [] | undefined;
 }
 
 export const AgentForm: React.FC<IProps> = ({
@@ -95,20 +94,20 @@ export const AgentForm: React.FC<IProps> = ({
 
   useEffect(() => {
     getAgentPermissions({ callback() {} });
-    getAllAgentProject({ callback() {} });
+    getAllAgentProject({ callback() {}, pageNumber: 0, pageSize: 20 });
   }, []);
 
   const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
   const CategorySelectedOptions = categories?.map((el) => ({
-    label: el.tariffName,
-    value: el.userTariffId,
+    label: el.name,
+    value: el.tariffId,
   }));
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   const UserPermissionSelectOption =
     permissions?.map((el) => ({ label: el.name, value: el.id })) || [];
   const ProjectSelectOption = agentProjects?.map((el) => {
     if (userPermissions) {
-      const isChecked = userPermissions.some((permission) => permission.project.id === el.id);
+      const isChecked = userPermissions.some((permission) => permission.projectId === el.projectId);
       return {
         label: el.name,
         value: el.id,

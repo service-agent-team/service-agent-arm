@@ -1,6 +1,6 @@
 import { PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
-import { LetsTripTourTable } from '@/components';
+import { LetsTripGroupTourTable } from '@/components';
 import { ROUTES } from '@/constants';
 
 export const LetsTripTour = () => {
@@ -12,7 +12,7 @@ export const LetsTripTour = () => {
         route={ROUTES.letsTripTourCreate}
         label="Create"
       />
-      <LetsTripTourTable />
+      <LetsTripGroupTourTable />
     </SimplePage>
   );
 };

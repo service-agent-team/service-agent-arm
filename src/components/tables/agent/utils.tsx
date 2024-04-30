@@ -146,49 +146,51 @@ export const utils = () => {
       key: 'login',
       width: '20%',
     },
-    // {
-    //   title: 'Projects',
-    //   dataIndex: 'userPermissions',
-    //   key: 'userPermissions',
-    //   width: '20%',
-    //   render: (userPermissions) => (
-    //     <Row style={{ gap: '4px' }}>
-    //       {userPermissions.map((el: any) => {
-    //         return (
-    //           <Tag color={'success'} key={el.permission.name}>
-    //             {el.project.name.toUpperCase()}
-    //           </Tag>
-    //         );
-    //       })}
-    //     </Row>
-    //   ),
-    // },
-    // {
-    //   title: 'Agent role',
-    //   dataIndex: 'userRoles',
-    //   key: 'login',
-    //   width: '20%',
-    //   render: (userRoles) => (
-    //     <Row style={{ gap: '4px' }}>
-    //       {userRoles.map((el: any) => (
-    //         <Tag key={el.userRolesId} color={'success'}>
-    //           {el.role.name.toUpperCase()}
-    //         </Tag>
-    //       ))}
-    //     </Row>
-    //   ),
-    // },
+    {
+      title: 'Role',
+      dataIndex: 'userRolePermissions',
+      key: 'userRolePermissions',
+      width: '20%',
+      render: (userRolePermissions) => (
+        <Row style={{ gap: '4px' }}>
+          {userRolePermissions.map((el: any) => {
+            return (
+              <Tag color={'success'} key={el.role.roleId}>
+                {el.role.name?.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </Row>
+      ),
+    },
     {
       title: 'Role Permissions',
-      dataIndex: 'rolePermissions',
-      key: 'rolePermissions',
+      dataIndex: 'userRolePermissions',
+      key: 'userRolePermissions',
       width: '20%',
-      render: (rolePermissions) => (
+      render: (userRolePermissions) => (
         <Row style={{ gap: '4px' }}>
-          {rolePermissions.map((el: any) => {
+          {userRolePermissions.map((el: any) =>
+            el.permissions?.map((item: any) => (
+              <Tag color={'success'} key={item.permissionId}>
+                {item.name?.toUpperCase()}
+              </Tag>
+            )),
+          )}
+        </Row>
+      ),
+    },
+    {
+      title: 'User Tariff',
+      dataIndex: 'userTariffPermissions',
+      key: 'userTariffPermissions',
+      width: '20%',
+      render: (userTariffPermissions) => (
+        <Row style={{ gap: '4px' }}>
+          {userTariffPermissions.map((el: any) => {
             return (
-              <Tag color={'success'} key={el.role.id}>
-                {el.role.name.toUpperCase()}
+              <Tag color={'success'} key={el.tariff.tariffId}>
+                {el.tariff.name?.toUpperCase()}
               </Tag>
             );
           })}
@@ -202,13 +204,13 @@ export const utils = () => {
       width: '20%',
       render: (userTariffPermissions) => (
         <Row style={{ gap: '4px' }}>
-          {userTariffPermissions.map((el: any) => {
-            return (
-              <Tag color={'success'} key={el.permission.name}>
-                {el.permission.name.toUpperCase()}
+          {userTariffPermissions.map((el: any) =>
+            el.permissions?.map((item: any) => (
+              <Tag color={'success'} key={item.permissionId}>
+                {item.name?.toUpperCase()}
               </Tag>
-            );
-          })}
+            )),
+          )}
         </Row>
       ),
     },

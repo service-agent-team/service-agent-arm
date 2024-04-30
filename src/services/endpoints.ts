@@ -182,11 +182,25 @@ export const EndPointes = {
     delete: '/agent-roles/delete/',
   },
 
-  letsTripTour: {
-    getAll: '/products/tours',
-    getOne: '/products/tour',
-    create: '/products/tour',
-    delete: '/products/tour',
+  letsTripGroupTour: {
+    getAll: '/tours/group-tours',
+    getOne: '/tours/group-tours',
+    getByCountry: '/tours/group-tours/by-county',
+    create: '/tours/group-tours',
+    delete: '/tours/group-tours',
+  },
+
+  letsTripIndividualTour: {
+    getAll: '/tours/individual-tours',
+    getOne: '/tours/individual-tours',
+    getByCountry: '/tours/individual-tours/by-county',
+    create: '/tours/individual-tours',
+    delete: '/tours/individual-tours',
+  },
+
+  letsTripCountry: {
+    getAll: '/tours/countries',
+    create: '/tours/countries',
   },
 
   letsTripTransfer: {

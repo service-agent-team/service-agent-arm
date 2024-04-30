@@ -10,6 +10,7 @@ import { modal } from '@/components';
 import { useActions } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
+import { ILetsTripGroupTour } from '@/store/lets-trip/tour/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -45,7 +46,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<any> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripGroupTour> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -123,13 +124,13 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<any> = [
+  const columns: ColumnsType<ILetsTripGroupTour> = [
     {
       title: 'Id',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'tourId',
+      key: 'tourId',
       width: '4%',
-      sorter: (a, b) => a.id - b.id,
+      sorter: (a, b) => a.tourId - b.tourId,
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -137,27 +138,20 @@ export const utils = () => {
       dataIndex: 'name',
       key: 'name',
       width: '20%',
-      ...getColumnSearchProps('name'),
+      render: (value) => value.en,
     },
     {
-      title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
+      title: 'Starting Price',
+      dataIndex: 'startingPrice',
+      key: 'startingPrice',
       width: '20%',
-      render: (category) => category.name,
     },
     {
-      title: 'Company',
-      dataIndex: 'company',
-      key: 'company',
-      width: '20%',
-      render: (company) => company.name,
-    },
-    {
-      title: 'Currency',
-      dataIndex: 'currency',
-      key: 'currency',
+      title: 'Country',
+      dataIndex: 'country',
+      key: 'country',
       width: '5%',
+      render: (value) => value.name.en?.toUpperCase(),
     },
     {
       title: 'Created At',
@@ -172,6 +166,7 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
+      width: '5%',
       render: (_: number) => {
         return (
           <LinkButton path={`#`}>

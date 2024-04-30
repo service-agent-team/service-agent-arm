@@ -2,94 +2,135 @@ import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
 import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
-import { Button, Flex, GetProp, Image, Input, Select, Space, Upload, UploadProps } from 'antd';
+import {
+  Button,
+  DatePicker,
+  Flex,
+  GetProp,
+  Image,
+  Input,
+  Select,
+  Space,
+  Upload,
+  UploadProps,
+} from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IMediaList, IValuesForm } from '../types';
+import { Id, IValuesForm } from '../types';
 import * as S from './styled';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { UploadFile } from 'antd/lib';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const { companies } = useTypedSelector((state) => state.company);
-  const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
-  const { getCompany, createLetsTripTour, getAllCategory } = useActions();
+  const { countries } = useTypedSelector((state) => state.letsTripCountry);
+  const { loading } = useTypedSelector((state) => state.letsTripTour);
+  const { getCompany, createLetsTripGroupTour, getAllLetsTripCountry } = useActions();
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [previewImage, setPreviewImage] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
 
   const onFinish = ({
-    nameUz,
-    nameRu,
     nameEn,
-    categoryId,
-    companyId,
+    nameRu,
+    countryId,
     descriptionEn,
     descriptionRu,
-    descriptionUz,
-    countryCode,
-    currency,
+    priceNoteEn,
+    priceNoteRu,
+    priceNotIncludeEn,
+    priceNotIncludeRu,
+    priceIncludeEn,
+    priceIncludeRu,
     longitude,
     latitude,
-    upTo2,
-    upTo6,
-    upTo10,
-    upTo20,
-    attributes,
-    pictures,
+    images,
+    availableMonth,
+    availableYear,
+    transferPrice,
+    transferTypeEn,
+    transferTypeRu,
+    transferDate,
+    extraInformation,
+    itineraryTitleEn,
+    itineraryTitleRu,
+    itineraryDescEn,
+    itineraryDescRu,
+    itineraryImgUrl,
   }: IValuesForm) => {
-    createLetsTripTour({
+    createLetsTripGroupTour({
       callback() {
         addNotification('successfully added tour');
         navigate(ROUTES.letsTripTour);
       },
-      names: { uz: nameEn, en: nameUz, ru: nameRu },
-      categoryId,
-      companyId,
-      descriptions: { uz: descriptionEn, en: descriptionUz, ru: descriptionRu },
-      upTo2,
-      upTo6,
-      upTo10,
-      upTo20,
-      pictures: pictures.fileList
+      name: { en: nameEn, ru: nameRu },
+      countryId,
+      description: [{ ru: descriptionRu, en: descriptionEn }],
+      images: images.fileList
         .map((item: UploadFile) =>
-          item?.response?.mediaList?.map((file: IMediaList) => `${FILE_URL}/${file.id}`),
+          item?.response?.mediaList?.map((file: Id) => `${FILE_URL}/${file.id}`),
         )
         .flat(Infinity),
-      currency,
-      countryCode,
-      longitude,
-      latitude,
-      attributes: { ...attributes },
+      locations: [
+        {
+          lat: latitude,
+          lng: longitude,
+        },
+      ],
+      availableDate: [
+        {
+          month: availableMonth,
+          year: availableYear,
+          departures: [
+            {
+              price: transferPrice,
+              transferType: {
+                en: transferTypeEn,
+                ru: transferTypeRu,
+              },
+              startDate: transferDate,
+              endDate: transferDate,
+            },
+          ],
+        },
+      ],
+      extraInformation: { ...extraInformation },
+      startingPrice: 0,
+      priceNote: {
+        en: priceNoteEn,
+        ru: priceNoteRu,
+      },
+      priceNotIncludes: {
+        en: priceNotIncludeEn,
+        ru: priceNotIncludeRu,
+      },
+      priceIncludes: {
+        en: priceIncludeEn,
+        ru: priceIncludeRu,
+      },
+      tourItenarary: [
+        {
+          title: {
+            en: itineraryTitleEn,
+            ru: itineraryTitleRu,
+          },
+          description: [
+            {
+              en: itineraryDescEn,
+              ru: itineraryDescRu,
+            },
+          ],
+          imageUrl: itineraryImgUrl,
+        },
+      ],
     });
   };
 
-  const selectOptionCategory = categories?.map((category) => ({
-    label: category.name,
-    value: category.id,
+  const selectOptionCountry = countries?.map((el) => ({
+    value: el.name,
+    label: el.name ? el.name : el.code,
   }));
-  const selectOptionCompany = companies?.map((company) => ({
-    label: company.name,
-    value: company.id,
-  }));
-  const selectOptionCurrency = [
-    {
-      label: 'UZS',
-      value: 'UZS',
-    },
-    {
-      label: 'USD',
-      value: 'USD',
-    },
-  ];
-  const selectCountryCode = [
-    { label: 'AE', value: 'AE' },
-    { label: 'UZ', value: 'UZ' },
-    { label: 'TR', value: 'TR' },
-  ];
-
   type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
   const getBase64 = (file: FileType): Promise<string> =>
@@ -114,12 +155,12 @@ export const LestTripTourCreateForm: React.FC = () => {
 
   useEffect(() => {
     getCompany({ page: 0, size: 20 });
-    getAllCategory({ callback() {} });
+    getAllLetsTripCountry({ callback() {}, page: 0, size: 100 });
   }, []);
 
   return (
     <BaseForm
-      name="letsTripTourCreateForm"
+      name="letsTripGroupTourForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}
@@ -127,20 +168,6 @@ export const LestTripTourCreateForm: React.FC = () => {
     >
       <S.FormContent>
         <Flex gap={'15px'}>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="nameUz"
-            label={'name uz'}
-            rules={[
-              { required: true, message: 'name uz is required?' },
-              {
-                type: 'string',
-                message: 'Enter name uz name ?',
-              },
-            ]}
-          >
-            <Input name="nameUz" type="string" placeholder="Enter a uz name ?" />
-          </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameEn"
@@ -172,28 +199,32 @@ export const LestTripTourCreateForm: React.FC = () => {
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
-            name="categoryId"
             style={{ width: '100%' }}
-            label={'category'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            name="priceNoteRu"
+            label={'priceNoteRu'}
+            rules={[
+              { required: true, message: 'priceNoteRu is required?' },
+              {
+                type: 'string',
+                message: 'Enter priceNoteRu ?',
+              },
+            ]}
           >
-            <Select placeholder="Select category?" options={selectOptionCategory} />
+            <Input name="priceNoteRu" type="string" placeholder="Enter a priceNoteRu ?" />
           </BaseForm.Item>
           <BaseForm.Item
-            name="companyId"
             style={{ width: '100%' }}
-            label={'company'}
-            rules={[{ required: true, message: 'company is required!' }]}
+            name="priceNoteEn"
+            label={'priceNoteEn'}
+            rules={[
+              { required: true, message: 'priceNoteEn is required?' },
+              {
+                type: 'string',
+                message: 'Enter priceNoteEn ?',
+              },
+            ]}
           >
-            <Select placeholder="Select company?" options={selectOptionCompany} />
-          </BaseForm.Item>
-          <BaseForm.Item
-            name="currency"
-            style={{ width: '100%' }}
-            label={'currency'}
-            rules={[{ required: true, message: 'currency is required!' }]}
-          >
-            <Select placeholder="Select currency?" options={selectOptionCurrency} />
+            <Input name="priceNoteEn" type="string" placeholder="Enter a priceNoteEn ?" />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
@@ -226,85 +257,170 @@ export const LestTripTourCreateForm: React.FC = () => {
             />
           </BaseForm.Item>
           <BaseForm.Item
+            name="countryId"
             style={{ width: '100%' }}
-            name="countryCode"
-            label={'country code'}
-            rules={[{ required: true, message: 'countryCode is required?' }]}
+            label={'country'}
+            rules={[{ required: true, message: 'country is required!' }]}
           >
-            <Select placeholder="Select country code ?" options={selectCountryCode} />
+            <Select placeholder="Select country?" options={selectOptionCountry} />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="upTo2"
-            label={'along with 2 person'}
-            rules={[{ required: true, message: 'upTo2 is required?' }]}
+            name="priceIncludeRu"
+            label={'priceIncludeRu'}
+            rules={[
+              { required: true, message: 'priceIncludeRu is required?' },
+              {
+                type: 'string',
+                message: 'Enter priceIncludeRu ?',
+              },
+            ]}
           >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              name="upTo2"
-              type="number"
-              placeholder="Enter along 2 person price ?"
+            <Input name="priceIncludeRu" type="string" placeholder="Enter a priceIncludeRu ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="priceIncludeEn"
+            label={'priceIncludeEn'}
+            rules={[
+              { required: true, message: 'priceIncludeEn is required?' },
+              {
+                type: 'string',
+                message: 'Enter priceIncludeEn ?',
+              },
+            ]}
+          >
+            <Input name="priceIncludeEn" type="string" placeholder="Enter a priceIncludeEn ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="priceNotIncludeRu"
+            label={'priceNotIncludeRu'}
+            rules={[
+              { required: true, message: 'priceNotIncludeRu is required?' },
+              {
+                type: 'string',
+                message: 'Enter priceNotIncludeRu ?',
+              },
+            ]}
+          >
+            <Input
+              name="priceNotIncludeRu"
+              type="string"
+              placeholder="Enter a priceNotIncludeRu ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="upTo6"
-            label={'along with 6 person'}
-            rules={[{ required: true, message: 'upTo6 is required?' }]}
+            name="priceNotIncludeEn"
+            label={'priceNotIncludeEn'}
+            rules={[
+              { required: true, message: 'priceNotIncludeEn is required?' },
+              {
+                type: 'string',
+                message: 'Enter priceNotIncludeEn ?',
+              },
+            ]}
+          >
+            <Input
+              name="priceNotIncludeEn"
+              type="string"
+              placeholder="Enter a priceNotIncludeEn ?"
+            />
+          </BaseForm.Item>
+        </Flex>
+        <Flex gap={'15px'}>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="availablePrice"
+            label={'availablePrice'}
+            rules={[
+              { required: true, message: 'availablePrice is required?' },
+              {
+                type: 'number',
+                message: 'Enter availablePrice ?',
+              },
+            ]}
           >
             <InputNumber
               style={{ width: '100%' }}
-              width={'100%'}
-              name="upTo6"
+              name="availablePrice"
               type="number"
-              placeholder="Enter along 6 person price ?"
+              placeholder="Enter a availablePrice ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="upTo10"
-            label={'along with 10 person'}
-            rules={[{ required: true, message: 'upTo10 is required?' }]}
+            name="availableMonth"
+            label={'availableMonth'}
+            rules={[
+              { required: false, message: 'availableMonth is required?' },
+              {
+                type: 'string',
+                message: 'Enter availableMonth ?',
+              },
+            ]}
           >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              name="upTo10"
-              type="number"
-              placeholder="Enter along 10 person price ? "
-            />
+            <DatePicker name="availableMonth" picker="month" style={{ width: '100%' }} />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="upTo20"
-            label={'along with 20 person'}
-            rules={[{ required: true, message: 'upTo20 is required?' }]}
+            name="availableYear"
+            label={'availableYear'}
+            rules={[
+              { required: false, message: 'availableYear is required?' },
+              {
+                type: 'string',
+                message: 'Enter availableYear ?',
+              },
+            ]}
           >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              name="upTo20"
-              type="number"
-              placeholder="Enter along 20 person price ? "
-            />
+            <DatePicker name="availableYear" picker="year" style={{ width: '100%' }} />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="transferDate"
+            label={'transferStartEndDate'}
+            rules={[
+              { required: false, message: 'transferDate is required?' },
+              {
+                type: 'string',
+                message: 'Enter transferDate ?',
+              },
+            ]}
+          >
+            <DatePicker.RangePicker name="transferDate" type="number" style={{ width: '100%' }} />
           </BaseForm.Item>
         </Flex>
         <BaseForm.Item
           style={{ width: '100%' }}
-          name="descriptionUz"
-          label={'description uz'}
+          name="itineraryDescEn"
+          label={'itineraryDescEn'}
           rules={[
-            { required: true, message: 'description uz is required?' },
+            { required: true, message: 'itineraryDescEn is required?' },
             {
               type: 'string',
-              message: 'Enter uz description ?',
+              message: 'Enter a itineraryDescEn ?',
             },
           ]}
         >
-          <TextArea name="descriptionUz" placeholder="Enter a uz description ?" />
+          <TextArea name="itineraryDescEn" placeholder="Enter a itineraryDescEn ?" />
+        </BaseForm.Item>
+        <BaseForm.Item
+          style={{ width: '100%' }}
+          name="itineraryDescRu"
+          label={'itineraryDescRu'}
+          rules={[
+            { required: true, message: 'itineraryDescRu is required?' },
+            {
+              type: 'string',
+              message: 'Enter a itineraryDescRu ?',
+            },
+          ]}
+        >
+          <TextArea name="itineraryDescRu" placeholder="Enter a itineraryDescRu ?" />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
@@ -346,6 +462,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             fileList={fileList}
             onChange={handleChange}
             onPreview={handlePreview}
+            beforeUpload={(file) => file.type.split('/')[0] === 'image'}
             action={`${BASE_URL}/file`}
           >
             <Icon fontSize="20" color="blue" name="InboxOutlined" />

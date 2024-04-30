@@ -1,180 +1,197 @@
-export interface ILetsTripTourInitialState {
+export interface ILetsTripGroupTourInitialState {
   loading: {
     get: boolean;
     post: boolean;
     patch: boolean;
     delete: boolean;
   };
-  tours: ILetsTripTour[] | null;
-  tour: ILetsTripTour | null;
-  categories: Category[] | null;
+  tours: ILetsTripGroupTour[] | null;
+  tour: ILetsTripGroupTour | null;
   errors: unknown | string[] | string;
 }
 
-export interface ILetsTripTour {
-  id: number;
-  name?: string;
-  names: Names;
-  category: Category;
-  company: Company;
-  description?: string;
-  descriptions: Descriptions;
-  upTo2: number;
-  upTo6: number;
-  upTo10: number;
-  upTo20: number;
-  pictures: string[];
-  currency: string;
-  attributes: Attributes;
-  countryCode: string;
-  departures: any[];
-  itenararyLocalization?: ItenararyLocalization;
-  createdAt: string;
-  updatedAt: string;
-  longitude: number;
-  latitude: number;
-  deleted: boolean;
+export interface ILetsTripGroupTour {
+  tourId: number;
+  extraInformation: ExtraInformation;
+  tourItenarary: TourItinerary[];
+  images: string[];
+  startingPrice: number;
+  name: Name;
+  availableDate: AvailableDate[];
+  description: Description2[];
+  locations: Location[];
+  priceIncludes: PriceIncludes;
+  priceNotIncludes: PriceNotIncludes;
+  priceNote: PriceNote;
+  country: Country;
+  deleted?: boolean;
+  createdAt?: string;
 }
 
-export interface ILetsTripTourResponse {
-  content: ILetsTripTour[];
+export interface ILetsTripGroupTourResponse {
+  content: ILetsTripGroupTour[];
   pageable: Pageable;
-  last: boolean;
-  totalElements: number;
   totalPages: number;
-  first: boolean;
+  totalElements: number;
+  last: boolean;
+  numberOfElements: number;
   size: number;
   number: number;
-  sort: any[];
-  numberOfElements: number;
+  sort: Sort2;
+  first: boolean;
   empty: boolean;
 }
 
-export interface IGetOneLetsTripTourResponse extends ILetsTripTour {}
+export interface IGetOneLetsTripTourResponse extends ILetsTripGroupTour {}
 
-export interface ICategoryResponse {
-  success: boolean;
-  status: number;
-  msg: string;
-  data: {
-    content: Category[];
-  };
-}
+export interface ILetsTripGroupTourCreateResponse extends ILetsTripGroupTour {}
 
-export interface ILetsTripTourCreateResponse extends ILetsTripTour {}
-
-export interface ILetsTripPayload {
+export interface ILetsTripGroupTourPayload {
   callback(): void;
+  page: number;
+  size: number;
 }
 
-export interface ILetsTripTourGetOnePayload extends ILetsTripPayload {
+export interface ILetsTripGroupTourGetOnePayload {
+  callback(): void;
   id: string;
 }
 
-export interface ILetsTripTourCreatePayload {
+export interface ILetsTripGroupTourCreatePayload {
   callback(): void;
-  names: Names;
-  categoryId: number;
-  companyId: number;
-  descriptions: Descriptions;
-  upTo2: number;
-  upTo6: number;
-  upTo10: number;
-  upTo20: number;
-  pictures: any[];
-  currency: CurrencyType;
-  countryCode: CountyCodeType;
-  longitude: number;
-  latitude: number;
-  attributes?: Attributes;
+  name: Name;
+  countryId: number;
+  startingPrice: number;
+  priceNote: PriceNote;
+  priceNotIncludes: PriceNotIncludes;
+  extraInformation: ExtraInformation;
+  images: string[];
+  description: Description2[];
+  priceIncludes: PriceIncludes;
+  locations: Location[];
+  availableDate: AvailableDate[];
+  tourItenarary: TourItinerary[];
 }
 
-export enum CurrencyType {
-  uzs = 'UZS',
-  usd = 'USD',
-}
-
-export enum CountyCodeType {
-  uz = 'UZ',
-  ae = 'AE',
-  tr = 'TR',
-}
-
-export interface Names {
-  uz?: string;
-  en?: string;
-  ru?: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-}
-
-export interface Company {
-  id: number;
-  name: string;
-  deleted: boolean;
-}
-
-export interface Descriptions {
-  uz?: string;
-  en?: string;
-  ru?: string;
-}
-
-export interface Attributes {
-  hour?: string;
-  price?: string;
-}
-
-export interface ItenararyLocalization {
-  uz: Uz;
-  en: En;
-  ru: Ru;
-}
-
-export interface Uz {
-  attributes: Attributes2;
-}
-
-export interface Attributes2 {
-  '08:00': string;
-  '10:30': string;
-  '14:00': string;
-  '13:00': string;
-  '07:00': string;
-}
-
-export interface En {
-  attributes: Attributes3;
-}
-
-export interface Attributes3 {
-  '08:00': string;
-  '10:30': string;
-  '14:00': string;
-  '13:00': string;
-  '07:00': string;
+export interface ExtraInformation {
+  ru: Ru[];
+  en: En[];
 }
 
 export interface Ru {
-  attributes: Attributes4;
+  title: string;
+  value: string;
 }
 
-export interface Attributes4 {
-  '08:00': string;
-  '10:30': string;
-  '14:00': string;
-  '13:00': string;
-  '07:00': string;
+export interface En {
+  title: string;
+  value: string;
+}
+
+export interface TourItinerary {
+  id?: number;
+  imageUrl: string;
+  description: Description[];
+  title: Title;
+}
+
+export interface Description {
+  id?: number;
+  ru: string;
+  en: string;
+}
+
+export interface Title {
+  id?: number;
+  ru: string;
+  en: string;
+}
+
+export interface Name {
+  id?: number;
+  ru: string;
+  en: string;
+}
+
+export interface AvailableDate {
+  month: number;
+  year: number;
+  departures: Departure[];
+}
+
+export interface Departure {
+  price: number;
+  transferType: TransferType;
+  startDate: string;
+  endDate: string;
+}
+
+export interface TransferType {
+  id?: number;
+  ru: string;
+  en: string;
+}
+
+export interface Description2 {
+  id?: number;
+  ru: string;
+  en: string;
+}
+
+export interface Location {
+  lng?: number;
+  lat?: number;
+}
+
+export interface PriceIncludes {
+  id?: number;
+  ru: string[];
+  en: string[];
+}
+
+export interface PriceNotIncludes {
+  id?: number;
+  ru: string[];
+  en: string[];
+}
+
+export interface PriceNote {
+  ru: string;
+  en: string;
+}
+
+export interface Country {
+  id: number;
+  name: Name2;
+  imageUrl: string;
+  code: string;
+  region: any[];
+  deleted: boolean;
+}
+
+export interface Name2 {
+  id: number;
+  ru?: string;
+  en?: string;
 }
 
 export interface Pageable {
   pageNumber: number;
   pageSize: number;
-  sort: any[];
+  sort: Sort;
   offset: number;
   paged: boolean;
   unpaged: boolean;
+}
+
+export interface Sort {
+  sorted: boolean;
+  unsorted: boolean;
+  empty: boolean;
+}
+
+export interface Sort2 {
+  sorted: boolean;
+  unsorted: boolean;
+  empty: boolean;
 }

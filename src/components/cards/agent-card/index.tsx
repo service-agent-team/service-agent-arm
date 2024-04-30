@@ -10,15 +10,13 @@ interface IProps {
 }
 
 export const AgentCard = ({ data }: IProps) => {
-  const { getRoles, getCategory, getCompany } = useActions();
+  const { getRoles, getAllAgentTariffCategory, getCompany } = useActions();
   useEffect(() => {
     getRoles({ callback() {}, pageNumber: 0, pageSize: 20 });
-    getCategory({ callback() {} });
+    getAllAgentTariffCategory({ callback() {} });
     getCompany({ page: 0, size: 20 });
   }, []);
-
   const { roles, agentTariff, company } = useTypedSelector((state) => state);
-  console.log(roles.allRole);
 
   return (
     <Badge.Ribbon
@@ -94,7 +92,7 @@ export const AgentCard = ({ data }: IProps) => {
           categories={agentTariff.tariffs}
           companies={company.companies}
           contractStatus={data?.contractStatus}
-          userPermissions={data?.userPermissions}
+          userPermissions={data?.userRolePermissions}
         />
       </Card>
     </Badge.Ribbon>
