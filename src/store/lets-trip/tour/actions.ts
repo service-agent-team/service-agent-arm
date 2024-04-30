@@ -8,6 +8,7 @@ import {
   ILetsTripGroupTourCreateResponse,
   ILetsTripGroupTourGetOnePayload,
   ILetsTripGroupTourResponse,
+  ILetsTripGroupTourDeletePayload,
 } from './types';
 import { LetsTripGroupTourService } from '@/services';
 
@@ -55,3 +56,18 @@ export const createLetsTripGroupTour = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const deleteLetsTripGroupTour = createAsyncThunk<any, ILetsTripGroupTourDeletePayload>(
+  EndPointes.letsTripGroupTour.delete + '/delete',
+  async ({ callback, id }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.delete(id);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);

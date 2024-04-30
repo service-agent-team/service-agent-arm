@@ -73,6 +73,11 @@ export interface ILetsTripGroupTourCreatePayload {
   tourItenarary: TourItinerary[];
 }
 
+export interface ILetsTripGroupTourDeletePayload {
+  callback(): void;
+  id: string;
+}
+
 export interface ExtraInformation {
   ru: Ru[];
   en: En[];

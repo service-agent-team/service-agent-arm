@@ -1,4 +1,3 @@
-import { ExtraInformation } from '@/store/lets-trip/tour/types';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 export interface IValuesForm {

@@ -7,16 +7,18 @@ import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
 import { dateParser } from '@/common/utils/format';
 import { modal } from '@/components';
-import { useActions } from '@/common/hooks';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 import { ILetsTripGroupTour } from '@/store/lets-trip/tour/types';
+import { addNotification } from '@/common';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { getOneLetsTripTour } = useActions();
+  const { getOneLetsTripTour, deleteLetsTripGroupTour } = useActions();
+  const { errors } = useTypedSelector((state) => state.letsTripTour);
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -30,13 +32,13 @@ export const utils = () => {
       okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
       title: `You want to delete right ?`,
       onOk: () => {
-        //   deleteAgentProject({
-        //     callback() {
-        //       addNotification('project successfully deleted');
-        //     },
-        //     id: record.id,
-        //   });
-        //   if (errors) addNotification(errors);
+        deleteLetsTripGroupTour({
+          callback() {
+            addNotification('group tour successfully deleted');
+          },
+          id: record.tourId,
+        });
+        if (errors) addNotification(errors);
       },
     });
   };

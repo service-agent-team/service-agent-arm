@@ -187,7 +187,7 @@ export const EndPointes = {
     getOne: '/tours/group-tours',
     getByCountry: '/tours/group-tours/by-county',
     create: '/tours/group-tours',
-    delete: '/tours/group-tours',
+    delete: '/tours/group-tours/',
   },
 
   letsTripIndividualTour: {

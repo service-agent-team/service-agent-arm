@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ILetsTripGroupTourInitialState } from './types';
-import { createLetsTripGroupTour, getAllLetsTripGroupTour, getOneLetsTripTour } from './actions';
+import {
+  createLetsTripGroupTour,
+  deleteLetsTripGroupTour,
+  getAllLetsTripGroupTour,
+  getOneLetsTripTour,
+} from './actions';
 
 const initialState: ILetsTripGroupTourInitialState = {
   loading: {
@@ -57,6 +62,18 @@ export const letsTripTourSlice = createSlice({
       })
       .addCase(createLetsTripGroupTour.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(deleteLetsTripGroupTour.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(deleteLetsTripGroupTour.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.errors = null;
+      })
+      .addCase(deleteLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.delete = false;
         state.errors = payload;
       });
   },
