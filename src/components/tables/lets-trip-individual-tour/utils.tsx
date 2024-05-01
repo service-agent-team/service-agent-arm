@@ -10,15 +10,15 @@ import { modal } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
-import { ILetsTripGroupTour } from '@/store/lets-trip/tour/types';
 import { addNotification } from '@/common';
+import { ILetsTripIndividualTour } from '@/store/lets-trip/individual-tour/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
   const { getOneLetsTripTour, deleteLetsTripGroupTour, setLetsTripGroupTour } = useActions();
-  const { errors, groupTours } = useTypedSelector((state) => state.letsTripTour);
+  const { errors, individualTours } = useTypedSelector((state) => state.letsTripIndividualTour);
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -34,11 +34,11 @@ export const utils = () => {
       onOk: () => {
         deleteLetsTripGroupTour({
           callback() {
-            addNotification('group tour successfully deleted');
-            if (groupTours)
+            addNotification('individual tour successfully deleted');
+            if (individualTours)
               setLetsTripGroupTour(
-                groupTours.map((el) => {
-                  if (el.tourId === record.tourId) {
+                individualTours.map((el) => {
+                  if (el.id === record.id) {
                     return {
                       ...el,
                       deleted: true,
@@ -60,7 +60,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripGroupTour> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripIndividualTour> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -138,13 +138,13 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<ILetsTripGroupTour> = [
+  const columns: ColumnsType<ILetsTripIndividualTour> = [
     {
       title: 'Id',
-      dataIndex: 'tourId',
-      key: 'tourId',
+      dataIndex: 'id',
+      key: 'id',
       width: '4%',
-      sorter: (a, b) => a.tourId - b.tourId,
+      sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
     },
     {

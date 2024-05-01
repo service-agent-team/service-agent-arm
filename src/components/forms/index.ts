@@ -8,6 +8,7 @@ export { ProductCreateForm } from './product-form';
 export { TariffForm } from './tariff-form';
 export { UsersForm } from './users-form';
 export * from './lets-trip-tour';
+export * from './lets-trip-individual-tour';
 export * from './lets-trip-transfer';
 export * from './agent-user-permission';
 export * from './agent-user-role';

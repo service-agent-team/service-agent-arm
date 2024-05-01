@@ -3,12 +3,15 @@ import {
   LetsTripHomePage,
   LetsTripLuggagePage,
   LetsTripOrderPage,
-  LetsTripTourPage,
-  LetsTripTourCreatePage,
+  LetsTripGroupTourPage,
+  LetsTripGroupTourCreatePage,
   LetsTripTransferPage,
   LetsTripEsimGoPage,
   LetsTripTransferCreatePage,
-  LetsTripTourEditPage,
+  LetsTripGroupTourEditPage,
+  LetsTripIndividualTourPage,
+  LetsTripIndividualTourCreatePage,
+  LetsTripIndividualTourEditPage,
 } from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
@@ -39,26 +42,50 @@ export const letsTrip = [
     ),
   },
   {
-    path: ROUTES.letsTripTour,
+    path: ROUTES.letsTripGroupTour,
     element: (
       <Suspense fallback={<Loading />}>
-        <LetsTripTourPage />
+        <LetsTripGroupTourPage />
       </Suspense>
     ),
   },
   {
-    path: ROUTES.letsTripTourCreate,
+    path: ROUTES.letsTripGroupTourCreate,
     element: (
       <Suspense fallback={<Loading />}>
-        <LetsTripTourCreatePage />
+        <LetsTripGroupTourCreatePage />
       </Suspense>
     ),
   },
   {
-    path: ROUTES.letsTripTourEdit,
+    path: ROUTES.letsTripGroupTourEdit,
     element: (
       <Suspense fallback={<Loading />}>
-        <LetsTripTourEditPage />
+        <LetsTripGroupTourEditPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripIndividualTour,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripIndividualTourPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripIndividualTourCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripIndividualTourCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripIndividualTourEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripIndividualTourEditPage />
       </Suspense>
     ),
   },

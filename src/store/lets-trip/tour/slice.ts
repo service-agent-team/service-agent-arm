@@ -19,7 +19,7 @@ const initialState: ILetsTripGroupTourInitialState = {
   errors: null,
 };
 
-export const letsTripTourSlice = createSlice({
+export const letsTripGroupTourSlice = createSlice({
   name: 'letsTripTour',
   initialState,
   reducers: {
@@ -83,5 +83,5 @@ export const letsTripTourSlice = createSlice({
   },
 });
 
-export const LetsTripTourReduce = letsTripTourSlice.reducer;
-export const LetsTripTourSliceActions = letsTripTourSlice.actions;
+export const LetsTripGroupTourReduce = letsTripGroupTourSlice.reducer;
+export const LetsTripGroupTourSliceActions = letsTripGroupTourSlice.actions;

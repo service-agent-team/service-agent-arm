@@ -48,8 +48,10 @@ import * as ProjectActions from '../global/project/actions';
 import { ProjectSliceActions } from '../global/project/slice';
 import * as AgentProjectActions from '../service-agent/project/actions';
 import { AgentProjectSliceActions } from '../service-agent/project/slice';
-import * as LetsTripTourActions from '../lets-trip/tour/actions';
-import { LetsTripTourSliceActions } from '../lets-trip/tour/slice';
+import * as LetsTripGroupTourActions from '../lets-trip/tour/actions';
+import { LetsTripGroupTourSliceActions } from '../lets-trip/tour/slice';
+import * as LetsTripIndividualTourActions from '../lets-trip/individual-tour/actions';
+import { LetsTripIndividualTourSliceActions } from '../lets-trip/individual-tour/slice';
 import * as LetsTripTransferReduce from '../lets-trip/transfer/actions';
 import { LetsTripTransferSliceActions } from '../lets-trip/transfer/slice';
 import * as LetsTripCountryReduce from '../lets-trip/country/actions';
@@ -107,8 +109,10 @@ export const AllActions = {
   ...ProjectActions,
   ...AgentProjectActions,
   ...AgentProjectSliceActions,
-  ...LetsTripTourActions,
-  ...LetsTripTourSliceActions,
+  ...LetsTripGroupTourActions,
+  ...LetsTripGroupTourSliceActions,
+  ...LetsTripIndividualTourActions,
+  ...LetsTripIndividualTourSliceActions,
   ...LetsTripTransferReduce,
   ...LetsTripTransferSliceActions,
   ...LetsTripCountryReduce,

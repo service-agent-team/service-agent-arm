@@ -18,12 +18,17 @@ export const letsTrip = [
     label: 'Orders',
   },
   {
-    icon: 'CarOutlined',
-    key: ROUTES.letsTripTour,
-    label: 'Tours',
+    icon: 'UsergroupAddOutlined',
+    key: ROUTES.letsTripGroupTour,
+    label: 'Group Tours',
   },
   {
-    icon: 'LineChartOutlined',
+    icon: 'UserAddOutlined',
+    key: ROUTES.letsTripIndividualTour,
+    label: 'Individual Tours',
+  },
+  {
+    icon: 'CarOutlined',
     key: ROUTES.letsTripTransfer,
     label: 'Transfers',
   },

@@ -3,13 +3,13 @@ import * as S from './styled';
 import { ROUTES } from '@/constants';
 import { LestTripTourCreateForm } from '@/components/forms';
 
-export const LetsTripTourGroupCreate = () => {
+export const LetsTripGroupIndividualEdit = () => {
   return (
     <S.ViewStyled>
       <PageTitle
-        title="Create Group Tour"
+        title="Edit Individual Tour"
         icon="ArrowLeftOutlined"
-        route={ROUTES.letsTripGroupTour}
+        route={ROUTES.letsTripIndividualTourEdit}
         label="Back"
       />
       <LestTripTourCreateForm />

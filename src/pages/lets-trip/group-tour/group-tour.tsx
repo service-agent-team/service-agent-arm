@@ -3,13 +3,13 @@ import { SimplePage } from '@/components/common/page';
 import { LetsTripGroupTourTable } from '@/components';
 import { ROUTES } from '@/constants';
 
-export const LetsTripTour = () => {
+export const LetsTripGroupTour = () => {
   return (
     <SimplePage>
       <PageTitle
         title="Tours"
         icon="PlusOutlined"
-        route={ROUTES.letsTripTourCreate}
+        route={ROUTES.letsTripGroupTourCreate}
         label="Create"
       />
       <LetsTripGroupTourTable />
