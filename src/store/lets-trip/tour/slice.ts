@@ -14,15 +14,19 @@ const initialState: ILetsTripGroupTourInitialState = {
     patch: false,
     delete: false,
   },
-  tours: null,
-  tour: null,
+  groupTours: null,
+  groupTour: null,
   errors: null,
 };
 
 export const letsTripTourSlice = createSlice({
   name: 'letsTripTour',
   initialState,
-  reducers: {},
+  reducers: {
+    setLetsTripGroupTour: (state, { payload }) => {
+      state.groupTours = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllLetsTripGroupTour.pending, (state) => {
@@ -31,7 +35,7 @@ export const letsTripTourSlice = createSlice({
       })
       .addCase(getAllLetsTripGroupTour.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.tours = payload.content;
+        state.groupTours = payload.content;
         state.errors = null;
       })
       .addCase(getAllLetsTripGroupTour.rejected, (state, { payload }) => {
@@ -44,7 +48,7 @@ export const letsTripTourSlice = createSlice({
       })
       .addCase(getOneLetsTripTour.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.tour = payload;
+        state.groupTour = payload;
         state.errors = null;
       })
       .addCase(getOneLetsTripTour.rejected, (state, { payload }) => {
@@ -57,7 +61,7 @@ export const letsTripTourSlice = createSlice({
       })
       .addCase(createLetsTripGroupTour.fulfilled, (state, { payload }) => {
         state.loading.post = false;
-        state.tours?.push(payload);
+        state.groupTours?.push(payload);
         state.errors = null;
       })
       .addCase(createLetsTripGroupTour.rejected, (state, { payload }) => {

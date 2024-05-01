@@ -8,7 +8,7 @@ import { ILetsTripGroupTour } from '@/store/lets-trip/tour/types';
 export const LetsTripGroupTourTable = () => {
   const { getAllLetsTripGroupTour } = useActions();
   const {
-    tours,
+    groupTours,
     loading: { get },
   } = useTypedSelector((state) => state.letsTripTour);
 
@@ -25,7 +25,7 @@ export const LetsTripGroupTourTable = () => {
   return (
     <Table
       columns={utils()}
-      dataSource={tours ? (tours as ILetsTripGroupTour[]) : []}
+      dataSource={groupTours ? (groupTours as ILetsTripGroupTour[]) : []}
       loading={get}
       bordered
     />

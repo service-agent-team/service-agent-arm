@@ -5,8 +5,8 @@ export interface ILetsTripGroupTourInitialState {
     patch: boolean;
     delete: boolean;
   };
-  tours: ILetsTripGroupTour[] | null;
-  tour: ILetsTripGroupTour | null;
+  groupTours: ILetsTripGroupTour[] | null;
+  groupTour: ILetsTripGroupTour | null;
   errors: unknown | string[] | string;
 }
 

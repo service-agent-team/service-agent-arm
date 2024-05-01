@@ -1,5 +1,5 @@
 import { SearchOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space } from 'antd';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -17,8 +17,8 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { getOneLetsTripTour, deleteLetsTripGroupTour } = useActions();
-  const { errors } = useTypedSelector((state) => state.letsTripTour);
+  const { getOneLetsTripTour, deleteLetsTripGroupTour, setLetsTripGroupTour } = useActions();
+  const { errors, groupTours } = useTypedSelector((state) => state.letsTripTour);
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -35,6 +35,18 @@ export const utils = () => {
         deleteLetsTripGroupTour({
           callback() {
             addNotification('group tour successfully deleted');
+            if (groupTours)
+              setLetsTripGroupTour(
+                groupTours.map((el) => {
+                  if (el.tourId === record.tourId) {
+                    return {
+                      ...el,
+                      deleted: true,
+                    };
+                  }
+                  return el;
+                }),
+              );
           },
           id: record.tourId,
         });
@@ -147,6 +159,7 @@ export const utils = () => {
       dataIndex: 'startingPrice',
       key: 'startingPrice',
       width: '20%',
+      ...getColumnSearchProps('startingPrice'),
     },
     {
       title: 'Country',
@@ -154,6 +167,14 @@ export const utils = () => {
       key: 'country',
       width: '5%',
       render: (value) => value.name.en?.toUpperCase(),
+    },
+    {
+      title: 'Active',
+      dataIndex: 'deleted',
+      key: 'deleted',
+      width: '5%',
+      render: (value) =>
+        value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
     },
     {
       title: 'Created At',
