@@ -1,7 +1,6 @@
 import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 export interface IValuesForm {
-  nameUz: string;
   nameRu: string;
   nameEn: string;
   countryId: number;

@@ -1,3 +1,4 @@
-export { LetsTripTour } from './tour';
-export { LetsTripTourCreate } from './create';
+export * from './group-tour';
+export * from './create';
 export * from './edit';
+export * from './view';

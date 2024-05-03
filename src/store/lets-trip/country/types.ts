@@ -3,6 +3,7 @@ export interface ILetsTripCountryInitialState {
     get: boolean;
     post: boolean;
     patch: boolean;
+    put: boolean;
     delete: boolean;
   };
   countries: ILetsTripCountry[] | null;
@@ -22,7 +23,7 @@ export interface ILetsTripCountryResponse {
   data: ILetsTripCountry[];
 }
 
-export interface IGetOneLetsTripTourResponse extends ILetsTripCountry {}
+export interface IGetOneLetsTripCountryResponse extends ILetsTripCountry {}
 
 export interface ILetsTripCountryCreateResponse extends ILetsTripCountry {}
 

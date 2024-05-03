@@ -5,8 +5,8 @@ export interface ILetsTripGroupTourInitialState {
     patch: boolean;
     delete: boolean;
   };
-  tours: ILetsTripGroupTour[] | null;
-  tour: ILetsTripGroupTour | null;
+  groupTours: ILetsTripGroupTour[] | null;
+  groupTour: ILetsTripGroupTourGetOne | null;
   errors: unknown | string[] | string;
 }
 
@@ -42,7 +42,7 @@ export interface ILetsTripGroupTourResponse {
   empty: boolean;
 }
 
-export interface IGetOneLetsTripTourResponse extends ILetsTripGroupTour {}
+export interface IGetOneLetsTripTourResponse extends ILetsTripGroupTourGetOne {}
 
 export interface ILetsTripGroupTourCreateResponse extends ILetsTripGroupTour {}
 
@@ -199,4 +199,49 @@ export interface Sort2 {
   sorted: boolean;
   unsorted: boolean;
   empty: boolean;
+}
+
+export interface ILetsTripGroupTourGetOne {
+  priceNotIncludes: string[];
+  extraInformation: ExtraInformation2[];
+  images: string[];
+  priceNote: string;
+  tourId: number;
+  name: string;
+  tourItenarary: TourItenarary2[];
+  description: string[];
+  priceIncludes: string[];
+  availableDate: AvailableDate2[];
+  locations: Location2[];
+  startingPrice: number;
+}
+export interface AvailableDate2 {
+  id: number;
+  month: string;
+  year: number;
+  departures: Departure2[];
+}
+
+export interface Departure2 {
+  id: number;
+  endDate: string;
+  price: number;
+  transferType: string;
+  startDate: string;
+}
+
+export interface ExtraInformation2 {
+  title: string;
+  value: string;
+}
+
+export interface Location2 {
+  lng: null;
+  lat: null;
+}
+
+export interface TourItenarary2 {
+  imageUrl: string;
+  description: string[];
+  title: string;
 }

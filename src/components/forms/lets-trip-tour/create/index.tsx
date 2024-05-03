@@ -67,7 +67,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     createLetsTripGroupTour({
       callback() {
         addNotification('successfully added tour');
-        navigate(ROUTES.letsTripTour);
+        navigate(ROUTES.letsTripGroupTour);
       },
       name: { en: nameEn, ru: nameRu },
       countryId,

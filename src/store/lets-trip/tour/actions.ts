@@ -62,7 +62,7 @@ export const deleteLetsTripGroupTour = createAsyncThunk<any, ILetsTripGroupTourD
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await LetsTripGroupTourService.delete(id);
-      if (response.data) {
+      if (response.status === 204) {
         callback();
       }
       return response.data;

@@ -22,9 +22,10 @@ import { AgentProjectReducer } from '../service-agent/project/slice';
 import { UserRoleReducer } from '../global/user-role/slice';
 import { RoleReducer } from '../global/role/slice';
 import { UserPermissionReducer } from '../global/user-permission/slice';
-import { LetsTripTourReduce } from '../lets-trip/tour/slice';
+import { LetsTripGroupTourReduce } from '../lets-trip/tour/slice';
 import { LetsTripTransferReduce } from '../lets-trip/transfer/slice';
 import { LetsTripCountryReduce } from '../lets-trip/country/slice';
+import { LetsTripIndividualTourReduce } from '../lets-trip/individual-tour/slice';
 
 export const reducer = {
   app: appReducer,
@@ -52,7 +53,8 @@ export const reducer = {
   agentUserPermission: AgentUserPermissionReducer,
   agentProject: AgentProjectReducer,
   letsTripOrder: LetsTripOrderReduce,
-  letsTripTour: LetsTripTourReduce,
+  letsTripTour: LetsTripGroupTourReduce,
+  letsTripIndividualTour: LetsTripIndividualTourReduce,
   letsTripTransfer: LetsTripTransferReduce,
   letsTripCountry: LetsTripCountryReduce,
 };

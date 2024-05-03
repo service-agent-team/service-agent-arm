@@ -4,12 +4,12 @@ import { EndPointes } from '../endpoints';
 export const LetsTripIndividualTourService = {
   async getAll(page = 0, size = 10) {
     const response = await $axios.get(
-      `${EndPointes.letsTripIndividualTour.getAll}?page=${page}&size=${size}`,
+      `${EndPointes.letsTripIndividualTour.getAll}?page=${page}&size=${size}&rection=ASC`,
     );
     return response;
   },
   async getOne(id: string) {
-    const response = await $axios.get(`${EndPointes.letsTripIndividualTour.getOne}/${id}`);
+    const response = await $axios.get(`${EndPointes.letsTripIndividualTour.getOne}${id}`);
     return response;
   },
   async create(body: any) {
