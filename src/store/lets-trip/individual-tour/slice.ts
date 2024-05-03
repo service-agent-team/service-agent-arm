@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ILetsTripIndividualTourInitialState } from './types';
-import { createLetsTripIndividualTour, getAllLetsTripIndividualTour } from './actions';
+import {
+  createLetsTripIndividualTour,
+  deleteLetsTripIndividualTour,
+  geOneLetsTripIndividualTour,
+  getAllLetsTripIndividualTour,
+} from './actions';
 
 const initialState: ILetsTripIndividualTourInitialState = {
   loading: {
@@ -37,19 +42,19 @@ export const letsTripIndividualTourSlice = createSlice({
         state.loading.get = false;
         state.errors = payload;
       })
-      // .addCase(getOneLetsTripTour.pending, (state) => {
-      //   state.loading.get = true;
-      //   state.errors = null;
-      // })
-      // .addCase(getOneLetsTripTour.fulfilled, (state, { payload }) => {
-      //   state.loading.get = false;
-      //   state.groupTour = payload;
-      //   state.errors = null;
-      // })
-      // .addCase(getOneLetsTripTour.rejected, (state, { payload }) => {
-      //   state.loading.get = false;
-      //   state.errors = payload;
-      // })
+      .addCase(geOneLetsTripIndividualTour.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(geOneLetsTripIndividualTour.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.individualTour = payload;
+        state.errors = null;
+      })
+      .addCase(geOneLetsTripIndividualTour.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
       .addCase(createLetsTripIndividualTour.pending, (state) => {
         state.loading.post = true;
         state.errors = null;
@@ -62,19 +67,19 @@ export const letsTripIndividualTourSlice = createSlice({
       .addCase(createLetsTripIndividualTour.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
+      })
+      .addCase(deleteLetsTripIndividualTour.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(deleteLetsTripIndividualTour.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.errors = null;
+      })
+      .addCase(deleteLetsTripIndividualTour.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.errors = payload;
       });
-    // .addCase(deleteLetsTripGroupTour.pending, (state) => {
-    //   state.loading.delete = true;
-    //   state.errors = null;
-    // })
-    // .addCase(deleteLetsTripGroupTour.fulfilled, (state) => {
-    //   state.loading.delete = false;
-    //   state.errors = null;
-    // })
-    // .addCase(deleteLetsTripGroupTour.rejected, (state, { payload }) => {
-    //   state.loading.delete = false;
-    //   state.errors = payload;
-    // });
   },
 });
 

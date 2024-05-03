@@ -50,7 +50,7 @@ export interface ILetsTripIndividualTourPayload {
   size: number;
 }
 
-export interface ILetsTripGIndividualTourGetOnePayload {
+export interface ILetsTripIndividualTourGetOnePayload {
   callback(): void;
   id: string;
 }
@@ -162,4 +162,29 @@ export interface Sort2 {
   sorted: boolean;
   unsorted: boolean;
   empty: boolean;
+}
+
+export interface ILetsTripIndividualTourGetOne {
+  id: number;
+  duration: string;
+  images: string[];
+  priceNote: string;
+  videoUrl: string;
+  name: string;
+  tourItenarary: TourItenarary2[];
+  description: string[];
+  startingPrice: number;
+  tourPrices: TourPrice2[];
+}
+
+export interface TourItenarary2 {
+  imageUrl: string;
+  description: string[];
+  title: string;
+}
+
+export interface TourPrice2 {
+  id: number;
+  price: number;
+  description: string;
 }

@@ -7,7 +7,7 @@ export const LetsTripGroupTour = () => {
   return (
     <SimplePage>
       <PageTitle
-        title="Tours"
+        title="Group Tours"
         icon="PlusOutlined"
         route={ROUTES.letsTripGroupTourCreate}
         label="Create"

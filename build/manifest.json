@@ -37,11 +37,18 @@
     "file": "assets/logo.png",
     "src": "src/assets/images/logo.png"
   },
+  "src/assets/images/no-thumbnail.png": {
+    "file": "assets/no-thumbnail.png",
+    "src": "src/assets/images/no-thumbnail.png"
+  },
   "src/assets/images/user.png": {
     "file": "assets/user.png",
     "src": "src/assets/images/user.png"
   },
   "src/pages/index.ts": {
+    "assets": [
+      "assets/no-thumbnail.png"
+    ],
     "file": "js/index2.js",
     "imports": [
       "index.html"

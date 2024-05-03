@@ -9,7 +9,7 @@ export const LetsTripIndividualTourService = {
     return response;
   },
   async getOne(id: string) {
-    const response = await $axios.get(`${EndPointes.letsTripIndividualTour.getOne}/${id}`);
+    const response = await $axios.get(`${EndPointes.letsTripIndividualTour.getOne}${id}`);
     return response;
   },
   async create(body: any) {

@@ -10,16 +10,16 @@ import { modal } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
+import { ILetsTripGroupTour } from '@/store/lets-trip/tour/types';
 import { addNotification } from '@/common';
-import { ILetsTripIndividualTour } from '@/store/lets-trip/individual-tour/types';
+import { ILetsTripCountry } from '@/store/lets-trip/country/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { getOneLetsTripTour, deleteLetsTripIndividualTour, setLetsTripIndividualTour } =
-    useActions();
-  const { errors, individualTours } = useTypedSelector((state) => state.letsTripIndividualTour);
+  const { getOneLetsTripTour, deleteLetsTripGroupTour, setLetsTripGroupTour } = useActions();
+  const { errors, countries } = useTypedSelector((state) => state.letsTripCountry);
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -33,12 +33,12 @@ export const utils = () => {
       okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
       title: `You want to delete right ?`,
       onOk: () => {
-        deleteLetsTripIndividualTour({
+        deleteLetsTripGroupTour({
           callback() {
-            addNotification('individual tour successfully deleted');
-            if (individualTours)
-              setLetsTripIndividualTour(
-                individualTours.map((el) => {
+            addNotification('group tour successfully deleted');
+            if (countries)
+              setLetsTripGroupTour(
+                countries.map((el) => {
                   if (el.id === record.id) {
                     return {
                       ...el,
@@ -61,7 +61,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripIndividualTour> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripCountry> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -139,7 +139,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<ILetsTripIndividualTour> = [
+  const columns: ColumnsType<ILetsTripCountry> = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -149,25 +149,18 @@ export const utils = () => {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Tour Name',
+      title: 'Country Name',
       dataIndex: 'name',
       key: 'name',
       width: '20%',
-      render: (value) => value.en,
+      ...getColumnSearchProps('name'),
     },
     {
-      title: 'Starting Price',
-      dataIndex: 'startingPrice',
-      key: 'startingPrice',
+      title: 'code',
+      dataIndex: 'code',
+      key: 'code',
       width: '20%',
-      ...getColumnSearchProps('startingPrice'),
-    },
-    {
-      title: 'Country',
-      dataIndex: 'country',
-      key: 'country',
-      width: '5%',
-      render: (value) => value.name.en?.toUpperCase(),
+      render: (value) => <Tag color="success">{value.toUpperCase()}</Tag>,
     },
     {
       title: 'Active',
@@ -187,19 +180,6 @@ export const utils = () => {
       },
     },
     {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      width: '5%',
-      render: (_, record: any) => {
-        return (
-          <LinkButton path={`${ROUTES.letsTripIndividualTour}/view/${record.id}`}>
-            <EyeOutlined />
-          </LinkButton>
-        );
-      },
-    },
-    {
       title: 'Actions',
       dataIndex: 'action',
       key: 'action',
@@ -212,7 +192,7 @@ export const utils = () => {
               onClick={() =>
                 getOneLetsTripTour({
                   callback() {
-                    navigate(`${ROUTES.letsTripIndividualTour}/edit/${record.id}`);
+                    navigate(`${ROUTES.letsTripCountry}/edit/${record.id}`);
                   },
                   id: record.id,
                 })
@@ -220,7 +200,7 @@ export const utils = () => {
             >
               <EditOutlined />
             </Button>
-            <Button disabled={record.deleted} key={2} onClick={() => handleDelete(record)}>
+            <Button key={2} onClick={() => handleDelete(record)}>
               <DeleteOutlined />
             </Button>
           </Space>

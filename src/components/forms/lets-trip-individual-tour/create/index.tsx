@@ -15,7 +15,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
   const {
     loading: { post },
     errors,
-  } = useTypedSelector((state) => state.letsTripTour);
+  } = useTypedSelector((state) => state.letsTripIndividualTour);
   const { createLetsTripIndividualTour, getAllLetsTripCountry } = useActions();
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -150,8 +150,8 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
 
   useEffect(() => {
     getAllLetsTripCountry({ callback() {}, page: 0, size: 100 });
-    addNotification(errors);
-  }, []);
+    if (errors) addNotification(errors);
+  }, [errors]);
 
   return (
     <BaseForm

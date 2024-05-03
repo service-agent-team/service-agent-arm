@@ -12,6 +12,7 @@ export * from './lets-trip-group-tour';
 export * from './lets-trip-individual-tour';
 export * from './lets-trip-transfer';
 export * from './lest-trip-esimgo';
+export * from './lets-trip-country';
 export * from './agent-order';
 export * from './user-role';
 export * from './user-permission';

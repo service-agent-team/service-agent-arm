@@ -2,7 +2,13 @@ import { errorCatch } from '@/common';
 import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LetsTripCountryService } from '@/services';
-import { ILetsTripCountryPayload, ILetsTripCountryResponse } from './types';
+import {
+  IGetOneLetsTripCountryResponse,
+  ILetsTripCountryCreatePayload,
+  ILetsTripCountryGetOnePayload,
+  ILetsTripCountryPayload,
+  ILetsTripCountryResponse,
+} from './types';
 
 export const getAllLetsTripCountry = createAsyncThunk<
   ILetsTripCountryResponse,
@@ -18,3 +24,33 @@ export const getAllLetsTripCountry = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const createLetsTripCountry = createAsyncThunk<
+  IGetOneLetsTripCountryResponse,
+  ILetsTripCountryCreatePayload
+>(EndPointes.letsTripCountry.getAll + '/create', async ({ callback, ...body }, thunkApi) => {
+  try {
+    const response = await LetsTripCountryService.create(body);
+    if (response.data) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const deleteLetsTripCountry = createAsyncThunk<any, ILetsTripCountryGetOnePayload>(
+  EndPointes.letsTripCountry.getAll + '/delete',
+  async ({ callback, id }, thunkApi) => {
+    try {
+      const response = await LetsTripCountryService.delete(id);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);

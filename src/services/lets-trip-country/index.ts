@@ -10,4 +10,8 @@ export const LetsTripCountryService = {
     const response = await $axios.post(EndPointes.letsTripCountry.create, body);
     return response;
   },
+  async delete(id: string) {
+    const response = await $axios.post(EndPointes.letsTripCountry.delete + id);
+    return response;
+  },
 };

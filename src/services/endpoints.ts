@@ -191,16 +191,17 @@ export const EndPointes = {
   },
 
   letsTripIndividualTour: {
-    getAll: '/tours/individual-tours',
-    getOne: '/tours/individual-tours',
-    getByCountry: '/tours/individual-tours/by-county',
-    create: '/tours/individual-tours',
-    delete: '/tours/individual-tours',
+    getAll: '/tours/individual-tours/',
+    getOne: '/tours/individual-tours/',
+    getByCountry: '/tours/individual-tours/by-county/',
+    create: '/tours/individual-tours/',
+    delete: '/tours/individual-tours/',
   },
 
   letsTripCountry: {
     getAll: '/tours/countries',
     create: '/tours/countries',
+    delete: '/tours/countries/',
   },
 
   letsTripTransfer: {

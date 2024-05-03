@@ -12,6 +12,10 @@ import {
   LetsTripIndividualTourPage,
   LetsTripIndividualTourCreatePage,
   LetsTripIndividualTourEditPage,
+  LetsTripTourGroupViewPage,
+  LetsTripIndividualTourViewPage,
+  LetsTripCountryPage,
+  LetsTripCountryCreatePage,
 } from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
@@ -58,6 +62,14 @@ export const letsTrip = [
     ),
   },
   {
+    path: ROUTES.letsTripGroupTourView,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripTourGroupViewPage />
+      </Suspense>
+    ),
+  },
+  {
     path: ROUTES.letsTripGroupTourEdit,
     element: (
       <Suspense fallback={<Loading />}>
@@ -78,6 +90,14 @@ export const letsTrip = [
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripIndividualTourCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripIndividualTourView,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripIndividualTourViewPage />
       </Suspense>
     ),
   },
@@ -110,6 +130,22 @@ export const letsTrip = [
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripEsimGoPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripCountry,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripCountryPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripCountryCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripCountryCreatePage />
       </Suspense>
     ),
   },

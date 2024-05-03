@@ -187,12 +187,14 @@ export const utils = () => {
     },
     {
       title: 'View',
-      dataIndex: 'id',
+      dataIndex: 'tourId',
       key: 'view',
       width: '5%',
-      render: (_: number) => {
+      render: (_, record: any) => {
         return (
-          <LinkButton path={`#`}>
+          <LinkButton
+            path={record.deleted ? '#' : `${ROUTES.letsTripGroupTour}/view/${record.tourId}`}
+          >
             <EyeOutlined />
           </LinkButton>
         );
@@ -211,15 +213,15 @@ export const utils = () => {
               onClick={() =>
                 getOneLetsTripTour({
                   callback() {
-                    navigate(`${ROUTES.letsTripGroupTour}/edit/${record.id}`);
+                    navigate(`${ROUTES.letsTripGroupTour}/edit/${record.tourId}`);
                   },
-                  id: record.id,
+                  id: record.tourId,
                 })
               }
             >
               <EditOutlined />
             </Button>
-            <Button key={2} onClick={() => handleDelete(record)}>
+            <Button disabled={record.deleted} key={2} onClick={() => handleDelete(record)}>
               <DeleteOutlined />
             </Button>
           </Space>

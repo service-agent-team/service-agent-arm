@@ -37,6 +37,11 @@ export const letsTrip = [
     key: ROUTES.letsTripEsimGo,
     label: 'Esim Go',
   },
+  {
+    icon: 'GlobalOutlined',
+    key: ROUTES.letsTripCountry,
+    label: 'Countries',
+  },
 ];
 
 export const LetsTripConf = {
