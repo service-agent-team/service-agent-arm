@@ -68,7 +68,7 @@ export const agentPermissionSlice = createSlice({
       .addCase(getAgentPermissionByID.fulfilled, (state, { payload }) => {
         state.loading.get = false;
         state.errors = null;
-        state.permission = payload.data.data;
+        state.permission = payload.data;
       })
       .addCase(getAgentPermissionByID.rejected, (state, { payload }) => {
         state.loading.get = false;

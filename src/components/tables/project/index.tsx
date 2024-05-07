@@ -25,6 +25,7 @@ export const ProjectTable: React.FC = () => {
   return (
     <Table
       columns={utils()}
+      className="primary-table"
       dataSource={generateUserData ? (generateUserData as IProject[]) : []}
       loading={get}
       bordered

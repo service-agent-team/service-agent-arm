@@ -1,4 +1,4 @@
-import { useActions } from '@/common/hooks';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { Icon } from '@/components';
 import { modal } from '@/components/app';
 import { dictionary } from '@/layouts/global/dictionary';
@@ -10,6 +10,7 @@ import * as S from './styled';
 
 export const ProfileOverlay: React.FC = ({ ...props }) => {
   const { logout } = useActions();
+  const { user } = useTypedSelector((state) => state.auth);
 
   const handleClickLogout = () => {
     modal.confirm({
@@ -23,7 +24,7 @@ export const ProfileOverlay: React.FC = ({ ...props }) => {
   return (
     <DropdownMenu selectable={false} {...props}>
       <S.MenuItem key={0}>
-        <S.Text>john</S.Text>
+        <S.Text>{user?.email}</S.Text>
       </S.MenuItem>
       <S.ItemsDivider />
       <S.MenuItem key={1}>

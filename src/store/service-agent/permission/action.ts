@@ -46,21 +46,21 @@ export const createAgentPermission = createAsyncThunk<
   }
 });
 
-export const getAgentPermissionByID = createAsyncThunk<
-  AxiosResponse<IAgentPermissionByID>,
-  IRolesByIdPayload
->(EndPointesV2.agentPermission.getOne, async ({ id, callback }, thunkApi) => {
-  try {
-    const response = await PermissionService.getById(id);
-    if (response.data) {
-      callback();
+export const getAgentPermissionByID = createAsyncThunk<IAgentPermissionByID, IRolesByIdPayload>(
+  EndPointesV2.agentPermission.getOne,
+  async ({ id, callback }, thunkApi) => {
+    try {
+      const response = await PermissionService.getById(id);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
-    return response.data;
-  } catch (error) {
-    addNotification(error);
-    return thunkApi.rejectWithValue({ error: errorCatch(error) });
-  }
-});
+  },
+);
 
 export const editAgentPermission = createAsyncThunk<any, IAgentPermissionEditPayloadV2>(
   EndPointesV2.agentPermission.edit,

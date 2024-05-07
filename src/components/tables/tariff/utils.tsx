@@ -187,6 +187,7 @@ export const utils = () => {
         return (
           <Space>
             <Button
+              type="primary"
               key={1}
               onClick={() => {
                 navigate(`/transfer/tariff/edit/${record.tarifId}`);
@@ -194,7 +195,7 @@ export const utils = () => {
             >
               <EditOutlined />
             </Button>
-            <Button key={2} onClick={() => handleDelete(record)}>
+            <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
               {record.isDeleted ? <CheckOutlined /> : <DeleteOutlined />}
             </Button>
           </Space>

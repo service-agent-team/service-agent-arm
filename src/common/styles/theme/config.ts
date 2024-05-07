@@ -68,4 +68,22 @@ export const components: ThemeConfig['components'] = {
     trackHeight: 31,
     trackMinWidth: 51,
   },
+
+  Segmented: {
+    itemSelectedBg: '#3a57e8',
+    itemHoverBg: '#3a57e86d',
+    itemSelectedColor: '#ffffff',
+  },
+
+  Table: {
+    headerBg: '#3a57e8',
+    headerColor: '#ffffff',
+    headerBorderRadius: 10,
+    headerSortHoverBg: '#3a57e8',
+    headerFilterHoverBg: '#3a57e8',
+    headerSortActiveBg: '#3a57e8',
+    rowHoverBg: '#d5d5d584',
+    borderColor: '#d5d5d5',
+    borderRadius: 6,
+  },
 };

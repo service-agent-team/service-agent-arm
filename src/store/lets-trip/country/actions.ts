@@ -41,7 +41,7 @@ export const createLetsTripCountry = createAsyncThunk<
 });
 
 export const deleteLetsTripCountry = createAsyncThunk<any, ILetsTripCountryGetOnePayload>(
-  EndPointes.letsTripCountry.getAll + '/delete',
+  EndPointes.letsTripCountry.delete + '/delete',
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await LetsTripCountryService.delete(id);
