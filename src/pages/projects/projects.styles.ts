@@ -6,8 +6,8 @@ export const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
   justify-content: space-evenly;
-  align-items: center;
   background: url(${fon});
   background-size: 100% 100%;
   background-repeat: repeat;

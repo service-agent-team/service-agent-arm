@@ -1,3 +1,31 @@
+// .ant-table-wrapper .ant-spin-container .ant-table .ant-table-container {
+//   max-width: 100%;
+//   // width: 100vw;
+//   // height: 100vh;
+//   max-height: 100%;
+// }
+
+// .ant-table-wrapper {
+//   height: 100%;
+//   overflow: hidden;
+
+//   .ant-spin-nested-loading {
+//     height: 100%;
+
+//     .ant-spin-container {
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: space-between;
+//       height: 100%;
+
+//       .ant-table {
+//         max-height: 90%;
+//         overflow: auto;
+//       }
+//     }
+//   }
+// }
+
 .ant-dropdown {
   .ant-table-filter-dropdown {
     min-width: 13rem;

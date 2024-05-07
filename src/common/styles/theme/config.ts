@@ -69,12 +69,6 @@ export const components: ThemeConfig['components'] = {
     trackMinWidth: 51,
   },
 
-  Segmented: {
-    itemSelectedBg: '#3a57e8',
-    itemHoverBg: '#3a57e86d',
-    itemSelectedColor: '#ffffff',
-  },
-
   Table: {
     headerBg: '#3a57e8',
     headerColor: '#ffffff',
