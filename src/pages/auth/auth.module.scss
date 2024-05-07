@@ -10,15 +10,20 @@
 @media only screen and (max-width: 800px) {
   .auth {
     &__form {
-      width: 400px; 
+      width: 400px;
     }
   }
 
   @media only screen and (max-width: 468px) {
-  .auth {
-    &__form {
-      width: 300px; 
+    .auth {
+      &__form {
+        width: 300px;
+      }
     }
   }
 }
+
+.ant-form-item {
+  font-size: 24px !important;
+  line-height: 26px !important;
 }

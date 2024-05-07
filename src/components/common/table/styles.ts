@@ -3,6 +3,13 @@ import { Table as AntdTable } from 'antd';
 import styled from 'styled-components';
 
 export const Table = styled(AntdTable)`
+  & .ant-spin-container .ant-table .ant-table-bordered .ant-table-wrapper {
+    max-width: 100%;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
   & thead .ant-table-cell {
     color: var(--primary-color);
     font-size: ${FONT_SIZE.xs};
@@ -51,6 +58,10 @@ export const Table = styled(AntdTable)`
   & .ant-pagination-prev .ant-pagination-item-link,
   .ant-pagination-next .ant-pagination-item-link {
     border-radius: 0;
+  }
+
+  & .ant-table-pagination {
+    margin-top: auto;
   }
 
   & .ant-checkbox-inner {
