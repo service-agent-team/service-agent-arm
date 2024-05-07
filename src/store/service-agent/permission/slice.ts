@@ -29,7 +29,7 @@ export const agentPermissionSlice = createSlice({
       state.loading[payload] = !state.loading[payload];
     },
 
-    setPermission: (state, { payload }: { payload: IAgentPermissionV2[] }) => {
+    setAgentPermission: (state, { payload }: { payload: IAgentPermissionV2[] }) => {
       state.permissions = payload;
     },
   },
