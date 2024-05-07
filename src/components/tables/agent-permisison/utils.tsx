@@ -7,7 +7,7 @@ import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
 import { AgentPermissionRowV2, DataIndex, IHandleSearchProps } from './types';
 
-import { useActions } from '@/common/hooks';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
@@ -15,9 +15,10 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const { permissions } = useTypedSelector((state) => state.agentPermission);
 
   const navigate = useNavigate();
-  const { deleteAgentPermission, getAgentPermissions, getAgentPermissionByID } = useActions();
+  const { deleteAgentPermission, setAgentPermission, getAgentPermissionByID } = useActions();
 
   const handleDelete = (record: any) => {
     modal.confirm({
@@ -25,11 +26,13 @@ export const utils = () => {
       title: `You want to delete right ?`,
       onOk: () => {
         deleteAgentPermission({
-          id: record.id,
+          id: record.permissionId,
           callback: () => {
-            getAgentPermissions({ callback: () => {} });
-            addNotification('Deleted.');
-            return 'ok';
+            addNotification('agent permission deleted');
+            if (permissions && record.permissionId)
+              setAgentPermission(
+                permissions?.filter((el) => el.permissionId !== record.permissionId),
+              );
           },
         });
       },

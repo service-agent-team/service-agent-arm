@@ -26,7 +26,7 @@ export const utils = () => {
       title: `You want to delete right ?`,
       onOk: () => {
         deleteRoles({
-          id: record.id,
+          id: record.roleId,
           callback: () => {
             addNotification('Successfully deleted !');
             const data = allRole?.filter((el) => el.roleId !== record.roleId);
@@ -141,6 +141,7 @@ export const utils = () => {
       key: 'name',
       width: '20%',
       ...getColumnSearchProps('name'),
+      render: (value) => `${value?.toUpperCase()}`,
     },
     {
       title: 'Description',
