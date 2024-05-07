@@ -18,7 +18,11 @@ const initialState: ILetsTripCountryInitialState = {
 export const letsTripCountrySlice = createSlice({
   name: 'letsTripCountry',
   initialState,
-  reducers: {},
+  reducers: {
+    setLetsTripCountry: (state, { payload }) => {
+      state.countries = payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllLetsTripCountry.pending, (state) => {

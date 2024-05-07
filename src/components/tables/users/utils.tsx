@@ -229,6 +229,7 @@ export const utils = () => {
         return (
           <Space>
             <Button
+              type="primary"
               key={1}
               onClick={() => {
                 getOneUser({
@@ -241,7 +242,7 @@ export const utils = () => {
             >
               <EditOutlined />
             </Button>
-            <Button key={2} onClick={() => handleDelete(record)}>
+            <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
               <DeleteOutlined />
             </Button>
           </Space>

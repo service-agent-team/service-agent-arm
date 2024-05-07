@@ -9,10 +9,9 @@ import { IAgentPermissionValues } from './types';
 export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
   const { createAgentPermission, editAgentPermission } = useActions();
+  const { loading, permission } = useTypedSelector((state) => state.agentPermission);
   const navigate = useNavigate();
   const { id } = useParams();
-
-  const { loading } = useTypedSelector((state) => state.roles);
 
   const onFinish = (value: IAgentPermissionValues) => {
     if (type === 'create') {
@@ -48,46 +47,33 @@ export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
 
   return (
     <>
-      <BaseForm name="usersForm" form={form} layout="vertical" onFinish={onFinish}>
+      <BaseForm
+        name="agentPermissionForm"
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        initialValues={
+          type === 'edit'
+            ? {
+                name: permission?.name,
+                description: permission?.description,
+                type: permission?.type,
+              }
+            : {}
+        }
+      >
         <S.FormContent>
           <BaseForm.Item
             name="name"
             label={'name'}
-            rules={[
-              { required: true, message: 'filed is required' },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value) {
-                    return Promise.reject(new Error('filed is required'));
-                  }
-                  if (getFieldValue('name') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('error from NameUz!'));
-                },
-              }),
-            ]}
+            rules={[{ required: true, message: 'filed is required' }]}
           >
             <Input placeholder="Enter name ?" />
           </BaseForm.Item>
-
           <BaseForm.Item
             name="description"
             label={'description'}
-            rules={[
-              { required: true, type: 'string', message: 'filed is required' },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value) {
-                    return Promise.reject(new Error('filed is required'));
-                  }
-                  if (getFieldValue('description') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('error from NameUz!'));
-                },
-              }),
-            ]}
+            rules={[{ required: true, type: 'string', message: 'filed is required' }]}
           >
             <Input placeholder="Enter description ?" />
           </BaseForm.Item>

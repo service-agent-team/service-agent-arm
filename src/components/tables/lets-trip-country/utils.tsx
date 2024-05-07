@@ -1,16 +1,14 @@
-import { SearchOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { LinkButton } from '@/components/common/buttons';
 import { dateParser } from '@/common/utils/format';
 import { modal } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants';
-import { ILetsTripGroupTour } from '@/store/lets-trip/tour/types';
 import { addNotification } from '@/common';
 import { ILetsTripCountry } from '@/store/lets-trip/country/types';
 
@@ -18,7 +16,7 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { getOneLetsTripTour, deleteLetsTripGroupTour, setLetsTripGroupTour } = useActions();
+  const { getOneLetsTripTour, deleteLetsTripCountry, setLetsTripCountry } = useActions();
   const { errors, countries } = useTypedSelector((state) => state.letsTripCountry);
   const navigate = useNavigate();
 
@@ -33,21 +31,10 @@ export const utils = () => {
       okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
       title: `You want to delete right ?`,
       onOk: () => {
-        deleteLetsTripGroupTour({
+        deleteLetsTripCountry({
           callback() {
             addNotification('group tour successfully deleted');
-            if (countries)
-              setLetsTripGroupTour(
-                countries.map((el) => {
-                  if (el.id === record.id) {
-                    return {
-                      ...el,
-                      deleted: true,
-                    };
-                  }
-                  return el;
-                }),
-              );
+            if (countries) setLetsTripCountry(countries.filter((el) => el.id !== record.id));
           },
           id: record.id,
         });
@@ -156,19 +143,11 @@ export const utils = () => {
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'code',
+      title: 'Code',
       dataIndex: 'code',
       key: 'code',
       width: '20%',
       render: (value) => <Tag color="success">{value.toUpperCase()}</Tag>,
-    },
-    {
-      title: 'Active',
-      dataIndex: 'deleted',
-      key: 'deleted',
-      width: '5%',
-      render: (value) =>
-        value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
     },
     {
       title: 'Created At',
@@ -188,6 +167,7 @@ export const utils = () => {
         return (
           <Space>
             <Button
+              type="primary"
               key={1}
               onClick={() =>
                 getOneLetsTripTour({
@@ -200,7 +180,7 @@ export const utils = () => {
             >
               <EditOutlined />
             </Button>
-            <Button key={2} onClick={() => handleDelete(record)}>
+            <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
               <DeleteOutlined />
             </Button>
           </Space>

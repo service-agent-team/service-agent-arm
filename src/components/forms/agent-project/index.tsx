@@ -40,6 +40,7 @@ export const AgentProjectForm = ({ type }: { type: 'edit' | 'create' }) => {
       form.resetFields();
     }
   };
+  ('#3a57e86d');
 
   return (
     <BaseForm

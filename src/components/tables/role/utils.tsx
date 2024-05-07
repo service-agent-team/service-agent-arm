@@ -186,6 +186,8 @@ export const utils = () => {
       render: (_: any, record) => (
         <Space>
           <Button
+            key={1}
+            type="primary"
             onClick={() => {
               getOneRole({
                 id: record.role_id,
@@ -197,7 +199,7 @@ export const utils = () => {
           >
             <EditOutlined />
           </Button>
-          <Button onClick={() => handleDelete(record)}>
+          <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
             <DeleteOutlined />
           </Button>
         </Space>

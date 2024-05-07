@@ -220,6 +220,7 @@ export const utils = () => {
             ) : (
               <>
                 <Button
+                  type="primary"
                   key={1}
                   onClick={() =>
                     getOneLetsTripTour({
@@ -232,7 +233,13 @@ export const utils = () => {
                 >
                   <EditOutlined />
                 </Button>
-                <Button disabled={record.deleted} key={2} onClick={() => handleDelete(record)}>
+                <Button
+                  type="primary"
+                  danger
+                  disabled={record.deleted}
+                  key={2}
+                  onClick={() => handleDelete(record)}
+                >
                   <DeleteOutlined />
                 </Button>
               </>

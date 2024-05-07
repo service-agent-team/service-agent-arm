@@ -11,7 +11,7 @@ export const LetsTripCountryService = {
     return response;
   },
   async delete(id: string) {
-    const response = await $axios.post(EndPointes.letsTripCountry.delete + id);
+    const response = await $axios.delete(EndPointes.letsTripCountry.delete + id);
     return response;
   },
 };

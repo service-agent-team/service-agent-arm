@@ -220,6 +220,7 @@ export const utils = () => {
       render: (_: any, record) => (
         <Space>
           <Button
+            type="primary"
             onClick={() => {
               getOnePermision({
                 id: record.permission_id,
@@ -231,7 +232,7 @@ export const utils = () => {
           >
             <EditOutlined />
           </Button>
-          <Button onClick={() => handleDelete(record)}>
+          <Button type="primary" danger onClick={() => handleDelete(record)}>
             <DeleteOutlined />
           </Button>
         </Space>

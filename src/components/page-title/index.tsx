@@ -21,7 +21,7 @@ export const PageTitle = ({
       <H1>{title}</H1>
       <Space>
         {children}
-        <Button style={{ padding: 0 }}>
+        <Button type="primary" style={{ padding: 0 }}>
           <Link style={{ padding: '10px 20px' }} to={route}>
             {label} <Icon title={icon} name={icon} />
           </Link>

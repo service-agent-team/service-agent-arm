@@ -22,7 +22,7 @@ export const utils = () => {
 
   const handleDelete = (record: any) => {
     modal.confirm({
-      okText: `${record.isDeleted ? 'Enable' : 'Disable'}`,
+      okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
       title: `You want to delete right ?`,
       onOk: () => {
         deleteAgentPermission({
@@ -168,19 +168,20 @@ export const utils = () => {
         return (
           <Space>
             <Button
+              type="primary"
               key={1}
               onClick={() => {
                 getAgentPermissionByID({
                   callback() {
-                    navigate(`/service-agent/permissions/edit/${record.id}`);
+                    navigate(`/service-agent/permissions/edit/${record.permissionId}`);
                   },
-                  id: record.id,
+                  id: record.permissionId,
                 });
               }}
             >
               <EditOutlined />
             </Button>
-            <Button key={2} onClick={() => handleDelete(record)}>
+            <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
               <DeleteOutlined />
             </Button>
           </Space>

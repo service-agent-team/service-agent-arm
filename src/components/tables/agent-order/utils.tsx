@@ -154,6 +154,7 @@ export const utils = () => {
       render: (id: number, order: IAgentOrderData) => {
         return (
           <Button
+            type="primary"
             onClick={() => {
               getOneAgent({
                 callback: () => {
