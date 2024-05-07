@@ -17,8 +17,12 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { getOneLetsTripTour, deleteLetsTripIndividualTour, setLetsTripIndividualTour } =
-    useActions();
+  const {
+    getOneLetsTripTour,
+    deleteLetsTripIndividualTour,
+    setLetsTripIndividualTour,
+    setLetsTripActiveIndividualTour,
+  } = useActions();
   const { errors, individualTours } = useTypedSelector((state) => state.letsTripIndividualTour);
   const navigate = useNavigate();
 
@@ -36,18 +40,20 @@ export const utils = () => {
         deleteLetsTripIndividualTour({
           callback() {
             addNotification('individual tour successfully deleted');
-            if (individualTours)
-              setLetsTripIndividualTour(
-                individualTours.map((el) => {
-                  if (el.id === record.id) {
-                    return {
-                      ...el,
-                      deleted: true,
-                    };
-                  }
-                  return el;
-                }),
-              );
+            if (individualTours) {
+              const newTours = individualTours.map((el) => {
+                if (el.id === record.id) {
+                  return {
+                    ...el,
+                    deleted: true,
+                  };
+                }
+                return el;
+              });
+
+              setLetsTripIndividualTour(newTours);
+              setLetsTripActiveIndividualTour(newTours.filter((el) => el.deleted === false));
+            }
           },
           id: record.id,
         });
@@ -207,22 +213,28 @@ export const utils = () => {
       render: (_: any, record: any) => {
         return (
           <Space>
-            <Button
-              key={1}
-              onClick={() =>
-                getOneLetsTripTour({
-                  callback() {
-                    navigate(`${ROUTES.letsTripIndividualTour}/edit/${record.id}`);
-                  },
-                  id: record.id,
-                })
-              }
-            >
-              <EditOutlined />
-            </Button>
-            <Button disabled={record.deleted} key={2} onClick={() => handleDelete(record)}>
-              <DeleteOutlined />
-            </Button>
+            {record.deleted ? (
+              'No Actions'
+            ) : (
+              <>
+                <Button
+                  key={1}
+                  onClick={() =>
+                    getOneLetsTripTour({
+                      callback() {
+                        navigate(`${ROUTES.letsTripIndividualTour}/edit/${record.id}`);
+                      },
+                      id: record.id,
+                    })
+                  }
+                >
+                  <EditOutlined />
+                </Button>
+                <Button disabled={record.deleted} key={2} onClick={() => handleDelete(record)}>
+                  <DeleteOutlined />
+                </Button>
+              </>
+            )}
           </Space>
         );
       },

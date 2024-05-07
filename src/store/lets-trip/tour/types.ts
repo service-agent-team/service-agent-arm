@@ -7,7 +7,9 @@ export interface ILetsTripGroupTourInitialState {
   };
   groupTours: ILetsTripGroupTour[] | null;
   groupTour: ILetsTripGroupTourGetOne | null;
+  activeTours: ILetsTripGroupTour[] | null;
   errors: unknown | string[] | string;
+  deleted: boolean;
 }
 
 export interface ILetsTripGroupTour {
@@ -98,6 +100,7 @@ export interface TourItinerary {
   imageUrl: string;
   description: Description[];
   title: Title;
+  hour: string;
 }
 
 export interface Description {
@@ -244,4 +247,5 @@ export interface TourItenarary2 {
   imageUrl: string;
   description: string[];
   title: string;
+  hour: string;
 }

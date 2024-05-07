@@ -21,25 +21,29 @@ export const AgentCard = ({ data }: IProps) => {
   return (
     <Badge.Ribbon
       text={
-        data?.contractStatus === 'success'
+        data?.contractStatus === 'SUCCESS'
           ? 'Tasdiqlangan'
-          : data?.contractStatus === 'view'
+          : data?.contractStatus === 'VIEW'
             ? 'Kutilmoqda'
-            : 'Rad etilgan'
+            : data?.contractStatus === 'REJECT'
+              ? 'Rad etilgan'
+              : 'Anonim'
       }
       color={
-        data?.contractStatus === 'success'
+        data?.contractStatus === 'SUCCESS'
           ? 'green'
-          : data?.contractStatus === 'view'
+          : data?.contractStatus === 'VIEW'
             ? 'purple'
-            : 'red'
+            : data?.contractStatus === 'REJECT'
+              ? 'red'
+              : 'cyan'
       }
     >
       <Card width="600px">
         <List>
           <List.Item>
             <Typography.Text strong>
-              {data?.firstName || ''} {data?.lastName || ''} {data?.middleName ?? ''}
+              {data?.firstName || ''} {data?.lastName || ''} {data?.middleName || ''}
             </Typography.Text>
           </List.Item>
           <List.Item>
@@ -53,6 +57,9 @@ export const AgentCard = ({ data }: IProps) => {
           </List.Item>
           <List.Item>
             <Typography.Text strong>Ariza qoldirgan sanasi: </Typography.Text> {data?.startDate}
+          </List.Item>
+          <List.Item>
+            <Typography.Text strong>Jinsi: </Typography.Text> {data?.gender}
           </List.Item>
           {/* <List.Item>
             <Typography.Text strong>Ariza holati: </Typography.Text>{' '}

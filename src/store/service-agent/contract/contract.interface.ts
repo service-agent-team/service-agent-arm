@@ -1,7 +1,7 @@
 export interface InitialState {
   data: IUserDataV2[] | null;
   agent: IUserDataV2 | null;
-  status: string;
+  status: IAgentUserStatusType;
   loading: {
     get: boolean;
     post: boolean;
@@ -58,6 +58,13 @@ export interface IUserData {
   finishDate: string;
   contractCreatedAt: string;
   contractStatusAt: string;
+}
+
+export enum IAgentUserStatusType {
+  SUCCESS = 'SUCCESS',
+  VIEW = 'VIEW',
+  REJECT = 'REJECT',
+  ANONIM = 'ANONIM',
 }
 
 export interface IUserDataV2 {
@@ -189,6 +196,4 @@ export interface IData {
   currency: string;
 }
 
-export interface IOneAgentResponse extends AxiosResponse {
-  date: IUserDataV2;
-}
+export interface IOneAgentResponse extends IUserDataV2 {}

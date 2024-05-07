@@ -181,6 +181,40 @@ export const utils = () => {
       ),
     },
     {
+      title: 'Project',
+      dataIndex: 'userProjectPermissions',
+      key: 'userProjectPermissions',
+      width: '20%',
+      render: (userProjectPermissions) => (
+        <Row style={{ gap: '4px' }}>
+          {userProjectPermissions.map((el: any) => {
+            return (
+              <Tag color={'success'} key={el.project.projectId}>
+                {el.project.name?.toUpperCase()}
+              </Tag>
+            );
+          })}
+        </Row>
+      ),
+    },
+    {
+      title: 'Project Permission',
+      dataIndex: 'userProjectPermissions',
+      key: 'userProjectPermissions',
+      width: '20%',
+      render: (userProjectPermissions) => (
+        <Row style={{ gap: '4px' }}>
+          {userProjectPermissions.map((el: any) =>
+            el.permissions.map((item: any) => (
+              <Tag color={'success'} key={item?.permissionId}>
+                {item?.name?.toUpperCase()}
+              </Tag>
+            )),
+          )}
+        </Row>
+      ),
+    },
+    {
       title: 'User Tariff',
       dataIndex: 'userTariffPermissions',
       key: 'userTariffPermissions',

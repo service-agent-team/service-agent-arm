@@ -24,6 +24,7 @@ export interface IValuesForm {
   transferTypeEn: string;
   transferDate: string;
   itineraryTitleEn: string;
+  itineraryHour: string;
   itineraryTitleRu: string;
   itineraryDescEn: string;
   itineraryDescRu: string;

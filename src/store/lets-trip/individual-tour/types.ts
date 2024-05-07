@@ -7,6 +7,8 @@ export interface ILetsTripIndividualTourInitialState {
   };
   individualTours: ILetsTripIndividualTour[] | null;
   individualTour: ILetsTripIndividualTour | null;
+  activeIndividualTours: ILetsTripIndividualTour[] | null;
+  deleted: boolean;
   errors: unknown | string[] | string;
 }
 

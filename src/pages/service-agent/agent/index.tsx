@@ -1,7 +1,6 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
-import { AgentTable, PageTitle } from '@/components';
-import { ROUTES } from '@/constants';
+import { AgentTable } from '@/components';
 import { useEffect } from 'react';
 import * as S from './styles';
 
@@ -19,7 +18,6 @@ export function AgentControl() {
 
   return (
     <S.agentStyled>
-      <PageTitle title="Agents" icon="UserAddOutlined" route={ROUTES.create} label="" />
       <AgentTable />
     </S.agentStyled>
   );

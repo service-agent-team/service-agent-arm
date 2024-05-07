@@ -9,6 +9,8 @@ export const LetsTripGroupTourTable = () => {
   const { getAllLetsTripGroupTour } = useActions();
   const {
     groupTours,
+    deleted,
+    activeTours,
     loading: { get },
   } = useTypedSelector((state) => state.letsTripTour);
 
@@ -25,7 +27,11 @@ export const LetsTripGroupTourTable = () => {
   return (
     <Table
       columns={utils()}
-      dataSource={groupTours ? (groupTours as ILetsTripGroupTour[]) : []}
+      dataSource={
+        groupTours && !deleted
+          ? (groupTours as ILetsTripGroupTour[])
+          : (activeTours as ILetsTripGroupTour[])
+      }
       loading={get}
       bordered
     />
