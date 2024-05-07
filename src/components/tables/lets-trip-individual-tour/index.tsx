@@ -9,6 +9,8 @@ export const LetsTripIndividualTourTable = () => {
   const { getAllLetsTripIndividualTour } = useActions();
   const {
     individualTours,
+    deleted,
+    activeIndividualTours,
     loading: { get },
   } = useTypedSelector((state) => state.letsTripIndividualTour);
 
@@ -25,7 +27,11 @@ export const LetsTripIndividualTourTable = () => {
   return (
     <Table
       columns={utils()}
-      dataSource={individualTours ? (individualTours as ILetsTripIndividualTour[]) : []}
+      dataSource={
+        individualTours && !deleted
+          ? (individualTours as ILetsTripIndividualTour[])
+          : (activeIndividualTours as ILetsTripIndividualTour[])
+      }
       loading={get}
       bordered
     />

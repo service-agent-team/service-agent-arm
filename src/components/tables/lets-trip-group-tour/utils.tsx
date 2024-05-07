@@ -17,7 +17,12 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { getOneLetsTripTour, deleteLetsTripGroupTour, setLetsTripGroupTour } = useActions();
+  const {
+    getOneLetsTripTour,
+    deleteLetsTripGroupTour,
+    setLetsTripGroupTour,
+    setLetsTripActiveGroupTour,
+  } = useActions();
   const { errors, groupTours } = useTypedSelector((state) => state.letsTripTour);
   const navigate = useNavigate();
 
@@ -35,18 +40,19 @@ export const utils = () => {
         deleteLetsTripGroupTour({
           callback() {
             addNotification('group tour successfully deleted');
-            if (groupTours)
-              setLetsTripGroupTour(
-                groupTours.map((el) => {
-                  if (el.tourId === record.tourId) {
-                    return {
-                      ...el,
-                      deleted: true,
-                    };
-                  }
-                  return el;
-                }),
-              );
+            if (groupTours) {
+              const newTours = groupTours.map((el) => {
+                if (el.tourId === record.tourId) {
+                  return {
+                    ...el,
+                    deleted: true,
+                  };
+                }
+                return el;
+              });
+              setLetsTripGroupTour(newTours);
+              setLetsTripActiveGroupTour(newTours.filter((el) => el?.deleted === false));
+            }
           },
           id: record.tourId,
         });
@@ -160,6 +166,7 @@ export const utils = () => {
       key: 'startingPrice',
       width: '20%',
       ...getColumnSearchProps('startingPrice'),
+      render: (value) => `${value} $`,
     },
     {
       title: 'Country',
@@ -208,22 +215,28 @@ export const utils = () => {
       render: (_: any, record: any) => {
         return (
           <Space>
-            <Button
-              key={1}
-              onClick={() =>
-                getOneLetsTripTour({
-                  callback() {
-                    navigate(`${ROUTES.letsTripGroupTour}/edit/${record.tourId}`);
-                  },
-                  id: record.tourId,
-                })
-              }
-            >
-              <EditOutlined />
-            </Button>
-            <Button disabled={record.deleted} key={2} onClick={() => handleDelete(record)}>
-              <DeleteOutlined />
-            </Button>
+            {record.deleted ? (
+              'No Actions'
+            ) : (
+              <>
+                <Button
+                  key={1}
+                  onClick={() =>
+                    getOneLetsTripTour({
+                      callback() {
+                        navigate(`${ROUTES.letsTripGroupTour}/edit/${record.tourId}`);
+                      },
+                      id: record.tourId,
+                    })
+                  }
+                >
+                  <EditOutlined />
+                </Button>
+                <Button disabled={record.deleted} key={2} onClick={() => handleDelete(record)}>
+                  <DeleteOutlined />
+                </Button>
+              </>
+            )}
           </Space>
         );
       },

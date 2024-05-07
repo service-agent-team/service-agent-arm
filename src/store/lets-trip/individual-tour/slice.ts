@@ -16,6 +16,8 @@ const initialState: ILetsTripIndividualTourInitialState = {
   },
   individualTour: null,
   individualTours: null,
+  activeIndividualTours: null,
+  deleted: true,
   errors: null,
 };
 
@@ -25,6 +27,12 @@ export const letsTripIndividualTourSlice = createSlice({
   reducers: {
     setLetsTripIndividualTour: (state, { payload }) => {
       state.individualTours = payload;
+    },
+    setLetsTripActiveIndividualTour: (state, { payload }) => {
+      state.activeIndividualTours = payload;
+    },
+    setLetsTripIndividualTourStatus: (state, { payload }) => {
+      state.deleted = payload;
     },
   },
   extraReducers: (builder) => {
@@ -36,6 +44,7 @@ export const letsTripIndividualTourSlice = createSlice({
       .addCase(getAllLetsTripIndividualTour.fulfilled, (state, { payload }) => {
         state.loading.get = false;
         state.individualTours = payload.content;
+        state.activeIndividualTours = payload.content?.filter((el) => el?.deleted === false);
         state.errors = null;
       })
       .addCase(getAllLetsTripIndividualTour.rejected, (state, { payload }) => {

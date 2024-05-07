@@ -40,6 +40,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     nameEn,
     nameRu,
     countryId,
+    startingPrice,
     descriptionEn,
     descriptionRu,
     priceNoteEn,
@@ -63,6 +64,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     itineraryDescEn,
     itineraryDescRu,
     itineraryImgUrl,
+    itineraryHour,
   }: IValuesForm) => {
     createLetsTripGroupTour({
       callback() {
@@ -99,7 +101,7 @@ export const LestTripTourCreateForm: React.FC = () => {
         },
       ],
       extraInformation: { en: extraInformation[0].en, ru: extraInformation[0].ru },
-      startingPrice: 0,
+      startingPrice,
       priceNote: {
         en: priceNoteEn,
         ru: priceNoteRu,
@@ -124,6 +126,7 @@ export const LestTripTourCreateForm: React.FC = () => {
               ru: itineraryDescRu,
             },
           ],
+          hour: itineraryHour,
           imageUrl: itineraryImgUrl.fileList
             .map((item: UploadFile) =>
               item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
@@ -175,8 +178,8 @@ export const LestTripTourCreateForm: React.FC = () => {
 
   useEffect(() => {
     getAllLetsTripCountry({ callback() {}, page: 0, size: 100 });
-    addNotification(errors);
-  }, []);
+    if (errors) addNotification(errors);
+  }, [errors]);
 
   return (
     <BaseForm
@@ -460,6 +463,20 @@ export const LestTripTourCreateForm: React.FC = () => {
             ]}
           >
             <Input name="itineraryTitleRu" type="string" placeholder="Enter a itineraryTitleRu ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="itineraryHour"
+            label={'itineraryHour'}
+            rules={[
+              { required: true, message: 'itineraryHour is required?' },
+              {
+                type: 'string',
+                message: 'Enter itineraryHour ?',
+              },
+            ]}
+          >
+            <Input name="itineraryHour" type="string" placeholder="Enter a itineraryHour ?" />
           </BaseForm.Item>
         </Flex>
         <BaseForm.Item

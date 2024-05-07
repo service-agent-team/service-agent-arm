@@ -61,6 +61,19 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
               </List>
             </List.Item>
             <List.Item>
+              <H1>Tour Itenarary: </H1>
+              <List>
+                <List.Item>
+                  <Typography.Text strong>Title: </Typography.Text>
+                  {data?.tourItenarary[0].title}
+                </List.Item>
+                <List.Item>
+                  <Typography.Text strong>Hour: </Typography.Text>
+                  {data?.tourItenarary[0].hour}
+                </List.Item>
+              </List>
+            </List.Item>
+            <List.Item>
               <H1>Tour Starting Price: </H1>
               {data?.startingPrice}
             </List.Item>
@@ -76,6 +89,8 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           <List.Item style={{ display: 'block' }}>
             <H1>Description</H1>
             <Typography.Paragraph>{data?.description[0]}</Typography.Paragraph>
+            <H1>Itenarary Description</H1>
+            <Typography.Text>{data?.tourItenarary[0].description}</Typography.Text>
           </List.Item>
         </List>
       </Card>

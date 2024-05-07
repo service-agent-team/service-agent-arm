@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { acceptAgnet, getAllUsers, getOneAgent, rejectAgnet } from './contract.action';
-import { InitialState } from './contract.interface';
+import { IAgentUserStatusType, InitialState } from './contract.interface';
 
 const initialState: InitialState = {
   data: null,
   agent: null,
-  status: 'success',
+  status: IAgentUserStatusType.SUCCESS,
   loading: {
     get: false,
     post: false,
@@ -19,7 +19,7 @@ export const contractSlice = createSlice({
   name: 'contract',
   initialState,
   reducers: {
-    setContarctSatus: (state, { payload }) => {
+    setContractStatus: (state, { payload }) => {
       state.status = payload;
     },
   },
@@ -67,7 +67,7 @@ export const contractSlice = createSlice({
       })
       .addCase(getOneAgent.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.agent = payload.data;
+        state.agent = payload;
         state.error = null;
       })
       .addCase(getOneAgent.rejected, (state, { payload }) => {

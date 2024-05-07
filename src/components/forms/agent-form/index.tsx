@@ -40,6 +40,7 @@ export const AgentForm: React.FC<IProps> = ({
   const { loading } = useTypedSelector((state) => state.users);
   const { permissions } = useTypedSelector((state) => state.agentPermission);
   const { agentProjects } = useTypedSelector((state) => state.agentProject);
+  const { agent } = useTypedSelector((state) => state.agent);
 
   const onFinish = (value: IParam) => {
     if (contractStatus !== 'success') {
@@ -97,26 +98,28 @@ export const AgentForm: React.FC<IProps> = ({
     getAllAgentProject({ callback() {}, pageNumber: 0, pageSize: 20 });
   }, []);
 
-  const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.id }));
+  const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.roleId }));
   const CategorySelectedOptions = categories?.map((el) => ({
     label: el.name,
     value: el.tariffId,
   }));
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   const UserPermissionSelectOption =
-    permissions?.map((el) => ({ label: el.name, value: el.id })) || [];
+    permissions?.map((el) => ({ label: el.name, value: el.permissionId })) || [];
   const ProjectSelectOption = agentProjects?.map((el) => {
     if (userPermissions) {
-      const isChecked = userPermissions.some((permission) => permission.projectId === el.projectId);
+      const isChecked = agent?.userProjectPermissions?.some(
+        (projectPermission) => projectPermission.project?.projectId === el.projectId,
+      );
       return {
         label: el.name,
-        value: el.id,
+        value: el.projectId,
         disabled: isChecked,
       };
     }
     return {
       label: el.name,
-      value: el.id,
+      value: el.projectId,
     };
   });
 
