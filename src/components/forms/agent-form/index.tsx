@@ -4,10 +4,12 @@ import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
 import { ICompany } from '@/store/service-agent/company/types';
 import { IRolesV2 } from '@/store/service-agent/roles/types';
 import { IAgentTariffV2 } from '@/store/service-agent/tariff/types';
-import { Flex, Select } from 'antd';
+import { Flex, Select, Switch } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styles';
 import { IParam } from './types';
+import { RolePermission } from '@/store/service-agent/contract/contract.interface';
+import { useParams } from 'react-router-dom';
 
 interface IProps {
   userId: number;
@@ -15,7 +17,7 @@ interface IProps {
   categories: IAgentTariffV2[] | null;
   companies: ICompany[] | null;
   contractStatus: string | undefined;
-  userPermissions: [] | undefined;
+  userPermissions: RolePermission[] | undefined;
 }
 
 export const AgentForm: React.FC<IProps> = ({
@@ -31,23 +33,25 @@ export const AgentForm: React.FC<IProps> = ({
     acceptAgnet,
     rejectAgnet,
     addTariffPermission,
-    createAgentRoles,
+    // createAgentRoles,
     getAgentPermissions,
     getAllAgentProject,
-    createAgentUserPermission,
+    agentAddRolePermission,
   } = useActions();
 
   const { loading } = useTypedSelector((state) => state.users);
   const { permissions } = useTypedSelector((state) => state.agentPermission);
   const { agentProjects } = useTypedSelector((state) => state.agentProject);
   const { agent } = useTypedSelector((state) => state.agent);
+  const { id } = useParams();
 
   const onFinish = (value: IParam) => {
-    if (contractStatus !== 'success') {
+    if (contractStatus !== 'SUCCESS') {
       acceptAgnet({
         userId: Number(userId),
         companyId: value.companyId,
         currency: value.currency,
+        multipe_account: value.multipe_account,
         callback() {
           addNotification('Agent tasdiqlandi');
           history.back();
@@ -64,21 +68,17 @@ export const AgentForm: React.FC<IProps> = ({
         userId,
       });
     }
-    if (value.roleId) {
-      createAgentRoles({ callback() {}, roleId: value.roleId, userId });
-    }
-    if (value.projectId && value.permissionId) {
-      value.projectId.forEach((projectId) => {
-        createAgentUserPermission({
-          callback() {
-            addNotification(
-              `Agentga ${agentProjects ? agentProjects[projectId].name : ''} project uchun ruxsat berildi`,
-            );
-          },
-          userId,
-          projectId,
-          permissionId: value.permissionId,
-        });
+    // if (value.roleId) {
+    //   createAgentRoles({ callback() {}, roleId: value.roleId, userId });
+    // }
+    if (value.roleId && value.permissionId) {
+      agentAddRolePermission({
+        callback() {
+          addNotification('add role permission');
+        },
+        userId: Number(id),
+        roleId: value.roleId,
+        permissionId: value.permissionId,
       });
     }
   };
@@ -111,11 +111,12 @@ export const AgentForm: React.FC<IProps> = ({
       const isChecked = agent?.userProjectPermissions?.some(
         (projectPermission) => projectPermission.project?.projectId === el.projectId,
       );
-      return {
-        label: el.name,
-        value: el.projectId,
-        disabled: isChecked,
-      };
+      if (isChecked)
+        return {
+          label: el.name,
+          value: el.projectId,
+          disabled: isChecked,
+        };
     }
     return {
       label: el.name,
@@ -130,6 +131,15 @@ export const AgentForm: React.FC<IProps> = ({
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={() => {}}
+      // initialValues={{
+      //   roleId: (roles?.length && roles[0].roleId) || null,
+      //   permissionId:
+      //     (userPermissions?.length &&
+      //       userPermissions[0].permissions?.length &&
+      //       userPermissions[0].permissions[0].permissionId) ||
+      //     null,
+      //   categoryId: (categories?.length && categories[0].tariffId) || null,
+      // }}
     >
       <S.FormContent>
         <BaseForm.Item
@@ -142,6 +152,18 @@ export const AgentForm: React.FC<IProps> = ({
             style={{ height: 50 }}
             placeholder="Select an agent role option"
             options={RoleSelectOptions}
+          />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="permissionId"
+          label={'User permission'}
+          hasFeedback
+          rules={[{ type: 'number', message: 'field is required' }]}
+        >
+          <Select
+            style={{ height: 50 }}
+            placeholder="Select an user permission option"
+            options={UserPermissionSelectOption}
           />
         </BaseForm.Item>
         <BaseForm.Item
@@ -184,18 +206,6 @@ export const AgentForm: React.FC<IProps> = ({
           />
         </BaseForm.Item>
         <BaseForm.Item
-          name="permissionId"
-          label={'User permission'}
-          hasFeedback
-          rules={[{ type: 'number', message: 'field is required' }]}
-        >
-          <Select
-            style={{ height: 50 }}
-            placeholder="Select an user permission option"
-            options={UserPermissionSelectOption}
-          />
-        </BaseForm.Item>
-        <BaseForm.Item
           name="projectId"
           label={'Project'}
           hasFeedback
@@ -207,6 +217,14 @@ export const AgentForm: React.FC<IProps> = ({
             placeholder="Select an project option"
             options={ProjectSelectOption}
           />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="multipe_account"
+          label={'Multiple Account Is Active'}
+          hasFeedback
+          rules={[{ type: 'boolean', message: 'field is required' }]}
+        >
+          <Switch defaultValue={false} />
         </BaseForm.Item>
         {contractStatus !== 'success' && (
           <Flex gap="large" justify="space-around">

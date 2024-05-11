@@ -57,9 +57,11 @@ export const EndPointesV2 = {
   agent: {
     contract: {
       getAllUsers: '/v2/agent/all',
-      accept: '/v2/agent/accept',
-      reject: '/v2/agent/reject',
+      accept: '/agent/accept',
+      reject: '/agent/reject',
       getOne: '/v2/agent',
+      addRoleToUser: '/agent/role-permission/addRoleToUser',
+      addPermissionToUser: 'agent/role-permission/addPermissionToUser',
     },
     getAllOrder: '/v2/order/all',
     getAllOrderStatistic: '/v2/order/statistica',

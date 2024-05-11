@@ -56,6 +56,8 @@ import * as LetsTripTransferReduce from '../lets-trip/transfer/actions';
 import { LetsTripTransferSliceActions } from '../lets-trip/transfer/slice';
 import * as LetsTripCountryReduce from '../lets-trip/country/actions';
 import { LetsTripCountrySliceActions } from '../lets-trip/country/slice';
+import * as LetsTripCategoryReduce from '../lets-trip/category/actions';
+import { LetsTripCategorySliceActions } from '../lets-trip/category/slice';
 
 export const AllActions = {
   ...AgentTariffActions,
@@ -117,4 +119,6 @@ export const AllActions = {
   ...LetsTripTransferSliceActions,
   ...LetsTripCountryReduce,
   ...LetsTripCountrySliceActions,
+  ...LetsTripCategoryReduce,
+  ...LetsTripCategorySliceActions,
 };

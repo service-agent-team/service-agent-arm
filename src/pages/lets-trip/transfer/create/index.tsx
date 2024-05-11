@@ -9,7 +9,7 @@ export const LetsTripTransferCreate = () => {
       <PageTitle
         title="Create Transfer"
         icon="ArrowLeftOutlined"
-        route={ROUTES.letsTripTransferCreate}
+        route={ROUTES.letsTripTransfer}
         label="Back"
       />
       <LestTripTransferCreateForm />

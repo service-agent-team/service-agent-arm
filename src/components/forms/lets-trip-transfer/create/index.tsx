@@ -1,37 +1,77 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
-import { Button, DatePicker, Flex, Input, Select, Space, Typography, Upload } from 'antd';
-import React, { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { IValuesForm } from '../types';
+import {
+  Button,
+  DatePicker,
+  Flex,
+  GetProp,
+  Image,
+  Input,
+  Select,
+  Space,
+  Upload,
+  UploadProps,
+} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Id, IValuesForm } from '../types';
 import * as S from './styled';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { CustomDatePicker } from '@/components/common/date-picker';
+import { addNotification } from '@/common';
+import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
+import { UploadFile } from 'antd/lib';
+import { dateFormatDayJs } from '@/common/utils/format';
+import dayjs from 'dayjs';
 
 export const LestTripTransferCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { companies } = useTypedSelector((state) => state.company);
-  const { loading, categories } = useTypedSelector((state) => state.letsTripTour);
-  const { getCompany } = useActions();
-  // const navigate = useNavigate();
+  const { loading } = useTypedSelector((state) => state.letsTripTransfer);
+  const { categories } = useTypedSelector((state) => state.letsTripCategory);
+  const { getCompany, getAllLetsTripCategory, createLetsTripTransfer } = useActions();
+  const navigate = useNavigate();
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [date, setDate] = useState('');
 
-  const onFinish = () => {
-    // createLetsTripTransfer({
-    //   callback() {
-    //     addNotification('successfully added transfer');z
-    //     navigate(ROUTES.letsTripTransfer);
-    //   },
-    //   name,
-    //   categoryId,
-    //   companyId,
-    //   hourly,
-    //   transfer,
-    //   mediaLinks,
-    //   currency,
-    //   releaseDate,
-    //   attributes,
-    //   countryCode,
-    // });
+  const onFinish = ({
+    name,
+    categoryId,
+    companyId,
+    hourly,
+    transfer,
+    mediaLinks,
+    currency,
+    attributes,
+    countryCode,
+  }: IValuesForm) => {
+    let newAttributes: { [key: string]: any } = {};
+    attributes.forEach((el: any) => {
+      for (let value in el) {
+        newAttributes[value] = el[value];
+      }
+    });
+
+    createLetsTripTransfer({
+      callback() {
+        addNotification('successfully added transfer');
+        navigate(ROUTES.letsTripTransfer);
+      },
+      name,
+      categoryId,
+      companyId,
+      hourly,
+      transfer,
+      // mediaLinks: ['https://files.coreteam.uz/api/v1/media/open/287'],
+      mediaLinks: mediaLinks.fileList
+        .map((item: UploadFile) => item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`))
+        .flat(Infinity),
+      currency,
+      releaseDate: dateFormatDayJs(date),
+      attributes: newAttributes,
+      countryCode,
+    });
   };
 
   const selectOptionCategory = categories?.map((category) => ({
@@ -58,13 +98,36 @@ export const LestTripTransferCreateForm: React.FC = () => {
     { label: 'TR', value: 'TR' },
   ];
 
+  type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
+  const getBase64 = (file: FileType): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as FileType);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
+  };
+
   useEffect(() => {
     getCompany({ page: 0, size: 20 });
+    getAllLetsTripCategory({ page: 0, size: 30, callback() {} });
   }, []);
 
   return (
     <BaseForm
-      name="letsTripTourCreateForm"
+      name="letsTripTransferForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}
@@ -80,21 +143,13 @@ export const LestTripTransferCreateForm: React.FC = () => {
           >
             <Input name="name" type="string" placeholder="Enter a name ?" />
           </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="releaseDate"
-            label={'release date'}
-            rules={[
-              {
-                required: false,
-                message: 'releaseDate is required?',
-                whitespace: true,
-                type: 'object',
-              },
-            ]}
-          >
+          <BaseForm.Item style={{ width: '100%' }} name="releaseDate" label={'release date'}>
             <S.Block>
-              <CustomDatePicker />
+              <DatePicker
+                format={'YYYY-MM-DD'}
+                onChange={(date) => setDate(date.toString())}
+                disabledDate={(current) => current && current > dayjs().endOf('day')}
+              />
             </S.Block>
           </BaseForm.Item>
         </Flex>
@@ -163,15 +218,34 @@ export const LestTripTransferCreateForm: React.FC = () => {
           </BaseForm.Item>
         </Flex>
         <BaseForm.Item
-          name="pictures"
+          name="mediaLinks"
           label={'pictures'}
-          rules={[{ required: true, message: 'pictures is required?' }]}
+          rules={[{ required: true, message: 'pictures is required?', type: 'object' }]}
         >
-          <Upload.Dragger name="pictures" multiple={true} /*action={`${BASE_URL}/file`} */>
-            <Flex align="center" wrap="wrap" justify="center">
-              <Typography.Text>Click or drag file to this area to upload</Typography.Text>
-              <Icon fontSize="20" color="blue" name="InboxOutlined" />
-            </Flex>
+          <Upload.Dragger
+            style={{ width: '100%' }}
+            name="files"
+            multiple={true}
+            fileList={fileList}
+            onChange={handleChange}
+            onPreview={handlePreview}
+            beforeUpload={(file) => file.type.split('/')[0] === 'image'}
+            action={`${BASE_URL}/file`}
+          >
+            <Icon fontSize="20" color="blue" name="InboxOutlined" />
+            <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+            {previewImage && (
+              <Image
+                height={100}
+                wrapperStyle={{ display: 'none' }}
+                preview={{
+                  visible: previewOpen,
+                  onVisibleChange: (visible) => setPreviewOpen(visible),
+                  afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                }}
+                src={previewImage}
+              />
+            )}
           </Upload.Dragger>
         </BaseForm.Item>
         <BaseForm.List name="attributes">
@@ -181,14 +255,14 @@ export const LestTripTransferCreateForm: React.FC = () => {
                 <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                   <BaseForm.Item
                     {...restField}
-                    name={[name, 'key']}
-                    rules={[{ required: true, message: 'Missing key' }]}
+                    name={[name, 'key' + key]}
+                    rules={[{ required: true, message: 'Missing title' }]}
                   >
-                    <Input placeholder={`Additional property key ${key + 1}`} />
+                    <Input placeholder={`Additional property title ${key + 1}`} />
                   </BaseForm.Item>
                   <BaseForm.Item
                     {...restField}
-                    name={[name, 'value']}
+                    name={[name, 'value' + key]}
                     rules={[{ required: true, message: 'Missing value' }]}
                   >
                     <Input placeholder={`Additional property value ${key + 1}`} />

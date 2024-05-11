@@ -101,10 +101,15 @@ export interface TourItinerary {
   description: Description[];
   title: Title;
   hour: string;
+  item_order: number;
 }
 
 export interface Description {
   id?: number;
+  items: Items[];
+}
+
+export interface Items {
   ru: string;
   en: string;
 }
@@ -245,7 +250,11 @@ export interface Location2 {
 
 export interface TourItenarary2 {
   imageUrl: string;
-  description: string[];
+  description: Items2[];
   title: string;
   hour: string;
+}
+
+export interface Items2 {
+  items: string[];
 }

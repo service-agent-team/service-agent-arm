@@ -13,10 +13,11 @@ export const ContractService = {
     return response;
   },
 
-  async acceptAgent({ companyId, userId, currency }: IParam) {
+  async acceptAgent({ companyId, userId, currency, multipe_account }: IParam) {
     const response = await $axios.put(`${agent.contract.accept}/${userId}`, {
       companyId,
       currency,
+      multipe_account,
     });
     return response;
   },
@@ -29,5 +30,17 @@ export const ContractService = {
   async getOneAgent(userId: number) {
     const response = await $axios.get(`${agent.contract.getOne}/${userId}`);
     return response;
+  },
+
+  async agentAddRole(userId: number, roleId: number) {
+    return await $axios.post(`${agent.contract.addRoleToUser}`, { userId, roleId });
+  },
+
+  async agentAddRolePermission(userId: number, roleId: number, permissionId: number) {
+    return await $axios.post(`${agent.contract.addPermissionToUser}`, {
+      userId,
+      roleId,
+      permissionId,
+    });
   },
 };

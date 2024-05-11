@@ -123,14 +123,14 @@ export const utils = () => {
       dataIndex: 'category',
       key: 'category',
       width: '20%',
-      render: (value) => value.name,
+      render: (value) => value?.name,
     },
     {
       title: 'company',
       dataIndex: 'company',
       key: 'company',
       width: '20%',
-      render: (value) => value.name,
+      render: (value) => value?.name,
     },
     {
       title: 'description',

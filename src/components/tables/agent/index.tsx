@@ -72,7 +72,6 @@ export const AgentTable: React.FC = () => {
         onChange={handleChange}
       />
       <Table
-        style={{ width: '100%' }}
         columns={utils()}
         dataSource={generateUserData ? (generateUserData as IUserDataV2[]) : []}
         loading={get}

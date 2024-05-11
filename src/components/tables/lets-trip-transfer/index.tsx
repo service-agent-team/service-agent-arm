@@ -12,6 +12,8 @@ export const LetsTripTransferTable = () => {
   } = useTypedSelector((state) => state.letsTripTransfer);
   useEffect(() => {
     getAllLetsTripTransfer({
+      page: 0,
+      size: 30,
       callback() {
         addNotification('successfully get all transfers');
       },
