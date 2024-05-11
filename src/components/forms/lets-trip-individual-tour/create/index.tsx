@@ -42,6 +42,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
     descriptionEn,
     startingPrice,
     tourPrice,
+    tourPriceUptoPersons,
     tourPriceDescriptionRu,
     tourPriceDescriptionEn,
     countryId,
@@ -88,6 +89,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
       tourPrices: [
         {
           price: tourPrice,
+          upToPersons: tourPriceUptoPersons,
           description: {
             en: tourPriceDescriptionEn,
             ru: tourPriceDescriptionRu,
@@ -259,8 +261,6 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
           >
             <Select placeholder="Select country?" options={selectOptionCountry} />
           </BaseForm.Item>
-        </Flex>
-        <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="startingPrice"
@@ -275,6 +275,8 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
               placeholder="Enter a startingPrice ?"
             />
           </BaseForm.Item>
+        </Flex>
+        <Flex gap={'15px'}>
           <BaseForm.Item
             name="tourPrice"
             style={{ width: '100%' }}
@@ -287,6 +289,20 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
               name="tourPrice"
               type="number"
               placeholder="Enter a tourPrice ?"
+            />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="tourPriceUptoPersons"
+            label={'tourPriceUptoPersons'}
+            rules={[{ required: true, message: 'tourPriceUptoPersons is required?' }]}
+          >
+            <InputNumber
+              style={{ width: '100%' }}
+              width={'100%'}
+              name="tourPriceUptoPersons"
+              type="number"
+              placeholder="Enter a tourPriceUptoPersons ?"
             />
           </BaseForm.Item>
           <BaseForm.Item

@@ -49,6 +49,8 @@ export interface ILetsTripTransferCreateResponse extends ILetsTripTransfer {}
 
 export interface ILetsTripTransferPayload {
   callback(): void;
+  page: number;
+  size: number;
 }
 
 export interface ILetsTripTransferCreatePayload {

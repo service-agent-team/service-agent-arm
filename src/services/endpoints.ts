@@ -46,7 +46,7 @@ export const EndPointes = {
     getOneProduct: '/product',
     addProduct: '/product/create',
     // company
-    getAllCompany: 'company/get-all',
+    getAllCompany: '/company/get-all',
   },
 
   // PROJECT
@@ -209,7 +209,9 @@ export const EndPointes = {
     create: '/products/transfers',
   },
 
-  category: {
-    getAll: 'category/get-all',
+  letsTripCategory: {
+    getAll: '/category/get-all',
+    create: '/category/create',
+    delete: '/category/delete/',
   },
 } as const;

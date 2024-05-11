@@ -11,6 +11,7 @@ export interface IValuesForm {
   tourItenararyTitleEn: string;
   startingPrice: number;
   tourPrice: number;
+  tourPriceUptoPersons: number;
   descriptionRu: string;
   descriptionEn: string;
   tourPriceDescriptionRu: string;

@@ -29,6 +29,7 @@ export interface IValuesForm {
   itineraryDescEn: string;
   itineraryDescRu: string;
   itineraryImgUrl: UploadChangeParam;
+  itineraryItemOrder: number;
 }
 
 export interface IFileResponse {

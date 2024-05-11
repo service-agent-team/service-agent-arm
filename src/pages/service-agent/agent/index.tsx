@@ -7,12 +7,15 @@ import * as S from './styles';
 export function AgentControl() {
   const { getAllUsers } = useActions();
   const { status } = useTypedSelector((state) => state.agent);
+
   useEffect(() => {
     getAllUsers({
       callback() {
         addNotification('successfully get users');
       },
       statusName: status,
+      page: 0,
+      size: 300,
     });
   }, [status]);
 

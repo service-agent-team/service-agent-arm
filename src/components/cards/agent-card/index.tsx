@@ -1,4 +1,5 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
+import { dateFormatDayJs } from '@/common/utils/format';
 import { Card } from '@/components/common/card';
 import { AgentForm } from '@/components/forms';
 import { IUserDataV2 } from '@/store/service-agent/contract/contract.interface';
@@ -12,9 +13,9 @@ interface IProps {
 export const AgentCard = ({ data }: IProps) => {
   const { getRoles, getAllAgentTariffCategory, getCompany } = useActions();
   useEffect(() => {
-    getRoles({ callback() {}, pageNumber: 0, pageSize: 20 });
+    getRoles({ callback() {}, pageNumber: 0, pageSize: 30 });
     getAllAgentTariffCategory({ callback() {} });
-    getCompany({ page: 0, size: 20 });
+    getCompany({ page: 0, size: 30 });
   }, []);
   const { roles, agentTariff, company } = useTypedSelector((state) => state);
 
@@ -50,7 +51,8 @@ export const AgentCard = ({ data }: IProps) => {
             <Typography.Text strong>Fuqoroligi: </Typography.Text> {data?.citizenship}
           </List.Item>
           <List.Item>
-            <Typography.Text strong>{"Tug'ilgan sana"}: </Typography.Text> {data?.birthDate}
+            <Typography.Text strong>{"Tug'ilgan sana"}: </Typography.Text>{' '}
+            {dateFormatDayJs(data?.birthDate as string)}
           </List.Item>
           <List.Item>
             <Typography.Text strong>Manzil: </Typography.Text> {data?.address}

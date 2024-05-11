@@ -8,6 +8,11 @@ export interface InitialState {
     put: boolean;
     delete: boolean;
   };
+  pagination: {
+    page: number;
+    size: number;
+    total: number;
+  };
   error: null | string | unknown;
 }
 
@@ -23,6 +28,7 @@ export interface IUserResponse {
   success: boolean;
   message: string;
   data: IUserDataV2[] | null;
+  pagination: IPagination;
 }
 
 export interface IUserData {
@@ -107,7 +113,7 @@ export interface UserProjectPermission {
 
 export interface RolePermission {
   id: number;
-  role: Role;
+  role: RoleV2;
   permissions: IAgentPermissionV2[];
 }
 
@@ -171,12 +177,15 @@ export interface RoleV2 {
 export interface IUser {
   callback: () => void;
   statusName: string;
+  page: number;
+  size: number;
 }
 
 export interface IParams {
   userId: number;
   companyId: number;
   currency: string;
+  multipe_account: boolean;
   callback: () => void;
 }
 
@@ -196,4 +205,29 @@ export interface IData {
   currency: string;
 }
 
+export interface IPagination {
+  total: number;
+  page: number;
+  size: number;
+}
+
+export interface IAddAgentRolePermissionPayload {
+  callback: () => void;
+  userId: number;
+  roleId: number;
+  permissionId: number;
+}
+
 export interface IOneAgentResponse extends IUserDataV2 {}
+
+export interface IAddAgentRolePermissionResponse {
+  success: boolean;
+  httpStatus: number;
+  data: {
+    success: boolean;
+    httpStatus: number;
+    data: string;
+    date: string;
+  };
+  date: string;
+}

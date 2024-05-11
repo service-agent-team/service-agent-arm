@@ -12,9 +12,9 @@ import { LetsTripTransferService } from '@/services';
 export const getAllLetsTripTransfer = createAsyncThunk<
   ILetsTripTransferResponse,
   ILetsTripTransferPayload
->(EndPointes.letsTripTransfer.getAll, async ({ callback }, thunkApi) => {
+>(EndPointes.letsTripTransfer.getAll, async ({ callback, page, size }, thunkApi) => {
   try {
-    const response = await LetsTripTransferService.getAllTransfer();
+    const response = await LetsTripTransferService.getAllTransfer(page, size);
     if (response.data) {
       callback();
     }

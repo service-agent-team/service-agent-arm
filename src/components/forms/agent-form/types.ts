@@ -5,4 +5,5 @@ export interface IParam {
   roleId: number;
   projectId: number[];
   permissionId: number;
+  multipe_account: boolean;
 }

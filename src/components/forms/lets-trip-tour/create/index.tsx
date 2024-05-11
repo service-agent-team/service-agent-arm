@@ -65,6 +65,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     itineraryDescRu,
     itineraryImgUrl,
     itineraryHour,
+    itineraryItemOrder,
   }: IValuesForm) => {
     createLetsTripGroupTour({
       callback() {
@@ -122,10 +123,15 @@ export const LestTripTourCreateForm: React.FC = () => {
           },
           description: [
             {
-              en: itineraryDescEn,
-              ru: itineraryDescRu,
+              items: [
+                {
+                  en: itineraryDescEn,
+                  ru: itineraryDescRu,
+                },
+              ],
             },
           ],
+          item_order: itineraryItemOrder,
           hour: itineraryHour,
           imageUrl: itineraryImgUrl.fileList
             .map((item: UploadFile) =>
@@ -464,6 +470,22 @@ export const LestTripTourCreateForm: React.FC = () => {
           >
             <Input name="itineraryTitleRu" type="string" placeholder="Enter a itineraryTitleRu ?" />
           </BaseForm.Item>
+        </Flex>
+        <Flex gap={'15px'}>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="itineraryItemOrder"
+            label={'itineraryItemOrder'}
+            rules={[{ required: true, message: 'itineraryItemOrder is required?' }]}
+          >
+            <InputNumber
+              style={{ width: '100%' }}
+              width={'100%'}
+              name="itineraryItemOrder"
+              type="number"
+              placeholder="Enter a itineraryItemOrder ?"
+            />
+          </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="itineraryHour"
@@ -479,6 +501,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             <Input name="itineraryHour" type="string" placeholder="Enter a itineraryHour ?" />
           </BaseForm.Item>
         </Flex>
+
         <BaseForm.Item
           style={{ width: '100%' }}
           name="itineraryDescEn"

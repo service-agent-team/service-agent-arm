@@ -116,6 +116,7 @@ export interface Description2 {
 export interface TourPrice {
   id?: number;
   price: number;
+  upToPersons: number;
   description: Description3;
 }
 

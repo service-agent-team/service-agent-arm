@@ -260,23 +260,6 @@ export const utils = () => {
         );
       },
     },
-    // {
-    //   title: 'Actions',
-    //   dataIndex: 'userId',
-    //   key: 'action',
-    //   render: () => {
-    //     return (
-    //       <Dropdown menu={menuProps}>
-    //         <Button>
-    //           <Space>
-    //             Actions
-    //             <DownOutlined />
-    //           </Space>
-    //         </Button>
-    //       </Dropdown>
-    //     );
-    //   },
-    // },
   ];
 
   return columns;

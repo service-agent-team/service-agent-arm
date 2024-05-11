@@ -5,5 +5,5 @@ import './table.scss';
 
 // TODO make generic!
 export const Table: React.FC<TableProps<any>> = (props) => {
-  return <S.Table bordered {...props} />;
+  return <S.Table bordered {...props} style={{ width: '100%' }} />;
 };

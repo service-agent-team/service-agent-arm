@@ -20,3 +20,4 @@ export { UserPermissionService as UserPermissionsService } from './user-permissi
 export * from './lets-trip-tour';
 export * from './lets-trip-transfer';
 export * from './lets-trip-country';
+export * from './lets-trip-category';
