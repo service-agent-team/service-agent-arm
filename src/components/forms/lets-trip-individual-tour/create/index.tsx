@@ -168,95 +168,95 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameEn"
-            label={'name en'}
+            label={'name english'}
             rules={[
-              { required: true, message: 'name en is required?' },
+              { required: true, message: 'name english is required?' },
               {
                 type: 'string',
-                message: 'Enter en name ?',
+                message: 'Enter english name ?',
               },
             ]}
           >
-            <Input name="nameEn" type="string" placeholder="Enter a en name ?" />
+            <Input name="nameEn" type="string" placeholder="Enter a english name ?" />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameRu"
-            label={'name ru'}
+            label={'name russian'}
             rules={[
-              { required: true, message: 'name ru is required?' },
+              { required: true, message: 'name russian is required?' },
               {
                 type: 'string',
-                message: 'Enter ru name ?',
+                message: 'Enter russian name ?',
               },
             ]}
           >
-            <Input name="nameRu" type="string" placeholder="Enter a ru name ? " />
+            <Input name="nameRu" type="string" placeholder="Enter a russian name ? " />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="durationRu"
-            label={'durationRu'}
+            label={'duration russian'}
             rules={[
-              { required: true, message: 'durationRu is required?' },
+              { required: true, message: 'duration russian is required?' },
               {
                 type: 'string',
-                message: 'Enter durationRu ?',
+                message: 'Enter duration russian ?',
               },
             ]}
           >
-            <Input name="durationRu" type="string" placeholder="Enter a durationRu ?" />
+            <Input name="durationRu" type="string" placeholder="Enter a duration russian ?" />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="durationEn"
-            label={'durationEn'}
+            label={'duration english'}
             rules={[
-              { required: true, message: 'durationEn is required?' },
+              { required: true, message: 'duration english is required?' },
               {
                 type: 'string',
-                message: 'Enter durationEn ?',
+                message: 'Enter duration english ?',
               },
             ]}
           >
-            <Input name="durationEn" type="string" placeholder="Enter a durationEn ?" />
+            <Input name="durationEn" type="string" placeholder="Enter a duration english ?" />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNoteRu"
-            label={'priceNoteRu'}
+            label={'price note russian'}
             rules={[
-              { required: true, message: 'priceNoteRu is required?' },
+              { required: true, message: 'price note russian is required?' },
               {
                 type: 'string',
-                message: 'Enter priceNoteRu ?',
+                message: 'Enter price note russian ?',
               },
             ]}
           >
-            <Input name="priceNoteRu" type="string" placeholder="Enter a priceNoteRu ?" />
+            <Input name="priceNoteRu" type="string" placeholder="Enter a price note russian ?" />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNoteEn"
-            label={'priceNoteEn'}
+            label={'price note english'}
             rules={[
-              { required: true, message: 'priceNoteEn is required?' },
+              { required: true, message: 'price note english is required?' },
               {
                 type: 'string',
-                message: 'Enter priceNoteEn ?',
+                message: 'Enter price note english ?',
               },
             ]}
           >
-            <Input name="priceNoteEn" type="string" placeholder="Enter a priceNoteEn ?" />
+            <Input name="priceNoteEn" type="string" placeholder="Enter a price note english ?" />
           </BaseForm.Item>
           <BaseForm.Item
             name="countryId"
             style={{ width: '100%' }}
-            label={'country'}
+            label={'select country'}
             rules={[{ required: true, message: 'country is required!' }]}
           >
             <Select placeholder="Select country?" options={selectOptionCountry} />
@@ -264,165 +264,171 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="startingPrice"
-            label={'startingPrice'}
-            rules={[{ required: true, message: 'startingPrice is required?' }]}
+            label={'starting price'}
+            rules={[{ required: true, message: 'starting price is required?' }]}
           >
             <InputNumber
               style={{ width: '100%' }}
               width={'100%'}
               name="startingPrice"
               type="number"
-              placeholder="Enter a startingPrice ?"
+              placeholder="Enter a starting price ?"
             />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
-            name="tourPrice"
+            name="tour price"
             style={{ width: '100%' }}
             label={'tourPrice'}
-            rules={[{ required: true, message: 'tourPrice is required!' }]}
+            rules={[{ required: true, message: 'tour price is required!' }]}
           >
             <InputNumber
               style={{ width: '100%' }}
               width={'100%'}
               name="tourPrice"
               type="number"
-              placeholder="Enter a tourPrice ?"
+              placeholder="Enter a tour price ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="tourPriceUptoPersons"
-            label={'tourPriceUptoPersons'}
-            rules={[{ required: true, message: 'tourPriceUptoPersons is required?' }]}
+            label={'tour price up to persons'}
+            rules={[{ required: true, message: 'tour price up to persons is required?' }]}
           >
             <InputNumber
               style={{ width: '100%' }}
               width={'100%'}
               name="tourPriceUptoPersons"
               type="number"
-              placeholder="Enter a tourPriceUptoPersons ?"
+              placeholder="Enter a tour price up to persons ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="tourItenararyTitleRu"
-            label={'tourItenararyTitleRu'}
-            rules={[{ required: true, message: 'tourItenararyTitleRu is required?' }]}
+            label={'tour itenarary title russian'}
+            rules={[{ required: true, message: 'tour itenarary title russian is required?' }]}
           >
             <Input
               style={{ width: '100%' }}
               width={'100%'}
               name="tourItenararyTitleRu"
               type="string"
-              placeholder="Enter a tourItenararyTitleRu ?"
+              placeholder="Enter a tour itenarary title russian ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="tourItenararyTitleEn"
-            label={'tourItenararyTitleEn'}
-            rules={[{ required: true, message: 'tourItenararyTitleEn is required?' }]}
+            label={'tour itenarary title english'}
+            rules={[{ required: true, message: 'tour itenarary title english is required?' }]}
           >
             <Input
               style={{ width: '100%' }}
               width={'100%'}
               name="tourItenararyTitleEn"
               type="string"
-              placeholder="Enter a tourItenararyTitleEn ?"
+              placeholder="Enter a tour itenarary title english ?"
             />
           </BaseForm.Item>
         </Flex>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="tourPriceDescriptionRu"
-          label={'tourPriceDescriptionRu'}
+          label={'tour price description russian'}
           rules={[
-            { required: true, message: 'tourPriceDescriptionRu is required?' },
+            { required: true, message: 'tour price description russian is required?' },
             {
               type: 'string',
-              message: 'Enter a tourPriceDescriptionRu ?',
+              message: 'Enter a tour price description russian ?',
             },
           ]}
         >
-          <TextArea name="tourPriceDescriptionRu" placeholder="Enter a tourPriceDescriptionRu ?" />
+          <TextArea
+            name="tourPriceDescriptionRu"
+            placeholder="Enter a tour price description russian ?"
+          />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="tourPriceDescriptionEn"
-          label={'tourPriceDescriptionEn'}
+          label={'tour price description english'}
           rules={[
-            { required: true, message: 'tourPriceDescriptionEn is required?' },
+            { required: true, message: 'tour price description english is required?' },
             {
               type: 'string',
-              message: 'Enter a tourPriceDescriptionEn ?',
+              message: 'Enter a tour price description english ?',
             },
           ]}
         >
-          <TextArea name="tourPriceDescriptionEn" placeholder="Enter a tourPriceDescriptionEn ?" />
+          <TextArea
+            name="tourPriceDescriptionEn"
+            placeholder="Enter a tour price description english ?"
+          />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="tourItenararyDescriptionRu"
-          label={'tourItenararyDescriptionRu'}
+          label={'tour itenarary description russian'}
           rules={[
-            { required: true, message: 'tourItenararyDescriptionRu is required?' },
+            { required: true, message: 'tour itenarary description russian is required?' },
             {
               type: 'string',
-              message: 'Enter a tourItenararyDescriptionRu ?',
+              message: 'Enter a tour itenarary description russian ?',
             },
           ]}
         >
           <TextArea
             name="tourItenararyDescriptionRu"
-            placeholder="Enter a tourItenararyDescriptionRu ?"
+            placeholder="Enter a tour itenarary description russian ?"
           />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="tourItenararyDescriptionEn"
-          label={'tourItenararyDescriptionEn'}
+          label={'tour itenarary description english'}
           rules={[
-            { required: true, message: 'tourItenararyDescriptionEn is required?' },
+            { required: true, message: 'tour itenarary description english is required?' },
             {
               type: 'string',
-              message: 'Enter a tourItenararyDescriptionEn ?',
+              message: 'Enter a tour itenarary description english ?',
             },
           ]}
         >
           <TextArea
             name="tourItenararyDescriptionEn"
-            placeholder="Enter a tourItenararyDescriptionEn ?"
+            placeholder="Enter a tour itenarary description english ?"
           />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionEn"
-          label={'description en'}
+          label={'description english'}
           rules={[
-            { required: true, message: 'description en is required?' },
+            { required: true, message: 'description english is required?' },
             {
               type: 'string',
-              message: 'Enter en description ?',
+              message: 'Enter english description ?',
             },
           ]}
         >
-          <TextArea name="descriptionEn" placeholder="Enter a en description ?" />
+          <TextArea name="descriptionEn" placeholder="Enter a english description ?" />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionRu"
-          label={'description ru'}
+          label={'description russian'}
           rules={[
-            { required: true, message: 'description ru is required?' },
+            { required: true, message: 'description russian is required?' },
             {
               type: 'string',
-              message: 'Enter ru description ?',
+              message: 'Enter russian description ?',
             },
           ]}
         >
-          <TextArea name="descriptionRu" placeholder="Enter a ru description ? " />
+          <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
         </BaseForm.Item>
         <BaseForm.Item
           name="images"
@@ -457,11 +463,11 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
         </BaseForm.Item>
         <BaseForm.Item
           name="tourItenararyDescriptionImgUrl"
-          label={'tourItenararyDescriptionImg'}
+          label={'tour itenarary description image'}
           rules={[
             {
               required: true,
-              message: 'tourItenararyDescriptionImgUrl is required?',
+              message: 'tour itenarary description image is required?',
               type: 'object',
             },
           ]}
@@ -498,7 +504,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
           rules={[
             {
               required: true,
-              message: 'videoUrl is required?',
+              message: 'video is required?',
               type: 'object',
             },
           ]}

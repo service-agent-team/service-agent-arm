@@ -196,7 +196,7 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
-      width: '5%',
+      width: '10%',
       render: (_, record: any) => {
         return (
           <LinkButton path={`${ROUTES.letsTripIndividualTour}/view/${record.id}`}>

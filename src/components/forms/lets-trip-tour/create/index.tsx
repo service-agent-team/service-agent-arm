@@ -200,75 +200,75 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameEn"
-            label={'name en'}
+            label={'name enlish'}
             rules={[
-              { required: true, message: 'name en is required?' },
+              { required: true, message: 'name english is required?' },
               {
                 type: 'string',
-                message: 'Enter en name ?',
+                message: 'Enter english name ?',
               },
             ]}
           >
-            <Input name="nameEn" type="string" placeholder="Enter a en name ?" />
+            <Input name="nameEn" type="string" placeholder="Enter a english name ?" />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameRu"
-            label={'name ru'}
+            label={'name russian'}
             rules={[
-              { required: true, message: 'name ru is required?' },
+              { required: true, message: 'name russian is required?' },
               {
                 type: 'string',
-                message: 'Enter ru name ?',
+                message: 'Enter russian name ?',
               },
             ]}
           >
-            <Input name="nameRu" type="string" placeholder="Enter a ru name ? " />
+            <Input name="nameRu" type="string" placeholder="Enter a russian name ? " />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNoteRu"
-            label={'priceNoteRu'}
+            label={'price note russian'}
             rules={[
-              { required: true, message: 'priceNoteRu is required?' },
+              { required: true, message: 'price note russian is required?' },
               {
                 type: 'string',
-                message: 'Enter priceNoteRu ?',
+                message: 'Enter price note russian ?',
               },
             ]}
           >
-            <Input name="priceNoteRu" type="string" placeholder="Enter a priceNoteRu ?" />
+            <Input name="priceNoteRu" type="string" placeholder="Enter a price note russian  ?" />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNoteEn"
-            label={'priceNoteEn'}
+            label={'price note english'}
             rules={[
-              { required: true, message: 'priceNoteEn is required?' },
+              { required: true, message: 'price note english is required?' },
               {
                 type: 'string',
-                message: 'Enter priceNoteEn ?',
+                message: 'Enter price note english ?',
               },
             ]}
           >
-            <Input name="priceNoteEn" type="string" placeholder="Enter a priceNoteEn ?" />
+            <Input name="priceNoteEn" type="string" placeholder="Enter a price note english ?" />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="startingPrice"
-            label={'startingPrice'}
-            rules={[{ required: true, message: 'startingPrice is required?' }]}
+            name="starting price"
+            label={'starting price'}
+            rules={[{ required: true, message: 'starting price is required?' }]}
           >
             <InputNumber
               style={{ width: '100%' }}
               width={'100%'}
-              name="startingPrice"
+              name="starting price"
               type="number"
-              placeholder="Enter a startingPrice ?"
+              placeholder="Enter a starting price ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
@@ -302,7 +302,7 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             name="countryId"
             style={{ width: '100%' }}
-            label={'country'}
+            label={'select country'}
             rules={[{ required: true, message: 'country is required!' }]}
           >
             <Select placeholder="Select country?" options={selectOptionCountry} />
@@ -312,65 +312,73 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceIncludeRu"
-            label={'priceIncludeRu'}
+            label={'price include russian'}
             rules={[
-              { required: true, message: 'priceIncludeRu is required?' },
+              { required: true, message: 'price include russian is required?' },
               {
                 type: 'string',
-                message: 'Enter priceIncludeRu ?',
+                message: 'Enter price include russian ?',
               },
             ]}
           >
-            <Input name="priceIncludeRu" type="string" placeholder="Enter a priceIncludeRu ?" />
+            <Input
+              name="priceIncludeRu"
+              type="string"
+              placeholder="Enter a price include russian ?"
+            />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceIncludeEn"
-            label={'priceIncludeEn'}
+            label={'price include english'}
             rules={[
-              { required: true, message: 'priceIncludeEn is required?' },
+              { required: true, message: 'price include english is required?' },
               {
                 type: 'string',
-                message: 'Enter priceIncludeEn ?',
+                message: 'Enter price include english ?',
               },
             ]}
           >
-            <Input name="priceIncludeEn" type="string" placeholder="Enter a priceIncludeEn ?" />
+            <Input
+              name="priceIncludeEn"
+              type="string"
+              placeholder="Enter a price include english ?"
+            />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNotIncludeRu"
-            label={'priceNotIncludeRu'}
+            label={'price not include russian'}
             rules={[
-              { required: true, message: 'priceNotIncludeRu is required?' },
+              { required: true, message: 'price not include russian is required?' },
               {
                 type: 'string',
-                message: 'Enter priceNotIncludeRu ?',
+                message: 'Enter price not include russian ?',
               },
             ]}
           >
             <Input
               name="priceNotIncludeRu"
               type="string"
-              placeholder="Enter a priceNotIncludeRu ?"
+              placeholder="Enter a price not include russian ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNotIncludeEn"
-            label={'priceNotIncludeEn'}
+            label={'price not include english'}
             rules={[
-              { required: true, message: 'priceNotIncludeEn is required?' },
+              { required: true, message: 'price not include english is required?' },
               {
                 type: 'string',
-                message: 'Enter priceNotIncludeEn ?',
+                message: 'Enter price not include english ?',
               },
             ]}
           >
             <Input
               name="priceNotIncludeEn"
               type="string"
-              placeholder="Enter a priceNotIncludeEn ?"
+              placeholder="Enter a price not include english ?"
             />
           </BaseForm.Item>
         </Flex>
@@ -378,12 +386,12 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="availablePrice"
-            label={'availablePrice'}
+            label={'available price'}
             rules={[
-              { required: true, message: 'availablePrice is required?' },
+              { required: true, message: 'available price is required?' },
               {
                 type: 'number',
-                message: 'Enter availablePrice ?',
+                message: 'Enter available price ?',
               },
             ]}
           >
@@ -391,19 +399,19 @@ export const LestTripTourCreateForm: React.FC = () => {
               style={{ width: '100%' }}
               name="availablePrice"
               type="number"
-              placeholder="Enter a availablePrice ?"
+              placeholder="Enter a available price ?"
             />
           </BaseForm.Item>
-          <BaseForm.Item style={{ width: '100%' }} name="availableMonth" label={'availableMonth'}>
+          <BaseForm.Item style={{ width: '100%' }} name="availableMonth" label={'available month'}>
             <DatePicker name="availableMonth" picker="month" style={{ width: '100%' }} />
           </BaseForm.Item>
-          <BaseForm.Item style={{ width: '100%' }} name="availableYear" label={'availableYear'}>
+          <BaseForm.Item style={{ width: '100%' }} name="availableYear" label={'available year'}>
             <DatePicker name="availableYear" picker="year" style={{ width: '100%' }} />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="transferDate"
-            label={'transferStartEndDate'}
+            label={'transfer start end date'}
           >
             <DatePicker.RangePicker
               format={{
@@ -417,151 +425,167 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="transferTypeEn"
-            label={'transferTypeEn'}
+            label={'transfer type english'}
             rules={[
-              { required: true, message: 'transferTypeEn is required?' },
+              { required: true, message: 'transfer type english is required?' },
               {
                 type: 'string',
-                message: 'Enter transferTypeEn ?',
+                message: 'Enter transfer type english ?',
               },
             ]}
           >
-            <Input name="transferTypeEn" type="string" placeholder="Enter a transferTypeEn ?" />
+            <Input
+              name="transferTypeEn"
+              type="string"
+              placeholder="Enter a transfer type english ?"
+            />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="transferTypeRu"
-            label={'transferTypeRu'}
+            label={'transfer type russian'}
             rules={[
-              { required: true, message: 'transferTypeRu is required?' },
+              { required: true, message: 'transfer type russian is required?' },
               {
                 type: 'string',
-                message: 'Enter transferTypeRu ?',
+                message: 'Enter transfer type russian ?',
               },
             ]}
           >
-            <Input name="transferTypeRu" type="string" placeholder="Enter a transferTypeRu ?" />
+            <Input
+              name="transferTypeRu"
+              type="string"
+              placeholder="Enter a transfer type russian ?"
+            />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="itineraryTitleEn"
-            label={'itineraryTitleEn'}
+            label={'itinerary title english'}
             rules={[
-              { required: true, message: 'itineraryTitleEn is required?' },
+              { required: true, message: 'itinerary title english is required?' },
               {
                 type: 'string',
-                message: 'Enter itineraryTitleEn ?',
+                message: 'Enter itinerary title english ?',
               },
             ]}
           >
-            <Input name="itineraryTitleEn" type="string" placeholder="Enter a itineraryTitleEn ?" />
+            <Input
+              name="itineraryTitleEn"
+              type="string"
+              placeholder="Enter a itinerary title english ?"
+            />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="itineraryTitleRu"
-            label={'itineraryTitleRu'}
+            label={'itinerary title russian'}
             rules={[
-              { required: true, message: 'itineraryTitleRu is required?' },
+              { required: true, message: 'itinerary title russian is required?' },
               {
                 type: 'string',
-                message: 'Enter itineraryTitleRu ?',
+                message: 'Enter itinerary title russian ?',
               },
             ]}
           >
-            <Input name="itineraryTitleRu" type="string" placeholder="Enter a itineraryTitleRu ?" />
+            <Input
+              name="itineraryTitleRu"
+              type="string"
+              placeholder="Enter a itinerary title russian ?"
+            />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="itineraryItemOrder"
-            label={'itineraryItemOrder'}
-            rules={[{ required: true, message: 'itineraryItemOrder is required?' }]}
+            label={'itinerary item order'}
+            rules={[{ required: true, message: 'itinerary item order is required?' }]}
           >
             <InputNumber
               style={{ width: '100%' }}
               width={'100%'}
               name="itineraryItemOrder"
               type="number"
-              placeholder="Enter a itineraryItemOrder ?"
+              placeholder="Enter a itinerary item order ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="itineraryHour"
-            label={'itineraryHour'}
+            label={'itinerary hour'}
             rules={[
-              { required: true, message: 'itineraryHour is required?' },
+              { required: true, message: 'itinerary hour is required?' },
               {
                 type: 'string',
-                message: 'Enter itineraryHour ?',
+                message: 'Enter itinerary hour ?',
               },
             ]}
           >
-            <Input name="itineraryHour" type="string" placeholder="Enter a itineraryHour ?" />
+            <Input name="itineraryHour" type="string" placeholder="Enter a itinerary hour ?" />
           </BaseForm.Item>
         </Flex>
 
         <BaseForm.Item
           style={{ width: '100%' }}
           name="itineraryDescEn"
-          label={'itineraryDescEn'}
+          label={'itinerary description english'}
           rules={[
-            { required: true, message: 'itineraryDescEn is required?' },
+            { required: true, message: 'itinerary description english is required?' },
             {
               type: 'string',
-              message: 'Enter a itineraryDescEn ?',
+              message: 'Enter a itinerary description english ?',
             },
           ]}
         >
-          <TextArea name="itineraryDescEn" placeholder="Enter a itineraryDescEn ?" />
+          <TextArea name="itineraryDescEn" placeholder="Enter a itinerary description english ?" />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="itineraryDescRu"
-          label={'itineraryDescRu'}
+          label={'itinerary description russian'}
           rules={[
-            { required: true, message: 'itineraryDescRu is required?' },
+            { required: true, message: 'itinerary description russian is required?' },
             {
               type: 'string',
-              message: 'Enter a itineraryDescRu ?',
+              message: 'Enter a itinerary description russian ?',
             },
           ]}
         >
-          <TextArea name="itineraryDescRu" placeholder="Enter a itineraryDescRu ?" />
+          <TextArea name="itineraryDescRu" placeholder="Enter a itinerary description russian ?" />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionEn"
-          label={'description en'}
+          label={'description english'}
           rules={[
-            { required: true, message: 'description en is required?' },
+            { required: true, message: 'description english is required?' },
             {
               type: 'string',
-              message: 'Enter en description ?',
+              message: 'Enter english description ?',
             },
           ]}
         >
-          <TextArea name="descriptionEn" placeholder="Enter a en description ?" />
+          <TextArea name="descriptionEn" placeholder="Enter a english description ?" />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionRu"
-          label={'description ru'}
+          label={'description russian'}
           rules={[
-            { required: true, message: 'description ru is required?' },
+            { required: true, message: 'description russian is required?' },
             {
               type: 'string',
-              message: 'Enter ru description ?',
+              message: 'Enter russian description ?',
             },
           ]}
         >
-          <TextArea name="descriptionRu" placeholder="Enter a ru description ? " />
+          <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
         </BaseForm.Item>
         <BaseForm.Item
           name="images"
-          label={'images'}
-          rules={[{ required: true, message: 'images is required?', type: 'object' }]}
+          label={'tour images'}
+          rules={[{ required: true, message: 'tour images is required?', type: 'object' }]}
         >
           <Upload.Dragger
             style={{ width: '100%' }}
@@ -591,8 +615,8 @@ export const LestTripTourCreateForm: React.FC = () => {
         </BaseForm.Item>
         <BaseForm.Item
           name="itineraryImgUrl"
-          label={'itineraryImg'}
-          rules={[{ required: true, message: 'itineraryImgUrl is required?', type: 'object' }]}
+          label={'itinerary image'}
+          rules={[{ required: true, message: 'itinerary image is required?', type: 'object' }]}
         >
           <Upload.Dragger
             style={{ width: '100%' }}
@@ -627,7 +651,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                 <>
                   <Card
                     size="small"
-                    title="EN"
+                    title="ENGLISH"
                     key={field.key}
                     extra={
                       <Icon
@@ -647,7 +671,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                       <Input />
                     </BaseForm.Item>
                     <BaseForm.Item
-                      label="EN"
+                      label="ENGLISH"
                       initialValue={{ EN: 'EN' }}
                       rules={[{ required: true, message: 'field required' }]}
                     >
@@ -688,7 +712,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                   </Card>
                   <Card
                     size="small"
-                    title="RU"
+                    title="RUSSIAN"
                     key={field.key}
                     extra={
                       <Icon
@@ -708,7 +732,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                       <Input />
                     </BaseForm.Item>
                     <BaseForm.Item
-                      label="RU"
+                      label="RUSSIAN"
                       initialValue={{ RU: 'RU' }}
                       rules={[{ required: true, message: 'field required' }]}
                     >
@@ -760,7 +784,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                   block
                   icon={<Icon name="PlusOutlined" />}
                 >
-                  Add Extra Information
+                  add extra information
                 </Button>
               </BaseForm.Item>
             </div>

@@ -43,4 +43,16 @@ export const ContractService = {
       permissionId,
     });
   },
+
+  async agentRemoveRoleFromUser(userId: number, roleId: number) {
+    return await $axios.post(`${agent.contract.removeRoleFromUser}`, { userId, roleId });
+  },
+
+  async agentRemovePermissionFromUserRole(userId: number, roleId: number, permissionId: number) {
+    return await $axios.post(`${agent.contract.removePermissionFromUserRole}`, {
+      userId,
+      roleId,
+      permissionId,
+    });
+  },
 };

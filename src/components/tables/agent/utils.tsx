@@ -1,17 +1,20 @@
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, InputRef, MenuProps, Row, Space, Tag, message } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { Button, Input, InputRef, MenuProps, Row, Space, Tag, message } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { items } from './constants';
 import { DataIndex, IHandleSearchProps, AgentTableRowV2 } from './types';
-import { LinkButton } from '@/components/common/buttons';
 import { Icon } from '@/components';
+import { useNavigate } from 'react-router-dom';
+import { useActions } from '@/common/hooks';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const { getOneAgent } = useActions();
+  const navigate = useNavigate();
 
   const handleMenuClick: MenuProps['onClick'] = () => {
     message.success('Click on menu item.');
@@ -116,7 +119,7 @@ export const utils = () => {
       title: 'Id',
       dataIndex: 'userId',
       key: 'userId',
-      width: '4%',
+      width: '10%',
       sorter: (a, b) => a.userId - b.userId,
       sortDirections: ['descend', 'ascend'],
     },
@@ -252,11 +255,21 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'userId',
       key: 'view',
+      width: '10%',
       render: (userId: number, record: any) => {
         return (
-          <LinkButton path={`/service-agent/view/${userId}?video=${record.videoContentId}`}>
+          <Button
+            onClick={() => {
+              getOneAgent({
+                callback() {
+                  navigate(`/service-agent/view/${userId}?video=${record.videoContentId}`);
+                },
+                userId,
+              });
+            }}
+          >
             <Icon name="EyeOutlined" />
-          </LinkButton>
+          </Button>
         );
       },
     },

@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   acceptAgnet,
+  agentAddRole,
   agentAddRolePermission,
+  agentRemoveRole,
+  agentRemoveRolePermission,
   getAllUsers,
   getOneAgent,
   rejectAgnet,
@@ -89,16 +92,53 @@ export const contractSlice = createSlice({
         state.loading.get = false;
         state.error = payload;
       })
+      .addCase(agentAddRole.pending, (state) => {
+        state.loading.post = true;
+        state.error = null;
+      })
+      .addCase(agentAddRole.fulfilled, (state) => {
+        state.loading.post = false;
+        state.error = null;
+      })
+      .addCase(agentAddRole.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.error = payload;
+      })
       .addCase(agentAddRolePermission.pending, (state) => {
-        state.loading.get = true;
+        state.loading.post = true;
         state.error = null;
       })
       .addCase(agentAddRolePermission.fulfilled, (state) => {
-        state.loading.get = false;
+        state.loading.post = false;
         state.error = null;
       })
       .addCase(agentAddRolePermission.rejected, (state, { payload }) => {
-        state.loading.get = false;
+        state.loading.post = false;
+        state.error = payload;
+      })
+      .addCase(agentRemoveRole.pending, (state) => {
+        state.loading.delete = true;
+        state.error = null;
+      })
+      .addCase(agentRemoveRole.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.error = null;
+      })
+      .addCase(agentRemoveRole.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.error = payload;
+      })
+
+      .addCase(agentRemoveRolePermission.pending, (state) => {
+        state.loading.delete = true;
+        state.error = null;
+      })
+      .addCase(agentRemoveRolePermission.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.error = null;
+      })
+      .addCase(agentRemoveRolePermission.rejected, (state, { payload }) => {
+        state.loading.delete = false;
         state.error = payload;
       });
   },

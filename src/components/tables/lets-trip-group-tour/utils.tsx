@@ -196,7 +196,7 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'tourId',
       key: 'view',
-      width: '5%',
+      width: '10%',
       render: (_, record: any) => {
         return (
           <LinkButton

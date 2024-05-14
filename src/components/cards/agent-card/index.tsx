@@ -63,36 +63,6 @@ export const AgentCard = ({ data }: IProps) => {
           <List.Item>
             <Typography.Text strong>Jinsi: </Typography.Text> {data?.gender}
           </List.Item>
-          {/* <List.Item>
-            <Typography.Text strong>Ariza holati: </Typography.Text>{' '}
-            {data?.contractStatus === 'view'
-              ? 'Tasdiqlanishi kutilmoqda'
-              : data?.contractStatus === 'success'
-                ? 'Tasdiqlangan'
-                : null}
-          </List.Item>
-          {data?.userRoles[0]?.role && (
-            <List.Item>
-              <Typography.Text strong>Role: </Typography.Text>
-              {data?.userRoles[0]?.role?.name}
-            </List.Item>
-          )}
-          {data?.userTariffPermissions[0]?.userTariff && (
-            <List.Item>
-              <Typography.Text strong>Category: </Typography.Text>
-              {data?.userTariffPermissions[0]?.userTariff?.tariffName}
-            </List.Item>
-          )}
-          {data?.userPermissions[0]?.permission && (
-            <List.Item>
-              <Typography.Text strong>Permission: </Typography.Text>
-              {data?.userPermissions[0]?.permission?.name}
-            </List.Item>
-          )}
-          <List.Item>
-            <Typography.Text strong>Company: </Typography.Text>
-            Service-agent
-          </List.Item> */}
         </List>
 
         <AgentForm

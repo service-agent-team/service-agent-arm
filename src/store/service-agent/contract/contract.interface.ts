@@ -211,10 +211,13 @@ export interface IPagination {
   size: number;
 }
 
-export interface IAddAgentRolePermissionPayload {
+export interface IAddAgentRolePayload {
   callback: () => void;
   userId: number;
   roleId: number;
+}
+
+export interface IAddAgentRolePermissionPayload extends IAddAgentRolePayload {
   permissionId: number;
 }
 

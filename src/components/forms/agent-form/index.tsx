@@ -36,14 +36,17 @@ export const AgentForm: React.FC<IProps> = ({
     // createAgentRoles,
     getAgentPermissions,
     getAllAgentProject,
+    agentAddRole,
     agentAddRolePermission,
+    agentRemoveRole,
+    // agentRemoveRolePermission,
   } = useActions();
 
-  const { loading } = useTypedSelector((state) => state.users);
   const { permissions } = useTypedSelector((state) => state.agentPermission);
   const { agentProjects } = useTypedSelector((state) => state.agentProject);
-  const { agent } = useTypedSelector((state) => state.agent);
+  const { agent, loading } = useTypedSelector((state) => state.agent);
   const { id } = useParams();
+  const defaultRole = agent?.userRolePermissions[0];
 
   const onFinish = (value: IParam) => {
     if (contractStatus !== 'SUCCESS') {
@@ -68,17 +71,22 @@ export const AgentForm: React.FC<IProps> = ({
         userId,
       });
     }
-    // if (value.roleId) {
-    //   createAgentRoles({ callback() {}, roleId: value.roleId, userId });
-    // }
     if (value.roleId && value.permissionId) {
-      agentAddRolePermission({
+      agentAddRole({
         callback() {
-          addNotification('add role permission');
+          addNotification('add role to user');
+
+          agentAddRolePermission({
+            callback() {
+              addNotification('add role permission');
+            },
+            userId: Number(id),
+            roleId: value.roleId,
+            permissionId: value.permissionId,
+          });
         },
         userId: Number(id),
         roleId: value.roleId,
-        permissionId: value.permissionId,
       });
     }
   };
@@ -93,6 +101,29 @@ export const AgentForm: React.FC<IProps> = ({
     });
   };
 
+  const handleRoleRemove = () => {
+    if (defaultRole?.role.roleId)
+      agentRemoveRole({
+        callback() {
+          addNotification('remove role from user');
+        },
+        userId: Number(id),
+        roleId: defaultRole?.role.roleId,
+      });
+  };
+
+  // const hanldeRolePermissionRemove = () => {
+  //   if (defaultRole?.permissions[0].permissionId)
+  //     agentRemoveRolePermission({
+  //       callback() {
+  //         addNotification('remove role permission');
+  //       },
+  //       userId: Number(id),
+  //       roleId: defaultRole?.role.roleId,
+  //       permissionId: defaultRole?.permissions[0].permissionId as number,
+  //     });
+  // };
+
   useEffect(() => {
     getAgentPermissions({ callback() {} });
     getAllAgentProject({ callback() {}, pageNumber: 0, pageSize: 20 });
@@ -105,7 +136,9 @@ export const AgentForm: React.FC<IProps> = ({
   }));
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
   const UserPermissionSelectOption =
-    permissions?.map((el) => ({ label: el.name, value: el.permissionId })) || [];
+    permissions
+      ?.filter((el) => el.type === 'FOR_USER_ROLE')
+      ?.map((el) => ({ label: el.name, value: el.permissionId })) || [];
   const ProjectSelectOption = agentProjects?.map((el) => {
     if (userPermissions) {
       const isChecked = agent?.userProjectPermissions?.some(
@@ -131,38 +164,37 @@ export const AgentForm: React.FC<IProps> = ({
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={() => {}}
-      // initialValues={{
-      //   roleId: (roles?.length && roles[0].roleId) || null,
-      //   permissionId:
-      //     (userPermissions?.length &&
-      //       userPermissions[0].permissions?.length &&
-      //       userPermissions[0].permissions[0].permissionId) ||
-      //     null,
-      //   categoryId: (categories?.length && categories[0].tariffId) || null,
-      // }}
+      initialValues={{
+        roleId: (defaultRole && defaultRole.role.roleId) || null,
+        permissionId:
+          (defaultRole?.permissions[0] && defaultRole.permissions[0].permissionId) || null,
+        categoryId: (categories?.length && categories[0].tariffId) || null,
+      }}
     >
       <S.FormContent>
         <BaseForm.Item
           name="roleId"
-          label={'Agent Roles'}
+          label={'Agent roles'}
           hasFeedback
           rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
             placeholder="Select an agent role option"
+            onChange={() => handleRoleRemove()}
             options={RoleSelectOptions}
           />
         </BaseForm.Item>
         <BaseForm.Item
           name="permissionId"
-          label={'User permission'}
+          label={'User role permission'}
           hasFeedback
           rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an user permission option"
+            placeholder="Select an user role permission option"
+            // onChange={() => hanldeRolePermissionRemove()}
             options={UserPermissionSelectOption}
           />
         </BaseForm.Item>
@@ -226,7 +258,7 @@ export const AgentForm: React.FC<IProps> = ({
         >
           <Switch defaultValue={false} />
         </BaseForm.Item>
-        {contractStatus !== 'success' && (
+        {contractStatus !== 'SUCCESS' && (
           <Flex gap="large" justify="space-around">
             <SimpleButton click={handleReject} color="--negative">
               Rad etish
@@ -236,7 +268,7 @@ export const AgentForm: React.FC<IProps> = ({
             </PrimaryBtn>
           </Flex>
         )}
-        {contractStatus === 'success' && (
+        {contractStatus === 'SUCCESS' && (
           <PrimaryBtn htmlType="submit" loading={loading.post} color="warning">
             Update
           </PrimaryBtn>
