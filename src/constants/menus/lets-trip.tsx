@@ -7,16 +7,16 @@ export const letsTrip = [
     key: ROUTES.letsTripHome,
     label: 'Home',
   },
-  {
-    icon: 'InboxOutlined',
-    key: ROUTES.letTripLuggage,
-    label: 'Luggage delivery',
-  },
-  {
-    icon: 'MedicineBoxOutlined',
-    key: ROUTES.letsTripOrder,
-    label: 'Orders',
-  },
+  // {
+  //   icon: 'InboxOutlined',
+  //   key: ROUTES.letTripLuggage,
+  //   label: 'Luggage delivery',
+  // },
+  // {
+  //   icon: 'MedicineBoxOutlined',
+  //   key: ROUTES.letsTripOrder,
+  //   label: 'Orders',
+  // },
   {
     icon: 'UsergroupAddOutlined',
     key: ROUTES.letsTripGroupTour,
@@ -32,11 +32,11 @@ export const letsTrip = [
     key: ROUTES.letsTripTransfer,
     label: 'Transfers',
   },
-  {
-    icon: 'DiffOutlined',
-    key: ROUTES.letsTripEsimGo,
-    label: 'Esim Go',
-  },
+  // {
+  //   icon: 'DiffOutlined',
+  //   key: ROUTES.letsTripEsimGo,
+  //   label: 'Esim Go',
+  // },
   {
     icon: 'GlobalOutlined',
     key: ROUTES.letsTripCountry,

@@ -22,7 +22,7 @@ export const AgentTable: React.FC = () => {
     if (error) {
       addNotification(error);
     }
-  }, [data]);
+  }, [data, error]);
   const generateUserData = addKeyProp<IUserDataV2>(data as IUserDataV2[]);
   const handleChange = (value: string) => {
     if (value === '1') {

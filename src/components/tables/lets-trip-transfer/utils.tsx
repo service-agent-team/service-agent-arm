@@ -177,6 +177,7 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
+      width: '10%',
       render: (_: number) => {
         return (
           <LinkButton path={`#`}>
@@ -189,7 +190,7 @@ export const utils = () => {
       title: 'Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      width: '20%',
+      width: '30%',
       render: (date) => {
         return dateParser(date);
       },

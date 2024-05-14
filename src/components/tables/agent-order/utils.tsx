@@ -150,7 +150,7 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'id',
       key: 'view',
-      width: '3%',
+      width: '10%',
       render: (id: number, order: IAgentOrderData) => {
         return (
           <Button
