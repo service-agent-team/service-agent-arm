@@ -595,7 +595,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             onChange={handleChange}
             onPreview={handlePreview}
             beforeUpload={(file) => file.type.split('/')[0] === 'image'}
-            action={`${BASE_URL}/file`}
+            action={`${BASE_URL}/api/file`}
           >
             <Icon fontSize="20" color="blue" name="InboxOutlined" />
             <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
@@ -626,7 +626,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             onChange={handleChange2}
             onPreview={handlePreview2}
             beforeUpload={(file) => file.type.split('/')[0] === 'image'}
-            action={`${BASE_URL}/file`}
+            action={`${BASE_URL}/api/file`}
           >
             <Icon fontSize="20" color="blue" name="InboxOutlined" />
             <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>

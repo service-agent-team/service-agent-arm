@@ -6,4 +6,5 @@ export interface IParam {
   projectId: number[];
   permissionId: number;
   multipe_account: boolean;
+  projectPerId: number[];
 }

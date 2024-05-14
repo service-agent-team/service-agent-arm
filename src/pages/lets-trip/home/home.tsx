@@ -75,7 +75,7 @@ export const data = {
 export const LetsTripHome = () => {
   const { getAgentOrdersStatis } = useActions();
   useEffect(() => {
-    getAgentOrdersStatis({ start: '12.01.2024', end: '12.02.2024' });
+    // getAgentOrdersStatis({ start: '12.01.2024', end: '12.02.2024' });
   }, [getAgentOrdersStatis]);
 
   return (

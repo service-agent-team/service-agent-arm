@@ -16,10 +16,16 @@ export const EndPointesV2 = {
       accept: '/agent/accept',
       reject: '/agent/reject',
       getOne: '/api/v2/agent',
+      // role permission
       addRoleToUser: '/api/agent/role-permission/addRoleToUser',
       addPermissionToUser: '/api/agent/role-permission/addPermissionToUser',
       removeRoleFromUser: '/api/agent/role-permission/removeRoleFromUser',
       removePermissionFromUserRole: '/api/agent/role-permission/removePermissionFromUserRole',
+      // project permission
+      addProjectToUser: '/api/project-permission/addProjectToUser',
+      addPermissionToUserProject: '/api/project-permission/addPermissionToUserProject',
+      removeProjectFromUser: '/api/project-permission/removeProjectFromUser',
+      removePermissionFromUserProject: '/api/project-permission/removePermissionFromUserProject',
     },
     getAllOrder: '/api/v2/order/all',
     getAllOrderStatistic: '/api/v2/order/statistica',

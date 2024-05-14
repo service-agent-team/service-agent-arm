@@ -33,13 +33,11 @@ export const AgentForm: React.FC<IProps> = ({
     acceptAgnet,
     rejectAgnet,
     addTariffPermission,
-    // createAgentRoles,
     getAgentPermissions,
     getAllAgentProject,
     agentAddRole,
     agentAddRolePermission,
     agentRemoveRole,
-    // agentRemoveRolePermission,
   } = useActions();
 
   const { permissions } = useTypedSelector((state) => state.agentPermission);
@@ -47,6 +45,7 @@ export const AgentForm: React.FC<IProps> = ({
   const { agent, loading } = useTypedSelector((state) => state.agent);
   const { id } = useParams();
   const defaultRole = agent?.userRolePermissions[0];
+  // const defaultProject = agent?.userProjectPermissions[0];
 
   const onFinish = (value: IParam) => {
     if (contractStatus !== 'SUCCESS') {
@@ -112,18 +111,6 @@ export const AgentForm: React.FC<IProps> = ({
       });
   };
 
-  // const hanldeRolePermissionRemove = () => {
-  //   if (defaultRole?.permissions[0].permissionId)
-  //     agentRemoveRolePermission({
-  //       callback() {
-  //         addNotification('remove role permission');
-  //       },
-  //       userId: Number(id),
-  //       roleId: defaultRole?.role.roleId,
-  //       permissionId: defaultRole?.permissions[0].permissionId as number,
-  //     });
-  // };
-
   useEffect(() => {
     getAgentPermissions({ callback() {} });
     getAllAgentProject({ callback() {}, pageNumber: 0, pageSize: 20 });
@@ -139,23 +126,14 @@ export const AgentForm: React.FC<IProps> = ({
     permissions
       ?.filter((el) => el.type === 'FOR_USER_ROLE')
       ?.map((el) => ({ label: el.name, value: el.permissionId })) || [];
-  const ProjectSelectOption = agentProjects?.map((el) => {
-    if (userPermissions) {
-      const isChecked = agent?.userProjectPermissions?.some(
-        (projectPermission) => projectPermission.project?.projectId === el.projectId,
-      );
-      if (isChecked)
-        return {
-          label: el.name,
-          value: el.projectId,
-          disabled: isChecked,
-        };
-    }
-    return {
-      label: el.name,
-      value: el.projectId,
-    };
-  });
+  const ProjectPermissionSelectOption =
+    permissions
+      ?.filter((el) => el.type === 'FOR_USER_PROJECT')
+      ?.map((el) => ({ label: el.name, value: el.permissionId })) || [];
+  const ProjectSelectOption = agentProjects?.map((el) => ({
+    label: el.name,
+    value: el.projectId,
+  }));
 
   return (
     <BaseForm
@@ -169,6 +147,8 @@ export const AgentForm: React.FC<IProps> = ({
         permissionId:
           (defaultRole?.permissions[0] && defaultRole.permissions[0].permissionId) || null,
         categoryId: (categories?.length && categories[0].tariffId) || null,
+        // projectId: (defaultProject && defaultProject.project?.projectId) || null,
+        // projectPerId: (defaultProject && defaultProject?.permissions[0].permissionId) || null,
       }}
     >
       <S.FormContent>
@@ -194,7 +174,6 @@ export const AgentForm: React.FC<IProps> = ({
           <Select
             style={{ height: 50 }}
             placeholder="Select an user role permission option"
-            // onChange={() => hanldeRolePermissionRemove()}
             options={UserPermissionSelectOption}
           />
         </BaseForm.Item>
@@ -245,9 +224,26 @@ export const AgentForm: React.FC<IProps> = ({
         >
           <Select
             mode="multiple"
+            allowClear
+            defaultValue={agent?.userProjectPermissions.map((el) => el.project?.projectId)}
             style={{ height: 50 }}
             placeholder="Select an project option"
             options={ProjectSelectOption}
+          />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="projectPerId"
+          label={'User project permission'}
+          hasFeedback
+          rules={[{ type: 'array', message: 'field is required' }]}
+        >
+          <Select
+            mode="multiple"
+            allowClear
+            defaultValue={agent?.userProjectPermissions.map((el) => el.permissions[0].permissionId)}
+            style={{ height: 50 }}
+            placeholder="Select an user project permission option"
+            options={ProjectPermissionSelectOption}
           />
         </BaseForm.Item>
         <BaseForm.Item
