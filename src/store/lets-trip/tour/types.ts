@@ -100,13 +100,14 @@ export interface TourItinerary {
   imageUrl: string;
   description: Description[];
   title: Title;
-  hour: string;
   item_order: number;
 }
 
 export interface Description {
   id?: number;
   items: Items[];
+  item_order: number;
+  hour: string;
 }
 
 export interface Items {
