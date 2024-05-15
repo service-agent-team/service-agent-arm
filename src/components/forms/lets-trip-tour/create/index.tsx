@@ -129,10 +129,11 @@ export const LestTripTourCreateForm: React.FC = () => {
                   ru: itineraryDescRu,
                 },
               ],
+              item_order: itineraryItemOrder,
+              hour: itineraryHour,
             },
           ],
           item_order: itineraryItemOrder,
-          hour: itineraryHour,
           imageUrl: itineraryImgUrl.fileList
             .map((item: UploadFile) =>
               item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
@@ -200,7 +201,7 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameEn"
-            label={'name enlish'}
+            label={'name english'}
             rules={[
               { required: true, message: 'name english is required?' },
               {
@@ -259,7 +260,7 @@ export const LestTripTourCreateForm: React.FC = () => {
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="starting price"
+            name="startingPrice"
             label={'starting price'}
             rules={[{ required: true, message: 'starting price is required?' }]}
           >
@@ -508,6 +509,20 @@ export const LestTripTourCreateForm: React.FC = () => {
               name="itineraryItemOrder"
               type="number"
               placeholder="Enter a itinerary item order ?"
+            />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="itineraryItemDescOrder"
+            label={'itinerary item description order'}
+            rules={[{ required: true, message: 'itinerary item order is required?' }]}
+          >
+            <InputNumber
+              style={{ width: '100%' }}
+              width={'100%'}
+              name="itineraryItemDescOrder"
+              type="number"
+              placeholder="Enter a itinerary item description order ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
