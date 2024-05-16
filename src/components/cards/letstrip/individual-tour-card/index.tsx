@@ -2,7 +2,7 @@ import { ILetsTripIndividualTourGetOne } from '@/store/lets-trip/individual-tour
 import NoThumbImage from '@/assets/images/no-thumbnail.png';
 import { Card } from '@/components/common/card';
 import { H1 } from '@/components/common';
-import { Flex, Image, List, Typography } from 'antd';
+import { Flex, List, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
@@ -27,13 +27,16 @@ export const LetsTripIndividualTourCard = ({
           </S.CustomImageGroup>
           <S.Title>{data?.name}</S.Title>
           <S.InfoCard width="384px">
-            <H1>Prices: </H1>
             <Typography.Paragraph strong style={{ marginTop: '20px' }}>
               Starting price: {data?.startingPrice} $
             </Typography.Paragraph>
-            <Typography.Paragraph strong>
-              Prices price: {data?.tourPrices[0].price} $
-            </Typography.Paragraph>
+            <H1>Prices: </H1>
+            {data?.tourPrices.map((el) => (
+              <div key={el.id}>
+                <Typography.Text strong>{el.price} $</Typography.Text>
+                {el.upToPersons} {`persons (per person)`}
+              </div>
+            ))}
           </S.InfoCard>
         </S.ImageBlock>
         <Card width="100%">

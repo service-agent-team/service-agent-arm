@@ -2,11 +2,12 @@ import { ILetsTripGroupTourGetOne } from '@/store/lets-trip/tour/types';
 import NoThumbImage from '@/assets/images/no-thumbnail.png';
 import { Card } from '@/components/common/card';
 import { H1 } from '@/components/common';
-import { Flex, List, Typography } from 'antd';
+import { Button, Flex, List, Select, Tag, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { useState } from 'react';
 
 export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne | null }) => {
   const { isLoaded } = useJsApiLoader({
@@ -20,6 +21,7 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
     lat: 43.45,
     lng: -80.49,
   };
+  const [date, setDate] = useState(0);
 
   return (
     <>
@@ -36,7 +38,8 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           </S.CustomImageGroup>
           <S.Title>{data?.name}</S.Title>
           <S.InfoCard width="384px">
-            <H1>Extra Information: </H1>
+            <Typography.Text strong>Starting Price: </Typography.Text>
+            {data?.startingPrice} $<H1>Extra Information: </H1>
             <List>
               {data?.extraInformation.map((el, idx) => (
                 <List.Item key={el.title + idx}>
@@ -66,68 +69,84 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
         ) : (
           ''
         )}
-        <Flex style={{ width: '100%' }} justify="space-between" gap={30}>
-          <S.CustomCard width="100%">
-            <List>
-              <List.Item>
-                <H1 style={{ display: 'block' }}>Available Date: </H1>
+      </Flex>
+      <S.CustomCard width="100%">
+        <H1>Select Available Date: </H1>
+        <Flex gap={'15px'} style={{ marginTop: '20px' }}>
+          {data?.availableDate.map((el, idx) => (
+            <Button
+              type={date === idx ? 'primary' : 'default'}
+              key={el.id}
+              onClick={() => setDate(idx)}
+            >
+              {el.month}
+            </Button>
+          ))}
+        </Flex>
+        <Flex gap={'10px'} style={{ marginTop: '15px' }}>
+          <>
+            <Flex gap={'10px'}>
+              {data?.availableDate[date].departures.map((dep) => (
+                <S.CustomCard width="100%" key={dep.id}>
+                  <List>
+                    <List.Item>
+                      <Typography.Text strong>Start Date: </Typography.Text>
+                      {dep.startDate}
+                    </List.Item>
+                    <List.Item>
+                      <Typography.Text strong>End Date: </Typography.Text>
+                      {dep.endDate}
+                    </List.Item>
+                    <List.Item>
+                      <Typography.Text strong>Transfer Type: </Typography.Text>
+                      <Tag color="success">{dep.transferType.toUpperCase()}</Tag>
+                    </List.Item>
+                    <List.Item>
+                      <Typography.Text strong>Price: </Typography.Text>
+                      {dep.price} $
+                    </List.Item>
+                  </List>
+                </S.CustomCard>
+              ))}
+            </Flex>
+          </>
+        </Flex>
+      </S.CustomCard>
+      <S.CustomCard width="100%">
+        <H1>Tour Itenarary: </H1>
+        <Flex gap={'20px'} style={{ margin: '20px 0' }}>
+          {data?.tourItenarary.map((el, idx) => (
+            <>
+              <S.CustomCard width="100%" key={idx}>
                 <List>
                   <List.Item>
-                    <Typography.Text strong>Month: </Typography.Text> {data?.availableDate[0].month}
+                    <Typography.Text strong>Title: </Typography.Text>
+                    {el.title}
                   </List.Item>
                   <List.Item>
-                    <Typography.Text strong>Year: </Typography.Text> {data?.availableDate[0].year}
+                    <Typography.Text strong>Hour: </Typography.Text>
+                    {el.description[idx].hour}
                   </List.Item>
-                  <List.Item>
-                    <Typography.Text strong>Departures Price: </Typography.Text>
-                    {data?.availableDate[0].departures[0].price}
-                  </List.Item>
-                  <List.Item>
-                    <Typography.Text strong>Start End Date: </Typography.Text>
-                    {data?.availableDate[0]?.departures[0].startDate} {'-> '}
-                    {data?.availableDate[0]?.departures[0].endDate}
-                  </List.Item>
-                  <List.Item>
-                    <Typography.Text strong>Departures Transfer Type: </Typography.Text>
-                    {data?.availableDate[0]?.departures[0].transferType}
-                  </List.Item>
+                  {el.description[idx].items.map((desc) => (
+                    <List.Item key={desc}>
+                      <Typography.Text strong>Description: </Typography.Text>
+                      {desc}
+                    </List.Item>
+                  ))}
                 </List>
-              </List.Item>
-            </List>
-          </S.CustomCard>
-          <S.CustomCard width="100%">
-            <H1>Tour Itenarary: </H1>
-            <List>
-              <List.Item>
-                <Typography.Text strong>Title: </Typography.Text>
-                {data?.tourItenarary[0].title}
-              </List.Item>
-              <List.Item>
-                <Typography.Text strong>Hour: </Typography.Text>
-                {data?.tourItenarary[0].hour}
-              </List.Item>
-            </List>
-            <List>
-              <List.Item>
-                <H1>Tour Starting Price: </H1>
-                {data?.startingPrice}
-              </List.Item>
-              <List.Item>
-                <Typography.Text strong>{'Latitude  Longitude'}: </Typography.Text>
-                {data?.locations[0].lat} {' ->'} {data?.locations[0].lng}
-              </List.Item>
-            </List>
-          </S.CustomCard>
+              </S.CustomCard>
+            </>
+          ))}
         </Flex>
-      </Flex>
-      <Card width="100%">
-        <List>
-          <List.Item style={{ display: 'block' }}>
-            <H1>Itenarary Description</H1>
-            <Typography.Text>{data?.tourItenarary[0].description[0].items[0]}</Typography.Text>
-          </List.Item>
-        </List>
-      </Card>
+        <S.CustomCard width="100%">
+          <H1>Locations: </H1>
+          {data?.locations.map((loc) => (
+            <Typography.Paragraph key={loc.lat} strong>
+              {'Latitude  Longitude'}: {`${loc.lat} -> ${loc.lng}`}
+            </Typography.Paragraph>
+          ))}
+        </S.CustomCard>
+      </S.CustomCard>
     </>
   );
 };

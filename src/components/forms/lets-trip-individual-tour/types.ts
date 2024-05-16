@@ -7,8 +7,6 @@ export interface IValuesForm {
   durationEn: string;
   priceNoteRu: string;
   priceNoteEn: string;
-  tourItenararyTitleRu: string;
-  tourItenararyTitleEn: string;
   startingPrice: number;
   tourPrice: number;
   tourPriceUptoPersons: number;
@@ -16,12 +14,18 @@ export interface IValuesForm {
   descriptionEn: string;
   tourPriceDescriptionRu: string;
   tourPriceDescriptionEn: string;
-  tourItenararyDescriptionRu: string;
-  tourItenararyDescriptionEn: string;
   countryId: number;
   images: UploadChangeParam;
   videoUrl: UploadChangeParam;
   tourItenararyDescriptionImgUrl: UploadChangeParam;
+
+  tourItenararyTitleRu: string;
+  tourItenararyTitleEn: string;
+  tourItenararyDescriptionRu: string;
+  tourItenararyDescriptionEn: string;
+
+  tourItenarary: TourItenarary[];
+  tourPrices: TourPrices[];
 }
 
 export interface IFileResponse {
@@ -31,4 +35,19 @@ export interface IFileResponse {
 
 export interface Id {
   id: number;
+}
+
+interface TourItenarary {
+  tourItenararyImgUrl: UploadChangeParam;
+  tourItenararyTitleRu: string;
+  tourItenararyTitleEn: string;
+  tourItenararyDescriptionRu: string;
+  tourItenararyDescriptionEn: string;
+}
+
+interface TourPrices {
+  tourPrice: number;
+  tourPriceUptoPersons: number;
+  tourPriceDescriptionRu: string;
+  tourPriceDescriptionEn: string;
 }

@@ -2,7 +2,7 @@ import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components';
 import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
-import { Flex, GetProp, Image, Input, Select, Upload, UploadProps } from 'antd';
+import { Button, Card, Flex, GetProp, Image, Input, Select, Upload, UploadProps } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Id, IValuesForm } from '../types';
@@ -46,6 +46,8 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
     tourPriceDescriptionRu,
     tourPriceDescriptionEn,
     countryId,
+    tourItenarary,
+    tourPrices,
   }: IValuesForm) => {
     createLetsTripIndividualTour({
       callback() {
@@ -65,37 +67,58 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
         en: priceNoteEn,
         ru: priceNoteRu,
       },
-      tourItenarary: [
-        {
-          imageUrl: tourItenararyDescriptionImgUrl.fileList
+      tourItenarary: tourItenarary.map((el, idx) => {
+        return {
+          title: { en: el.tourItenararyTitleEn, ru: el.tourItenararyTitleRu },
+          description: [{ en: el.tourItenararyDescriptionEn, ru: el.tourItenararyDescriptionRu }],
+          imageUrl: el.tourItenararyImgUrl.fileList
             .map((item: UploadFile) =>
               item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
             )
-            .flat(Infinity)[0],
-          description: [
-            {
-              en: tourItenararyDescriptionEn,
-              ru: tourItenararyDescriptionRu,
-            },
-          ],
-          title: {
-            en: tourItenararyTitleEn,
-            ru: tourItenararyTitleRu,
+            .flat(Infinity)[idx],
+        };
+      }),
+      tourPrices: tourPrices.map((el) => {
+        return {
+          price: el.tourPrice,
+          upToPersons: el.tourPriceUptoPersons,
+          description: {
+            en: el.tourPriceDescriptionEn,
+            ru: el.tourPriceDescriptionRu,
           },
-        },
-      ],
+        };
+      }),
+      // tourItenarary: [
+      //   {
+      //     imageUrl: tourItenararyDescriptionImgUrl.fileList
+      //       .map((item: UploadFile) =>
+      //         item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
+      //       )
+      //       .flat(Infinity)[0],
+      //     description: [
+      //       {
+      //         en: tourItenararyDescriptionEn,
+      //         ru: tourItenararyDescriptionRu,
+      //       },
+      //     ],
+      //     title: {
+      //       en: tourItenararyTitleEn,
+      //       ru: tourItenararyTitleRu,
+      //     },
+      //   },
+      // ],
       description: [{ ru: descriptionRu, en: descriptionEn }],
       startingPrice,
-      tourPrices: [
-        {
-          price: tourPrice,
-          upToPersons: tourPriceUptoPersons,
-          description: {
-            en: tourPriceDescriptionEn,
-            ru: tourPriceDescriptionRu,
-          },
-        },
-      ],
+      // tourPrices: [
+      //   {
+      //     price: tourPrice,
+      //     upToPersons: tourPriceUptoPersons,
+      //     description: {
+      //       en: tourPriceDescriptionEn,
+      //       ru: tourPriceDescriptionRu,
+      //     },
+      //   },
+      // ],
     });
   };
 
@@ -276,132 +299,6 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
             />
           </BaseForm.Item>
         </Flex>
-        <Flex gap={'15px'}>
-          <BaseForm.Item
-            name="tour price"
-            style={{ width: '100%' }}
-            label={'tourPrice'}
-            rules={[{ required: true, message: 'tour price is required!' }]}
-          >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              name="tourPrice"
-              type="number"
-              placeholder="Enter a tour price ?"
-            />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="tourPriceUptoPersons"
-            label={'tour price up to persons'}
-            rules={[{ required: true, message: 'tour price up to persons is required?' }]}
-          >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              name="tourPriceUptoPersons"
-              type="number"
-              placeholder="Enter a tour price up to persons ?"
-            />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="tourItenararyTitleRu"
-            label={'tour itenarary title russian'}
-            rules={[{ required: true, message: 'tour itenarary title russian is required?' }]}
-          >
-            <Input
-              style={{ width: '100%' }}
-              width={'100%'}
-              name="tourItenararyTitleRu"
-              type="string"
-              placeholder="Enter a tour itenarary title russian ?"
-            />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="tourItenararyTitleEn"
-            label={'tour itenarary title english'}
-            rules={[{ required: true, message: 'tour itenarary title english is required?' }]}
-          >
-            <Input
-              style={{ width: '100%' }}
-              width={'100%'}
-              name="tourItenararyTitleEn"
-              type="string"
-              placeholder="Enter a tour itenarary title english ?"
-            />
-          </BaseForm.Item>
-        </Flex>
-        <BaseForm.Item
-          style={{ width: '100%' }}
-          name="tourPriceDescriptionRu"
-          label={'tour price description russian'}
-          rules={[
-            { required: true, message: 'tour price description russian is required?' },
-            {
-              type: 'string',
-              message: 'Enter a tour price description russian ?',
-            },
-          ]}
-        >
-          <TextArea
-            name="tourPriceDescriptionRu"
-            placeholder="Enter a tour price description russian ?"
-          />
-        </BaseForm.Item>
-        <BaseForm.Item
-          style={{ width: '100%' }}
-          name="tourPriceDescriptionEn"
-          label={'tour price description english'}
-          rules={[
-            { required: true, message: 'tour price description english is required?' },
-            {
-              type: 'string',
-              message: 'Enter a tour price description english ?',
-            },
-          ]}
-        >
-          <TextArea
-            name="tourPriceDescriptionEn"
-            placeholder="Enter a tour price description english ?"
-          />
-        </BaseForm.Item>
-        <BaseForm.Item
-          style={{ width: '100%' }}
-          name="tourItenararyDescriptionRu"
-          label={'tour itenarary description russian'}
-          rules={[
-            { required: true, message: 'tour itenarary description russian is required?' },
-            {
-              type: 'string',
-              message: 'Enter a tour itenarary description russian ?',
-            },
-          ]}
-        >
-          <TextArea
-            name="tourItenararyDescriptionRu"
-            placeholder="Enter a tour itenarary description russian ?"
-          />
-        </BaseForm.Item>
-        <BaseForm.Item
-          style={{ width: '100%' }}
-          name="tourItenararyDescriptionEn"
-          label={'tour itenarary description english'}
-          rules={[
-            { required: true, message: 'tour itenarary description english is required?' },
-            {
-              type: 'string',
-              message: 'Enter a tour itenarary description english ?',
-            },
-          ]}
-        >
-          <TextArea
-            name="tourItenararyDescriptionEn"
-            placeholder="Enter a tour itenarary description english ?"
-          />
-        </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionEn"
@@ -462,43 +359,6 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
           </Upload.Dragger>
         </BaseForm.Item>
         <BaseForm.Item
-          name="tourItenararyDescriptionImgUrl"
-          label={'tour itenarary description image'}
-          rules={[
-            {
-              required: true,
-              message: 'tour itenarary description image is required?',
-              type: 'object',
-            },
-          ]}
-        >
-          <Upload.Dragger
-            style={{ width: '100%' }}
-            name="files"
-            multiple={false}
-            fileList={fileList2}
-            onChange={handleChange2}
-            onPreview={handlePreview2}
-            beforeUpload={(file) => file.type.split('/')[0] === 'image'}
-            action={`${BASE_URL}/api/file`}
-          >
-            <Icon fontSize="20" color="blue" name="InboxOutlined" />
-            <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
-            {previewImage && (
-              <Image
-                height={100}
-                wrapperStyle={{ display: 'none' }}
-                preview={{
-                  visible: previewOpen,
-                  onVisibleChange: (visible) => setPreviewOpen(visible),
-                  afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                }}
-                src={previewImage}
-              />
-            )}
-          </Upload.Dragger>
-        </BaseForm.Item>
-        <BaseForm.Item
           name="videoUrl"
           label={'video'}
           rules={[
@@ -535,6 +395,229 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
             )}
           </Upload.Dragger>
         </BaseForm.Item>
+        <BaseForm.List name="tourItenarary">
+          {(fields, { add, remove }) => (
+            <div>
+              {fields.map((field) => (
+                <Card
+                  key={field.key}
+                  size="small"
+                  title={`${field.key + 1}. individual tour itinerary`}
+                  extra={
+                    <Icon
+                      name="CloseOutlined"
+                      onClick={() => {
+                        remove(field.name);
+                      }}
+                    />
+                  }
+                >
+                  <Flex gap={'15px'}>
+                    <BaseForm.Item
+                      style={{ width: '100%' }}
+                      name={[field.name, 'tourItenararyTitleEn']}
+                      label={'tour itenarary title english'}
+                      rules={[
+                        { required: true, message: 'tour itenarary title english is required?' },
+                      ]}
+                    >
+                      <Input
+                        style={{ width: '100%' }}
+                        width={'100%'}
+                        type="string"
+                        placeholder="Enter a tour itenarary title english ?"
+                      />
+                    </BaseForm.Item>
+                    <BaseForm.Item
+                      style={{ width: '100%' }}
+                      name={[field.name, 'tourItenararyTitleRu']}
+                      label={'tour itenarary title russian'}
+                      rules={[
+                        { required: true, message: 'tour itenarary title russian is required?' },
+                      ]}
+                    >
+                      <Input
+                        style={{ width: '100%' }}
+                        width={'100%'}
+                        type="string"
+                        placeholder="Enter a tour itenarary title russian ?"
+                      />
+                    </BaseForm.Item>
+                  </Flex>
+                  <BaseForm.Item
+                    style={{ width: '100%' }}
+                    name={[field.name, 'tourItenararyDescriptionEn']}
+                    label={'tour itinerary description english'}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'tour itinerary description english is required?',
+                      },
+                      {
+                        type: 'string',
+                        message: 'Enter a tour itinerary description english ?',
+                      },
+                    ]}
+                  >
+                    <TextArea placeholder="Enter a tour itinerary description english ?" />
+                  </BaseForm.Item>
+                  <BaseForm.Item
+                    style={{ width: '100%' }}
+                    name={[field.name, 'tourItenararyDescriptionRu']}
+                    label={'tour itinerary description russian'}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'tour itinerary description russian is required?',
+                      },
+                      {
+                        type: 'string',
+                        message: 'Enter a tour itinerary description russian ?',
+                      },
+                    ]}
+                  >
+                    <TextArea placeholder="Enter a tour itinerary description russian ?" />
+                  </BaseForm.Item>
+                  <BaseForm.Item
+                    name={[field.name, 'tourItenararyImgUrl']}
+                    label={'tour itenarary description image'}
+                    rules={[
+                      {
+                        required: true,
+                        message: 'tour itenarary description image is required?',
+                        type: 'object',
+                      },
+                    ]}
+                  >
+                    <Upload.Dragger
+                      style={{ width: '100%' }}
+                      name="files"
+                      multiple={false}
+                      fileList={fileList2}
+                      onChange={handleChange2}
+                      onPreview={handlePreview2}
+                      beforeUpload={(file) => file.type.split('/')[0] === 'image'}
+                      action={`${BASE_URL}/api/file`}
+                    >
+                      <Icon fontSize="20" color="blue" name="InboxOutlined" />
+                      <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+                      {previewImage && (
+                        <Image
+                          height={100}
+                          wrapperStyle={{ display: 'none' }}
+                          preview={{
+                            visible: previewOpen,
+                            onVisibleChange: (visible) => setPreviewOpen(visible),
+                            afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                          }}
+                          src={previewImage}
+                        />
+                      )}
+                    </Upload.Dragger>
+                  </BaseForm.Item>
+                </Card>
+              ))}
+              <BaseForm.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<Icon name="PlusOutlined" />}
+                >
+                  add individual tour itenarary
+                </Button>
+              </BaseForm.Item>
+            </div>
+          )}
+        </BaseForm.List>
+        <BaseForm.List name="tourPrices">
+          {(fields, { add, remove }) => (
+            <div>
+              {fields.map((field) => (
+                <Card
+                  key={field.key}
+                  size="small"
+                  title={`${field.key + 1}. individual tour price`}
+                  extra={
+                    <Icon
+                      name="CloseOutlined"
+                      onClick={() => {
+                        remove(field.name);
+                      }}
+                    />
+                  }
+                >
+                  <Flex gap={'15px'}>
+                    <BaseForm.Item
+                      name={[field.name, 'tourPrice']}
+                      style={{ width: '100%' }}
+                      label={'tour price per person'}
+                      rules={[{ required: true, message: 'tour per person price is required!' }]}
+                    >
+                      <InputNumber
+                        style={{ width: '100%' }}
+                        width={'100%'}
+                        type="number"
+                        placeholder="Enter a tour price per person ?"
+                      />
+                    </BaseForm.Item>
+                    <BaseForm.Item
+                      style={{ width: '100%' }}
+                      name={[field.name, 'tourPriceUptoPersons']}
+                      label={'tour price up to persons'}
+                      rules={[{ required: true, message: 'tour price up to persons is required?' }]}
+                    >
+                      <InputNumber
+                        style={{ width: '100%' }}
+                        width={'100%'}
+                        type="number"
+                        placeholder="Enter a tour price up to persons ?"
+                      />
+                    </BaseForm.Item>
+                  </Flex>
+                  <BaseForm.Item
+                    style={{ width: '100%' }}
+                    name={[field.name, 'tourPriceDescriptionEn']}
+                    label={'tour price description english'}
+                    rules={[
+                      { required: true, message: 'tour price description english is required?' },
+                      {
+                        type: 'string',
+                        message: 'Enter a tour price description english ?',
+                      },
+                    ]}
+                  >
+                    <TextArea placeholder="Enter a tour price description english ?" />
+                  </BaseForm.Item>
+                  <BaseForm.Item
+                    style={{ width: '100%' }}
+                    name={[field.name, 'tourPriceDescriptionRu']}
+                    label={'tour price description russian'}
+                    rules={[
+                      { required: true, message: 'tour price description russian is required?' },
+                      {
+                        type: 'string',
+                        message: 'Enter a tour price description russian ?',
+                      },
+                    ]}
+                  >
+                    <TextArea placeholder="Enter a tour price description russian ?" />
+                  </BaseForm.Item>
+                </Card>
+              ))}
+              <BaseForm.Item>
+                <Button
+                  block
+                  type="dashed"
+                  onClick={() => add()}
+                  icon={<Icon name="PlusOutlined" />}
+                >
+                  add individual tour price
+                </Button>
+              </BaseForm.Item>
+            </div>
+          )}
+        </BaseForm.List>
         <PrimaryBtn htmlType="submit" loading={post}>
           create
         </PrimaryBtn>
