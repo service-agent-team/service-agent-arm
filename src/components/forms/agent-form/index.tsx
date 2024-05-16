@@ -147,8 +147,6 @@ export const AgentForm: React.FC<IProps> = ({
         permissionId:
           (defaultRole?.permissions[0] && defaultRole.permissions[0].permissionId) || null,
         categoryId: (categories?.length && categories[0].tariffId) || null,
-        // projectId: (defaultProject && defaultProject.project?.projectId) || null,
-        // projectPerId: (defaultProject && defaultProject?.permissions[0].permissionId) || null,
       }}
     >
       <S.FormContent>
@@ -240,7 +238,9 @@ export const AgentForm: React.FC<IProps> = ({
           <Select
             mode="multiple"
             allowClear
-            defaultValue={agent?.userProjectPermissions.map((el) => el.permissions[0].permissionId)}
+            defaultValue={agent?.userProjectPermissions.map(
+              (el) => el.permissions[0]?.permissionId,
+            )}
             style={{ height: 50 }}
             placeholder="Select an user project permission option"
             options={ProjectPermissionSelectOption}

@@ -253,9 +253,9 @@ export interface TourItenarary2 {
   imageUrl: string;
   description: Items2[];
   title: string;
-  hour: string;
 }
 
 export interface Items2 {
   items: string[];
+  hour: string;
 }

@@ -13,8 +13,8 @@ export const EndPointesV2 = {
   agent: {
     contract: {
       getAllUsers: '/api/v2/agent/all',
-      accept: '/agent/accept',
-      reject: '/agent/reject',
+      accept: '/api/agent/accept',
+      reject: '/api/agent/reject',
       getOne: '/api/v2/agent',
       // role permission
       addRoleToUser: '/api/agent/role-permission/addRoleToUser',

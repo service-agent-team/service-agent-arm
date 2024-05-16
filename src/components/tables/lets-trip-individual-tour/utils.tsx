@@ -167,6 +167,7 @@ export const utils = () => {
       key: 'startingPrice',
       width: '20%',
       ...getColumnSearchProps('startingPrice'),
+      render: (value) => `${value} $`,
     },
     {
       title: 'Country',

@@ -190,4 +190,5 @@ export interface TourPrice2 {
   id: number;
   price: number;
   description: string;
+  upToPersons: number;
 }
