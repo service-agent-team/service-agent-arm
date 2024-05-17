@@ -1,5 +1,4 @@
 import { useActions } from '@/common/hooks';
-import { addNotification } from '@/common/utils/addNotification';
 import { AgentTariffTable, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
 import { useEffect } from 'react';
@@ -9,9 +8,7 @@ export function Tariff() {
 
   useEffect(() => {
     getAllAgentTariffCategory({
-      callback() {
-        addNotification('successfully get users');
-      },
+      callback() {},
     });
   }, []);
   return (

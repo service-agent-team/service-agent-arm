@@ -1,4 +1,4 @@
-import { addKeyProp, addNotification } from '@/common';
+import { addKeyProp } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { Table } from '@/components';
 import React, { useEffect } from 'react';
@@ -10,9 +10,7 @@ export const RoleTable: React.FC = () => {
   const { loading, roles } = useTypedSelector((state) => state.role);
   useEffect(() => {
     getAllRole({
-      callback() {
-        addNotification('successfully get all role');
-      },
+      callback() {},
     });
   }, []);
 

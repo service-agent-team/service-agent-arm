@@ -1,11 +1,11 @@
 import { Card } from '@/components/common/card';
 import { ReactNode } from 'react';
-export interface Iprops {
+export interface IProps {
   children: ReactNode;
 }
-export const LetsTripBarCard = ({ children }: Iprops) => {
+export const LetsTripBarCard = ({ children }: IProps) => {
   return (
-    <Card width="600px" height="400px" color="#ffffffc7">
+    <Card width="100%" height="100%" color="#ffffffc7">
       {children}
     </Card>
   );

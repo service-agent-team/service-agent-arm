@@ -5,5 +5,5 @@ import './table.scss';
 
 // TODO make generic!
 export const Table: React.FC<TableProps<any>> = (props) => {
-  return <S.Table bordered {...props} scroll={{ y: 'max-content', x: 'max-content' }} />;
+  return <S.Table bordered {...props} scroll={{ x: 'max-content' }} style={{ width: '100%' }} />;
 };

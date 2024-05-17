@@ -1,6 +1,5 @@
 import { addKeyProp } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common/utils/addNotification';
 import { Table } from '@/components';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
@@ -15,9 +14,7 @@ export const ProjectTable: React.FC = () => {
 
   useEffect(() => {
     getAllProject({
-      callback() {
-        addNotification('successfully get all projects');
-      },
+      callback() {},
     });
   }, []);
   const generateUserData = addKeyProp<IProject>(projects as IProject[]);

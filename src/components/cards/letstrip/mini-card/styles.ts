@@ -2,6 +2,14 @@ import styled from 'styled-components';
 const primaryColor = '#7071E8';
 const btnColor = '#1976D2';
 import { Link } from 'react-router-dom';
+import { Card } from 'antd';
+
+export const CustomCard = styled(Card)`
+  & .ant-card-head-title {
+    color: #ffffff !important;
+    font-size: 18px;
+  }
+`;
 
 export const Text = styled.p`
   font-size: 25px;

@@ -1,6 +1,5 @@
 import { addKeyProp } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common/utils/addNotification';
 import { Table } from '@/components';
 import React, { useEffect } from 'react';
 import { utils } from './utils';
@@ -15,9 +14,7 @@ export const AgentProjectTable: React.FC = () => {
 
   useEffect(() => {
     getAllAgentProject({
-      callback() {
-        addNotification('successfully get all agent projects');
-      },
+      callback() {},
       pageNumber: 0,
       pageSize: 20,
     });

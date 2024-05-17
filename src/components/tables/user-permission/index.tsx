@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { addNotification } from '@/common/utils/addNotification';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addKeyProp } from '@/common';
 import { Table } from '@/components';
@@ -15,9 +14,7 @@ export const UserPermissionTable: React.FC = () => {
 
   useEffect(() => {
     getAllUserPermission({
-      callback: () => {
-        addNotification('successfully get all user permission');
-      },
+      callback: () => {},
     });
   }, []);
 

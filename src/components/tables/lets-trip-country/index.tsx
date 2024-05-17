@@ -2,7 +2,6 @@ import { Table } from 'antd';
 import { utils } from './utils';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common';
 import { ILetsTripCountry } from '@/store/lets-trip/country/types';
 
 export const LetsTripCountryTable = () => {
@@ -14,9 +13,7 @@ export const LetsTripCountryTable = () => {
 
   useEffect(() => {
     getAllLetsTripCountry({
-      callback() {
-        addNotification('successfully get all group tours');
-      },
+      callback() {},
       page: 0,
       size: 100,
     });
