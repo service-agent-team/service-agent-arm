@@ -1,4 +1,4 @@
-import { useActions } from '@/common/hooks';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { LetsTripBarCard, LetstripMiniCard } from '@/components';
 
 import { Col, Row } from 'antd';
@@ -25,7 +25,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Barcha oylik',
+      text: '',
     },
   },
 };
@@ -45,54 +45,44 @@ const labels = [
   'December',
 ];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Tour',
-      data: [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      backgroundColor: '#5800FF',
-      borderColor: '#5800FF',
-      borderWidth: 4,
-    },
-    {
-      label: 'Transfer',
-      data: [0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      backgroundColor: '#34e124',
-      borderColor: '#34e124',
-      borderWidth: 4,
-    },
-    {
-      label: 'Luggage delivery',
-      data: [0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      backgroundColor: '#e67c1f',
-      borderColor: '#e67c1f',
-      borderWidth: 4,
-    },
-  ],
-};
-
 export const LetsTripHome = () => {
-  const { getAgentOrdersStatis } = useActions();
+  const { statistics } = useTypedSelector((state) => state.letsTripStatistic);
+  const { getAllLetsTripStatistics } = useActions();
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Users',
+        data: statistics?.monthlyData.map((el) => el.month),
+        backgroundColor: '#3a57e8',
+        borderColor: '#3a57e8',
+        borderWidth: 4,
+      },
+    ],
+  };
+
   useEffect(() => {
-    // getAgentOrdersStatis({ start: '12.01.2024', end: '12.02.2024' });
-  }, [getAgentOrdersStatis]);
+    getAllLetsTripStatistics({ callback() {} });
+  }, [getAllLetsTripStatistics]);
 
   return (
     <div>
       <Row gutter={5}>
         <Col span={8}>
-          <LetstripMiniCard title="All users" name="15" />
+          <LetstripMiniCard
+            title="All users"
+            name={`${statistics ? statistics.activeUsers + statistics.inactiveUsers : ''}`}
+          />
         </Col>
         <Col span={8}>
-          <LetstripMiniCard title="Active users" name="5" />
+          <LetstripMiniCard title="Active users" name={`${statistics?.activeUsers}`} />
         </Col>
         <Col span={8}>
-          <LetstripMiniCard title="Barcha buyurtmalar" name="5" />
+          <LetstripMiniCard title="In active users" name={`${statistics?.inactiveUsers}`} />
         </Col>
       </Row>
       <LetsTripBarCard>
-        <Line width="600" height="400" options={options} data={data} />;
+        <Line width="1000px" height="550px" options={options} data={data} />
       </LetsTripBarCard>
     </div>
   );

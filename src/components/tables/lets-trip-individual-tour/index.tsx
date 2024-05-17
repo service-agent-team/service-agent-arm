@@ -2,7 +2,6 @@ import { Table } from 'antd';
 import { utils } from './utils';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common';
 import { ILetsTripIndividualTour } from '@/store/lets-trip/individual-tour/types';
 
 export const LetsTripIndividualTourTable = () => {
@@ -16,9 +15,7 @@ export const LetsTripIndividualTourTable = () => {
 
   useEffect(() => {
     getAllLetsTripIndividualTour({
-      callback() {
-        addNotification('successfully get all individual tours');
-      },
+      callback() {},
       page: 0,
       size: 100,
     });

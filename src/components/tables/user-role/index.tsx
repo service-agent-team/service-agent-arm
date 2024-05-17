@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { addNotification } from '@/common/utils/addNotification';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { IUserRole } from '@/store/global/user-role/types';
 import { addKeyProp } from '@/common';
@@ -15,9 +14,7 @@ export const UserRoleTable: React.FC = () => {
 
   useEffect(() => {
     getAllUserRole({
-      callback: () => {
-        addNotification('successfully get all user roles');
-      },
+      callback: () => {},
     });
   }, []);
 

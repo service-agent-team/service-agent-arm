@@ -214,4 +214,8 @@ export const EndPointes = {
     create: '/api/category/create',
     delete: '/api/category/delete/',
   },
+
+  letsTripStatistic: {
+    getAll: '/api/products/statistic/get-all',
+  },
 } as const;

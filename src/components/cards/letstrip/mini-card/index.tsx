@@ -1,4 +1,3 @@
-import { Card } from 'antd';
 import * as S from './styles';
 export interface IProps {
   name: string;
@@ -7,8 +6,8 @@ export interface IProps {
 
 export const LetstripMiniCard = ({ name, title }: IProps) => {
   return (
-    <Card size="small" title={title} style={{ background: '#5800FF', color: 'white' }}>
+    <S.CustomCard size="small" title={title} style={{ background: '#3a57e8', color: '#ffffff' }}>
       <S.Text>{name}</S.Text>
-    </Card>
+    </S.CustomCard>
   );
 };

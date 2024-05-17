@@ -5,11 +5,10 @@ import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as S from '../users-form/styled';
 import { ICreateRolesValues } from './types';
-import { useEffect } from 'react';
 
 export const AgentRolesForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { createRoles, editRoles, getRolesById } = useActions();
+  const { createRoles, editRoles } = useActions();
   const navigate = useNavigate();
   const { id } = useParams();
   const { loading, oneRole } = useTypedSelector((state) => state.roles);

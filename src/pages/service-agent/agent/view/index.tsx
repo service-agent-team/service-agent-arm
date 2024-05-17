@@ -1,5 +1,4 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common/utils/addNotification';
 import { AgentCard, PageTitle, VideoCard } from '@/components';
 import { ROUTES } from '@/constants';
 import { Flex } from 'antd';
@@ -13,9 +12,7 @@ export const View = () => {
 
   useEffect(() => {
     getOneAgent({
-      callback() {
-        addNotification('successfully get users');
-      },
+      callback() {},
       userId: Number(id),
     });
   }, [id]);
