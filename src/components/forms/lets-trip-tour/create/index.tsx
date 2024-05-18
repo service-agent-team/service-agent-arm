@@ -553,7 +553,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                   block
                   icon={<Icon name="PlusOutlined" />}
                 >
-                  add available date
+                  add available date ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
             </div>
@@ -736,7 +736,8 @@ export const LestTripTourCreateForm: React.FC = () => {
                               block
                               icon={<Icon name="PlusOutlined" />}
                             >
-                              add tour itinerary description
+                              add tour itinerary description ({subFields.length})
+                              {subFields.length ? '✅' : '❌'}
                             </Button>
                           </BaseForm.Item>
                         </div>
@@ -788,7 +789,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                   block
                   icon={<Icon name="PlusOutlined" />}
                 >
-                  add tour itineraries
+                  add tour itineraries ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
             </div>
@@ -853,7 +854,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                               </Space>
                             ))}
                             <Button type="dashed" onClick={() => subOpt.add()} block>
-                              + Add Sub Item
+                              + Add Sub Item {subFields.length ? '✅' : '❌'}
                             </Button>
                           </div>
                         )}
@@ -914,7 +915,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                               </Space>
                             ))}
                             <Button type="dashed" onClick={() => subOpt.add()} block>
-                              + Add Sub Item
+                              + Add Sub Item {subFields.length ? '✅' : '❌'}
                             </Button>
                           </div>
                         )}
@@ -934,7 +935,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                   block
                   icon={<Icon name="PlusOutlined" />}
                 >
-                  add extra information
+                  add extra information ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
             </div>
@@ -988,7 +989,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                   block
                   icon={<Icon name="PlusOutlined" />}
                 >
-                  add tour locations
+                  add tour locations ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
             </div>

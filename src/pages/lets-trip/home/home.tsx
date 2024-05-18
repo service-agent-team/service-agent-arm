@@ -71,14 +71,20 @@ export const LetsTripHome = () => {
         <Col span={8}>
           <LetstripMiniCard
             title="All users"
-            name={`${statistics ? statistics.activeUsers + statistics.inactiveUsers : ''}`}
+            name={`${statistics ? statistics.activeUsers + statistics.inactiveUsers : '0'}`}
           />
         </Col>
         <Col span={8}>
-          <LetstripMiniCard title="Active users" name={`${statistics?.activeUsers}`} />
+          <LetstripMiniCard
+            title="Active users"
+            name={`${statistics ? statistics.activeUsers : 0}`}
+          />
         </Col>
         <Col span={8}>
-          <LetstripMiniCard title="In active users" name={`${statistics?.inactiveUsers}`} />
+          <LetstripMiniCard
+            title="In active users"
+            name={`${statistics ? statistics.inactiveUsers : 0}`}
+          />
         </Col>
       </Row>
       <LetsTripBarCard>
