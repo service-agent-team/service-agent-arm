@@ -33,18 +33,9 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
     videoUrl,
     priceNoteRu,
     priceNoteEn,
-    tourItenararyDescriptionRu,
-    tourItenararyDescriptionEn,
-    tourItenararyDescriptionImgUrl,
-    tourItenararyTitleRu,
-    tourItenararyTitleEn,
     descriptionRu,
     descriptionEn,
     startingPrice,
-    tourPrice,
-    tourPriceUptoPersons,
-    tourPriceDescriptionRu,
-    tourPriceDescriptionEn,
     countryId,
     tourItenarary,
     tourPrices,
@@ -88,37 +79,8 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
           },
         };
       }),
-      // tourItenarary: [
-      //   {
-      //     imageUrl: tourItenararyDescriptionImgUrl.fileList
-      //       .map((item: UploadFile) =>
-      //         item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
-      //       )
-      //       .flat(Infinity)[0],
-      //     description: [
-      //       {
-      //         en: tourItenararyDescriptionEn,
-      //         ru: tourItenararyDescriptionRu,
-      //       },
-      //     ],
-      //     title: {
-      //       en: tourItenararyTitleEn,
-      //       ru: tourItenararyTitleRu,
-      //     },
-      //   },
-      // ],
       description: [{ ru: descriptionRu, en: descriptionEn }],
       startingPrice,
-      // tourPrices: [
-      //   {
-      //     price: tourPrice,
-      //     upToPersons: tourPriceUptoPersons,
-      //     description: {
-      //       en: tourPriceDescriptionEn,
-      //       ru: tourPriceDescriptionRu,
-      //     },
-      //   },
-      // ],
     });
   };
 
@@ -524,7 +486,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
                   block
                   icon={<Icon name="PlusOutlined" />}
                 >
-                  add individual tour itenarary
+                  add individual tour itenarary ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
             </div>
@@ -612,7 +574,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
                   onClick={() => add()}
                   icon={<Icon name="PlusOutlined" />}
                 >
-                  add individual tour price
+                  add individual tour price ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
             </div>
