@@ -163,6 +163,7 @@ export const utils = () => {
       title: 'Actions',
       dataIndex: 'action',
       key: 'action',
+      fixed: 'right',
       width: '10%',
       render: (_: any, record: any) => {
         return (

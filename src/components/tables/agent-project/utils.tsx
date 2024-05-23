@@ -162,6 +162,7 @@ export const utils = () => {
       dataIndex: 'action',
       key: 'action',
       width: '10%',
+      fixed: 'right',
       render: (_: any, record: any) => {
         return (
           <Space>

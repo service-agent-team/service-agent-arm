@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   acceptAgnet,
+  agentAddPermissionToUserProject,
+  agentAddProjectToUser,
   agentAddRole,
   agentAddRolePermission,
+  agentRemovePermissionProject,
+  agentRemoveProject,
   agentRemoveRole,
   agentRemoveRolePermission,
   getAllUsers,
@@ -38,6 +42,15 @@ export const contractSlice = createSlice({
     },
     setContractPagination: (state, { payload }) => {
       state.pagination = payload;
+    },
+    setOneAgent: (state, { payload }) => {
+      state.agent = payload;
+    },
+    setAgentRolePermissions: (state, { payload }) => {
+      if (state.agent) state.agent.userRolePermissions = payload;
+    },
+    setAgentProjectPermissions: (state, { payload }) => {
+      if (state.agent) state.agent.userProjectPermissions = payload;
     },
   },
   extraReducers: (builder) => {
@@ -78,7 +91,7 @@ export const contractSlice = createSlice({
         state.loading.put = false;
         state.error = payload;
       })
-      // agnet get one
+      // agent get one
       .addCase(getOneAgent.pending, (state) => {
         state.loading.get = true;
         state.error = null;
@@ -92,6 +105,7 @@ export const contractSlice = createSlice({
         state.loading.get = false;
         state.error = payload;
       })
+      // agent role permissions
       .addCase(agentAddRole.pending, (state) => {
         state.loading.post = true;
         state.error = null;
@@ -116,6 +130,7 @@ export const contractSlice = createSlice({
         state.loading.post = false;
         state.error = payload;
       })
+      // delete the role
       .addCase(agentRemoveRole.pending, (state) => {
         state.loading.delete = true;
         state.error = null;
@@ -128,7 +143,6 @@ export const contractSlice = createSlice({
         state.loading.delete = false;
         state.error = payload;
       })
-
       .addCase(agentRemoveRolePermission.pending, (state) => {
         state.loading.delete = true;
         state.error = null;
@@ -138,6 +152,56 @@ export const contractSlice = createSlice({
         state.error = null;
       })
       .addCase(agentRemoveRolePermission.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.error = payload;
+      })
+      // agent project permission
+      .addCase(agentAddProjectToUser.pending, (state) => {
+        state.loading.post = true;
+        state.error = null;
+      })
+      .addCase(agentAddProjectToUser.fulfilled, (state) => {
+        state.loading.post = false;
+        state.error = null;
+      })
+      .addCase(agentAddProjectToUser.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.error = payload;
+      })
+      .addCase(agentAddPermissionToUserProject.pending, (state) => {
+        state.loading.post = true;
+        state.error = null;
+      })
+      .addCase(agentAddPermissionToUserProject.fulfilled, (state) => {
+        state.loading.post = false;
+        state.error = null;
+      })
+      .addCase(agentAddPermissionToUserProject.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.error = payload;
+      })
+      // delete the project
+      .addCase(agentRemoveProject.pending, (state) => {
+        state.loading.delete = true;
+        state.error = null;
+      })
+      .addCase(agentRemoveProject.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.error = null;
+      })
+      .addCase(agentRemoveProject.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.error = payload;
+      })
+      .addCase(agentRemovePermissionProject.pending, (state) => {
+        state.loading.delete = true;
+        state.error = null;
+      })
+      .addCase(agentRemovePermissionProject.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.error = null;
+      })
+      .addCase(agentRemovePermissionProject.rejected, (state, { payload }) => {
         state.loading.delete = false;
         state.error = payload;
       });
