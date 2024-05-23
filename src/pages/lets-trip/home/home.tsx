@@ -53,7 +53,7 @@ export const LetsTripHome = () => {
     datasets: [
       {
         label: 'Users',
-        data: statistics?.monthlyData.map((el) => el.month),
+        data: statistics?.monthlyData.map((el) => el.registeredUsers),
         backgroundColor: '#3a57e8',
         borderColor: '#3a57e8',
         borderWidth: 4,

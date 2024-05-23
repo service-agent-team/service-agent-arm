@@ -216,7 +216,9 @@ export const utils = () => {
     {
       title: 'Actions',
       dataIndex: 'action',
+      fixed: 'right',
       key: 'action',
+      width: '20%',
       render: (_: any, record) => (
         <Space>
           <Button

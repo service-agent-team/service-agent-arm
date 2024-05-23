@@ -221,6 +221,16 @@ export interface IAddAgentRolePermissionPayload extends IAddAgentRolePayload {
   permissionId: number;
 }
 
+export interface IAddAgentProjectPayload {
+  callback: () => void;
+  userId: number;
+  projectId: number;
+}
+
+export interface IAddAgentProjectPermissionPayload extends IAddAgentProjectPayload {
+  permissionId: number;
+}
+
 export interface IOneAgentResponse extends IUserDataV2 {}
 
 export interface IAddAgentRolePermissionResponse {

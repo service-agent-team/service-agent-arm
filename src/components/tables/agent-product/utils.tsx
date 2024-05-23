@@ -165,6 +165,7 @@ export const utils = () => {
       title: 'Actions',
       dataIndex: 'userId',
       key: 'action',
+      width: '20%',
       render: () => {
         return (
           <Dropdown menu={menuProps}>

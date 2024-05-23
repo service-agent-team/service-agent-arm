@@ -1,5 +1,5 @@
 import { FONT_SIZE, FONT_WEIGHT } from '@/common/styles';
-import { Steps as AntdSteps, Button, Checkbox } from 'antd';
+import { Steps as AntdSteps, Button, Checkbox, Flex, TreeSelect } from 'antd';
 import styled from 'styled-components';
 
 export const Steps = styled(AntdSteps)`
@@ -80,4 +80,21 @@ export const ProjectCheckbox = styled(Checkbox)`
   margin: 0;
   padding: 0;
   text-transform: uppercase;
+`;
+
+export const CustomTreeSelect = styled(TreeSelect)`
+  height: auto;
+`;
+
+export const CustomFlex = styled(Flex)`
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const CustomButton = styled(Button)`
+  position: absolute;
+  width: auto !important;
+  margin-left: auto;
+  right: 10px !important;
+  bottom: 8px !important;
 `;

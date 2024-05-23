@@ -1,13 +1,13 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
-import { BaseForm, PrimaryBtn, SimpleButton } from '@/components';
+import { BaseForm, Icon, PrimaryBtn, SimpleButton } from '@/components';
 import { ICompany } from '@/store/service-agent/company/types';
 import { IRolesV2 } from '@/store/service-agent/roles/types';
 import { IAgentTariffV2 } from '@/store/service-agent/tariff/types';
-import { Flex, Select, Switch } from 'antd';
+import { Button, Flex, Select, Switch, TreeSelect } from 'antd';
 import React, { useEffect } from 'react';
 import * as S from './styles';
-import { IParam } from './types';
+import { IParam, IProjectPermissions } from './types';
 import { RolePermission } from '@/store/service-agent/contract/contract.interface';
 import { useParams } from 'react-router-dom';
 
@@ -32,20 +32,23 @@ export const AgentForm: React.FC<IProps> = ({
   const {
     acceptAgnet,
     rejectAgnet,
-    addTariffPermission,
     getAgentPermissions,
     getAllAgentProject,
     agentAddRole,
     agentAddRolePermission,
     agentRemoveRole,
+    agentRemoveRolePermission,
+    setAgentRolePermissions,
+    agentAddProjectToUser,
+    agentAddPermissionToUserProject,
+    setAgentProjectPermissions,
+    agentRemoveProject,
   } = useActions();
 
   const { permissions } = useTypedSelector((state) => state.agentPermission);
   const { agentProjects } = useTypedSelector((state) => state.agentProject);
   const { agent, loading } = useTypedSelector((state) => state.agent);
   const { id } = useParams();
-  const defaultRole = agent?.userRolePermissions[0];
-  // const defaultProject = agent?.userProjectPermissions[0];
 
   const onFinish = (value: IParam) => {
     if (contractStatus !== 'SUCCESS') {
@@ -60,32 +63,100 @@ export const AgentForm: React.FC<IProps> = ({
         },
       });
     }
-    if (value.categoryId) {
-      addTariffPermission({
-        callback() {
-          addNotification('Agentga tarif ruxsat berildi');
-        },
-        permissionId: 1,
-        userTariffId: value.categoryId,
-        userId,
-      });
-    }
-    if (value.roleId && value.permissionId) {
-      agentAddRole({
-        callback() {
-          addNotification('add role to user');
+    if (value.rolePerm) {
+      const [roleId, permissionId] = value.rolePerm.split('-');
+      const defaultRoleId = agent?.userRolePermissions[0]?.role?.roleId;
 
-          agentAddRolePermission({
+      if (defaultRoleId) {
+        agentRemoveRolePermission({
+          callback() {
+            agentRemoveRole({
+              callback() {
+                setAgentRolePermissions([]);
+                agentAddRole({
+                  callback() {
+                    agentAddRolePermission({
+                      callback() {
+                        addNotification('add role permission to agent');
+                        const role = roles?.find((role) => role.roleId === +roleId);
+                        const permission = rolePerms?.find(
+                          (perm) => perm.permissionId === +permissionId,
+                        );
+                        setAgentRolePermissions([{ role, permissions: [permission] }]);
+                      },
+                      userId: Number(id),
+                      roleId: +roleId,
+                      permissionId: +permissionId,
+                    });
+                  },
+                  userId: Number(id),
+                  roleId: +roleId,
+                });
+              },
+              userId: Number(id),
+              roleId: +defaultRoleId,
+            });
+          },
+          userId: Number(id),
+          roleId: +defaultRoleId,
+          permissionId: +permissionId,
+        });
+      } else {
+        agentAddRole({
+          callback() {
+            agentAddRolePermission({
+              callback() {
+                addNotification('add role permission to agent');
+                const role = roles?.find((role) => role.roleId === +roleId);
+                const permission = rolePerms?.find((perm) => perm.permissionId === +permissionId);
+                setAgentRolePermissions([{ role, permissions: [permission] }]);
+              },
+              userId: Number(id),
+              roleId: +roleId,
+              permissionId: +permissionId,
+            });
+          },
+          userId: Number(id),
+          roleId: +roleId,
+        });
+      }
+    }
+    if (value.projectPerm) {
+      value.projectPerm.map((el: string) => {
+        const [projectId, permissionId] = el.split('-');
+
+        const found = agent?.userProjectPermissions?.find(
+          (p) => p.project?.projectId === +projectId,
+        );
+        if (!found && agent && agentProjects) {
+          agentAddProjectToUser({
             callback() {
-              addNotification('add role permission');
+              setAgentProjectPermissions([
+                ...agent.userProjectPermissions,
+                { project: agentProjects.find((p) => p.projectId === +projectId), permissions: [] },
+              ]);
+              agentAddPermissionToUserProject({
+                callback() {
+                  addNotification('successfully add project permission');
+                },
+                userId: Number(id),
+                projectId: +projectId,
+                permissionId: +permissionId,
+              });
             },
             userId: Number(id),
-            roleId: value.roleId,
-            permissionId: value.permissionId,
+            projectId: +projectId,
           });
-        },
-        userId: Number(id),
-        roleId: value.roleId,
+        } else {
+          agentAddPermissionToUserProject({
+            callback() {
+              addNotification('successfully add project permission');
+            },
+            userId: Number(id),
+            projectId: +projectId,
+            permissionId: +permissionId,
+          });
+        }
       });
     }
   };
@@ -101,14 +172,34 @@ export const AgentForm: React.FC<IProps> = ({
   };
 
   const handleRoleRemove = () => {
-    if (defaultRole?.role.roleId)
+    const defaultRoleId = agent?.userRolePermissions[0]?.role?.roleId;
+
+    if (defaultRoleId) {
       agentRemoveRole({
         callback() {
-          addNotification('remove role from user');
+          addNotification('successfully remove role permission');
+          setAgentRolePermissions([]);
         },
         userId: Number(id),
-        roleId: defaultRole?.role.roleId,
+        roleId: defaultRoleId,
       });
+    }
+  };
+
+  const handleProjectRemove = () => {
+    if (agent) {
+      agent.userProjectPermissions.map((p) => {
+        if (p.project?.projectId)
+          agentRemoveProject({
+            callback() {
+              addNotification('successfully remove project permission');
+              setAgentProjectPermissions([]);
+            },
+            userId: Number(id),
+            projectId: p.project?.projectId,
+          });
+      });
+    }
   };
 
   useEffect(() => {
@@ -116,24 +207,20 @@ export const AgentForm: React.FC<IProps> = ({
     getAllAgentProject({ callback() {}, pageNumber: 0, pageSize: 20 });
   }, []);
 
-  const RoleSelectOptions = roles?.map((el) => ({ label: el.name, value: el.roleId }));
+  const projectPerms = permissions?.filter((el) => el.type === 'FOR_USER_PROJECT');
+  const rolePerms = permissions?.filter((el) => el.type === 'FOR_USER_ROLE');
+
   const CategorySelectedOptions = categories?.map((el) => ({
     label: el.name,
     value: el.tariffId,
   }));
   const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
-  const UserPermissionSelectOption =
-    permissions
-      ?.filter((el) => el.type === 'FOR_USER_ROLE')
-      ?.map((el) => ({ label: el.name, value: el.permissionId })) || [];
-  const ProjectPermissionSelectOption =
-    permissions
-      ?.filter((el) => el.type === 'FOR_USER_PROJECT')
-      ?.map((el) => ({ label: el.name, value: el.permissionId })) || [];
-  const ProjectSelectOption = agentProjects?.map((el) => ({
-    label: el.name,
-    value: el.projectId,
-  }));
+  const defaultRolePerms = agent?.userRolePermissions.flatMap((el) => {
+    return el.permissions.map((per) => {
+      const found = rolePerms?.find((role) => role.permissionId === per.permissionId);
+      if (found) return `${el.role.roleId}-${per.permissionId}`;
+    });
+  });
 
   return (
     <BaseForm
@@ -142,48 +229,56 @@ export const AgentForm: React.FC<IProps> = ({
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={() => {}}
-      initialValues={{
-        roleId: (defaultRole && defaultRole.role.roleId) || null,
-        permissionId:
-          (defaultRole?.permissions[0] && defaultRole.permissions[0].permissionId) || null,
-        categoryId: (categories?.length && categories[0].tariffId) || null,
-      }}
     >
       <S.FormContent>
         <BaseForm.Item
-          name="roleId"
-          label={'Agent roles'}
+          name="rolePerm"
+          label={'Agent role permission'}
           hasFeedback
-          rules={[{ type: 'number', message: 'field is required' }]}
+          rules={[{ type: 'string', message: 'field is required' }]}
         >
-          <Select
-            style={{ height: 50 }}
-            placeholder="Select an agent role option"
-            onChange={() => handleRoleRemove()}
-            options={RoleSelectOptions}
-          />
-        </BaseForm.Item>
-        <BaseForm.Item
-          name="permissionId"
-          label={'User role permission'}
-          hasFeedback
-          rules={[{ type: 'number', message: 'field is required' }]}
-        >
-          <Select
-            style={{ height: 50 }}
-            placeholder="Select an user role permission option"
-            options={UserPermissionSelectOption}
+          <TreeSelect
+            multiple={false}
+            treeCheckable={false}
+            defaultValue={agent?.userRolePermissions.length ? defaultRolePerms : []}
+            showCheckedStrategy={TreeSelect.SHOW_CHILD}
+            autoClearSearchValue={false}
+            suffixIcon={
+              agent?.userRolePermissions.length ? (
+                <Icon
+                  name="DeleteOutlined"
+                  type="primary"
+                  color="red"
+                  onClick={() => handleRoleRemove()}
+                />
+              ) : null
+            }
+            treeData={roles?.map((el) => {
+              return {
+                key: el?.roleId,
+                label: el?.name,
+                value: el?.roleId,
+                children: rolePerms?.map((item) => {
+                  return {
+                    key: `${el.roleId}-${item.permissionId}`,
+                    label: `${item.name}`,
+                    value: `${el.roleId}-${item.permissionId}`,
+                  };
+                }),
+              };
+            })}
+            placeholder="Role permission"
           />
         </BaseForm.Item>
         <BaseForm.Item
           name="categoryId"
-          label={'Agent Category'}
+          label={'Agent tariff category'}
           hasFeedback
           rules={[{ type: 'number', message: 'field is required' }]}
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an category option"
+            placeholder="Select a tariff category option"
             options={CategorySelectedOptions}
           />
         </BaseForm.Item>
@@ -195,7 +290,7 @@ export const AgentForm: React.FC<IProps> = ({
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an company option"
+            placeholder="Select a company option"
             options={CompanySelectOption}
           />
         </BaseForm.Item>
@@ -207,43 +302,45 @@ export const AgentForm: React.FC<IProps> = ({
         >
           <Select
             style={{ height: 50 }}
-            placeholder="Select an currency option"
+            placeholder="Select a currency option"
             options={[
               { label: 'UZS', value: 'UZS' },
               { label: 'USD', value: 'USD' },
             ]}
           />
         </BaseForm.Item>
-        <BaseForm.Item
-          name="projectId"
-          label={'Project'}
-          hasFeedback
-          rules={[{ type: 'array', message: 'field is required' }]}
-        >
-          <Select
-            mode="multiple"
-            allowClear
-            defaultValue={agent?.userProjectPermissions.map((el) => el.project?.projectId)}
-            style={{ height: 50 }}
-            placeholder="Select an project option"
-            options={ProjectSelectOption}
-          />
-        </BaseForm.Item>
-        <BaseForm.Item
-          name="projectPerId"
-          label={'User project permission'}
-          hasFeedback
-          rules={[{ type: 'array', message: 'field is required' }]}
-        >
-          <Select
-            mode="multiple"
-            allowClear
-            defaultValue={agent?.userProjectPermissions.map(
-              (el) => el.permissions[0]?.permissionId,
-            )}
-            style={{ height: 50 }}
-            placeholder="Select an user project permission option"
-            options={ProjectPermissionSelectOption}
+        <BaseForm.Item name="projectPerm" label="Projects permissions" rules={[{ type: 'array' }]}>
+          <TreeSelect
+            treeDefaultExpandAll
+            multiple={true}
+            treeCheckable={true}
+            defaultValue={agent?.userProjectPermissions?.flatMap((el) => {
+              return el?.permissions?.map((per) => {
+                const found = projectPerms?.find(
+                  (item) => item?.permissionId === per?.permissionId,
+                );
+                if (found) return `${el.project?.projectId}-${per.permissionId}`;
+              });
+            })}
+            showCheckedStrategy={TreeSelect.SHOW_CHILD}
+            suffixIcon={
+              <Icon name="DeleteOutlined" color="red" onClick={() => handleProjectRemove()} />
+            }
+            treeData={agentProjects?.map((el) => {
+              return {
+                key: el.projectId,
+                label: el?.name,
+                value: el?.projectId,
+                children: projectPerms?.map((item) => {
+                  return {
+                    key: `${el.projectId}-${item.permissionId}`,
+                    label: item.name,
+                    value: `${el.projectId}-${item.permissionId}`,
+                  };
+                }),
+              };
+            })}
+            placeholder="Project permissions"
           />
         </BaseForm.Item>
         <BaseForm.Item
@@ -255,14 +352,14 @@ export const AgentForm: React.FC<IProps> = ({
           <Switch defaultValue={false} />
         </BaseForm.Item>
         {contractStatus !== 'SUCCESS' && (
-          <Flex gap="large" justify="space-around">
+          <S.CustomFlex gap="large" justify="space-around">
             <SimpleButton click={handleReject} color="--negative">
               Rad etish
             </SimpleButton>
             <PrimaryBtn htmlType="submit" loading={loading.post}>
               Tasdiqlash
             </PrimaryBtn>
-          </Flex>
+          </S.CustomFlex>
         )}
         {contractStatus === 'SUCCESS' && (
           <PrimaryBtn htmlType="submit" loading={loading.post} color="warning">

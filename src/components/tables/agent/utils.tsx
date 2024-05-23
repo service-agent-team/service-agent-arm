@@ -141,19 +141,19 @@ export const utils = () => {
       title: 'City',
       dataIndex: 'city',
       key: 'city',
-      width: '20%',
+      width: '15%',
     },
     {
       title: 'Phone number',
       dataIndex: 'login',
       key: 'login',
-      width: '20%',
+      width: '15%',
     },
     {
       title: 'Role',
       dataIndex: 'userRolePermissions',
       key: 'userRolePermissions',
-      width: '20%',
+      width: '15%',
       render: (userRolePermissions) => (
         <Row style={{ gap: '4px' }}>
           {userRolePermissions.map((el: any) => {
@@ -170,7 +170,7 @@ export const utils = () => {
       title: 'Role Permissions',
       dataIndex: 'userRolePermissions',
       key: 'userRolePermissions',
-      width: '20%',
+      width: '15%',
       render: (userRolePermissions) => (
         <Row style={{ gap: '4px' }}>
           {userRolePermissions.map((el: any) =>
@@ -184,36 +184,26 @@ export const utils = () => {
       ),
     },
     {
-      title: 'Project',
+      title: 'Project permissions',
       dataIndex: 'userProjectPermissions',
       key: 'userProjectPermissions',
-      width: '20%',
+      width: '30%',
       render: (userProjectPermissions) => (
         <Row style={{ gap: '4px' }}>
           {userProjectPermissions.map((el: any) => {
             return (
-              <Tag color={'success'} key={el.project.projectId}>
-                {el.project.name?.toUpperCase()}
-              </Tag>
+              <div key={el.project.projectId}>
+                <Tag color={'blue'} key={el.project.projectId}>
+                  {el.project.name?.toUpperCase()}
+                </Tag>
+                {el.permissions.map((perm: any) => (
+                  <Tag key={perm.permissionId} color="success">
+                    {perm.name}
+                  </Tag>
+                ))}
+              </div>
             );
           })}
-        </Row>
-      ),
-    },
-    {
-      title: 'Project Permission',
-      dataIndex: 'userProjectPermissions',
-      key: 'userProjectPermissions',
-      width: '20%',
-      render: (userProjectPermissions) => (
-        <Row style={{ gap: '4px' }}>
-          {userProjectPermissions.map((el: any) =>
-            el.permissions.map((item: any) => (
-              <Tag color={'success'} key={item?.permissionId}>
-                {item?.name?.toUpperCase()}
-              </Tag>
-            )),
-          )}
         </Row>
       ),
     },
@@ -256,6 +246,7 @@ export const utils = () => {
       dataIndex: 'userId',
       key: 'view',
       width: '10%',
+      fixed: 'right',
       render: (userId: number, record: any) => {
         return (
           <Button

@@ -22,10 +22,11 @@ export const EndPointesV2 = {
       removeRoleFromUser: '/api/agent/role-permission/removeRoleFromUser',
       removePermissionFromUserRole: '/api/agent/role-permission/removePermissionFromUserRole',
       // project permission
-      addProjectToUser: '/api/project-permission/addProjectToUser',
-      addPermissionToUserProject: '/api/project-permission/addPermissionToUserProject',
-      removeProjectFromUser: '/api/project-permission/removeProjectFromUser',
-      removePermissionFromUserProject: '/api/project-permission/removePermissionFromUserProject',
+      addProjectToUser: '/api/agent/project-permission/addProjectToUser',
+      addPermissionToUserProject: '/api/agent/project-permission/addPermissionToUserProject',
+      removeProjectFromUser: '/api/agent/project-permission/removeProjectFromUser',
+      removePermissionFromUserProject:
+        '/api/agent/project-permission/removePermissionFromUserProject',
     },
     getAllOrder: '/api/v2/order/all',
     getAllOrderStatistic: '/api/v2/order/statistica',
