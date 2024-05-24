@@ -8,6 +8,7 @@ export interface ILetsTripGroupTourInitialState {
   groupTours: ILetsTripGroupTour[] | null;
   groupTour: ILetsTripGroupTourGetOne | null;
   activeTours: ILetsTripGroupTour[] | null;
+  locations: Location2[];
   errors: unknown | string[] | string;
   deleted: boolean;
 }
@@ -245,8 +246,8 @@ export interface ExtraInformation2 {
 }
 
 export interface Location2 {
-  lng: null;
-  lat: null;
+  lng: number;
+  lat: number;
 }
 
 export interface TourItenarary2 {

@@ -1,12 +1,11 @@
 import { ILetsTripGroupTourGetOne } from '@/store/lets-trip/tour/types';
 import NoThumbImage from '@/assets/images/no-thumbnail.png';
-import { Card } from '@/components/common/card';
 import { H1 } from '@/components/common';
-import { Button, Flex, List, Select, Tag, Typography } from 'antd';
+import { Button, Flex, List, Tag, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import { useState } from 'react';
 
 export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne | null }) => {
@@ -17,7 +16,7 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
   const center = (data?.locations[0].lat && {
     lat: data?.locations[0].lat,
     lng: data?.locations[0].lng,
-  }) ?? {
+  }) || {
     lat: 43.45,
     lng: -80.49,
   };
@@ -61,10 +60,16 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={{ width: '100%', height: '400px' }}
-            zoom={10}
+            zoom={6}
             center={center}
           >
-            <Marker position={center} />
+            {data?.locations.map((location, idx) => (
+              <Marker key={idx} position={{ lat: location.lng, lng: location.lat }} />
+            ))}
+            <Polyline
+              path={data?.locations.map((location) => ({ lat: location.lng, lng: location.lat }))}
+              options={{ strokeColor: '#FF0000', strokeOpacity: 1.0, strokeWeight: 2 }}
+            />
           </GoogleMap>
         ) : (
           ''

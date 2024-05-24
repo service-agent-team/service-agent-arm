@@ -33,8 +33,8 @@ export const LetsTripIndividualTourCard = ({
             <H1>Prices: </H1>
             {data?.tourPrices.map((el) => (
               <div key={el.id}>
-                <Typography.Text strong>{el.price} $</Typography.Text>
-                {el.upToPersons} {`persons (per person)`}
+                <Typography.Text strong>{el.price}$</Typography.Text>
+                {' ' + el.upToPersons} {`persons (per person)`}
               </div>
             ))}
           </S.InfoCard>

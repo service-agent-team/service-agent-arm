@@ -17,24 +17,48 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Id, IValuesForm } from '../types';
+import { Id, IGoogleLocation, IGoogleMouseEvent, IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
 import { dateFormatDayJs, generateUTC } from '@/common/utils/format';
+import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
+import toast from 'react-hot-toast';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { countries } = useTypedSelector((state) => state.letsTripCountry);
   const {
     loading: { post },
+    locations,
     errors,
   } = useTypedSelector((state) => state.letsTripTour);
-  const { createLetsTripGroupTour, getAllLetsTripCountry } = useActions();
+  const { createLetsTripGroupTour, getAllLetsTripCountry, setLetsTripGroupTourLocations } =
+    useActions();
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [fileList2, setFileList2] = useState<UploadFile[]>([]);
   const [previewImage, setPreviewImage] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: 'AIzaSyALfqQ3ezC7K1GxmJ1e5EMqdQzrXdrDcdA',
+  });
+  const center = { lat: 41.875734, lng: 64.017636 };
+
+  const handleMapClick = (event: IGoogleMouseEvent) => {
+    if (event.latLng) {
+      setLetsTripGroupTourLocations([
+        ...locations,
+        { lng: event.latLng.lng(), lat: event.latLng.lat() },
+      ]);
+    }
+  };
+
+  const handleMaker = (loc: IGoogleMouseEvent) => {
+    setLetsTripGroupTourLocations(
+      locations?.filter((l) => l.lat !== loc?.latLng?.lat() && l.lng !== loc.latLng?.lng()) || [],
+    );
+  };
 
   const onFinish = ({
     nameEn,
@@ -53,19 +77,23 @@ export const LestTripTourCreateForm: React.FC = () => {
     extraInformation,
     availableDate,
     tourItenarary,
-    locations,
   }: IValuesForm) => {
+    if (locations.length === 0) {
+      return toast.error('location required', { position: 'top-right' });
+    }
+
     createLetsTripGroupTour({
       callback() {
-        addNotification('successfully added tour');
+        addNotification('successfully added group tour');
         navigate(ROUTES.letsTripGroupTour);
+        setLetsTripGroupTourLocations([]);
       },
       name: { en: nameEn, ru: nameRu },
       countryId,
       description: [{ ru: descriptionRu, en: descriptionEn }],
-      images: images.fileList
-        .map((item: UploadFile) => item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`))
-        .flat(Infinity),
+      images: images.fileList.flatMap((item: UploadFile) =>
+        item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
+      ),
       locations,
       availableDate: availableDate?.map((el) => {
         return {
@@ -105,11 +133,9 @@ export const LestTripTourCreateForm: React.FC = () => {
             ru: el.itineraryTitleRu,
           },
           item_order: el.itineraryItemOrder,
-          imageUrl: tourItenarary[idx].itineraryImgUrl.fileList
-            .map((item: UploadFile) =>
-              item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
-            )
-            .flat(Infinity)[idx],
+          imageUrl: tourItenarary[idx].itineraryImgUrl.fileList.flatMap((item: UploadFile) =>
+            item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
+          )[idx],
           description: el.description.map((desc) => {
             return {
               items: [
@@ -213,20 +239,6 @@ export const LestTripTourCreateForm: React.FC = () => {
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="priceNoteRu"
-            label={'price note russian'}
-            rules={[
-              { required: true, message: 'price note russian is required?' },
-              {
-                type: 'string',
-                message: 'Enter price note russian ?',
-              },
-            ]}
-          >
-            <Input name="priceNoteRu" type="string" placeholder="Enter a price note russian  ?" />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
             name="priceNoteEn"
             label={'price note english'}
             rules={[
@@ -238,6 +250,20 @@ export const LestTripTourCreateForm: React.FC = () => {
             ]}
           >
             <Input name="priceNoteEn" type="string" placeholder="Enter a price note english ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="priceNoteRu"
+            label={'price note russian'}
+            rules={[
+              { required: true, message: 'price note russian is required?' },
+              {
+                type: 'string',
+                message: 'Enter price note russian ?',
+              },
+            ]}
+          >
+            <Input name="priceNoteRu" type="string" placeholder="Enter a price note russian  ?" />
           </BaseForm.Item>
         </Flex>
         <Flex gap={'15px'}>
@@ -267,24 +293,6 @@ export const LestTripTourCreateForm: React.FC = () => {
         <Flex gap={'15px'}>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="priceIncludeRu"
-            label={'price include russian'}
-            rules={[
-              { required: true, message: 'price include russian is required?' },
-              {
-                type: 'string',
-                message: 'Enter price include russian ?',
-              },
-            ]}
-          >
-            <Input
-              name="priceIncludeRu"
-              type="string"
-              placeholder="Enter a price include russian ?"
-            />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
             name="priceIncludeEn"
             label={'price include english'}
             rules={[
@@ -303,20 +311,20 @@ export const LestTripTourCreateForm: React.FC = () => {
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
-            name="priceNotIncludeRu"
-            label={'price not include russian'}
+            name="priceIncludeRu"
+            label={'price include russian'}
             rules={[
-              { required: true, message: 'price not include russian is required?' },
+              { required: true, message: 'price include russian is required?' },
               {
                 type: 'string',
-                message: 'Enter price not include russian ?',
+                message: 'Enter price include russian ?',
               },
             ]}
           >
             <Input
-              name="priceNotIncludeRu"
+              name="priceIncludeRu"
               type="string"
-              placeholder="Enter a price not include russian ?"
+              placeholder="Enter a price include russian ?"
             />
           </BaseForm.Item>
           <BaseForm.Item
@@ -335,6 +343,24 @@ export const LestTripTourCreateForm: React.FC = () => {
               name="priceNotIncludeEn"
               type="string"
               placeholder="Enter a price not include english ?"
+            />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="priceNotIncludeRu"
+            label={'price not include russian'}
+            rules={[
+              { required: true, message: 'price not include russian is required?' },
+              {
+                type: 'string',
+                message: 'Enter price not include russian ?',
+              },
+            ]}
+          >
+            <Input
+              name="priceNotIncludeRu"
+              type="string"
+              placeholder="Enter a price not include russian ?"
             />
           </BaseForm.Item>
         </Flex>
@@ -383,19 +409,19 @@ export const LestTripTourCreateForm: React.FC = () => {
           >
             <Icon fontSize="20" color="blue" name="InboxOutlined" />
             <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
-            {previewImage && (
-              <Image
-                height={100}
-                wrapperStyle={{ display: 'none' }}
-                preview={{
-                  visible: previewOpen,
-                  onVisibleChange: (visible) => setPreviewOpen(visible),
-                  afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                }}
-                src={previewImage}
-              />
-            )}
           </Upload.Dragger>
+          {previewImage && (
+            <Image
+              height={100}
+              wrapperStyle={{ display: 'none' }}
+              preview={{
+                visible: previewOpen,
+                onVisibleChange: (visible) => setPreviewOpen(visible),
+                afterOpenChange: (visible) => !visible && setPreviewImage(''),
+              }}
+              src={previewImage}
+            />
+          )}
         </BaseForm.Item>
         <BaseForm.List name="availableDate">
           {(fields, { add, remove }) => (
@@ -420,6 +446,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                         style={{ width: '100%' }}
                         name={[field.key, 'month']}
                         label={'available month'}
+                        rules={[{ required: true, message: 'Enter a available month' }]}
                       >
                         <DatePicker picker="month" style={{ width: '100%' }} />
                       </BaseForm.Item>
@@ -427,6 +454,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                         style={{ width: '100%' }}
                         name={[field.key, 'year']}
                         label={'available year'}
+                        rules={[{ required: true, message: 'Enter a available year' }]}
                       >
                         <DatePicker picker="year" style={{ width: '100%' }} />
                       </BaseForm.Item>
@@ -518,6 +546,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                                     style={{ width: '100%' }}
                                     name={[subField.key, 'transferDate']}
                                     label={'transfer start end date'}
+                                    rules={[{ required: true, message: 'transfer date required' }]}
                                   >
                                     <DatePicker.RangePicker
                                       format={{
@@ -537,7 +566,8 @@ export const LestTripTourCreateForm: React.FC = () => {
                               block
                               icon={<Icon name="PlusOutlined" />}
                             >
-                              add available date departures
+                              add available date departures ({subFields.length}){' '}
+                              {subFields.length ? '✅' : '❌'}
                             </Button>
                           </BaseForm.Item>
                         </div>
@@ -765,19 +795,19 @@ export const LestTripTourCreateForm: React.FC = () => {
                         <div style={{ marginTop: 8 }}>
                           Click or drag file to this area to upload
                         </div>
-                        {previewImage && (
-                          <Image
-                            height={100}
-                            wrapperStyle={{ display: 'none' }}
-                            preview={{
-                              visible: previewOpen,
-                              onVisibleChange: (visible) => setPreviewOpen(visible),
-                              afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                            }}
-                            src={previewImage}
-                          />
-                        )}
                       </Upload.Dragger>
+                      {previewImage && (
+                        <Image
+                          height={100}
+                          wrapperStyle={{ display: 'none' }}
+                          preview={{
+                            visible: previewOpen,
+                            onVisibleChange: (visible) => setPreviewOpen(visible),
+                            afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                          }}
+                          src={previewImage}
+                        />
+                      )}
                     </BaseForm.Item>
                   </Card>
                 </>
@@ -941,12 +971,12 @@ export const LestTripTourCreateForm: React.FC = () => {
             </div>
           )}
         </BaseForm.List>
-        <BaseForm.List name="locations">
+        {/* <BaseForm.List name="locations">
           {(fields, { add, remove }) => (
             <div>
               {fields.map((field) => (
-                <>
-                  <Flex gap={'15px'} key={field.key} align="center" wrap="nowrap">
+                <div key={field.key}>
+                  <Flex gap={'15px'} align="center" wrap="nowrap">
                     <BaseForm.Item
                       style={{ width: '100%' }}
                       name={[field.key, 'lng']}
@@ -980,7 +1010,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                       }}
                     />
                   </Flex>
-                </>
+                </div>
               ))}
               <BaseForm.Item>
                 <Button
@@ -994,8 +1024,24 @@ export const LestTripTourCreateForm: React.FC = () => {
               </BaseForm.Item>
             </div>
           )}
-        </BaseForm.List>
-        <PrimaryBtn htmlType="submit" loading={post}>
+        </BaseForm.List> */}
+        {isLoaded ? (
+          <GoogleMap
+            mapContainerStyle={{ width: '100%', height: '400px' }}
+            zoom={6}
+            center={locations[0] || center}
+            onClick={handleMapClick}
+          >
+            <Polyline
+              path={locations?.map((el) => el)}
+              options={{ strokeColor: '#FF0000', strokeOpacity: 1.0, strokeWeight: 2 }}
+            />
+            {locations?.map((loc, idx) => (
+              <Marker onClick={handleMaker} key={idx} position={loc} />
+            ))}
+          </GoogleMap>
+        ) : null}
+        <PrimaryBtn style={{ marginTop: '15px' }} htmlType="submit" loading={post}>
           create
         </PrimaryBtn>
       </S.FormContent>

@@ -1,4 +1,3 @@
-import { Location } from '@/store/lets-trip/tour/types';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 export interface IValuesForm {
@@ -18,7 +17,6 @@ export interface IValuesForm {
   descriptionEn: string;
   tourItenarary: TourItinerary[];
   availableDate: AvailableDate[];
-  locations: Location[];
 }
 
 export interface IFileResponse {
@@ -56,4 +54,15 @@ interface TourItinerary {
   ];
   itineraryItemOrder: number;
   itineraryImgUrl: UploadChangeParam;
+}
+
+export interface IGoogleLocation {
+  lat: number;
+  lng: number;
+}
+
+export interface IGoogleMouseEvent {
+  domEvent: MouseEvent | TouchEvent | PointerEvent | KeyboardEvent | Event;
+  latLng: any | null;
+  stop(): void;
 }
