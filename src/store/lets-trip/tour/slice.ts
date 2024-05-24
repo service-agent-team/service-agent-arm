@@ -17,6 +17,7 @@ const initialState: ILetsTripGroupTourInitialState = {
   groupTours: null,
   groupTour: null,
   activeTours: null,
+  locations: [],
   errors: null,
   deleted: true,
 };
@@ -33,6 +34,9 @@ export const letsTripGroupTourSlice = createSlice({
     },
     setLetsTripGroupTourStatus: (state, { payload }) => {
       state.deleted = payload;
+    },
+    setLetsTripGroupTourLocations: (state, { payload }) => {
+      state.locations = payload;
     },
   },
   extraReducers: (builder) => {
