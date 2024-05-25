@@ -143,14 +143,6 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
             </>
           ))}
         </Flex>
-        <S.CustomCard width="100%">
-          <H1>Locations: </H1>
-          {data?.locations.map((loc) => (
-            <Typography.Paragraph key={loc.lat} strong>
-              {'Latitude  Longitude'}: {`${loc.lat} -> ${loc.lng}`}
-            </Typography.Paragraph>
-          ))}
-        </S.CustomCard>
       </S.CustomCard>
     </>
   );
