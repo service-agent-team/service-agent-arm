@@ -16,6 +16,7 @@ export const EndPointesV2 = {
       accept: '/api/agent/accept',
       reject: '/api/agent/reject',
       getOne: '/api/v2/agent',
+      updateCanPayment: '/api/agent/updateCanPayment',
       // role permission
       addRoleToUser: '/api/agent/role-permission/addRoleToUser',
       addPermissionToUser: '/api/agent/role-permission/addPermissionToUser',

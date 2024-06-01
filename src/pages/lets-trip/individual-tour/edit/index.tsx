@@ -1,9 +1,9 @@
 import { PageTitle } from '@/components';
 import * as S from './styled';
 import { ROUTES } from '@/constants';
-import { LestTripTourCreateForm } from '@/components/forms';
+import { LestTripIndividualTourEditForm } from '@/components/forms';
 
-export const LetsTripGroupIndividualEdit = () => {
+export const LetsTripIndividualTourEdit = () => {
   return (
     <S.ViewStyled>
       <PageTitle
@@ -12,7 +12,7 @@ export const LetsTripGroupIndividualEdit = () => {
         route={ROUTES.letsTripIndividualTourEdit}
         label="Back"
       />
-      <LestTripTourCreateForm />
+      <LestTripIndividualTourEditForm />
     </S.ViewStyled>
   );
 };

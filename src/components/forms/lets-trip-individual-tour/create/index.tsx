@@ -62,6 +62,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
         return {
           title: { en: el.tourItenararyTitleEn, ru: el.tourItenararyTitleRu },
           description: [{ en: el.tourItenararyDescriptionEn, ru: el.tourItenararyDescriptionRu }],
+          hour: el.tourItenararyHour,
           imageUrl: el.tourItenararyImgUrl.fileList
             .map((item: UploadFile) =>
               item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
@@ -142,7 +143,7 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
 
   return (
     <BaseForm
-      name="letsTripIndividualTourForm"
+      name="letsTripIndividualTourCreateForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}
@@ -403,6 +404,19 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
                         width={'100%'}
                         type="string"
                         placeholder="Enter a tour itenarary title russian ?"
+                      />
+                    </BaseForm.Item>
+                    <BaseForm.Item
+                      style={{ width: '100%' }}
+                      name={[field.name, 'tourItenararyHour']}
+                      label={'tour itenarary hour'}
+                      rules={[{ required: true, message: 'tour itenarary hour is required?' }]}
+                    >
+                      <Input
+                        style={{ width: '100%' }}
+                        width={'100%'}
+                        type="string"
+                        placeholder="Enter a tour itenarary hour ?"
                       />
                     </BaseForm.Item>
                   </Flex>

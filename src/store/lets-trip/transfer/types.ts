@@ -1,3 +1,5 @@
+import { ILetsTripTransferCategory } from '../transfer-category/types';
+
 export interface ILetsTripTransferInitialState {
   loading: {
     get: boolean;
@@ -6,42 +8,43 @@ export interface ILetsTripTransferInitialState {
     delete: boolean;
   };
   transfers: ILetsTripTransfer[] | null;
+  activeTransfers: ILetsTripTransfer[] | null;
   transfer: ILetsTripTransfer | null;
+  deleted: boolean;
   errors: unknown | string[] | string;
 }
 
 export interface ILetsTripTransfer {
   id: number;
-  name: string;
-  category: Category;
-  company: Company;
-  description?: string;
-  startingPrice?: number;
-  sellingPrice?: number;
+  name: Name;
+  category: ILetsTripTransferCategory;
   pictures: string[];
-  currency: string;
-  attributes: Attributes;
-  countryCode: CountryCodes;
-  departures: any[];
-  releaseDate: string;
+  pricePerKM: number;
+  hourlyPrice: number;
+  manufactureDate: string;
   createdAt: string;
   updatedAt: string;
   deleted: boolean;
-  hourly?: number;
-  transfer?: number;
+}
+
+export interface Name {
+  id?: number;
+  en: string;
+  ru: string;
+  uz: string;
 }
 
 export interface ILetsTripTransferResponse {
   content: ILetsTripTransfer[];
   pageable: Pageable;
-  last: boolean;
-  totalElements: number;
   totalPages: number;
-  first: boolean;
+  totalElements: number;
+  last: boolean;
+  numberOfElements: number;
   size: number;
   number: number;
-  sort: any[];
-  numberOfElements: number;
+  sort: Sort;
+  first: boolean;
   empty: boolean;
 }
 
@@ -53,53 +56,50 @@ export interface ILetsTripTransferPayload {
   size: number;
 }
 
+export interface ILetsTripTransferGetOnePayload {
+  callback(): void;
+  carId: number;
+}
+
 export interface ILetsTripTransferCreatePayload {
   callback(): void;
-  name: string;
-  categoryId: number;
-  companyId: number;
-  hourly: number;
-  transfer: number;
-  mediaLinks: string[];
-  currency: string;
-  releaseDate: string;
-  attributes: any;
-  countryCode: string;
+  body: {
+    name: Name;
+    carCategoryId: number;
+    pictures: string[];
+    pricePerKM: number;
+    hourlyPrice: number;
+    manufactureDate: string;
+  };
 }
 
-export interface Category {
-  id: number;
-  name: string;
-  companyId: number;
+export interface ILetsTripTransferUpdatePayload {
+  callback(): void;
+  carId: number;
+  body: {
+    carCategoryId: number;
+    pricePerKM: number;
+    hourlyPrice: number;
+    manufactureDate: string;
+  };
 }
 
-export interface Company {
-  id: number;
-  name: string;
-  deleted: boolean;
-}
-
-export interface Attributes {
-  numberOfSeats?: string;
-  carName?: string;
-  numberOfbuggage?: string;
-  transferId?: string;
-  carColor?: string;
-  carModel?: string;
-  carBaggage?: string;
+export interface ILetsTripTransferDeletePayload {
+  callback(): void;
+  carId: number;
 }
 
 export interface Pageable {
   pageNumber: number;
   pageSize: number;
-  sort: any[];
+  sort: Sort;
   offset: number;
   paged: boolean;
   unpaged: boolean;
 }
 
-export enum CountryCodes {
-  AE = 'AE',
-  UZ = 'UZ',
-  TR = 'TR',
+export interface Sort {
+  sorted: boolean;
+  unsorted: boolean;
+  empty: boolean;
 }

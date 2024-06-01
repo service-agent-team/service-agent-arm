@@ -76,7 +76,7 @@ export enum IAgentUserStatusType {
 export interface IUserDataV2 {
   userId: number;
   login: string;
-  firstName?: string;
+  firstName: string;
   middleName: string;
   lastName: string;
   birthDate: string;
@@ -87,15 +87,16 @@ export interface IUserDataV2 {
   address: string;
   photoURL: string[] | string;
   userCurrentStatus: string;
+  isCanPayment: boolean;
   isRegistrationMyId: boolean;
   isRegistrationContract: boolean;
   userContractId: number;
   isContracted: boolean;
   videoContentId: any;
-  signatureId: any;
-  contractStatus: any;
-  startDate: any;
-  finishDate: any;
+  signatureId: number;
+  contractStatus: string;
+  startDate: string;
+  finishDate: string;
   userTariffPermissions: UserTariffPermission[];
   userProjectPermissions: UserProjectPermission[];
   userRolePermissions: RolePermission[];
@@ -192,6 +193,12 @@ export interface IParams {
 export interface IOneAgentParams {
   callback: () => void;
   userId: number;
+}
+
+export interface IUpdateCanPaymentAgentPayload {
+  callback: () => void;
+  userId: number;
+  canPayment: boolean;
 }
 
 export interface IRejectParam {

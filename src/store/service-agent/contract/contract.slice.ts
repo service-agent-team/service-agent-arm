@@ -12,6 +12,7 @@ import {
   getAllUsers,
   getOneAgent,
   rejectAgnet,
+  updateCanPaymentAgent,
 } from './contract.action';
 import { IAgentUserStatusType, InitialState } from './contract.interface';
 
@@ -51,6 +52,9 @@ export const contractSlice = createSlice({
     },
     setAgentProjectPermissions: (state, { payload }) => {
       if (state.agent) state.agent.userProjectPermissions = payload;
+    },
+    setAgentCanPayment: (state, { payload }) => {
+      if (state.agent) state.agent.isCanPayment = payload;
     },
   },
   extraReducers: (builder) => {
@@ -103,6 +107,18 @@ export const contractSlice = createSlice({
       })
       .addCase(getOneAgent.rejected, (state, { payload }) => {
         state.loading.get = false;
+        state.error = payload;
+      })
+      .addCase(updateCanPaymentAgent.pending, (state) => {
+        state.loading.put = true;
+        state.error = null;
+      })
+      .addCase(updateCanPaymentAgent.fulfilled, (state) => {
+        state.loading.put = false;
+        state.error = null;
+      })
+      .addCase(updateCanPaymentAgent.rejected, (state, { payload }) => {
+        state.loading.put = false;
         state.error = payload;
       })
       // agent role permissions

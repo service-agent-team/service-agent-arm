@@ -18,7 +18,7 @@ export const utils = () => {
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
   const {
-    getOneLetsTripTour,
+    getOneRawLetsTripTour,
     deleteLetsTripGroupTour,
     setLetsTripGroupTour,
     setLetsTripActiveGroupTour,
@@ -223,7 +223,7 @@ export const utils = () => {
                   type="primary"
                   key={1}
                   onClick={() =>
-                    getOneLetsTripTour({
+                    getOneRawLetsTripTour({
                       callback() {
                         navigate(`${ROUTES.letsTripGroupTour}/edit/${record.tourId}`);
                       },

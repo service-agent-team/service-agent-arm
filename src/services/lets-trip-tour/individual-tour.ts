@@ -12,8 +12,52 @@ export const LetsTripIndividualTourService = {
     const response = await $axios.get(`${EndPointes.letsTripIndividualTour.getOne}${id}`);
     return response;
   },
+  async getOneRaw(id: string) {
+    const response = await $axios.get(`${EndPointes.letsTripIndividualTour.getOne}raw/${id}`);
+    return response;
+  },
   async create(body: any) {
     const response = await $axios.post(EndPointes.letsTripIndividualTour.create, body);
+    return response;
+  },
+  async addImage(tourId: number, body: { images: string[] }) {
+    const response = await $axios.patch(
+      `${EndPointes.letsTripIndividualTour.getAll}/${tourId}/add/image`,
+      body,
+    );
+    return response;
+  },
+  async removeImage(tourId: number, body: { images: string[] }) {
+    const response = await $axios.patch(
+      `${EndPointes.letsTripIndividualTour.getAll}${tourId}/delete/image`,
+      body,
+    );
+    return response;
+  },
+  async addPrice(tourId: number, body: any) {
+    const response = await $axios.patch(
+      `${EndPointes.letsTripIndividualTour.getAll}${tourId}/add/tour-price`,
+      body,
+    );
+    return response;
+  },
+  async removePrice(tourId: number, tourPriceId: number) {
+    const response = await $axios.delete(
+      `${EndPointes.letsTripIndividualTour.getAll}${tourId}/remove/tour-price/${tourPriceId}`,
+    );
+    return response;
+  },
+  async addItenarary(tourId: number, body: any) {
+    const response = await $axios.patch(
+      `${EndPointes.letsTripIndividualTour.getAll}${tourId}/add/tour-itenarary`,
+      body,
+    );
+    return response;
+  },
+  async removeItenarary(tourId: number, tourItenararyItemId: number) {
+    const response = await $axios.delete(
+      `${EndPointes.letsTripIndividualTour.getAll}${tourId}/remove/tour-itenarary/${tourItenararyItemId}`,
+    );
     return response;
   },
   async delete(id: string) {

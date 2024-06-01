@@ -1,4 +1,4 @@
-import { PageTitle, UserPermissionForm } from '@/components';
+import { PageTitle, PermisionsForm } from '@/components';
 import { ROUTES } from '@/constants';
 
 export const UserPermissionCreate = () => {
@@ -11,7 +11,7 @@ export const UserPermissionCreate = () => {
         route={ROUTES.userPermission}
       />
 
-      <UserPermissionForm type="create" />
+      <PermisionsForm type="create" />
     </>
   );
 };

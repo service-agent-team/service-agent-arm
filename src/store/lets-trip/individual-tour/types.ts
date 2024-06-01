@@ -6,6 +6,7 @@ export interface ILetsTripIndividualTourInitialState {
     delete: boolean;
   };
   individualTours: ILetsTripIndividualTour[] | null;
+  individualTourRaw: ILetsTripIndividualTour | null;
   individualTour: ILetsTripIndividualTourGetOne | null;
   activeIndividualTours: ILetsTripIndividualTour[] | null;
   deleted: boolean;
@@ -57,6 +58,43 @@ export interface ILetsTripIndividualTourGetOnePayload {
   id: string;
 }
 
+export interface ILetsTripIndividualTourImagePayload {
+  tourId: number;
+  images: string[];
+  callback(): void;
+}
+
+export interface ILetsTripIndividualAddPricePayload {
+  callback(): void;
+  tourId: number;
+  price: number;
+  upToPersons: number;
+  description: Description;
+}
+
+export interface ILetsTripIndividualRemovePricePayload {
+  callback(): void;
+  tourId: number;
+  tourPriceId: number;
+}
+
+export interface ILetsTripIndividualAddItenararyPayload {
+  callback(): void;
+  tourId: number;
+  body: {
+    imageUrl: string;
+    description: Description[];
+    hour: string;
+    title: Title;
+  };
+}
+
+export interface ILetsTripIndividualRemoveItenararyPayload {
+  callback(): void;
+  tourId: number;
+  tourItenararyItemId: number;
+}
+
 export interface ILetsTripGIndividualTourCreatePayload {
   callback(): void;
   duration: Duration;
@@ -87,6 +125,7 @@ export interface TourItenarary {
   imageUrl: string;
   description: Description[];
   title: Title;
+  hour: string;
 }
 
 export interface Description {
@@ -127,6 +166,7 @@ export interface Description3 {
 }
 
 export interface PriceNote {
+  id?: number;
   ru: string;
   en: string;
 }
