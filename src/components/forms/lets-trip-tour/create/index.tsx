@@ -971,60 +971,6 @@ export const LestTripTourCreateForm: React.FC = () => {
             </div>
           )}
         </BaseForm.List>
-        {/* <BaseForm.List name="locations">
-          {(fields, { add, remove }) => (
-            <div>
-              {fields.map((field) => (
-                <div key={field.key}>
-                  <Flex gap={'15px'} align="center" wrap="nowrap">
-                    <BaseForm.Item
-                      style={{ width: '100%' }}
-                      name={[field.key, 'lng']}
-                      label={'longitude'}
-                      rules={[{ required: true, message: 'longitude is required?' }]}
-                    >
-                      <InputNumber
-                        style={{ width: '100%' }}
-                        width={'100%'}
-                        type="number"
-                        placeholder="Enter a longitude ?"
-                      />
-                    </BaseForm.Item>
-                    <BaseForm.Item
-                      style={{ width: '100%' }}
-                      name={[field.key, 'lat']}
-                      label={'latitude'}
-                      rules={[{ required: true, message: 'latitude is required?' }]}
-                    >
-                      <InputNumber
-                        style={{ width: '100%' }}
-                        width={'100%'}
-                        type="number"
-                        placeholder="Enter a latitude ?"
-                      />
-                    </BaseForm.Item>
-                    <Icon
-                      name="CloseOutlined"
-                      onClick={() => {
-                        remove(field.name);
-                      }}
-                    />
-                  </Flex>
-                </div>
-              ))}
-              <BaseForm.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<Icon name="PlusOutlined" />}
-                >
-                  add tour locations ({fields.length}) {fields.length ? '✅' : '❌'}
-                </Button>
-              </BaseForm.Item>
-            </div>
-          )}
-        </BaseForm.List> */}
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={{ width: '100%', height: '400px' }}
@@ -1042,7 +988,7 @@ export const LestTripTourCreateForm: React.FC = () => {
           </GoogleMap>
         ) : null}
         <PrimaryBtn style={{ marginTop: '15px' }} htmlType="submit" loading={post}>
-          create
+          Create
         </PrimaryBtn>
       </S.FormContent>
     </BaseForm>

@@ -11,6 +11,7 @@ import {
   IOneAgentResponse,
   IParams,
   IRejectParam,
+  IUpdateCanPaymentAgentPayload,
   IUser,
   IUserResponse,
 } from './contract.interface';
@@ -75,6 +76,22 @@ export const getOneAgent = createAsyncThunk<IOneAgentResponse, IOneAgentParams>(
     try {
       const response = await ContractService.getOneAgent(userId);
       if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      addNotification(error);
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const updateCanPaymentAgent = createAsyncThunk<any, IUpdateCanPaymentAgentPayload>(
+  'agent/updateCanPayment',
+  async ({ userId, canPayment, callback }, thunkApi) => {
+    try {
+      const response = await ContractService.updateCanPaymentAgent(userId, canPayment);
+      if (response.status) {
         callback();
       }
       return response.data;

@@ -1,4 +1,4 @@
-import { PageTitle, UserRoleForm } from '@/components';
+import { PageTitle, RoleForm } from '@/components';
 import { ROUTES } from '@/constants';
 
 export const UserRoleCreate = () => {
@@ -11,7 +11,7 @@ export const UserRoleCreate = () => {
         route={ROUTES.userRoles}
       />
 
-      <UserRoleForm type="create" />
+      <RoleForm type="create" />
     </>
   );
 };

@@ -28,6 +28,7 @@ import { LetsTripCountryReduce } from '../lets-trip/country/slice';
 import { LetsTripIndividualTourReduce } from '../lets-trip/individual-tour/slice';
 import { LetsTripCategoryReduce } from '../lets-trip/category/slice';
 import { LetsTripStatisticReduce } from '../lets-trip/statistic/slice';
+import { LetsTripTransferCategoryReduce } from '../lets-trip/transfer-category/slice';
 
 export const reducer = {
   app: appReducer,
@@ -58,6 +59,7 @@ export const reducer = {
   letsTripTour: LetsTripGroupTourReduce,
   letsTripIndividualTour: LetsTripIndividualTourReduce,
   letsTripTransfer: LetsTripTransferReduce,
+  letsTripTransferCategory: LetsTripTransferCategoryReduce,
   letsTripCountry: LetsTripCountryReduce,
   letsTripCategory: LetsTripCategoryReduce,
   letsTripStatistic: LetsTripStatisticReduce,

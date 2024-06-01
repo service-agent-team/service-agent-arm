@@ -5,8 +5,8 @@ export interface IValuesForm {
   nameEn: string;
   durationRu: string;
   durationEn: string;
-  priceNoteRu: string;
   priceNoteEn: string;
+  priceNoteRu: string;
   startingPrice: number;
   tourPrice: number;
   tourPriceUptoPersons: number;
@@ -43,9 +43,11 @@ interface TourItenarary {
   tourItenararyTitleEn: string;
   tourItenararyDescriptionRu: string;
   tourItenararyDescriptionEn: string;
+  tourItenararyHour: string;
 }
 
 interface TourPrices {
+  id?: number;
   tourPrice: number;
   tourPriceUptoPersons: number;
   tourPriceDescriptionRu: string;

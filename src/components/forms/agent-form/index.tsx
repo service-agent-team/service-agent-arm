@@ -43,6 +43,8 @@ export const AgentForm: React.FC<IProps> = ({
     agentAddPermissionToUserProject,
     setAgentProjectPermissions,
     agentRemoveProject,
+    updateCanPaymentAgent,
+    setAgentCanPayment,
   } = useActions();
 
   const { permissions } = useTypedSelector((state) => state.agentPermission);
@@ -350,6 +352,26 @@ export const AgentForm: React.FC<IProps> = ({
           rules={[{ type: 'boolean', message: 'field is required' }]}
         >
           <Switch defaultValue={false} />
+        </BaseForm.Item>
+        <BaseForm.Item
+          name="canPayment"
+          label={'Is Can Payment'}
+          hasFeedback
+          rules={[{ type: 'boolean', message: 'field is required' }]}
+        >
+          <Switch
+            onChange={() => {
+              updateCanPaymentAgent({
+                callback() {
+                  addNotification('can payment changed');
+                  setAgentCanPayment(!agent?.isCanPayment);
+                },
+                userId: agent?.userId as number,
+                canPayment: !agent?.isCanPayment,
+              });
+            }}
+            defaultValue={agent?.isCanPayment}
+          />
         </BaseForm.Item>
         {contractStatus !== 'SUCCESS' && (
           <S.CustomFlex gap="large" justify="space-around">

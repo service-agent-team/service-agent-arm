@@ -1,16 +1,14 @@
 import { UploadChangeParam } from 'antd/es/upload';
 
 export interface IValuesForm {
-  name: string;
-  categoryId: number;
-  companyId: number;
-  hourly: number;
-  transfer: number;
-  mediaLinks: UploadChangeParam;
-  currency: string;
-  releaseDate: string;
-  attributes: any;
-  countryCode: string;
+  nameEn: string;
+  nameRu: string;
+  nameUz: string;
+  carCategoryId: number;
+  pictures: UploadChangeParam;
+  pricePerKM: number;
+  hourlyPrice: number;
+  manufactureDate: string;
 }
 
 export interface IFileResponse {

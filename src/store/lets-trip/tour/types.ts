@@ -7,6 +7,7 @@ export interface ILetsTripGroupTourInitialState {
   };
   groupTours: ILetsTripGroupTour[] | null;
   groupTour: ILetsTripGroupTourGetOne | null;
+  groupTourRaw: ILetsTripGroupTour | null;
   activeTours: ILetsTripGroupTour[] | null;
   locations: Location2[];
   errors: unknown | string[] | string;
@@ -46,6 +47,7 @@ export interface ILetsTripGroupTourResponse {
 }
 
 export interface IGetOneLetsTripTourResponse extends ILetsTripGroupTourGetOne {}
+export interface IGetOneRawLetsTripTourResponse extends ILetsTripGroupTour {}
 
 export interface ILetsTripGroupTourCreateResponse extends ILetsTripGroupTour {}
 
@@ -76,22 +78,87 @@ export interface ILetsTripGroupTourCreatePayload {
   tourItenarary: TourItinerary[];
 }
 
+export interface UpdateByObject {
+  en: string;
+  ru: string;
+}
+
+export interface ILetsTripTourUpdateByObjectPayload extends UpdateByObject {
+  callback(): void;
+  id: number;
+}
+
+export interface ILetsTripGroupTourAddNewMonthPayload {
+  tourId: number;
+  availableDateItem: AvailableDate;
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourRemoveMonthPayload {
+  tourId: number;
+  availableDateItemId: number;
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourAddLocationPayload {
+  lng: number;
+  lat: number;
+  tourId: number;
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourRemoveLocationPayload {
+  tourId: number;
+  locationItemId: number;
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourImagePayload {
+  tourId: number;
+  images: string[];
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourOtherUpdatesPayload {
+  tourId: number;
+  startingPrice: number;
+  countryId: number;
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourAddExtraInfoPayload {
+  tourId: number;
+  en: En[];
+  ru: Ru[];
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourRemoveExtraInfoPayload {
+  tourId: number;
+  extraInfoId: number;
+  lang: string;
+  callback(): void;
+}
+
 export interface ILetsTripGroupTourDeletePayload {
   callback(): void;
   id: string;
 }
 
 export interface ExtraInformation {
+  id?: number;
   ru: Ru[];
   en: En[];
 }
 
 export interface Ru {
+  id?: number;
   title: string;
   value: string;
 }
 
 export interface En {
+  id?: number;
   title: string;
   value: string;
 }
@@ -100,6 +167,7 @@ export interface TourItinerary {
   id?: number;
   imageUrl: string;
   description: Description[];
+  descriptions?: Description[];
   title: Title;
   item_order: number;
 }
@@ -129,6 +197,7 @@ export interface Name {
 }
 
 export interface AvailableDate {
+  id?: number;
   month: number;
   year: number;
   departures: Departure[];
@@ -171,6 +240,7 @@ export interface PriceNotIncludes {
 }
 
 export interface PriceNote {
+  id?: number;
   ru: string;
   en: string;
 }
@@ -246,6 +316,7 @@ export interface ExtraInformation2 {
 }
 
 export interface Location2 {
+  id?: number;
   lng: number;
   lat: number;
 }

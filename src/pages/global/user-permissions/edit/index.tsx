@@ -1,4 +1,4 @@
-import { PageTitle, UserPermissionForm } from '@/components';
+import { PageTitle, PermisionsForm } from '@/components';
 import { ROUTES } from '@/constants';
 
 export const UserPermissionEdit = () => {
@@ -10,7 +10,7 @@ export const UserPermissionEdit = () => {
         icon="RollbackOutlined"
         route={ROUTES.userPermission}
       />
-      <UserPermissionForm type="edit" />
+      <PermisionsForm type="edit" />
     </>
   );
 };

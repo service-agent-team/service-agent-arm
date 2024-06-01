@@ -18,7 +18,7 @@ export const utils = () => {
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
   const {
-    getOneLetsTripTour,
+    geOneRawLetsTripIndividualTour,
     deleteLetsTripIndividualTour,
     setLetsTripIndividualTour,
     setLetsTripActiveIndividualTour,
@@ -222,7 +222,7 @@ export const utils = () => {
                   type="primary"
                   key={1}
                   onClick={() =>
-                    getOneLetsTripTour({
+                    geOneRawLetsTripIndividualTour({
                       callback() {
                         navigate(`${ROUTES.letsTripIndividualTour}/edit/${record.id}`);
                       },

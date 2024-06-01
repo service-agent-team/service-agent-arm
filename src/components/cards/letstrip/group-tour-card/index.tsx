@@ -63,11 +63,9 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
             zoom={6}
             center={center}
           >
-            {data?.locations.map((location, idx) => (
-              <Marker key={idx} position={{ lat: location.lng, lng: location.lat }} />
-            ))}
+            {data?.locations.map((location, idx) => <Marker key={idx} position={location} />)}
             <Polyline
-              path={data?.locations.map((location) => ({ lat: location.lng, lng: location.lat }))}
+              path={data?.locations.map((location) => location)}
               options={{ strokeColor: '#FF0000', strokeOpacity: 1.0, strokeWeight: 2 }}
             />
           </GoogleMap>

@@ -29,6 +29,10 @@ export const ContractService = {
     const response = await $axios.get(`${agent.contract.getOne}/${userId}`);
     return response;
   },
+  async updateCanPaymentAgent(userId: number, canPayment: boolean) {
+    const response = await $axios.put(`${agent.contract.updateCanPayment}`, { userId, canPayment });
+    return response;
+  },
 
   // role permission
   async agentAddRole(userId: number, roleId: number) {

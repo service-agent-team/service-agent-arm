@@ -1,10 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ILetsTripGroupTourInitialState } from './types';
 import {
+  addExtraInfoLetsTripGroupTour,
+  addImageLetsTripGroupTour,
+  addLocationLetsTripGroupTour,
+  addNewDateLetsTripGroupTour,
   createLetsTripGroupTour,
+  deleteImageLetsTripGroupTour,
   deleteLetsTripGroupTour,
   getAllLetsTripGroupTour,
   getOneLetsTripTour,
+  getOneRawLetsTripTour,
+  otherUpdatesLetsTripGroupTour,
+  removeDateLetsTripGroupTour,
+  removeExtraInfoLetsTripGroupTour,
+  removeLocationLetsTripGroupTour,
+  updateByObjectLetsTripGroupTour,
 } from './actions';
 
 const initialState: ILetsTripGroupTourInitialState = {
@@ -16,6 +27,7 @@ const initialState: ILetsTripGroupTourInitialState = {
   },
   groupTours: null,
   groupTour: null,
+  groupTourRaw: null,
   activeTours: null,
   locations: [],
   errors: null,
@@ -36,6 +48,9 @@ export const letsTripGroupTourSlice = createSlice({
       state.deleted = payload;
     },
     setLetsTripGroupTourLocations: (state, { payload }) => {
+      state.locations = payload;
+    },
+    setLetsTripGroupTourRaw: (state, { payload }) => {
       state.locations = payload;
     },
   },
@@ -68,6 +83,109 @@ export const letsTripGroupTourSlice = createSlice({
         state.loading.get = false;
         state.errors = payload;
       })
+      .addCase(getOneRawLetsTripTour.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneRawLetsTripTour.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(getOneRawLetsTripTour.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(updateByObjectLetsTripGroupTour.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(updateByObjectLetsTripGroupTour.fulfilled, (state) => {
+        state.loading.post = false;
+        state.errors = null;
+      })
+      .addCase(updateByObjectLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(addNewDateLetsTripGroupTour.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(addNewDateLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(addNewDateLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
+      .addCase(removeDateLetsTripGroupTour.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(removeDateLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(removeDateLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
+      .addCase(addLocationLetsTripGroupTour.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(addLocationLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(addLocationLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(removeLocationLetsTripGroupTour.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(removeLocationLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.delete = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(removeLocationLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.errors = payload;
+      })
+      .addCase(addImageLetsTripGroupTour.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(addImageLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(addImageLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
+      .addCase(deleteImageLetsTripGroupTour.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(deleteImageLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(deleteImageLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
       .addCase(createLetsTripGroupTour.pending, (state) => {
         state.loading.post = true;
         state.errors = null;
@@ -79,6 +197,45 @@ export const letsTripGroupTourSlice = createSlice({
       })
       .addCase(createLetsTripGroupTour.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(otherUpdatesLetsTripGroupTour.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(otherUpdatesLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(otherUpdatesLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
+      .addCase(addExtraInfoLetsTripGroupTour.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(addExtraInfoLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(addExtraInfoLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(removeExtraInfoLetsTripGroupTour.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(removeExtraInfoLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.delete = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(removeExtraInfoLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.delete = false;
         state.errors = payload;
       })
       .addCase(deleteLetsTripGroupTour.pending, (state) => {

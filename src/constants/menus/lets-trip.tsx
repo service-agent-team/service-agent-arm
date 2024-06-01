@@ -32,6 +32,11 @@ export const letsTrip = [
     key: ROUTES.letsTripTransfer,
     label: 'Transfers',
   },
+  {
+    icon: 'CarOutlined',
+    key: ROUTES.letsTripTransferCategory,
+    label: 'Transfer Category',
+  },
   // {
   //   icon: 'DiffOutlined',
   //   key: ROUTES.letsTripEsimGo,

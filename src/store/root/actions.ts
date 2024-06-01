@@ -54,6 +54,8 @@ import * as LetsTripIndividualTourActions from '../lets-trip/individual-tour/act
 import { LetsTripIndividualTourSliceActions } from '../lets-trip/individual-tour/slice';
 import * as LetsTripTransferReduce from '../lets-trip/transfer/actions';
 import { LetsTripTransferSliceActions } from '../lets-trip/transfer/slice';
+import * as LetsTripTransferCategoryReduce from '../lets-trip/transfer-category/actions';
+import { LetsTripTransferCategorySliceActions } from '../lets-trip/transfer-category/slice';
 import * as LetsTripCountryReduce from '../lets-trip/country/actions';
 import { LetsTripCountrySliceActions } from '../lets-trip/country/slice';
 import * as LetsTripCategoryReduce from '../lets-trip/category/actions';
@@ -119,6 +121,8 @@ export const AllActions = {
   ...LetsTripIndividualTourSliceActions,
   ...LetsTripTransferReduce,
   ...LetsTripTransferSliceActions,
+  ...LetsTripTransferCategoryReduce,
+  ...LetsTripTransferCategorySliceActions,
   ...LetsTripCountryReduce,
   ...LetsTripCountrySliceActions,
   ...LetsTripCategoryReduce,
