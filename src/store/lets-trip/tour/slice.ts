@@ -3,6 +3,7 @@ import { ILetsTripGroupTourInitialState } from './types';
 import {
   addExtraInfoLetsTripGroupTour,
   addImageLetsTripGroupTour,
+  addItenararyLetsTripGroupTour,
   addLocationLetsTripGroupTour,
   addNewDateLetsTripGroupTour,
   createLetsTripGroupTour,
@@ -14,6 +15,7 @@ import {
   otherUpdatesLetsTripGroupTour,
   removeDateLetsTripGroupTour,
   removeExtraInfoLetsTripGroupTour,
+  removeItenararyLetsTripGroupTour,
   removeLocationLetsTripGroupTour,
   updateByObjectLetsTripGroupTour,
 } from './actions';
@@ -235,6 +237,32 @@ export const letsTripGroupTourSlice = createSlice({
         state.errors = null;
       })
       .addCase(removeExtraInfoLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.errors = payload;
+      })
+      .addCase(addItenararyLetsTripGroupTour.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(addItenararyLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.delete = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(addItenararyLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.errors = payload;
+      })
+      .addCase(removeItenararyLetsTripGroupTour.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(removeItenararyLetsTripGroupTour.fulfilled, (state, { payload }) => {
+        state.loading.delete = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(removeItenararyLetsTripGroupTour.rejected, (state, { payload }) => {
         state.loading.delete = false;
         state.errors = payload;
       })

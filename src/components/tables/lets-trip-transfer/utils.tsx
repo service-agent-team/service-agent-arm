@@ -44,39 +44,25 @@ export const utils = () => {
       title: 'Car Name',
       dataIndex: ['name', 'en'],
       key: 'name',
-      width: '25%',
+      width: '20%',
     },
     {
       title: 'Car Category',
       dataIndex: ['category', 'name', 'en'],
       key: 'category',
-      width: '25%',
+      width: '20%',
     },
     {
       title: 'Price Per (KM)',
       dataIndex: 'pricePerKM',
       key: 'pricePerKM',
-      width: '25%',
+      width: '15%',
     },
     {
       title: 'Hourly Price (Hour)',
       dataIndex: 'hourlyPrice',
       key: 'hourlyPrice',
-      width: '20%',
-    },
-    {
-      title: 'Manufacture Date',
-      dataIndex: 'manufactureDate',
-      key: 'manufactureDate',
-      width: '20%',
-    },
-    {
-      title: 'Active',
-      dataIndex: 'deleted',
-      key: 'deleted',
-      width: '5%',
-      render: (value) =>
-        value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
+      width: '10%',
     },
     {
       title: 'Created At Date',
@@ -86,6 +72,20 @@ export const utils = () => {
       render: (date) => {
         return dateParser(date);
       },
+    },
+    {
+      title: 'Manufacture Date',
+      dataIndex: 'manufactureDate',
+      key: 'manufactureDate',
+      width: '25%',
+    },
+    {
+      title: 'Active',
+      dataIndex: 'deleted',
+      key: 'deleted',
+      width: '5%',
+      render: (value) =>
+        value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
     },
     {
       title: 'View',

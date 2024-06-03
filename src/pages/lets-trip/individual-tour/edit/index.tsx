@@ -9,7 +9,7 @@ export const LetsTripIndividualTourEdit = () => {
       <PageTitle
         title="Edit Individual Tour"
         icon="ArrowLeftOutlined"
-        route={ROUTES.letsTripIndividualTourEdit}
+        route={ROUTES.letsTripIndividualTour}
         label="Back"
       />
       <LestTripIndividualTourEditForm />

@@ -140,6 +140,23 @@ export interface ILetsTripGroupTourRemoveExtraInfoPayload {
   callback(): void;
 }
 
+export interface ILetsTripGroupTourAddItenararyPayload {
+  tourId: number;
+  body: {
+    imageUrl: string;
+    description: Description[];
+    title: Title;
+    item_order: number;
+  };
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourRemoveItenararyPayload {
+  tourId: number;
+  tourItenararyItemId: number;
+  callback(): void;
+}
+
 export interface ILetsTripGroupTourDeletePayload {
   callback(): void;
   id: string;

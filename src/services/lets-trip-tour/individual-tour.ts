@@ -22,7 +22,7 @@ export const LetsTripIndividualTourService = {
   },
   async addImage(tourId: number, body: { images: string[] }) {
     const response = await $axios.patch(
-      `${EndPointes.letsTripIndividualTour.getAll}/${tourId}/add/image`,
+      `${EndPointes.letsTripIndividualTour.getAll}${tourId}/add/image`,
       body,
     );
     return response;
@@ -57,6 +57,13 @@ export const LetsTripIndividualTourService = {
   async removeItenarary(tourId: number, tourItenararyItemId: number) {
     const response = await $axios.delete(
       `${EndPointes.letsTripIndividualTour.getAll}${tourId}/remove/tour-itenarary/${tourItenararyItemId}`,
+    );
+    return response;
+  },
+  async otherUpdates(tourId: number, body: any) {
+    const response = await $axios.patch(
+      `${EndPointes.letsTripIndividualTour.getAll}update/${tourId}`,
+      body,
     );
     return response;
   },

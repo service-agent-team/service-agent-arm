@@ -38,6 +38,7 @@ export interface Id {
 }
 
 interface TourItenarary {
+  id?: number;
   tourItenararyImgUrl: UploadChangeParam;
   tourItenararyTitleRu: string;
   tourItenararyTitleEn: string;

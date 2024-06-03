@@ -23,7 +23,6 @@ import { dateFormatDayJs } from '@/common/utils/format';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
-import { AvailableDate, ExtraInformation } from '@/store/lets-trip/tour/types';
 import { useNavigate } from 'react-router-dom';
 
 export const LestTripTourEditForm: React.FC = () => {
@@ -48,6 +47,8 @@ export const LestTripTourEditForm: React.FC = () => {
     otherUpdatesLetsTripGroupTour,
     addExtraInfoLetsTripGroupTour,
     removeExtraInfoLetsTripGroupTour,
+    addItenararyLetsTripGroupTour,
+    removeItenararyLetsTripGroupTour,
   } = useActions();
   const [fileList, setFileList] = useState<UploadFile[]>(
     groupTourRaw?.images.map((el) => ({ uid: el, name: el, url: el, status: 'done' })) || [],
@@ -123,6 +124,7 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('name changed');
+            navigate(ROUTES.letsTripGroupTour);
           },
           en: nameEn,
           ru: nameRu,
@@ -133,6 +135,7 @@ export const LestTripTourEditForm: React.FC = () => {
         otherUpdatesLetsTripGroupTour({
           callback() {
             addNotification('country and starting price changed');
+            navigate(ROUTES.letsTripGroupTour);
           },
           tourId: groupTourRaw.tourId as number,
           countryId: countryId as number,
@@ -146,6 +149,7 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('description changed');
+            navigate(ROUTES.letsTripGroupTour);
           },
           en: descriptionEn,
           ru: descriptionRu,
@@ -156,6 +160,7 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('price note changed');
+            navigate(ROUTES.letsTripGroupTour);
           },
           en: priceNoteEn,
           ru: priceNoteRu,
@@ -169,6 +174,7 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('price includes changed');
+            navigate(ROUTES.letsTripGroupTour);
           },
           en: priceIncludeEn,
           ru: priceIncludeRu,
@@ -182,22 +188,42 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('price not includes changed');
+            navigate(ROUTES.letsTripGroupTour);
           },
           en: priceNotIncludeEn,
           ru: priceNotIncludeRu,
           id: groupTourRaw.priceNotIncludes.id as number,
         });
       }
-      // tourItenarary.map((el, i) => {
-      //   updateByObjectLetsTripGroupTour({
-      //     callback() {
-      //       addNotification('itenarary title changed');
-      //     },
-      //     en: el.itineraryTitleEn,
-      //     ru: el.itineraryTitleRu,
-      //     id: groupTourRaw.tourItenarary[i].id as number,
-      //   });
-      // });
+      tourItenarary.filter((el) => {
+        if (!el.id) {
+          return addItenararyLetsTripGroupTour({
+            callback() {
+              addNotification('add tour itenarary');
+              navigate(ROUTES.letsTripGroupTour);
+            },
+            tourId: groupTourRaw.tourId,
+            body: {
+              title: {
+                en: el.itineraryTitleEn,
+                ru: el.itineraryTitleRu,
+              },
+              description: el?.description?.map((desc) => ({
+                item_order: desc.itineraryItemDescOrder,
+                hour: desc.itineraryHour,
+                items: [
+                  {
+                    en: desc.itineraryDescEn,
+                    ru: desc.itineraryDescRu,
+                  },
+                ],
+              })),
+              item_order: el.itineraryItemOrder,
+              imageUrl: `${FILE_URL}/${el.itineraryImgUrl?.file?.response?.ids[0]?.id}`,
+            },
+          });
+        }
+      });
 
       availableDate.splice(groupTourRaw.availableDate.length).map((el) => {
         const formatMonth = +dateFormatDayJs(el.month, 'M');
@@ -206,6 +232,7 @@ export const LestTripTourEditForm: React.FC = () => {
         addNewDateLetsTripGroupTour({
           callback() {
             addNotification('available date added');
+            navigate(ROUTES.letsTripGroupTour);
           },
           tourId: groupTourRaw.tourId,
           availableDateItem: {
@@ -233,27 +260,21 @@ export const LestTripTourEditForm: React.FC = () => {
           callback() {
             addNotification('group tour images added');
             navigate(ROUTES.letsTripGroupTour);
-            setFileList(
-              groupTourRaw?.images.map((el) => ({ uid: el, name: el, status: 'done', url: el })),
-            );
           },
           tourId: groupTourRaw.tourId as number,
           images: newImages,
         });
       }
 
-      const filterEnglishInfo = !groupTourRaw.extraInformation.en.length
-        ? extraInformation[0]?.en.filter((item: any) => !item.id)
-        : extraInformation[0]?.en;
+      const filterEnglishInfo = extraInformation[0]?.en.filter((item: any) => !item.id);
 
-      const filterRussianInfo = !groupTourRaw.extraInformation.en.length
-        ? extraInformation[0]?.ru.filter((item: any) => !item.id)
-        : extraInformation[0]?.ru;
+      const filterRussianInfo = extraInformation[0]?.ru.filter((item: any) => !item.id);
 
       if (filterEnglishInfo.length || filterRussianInfo.length) {
         addExtraInfoLetsTripGroupTour({
           callback() {
             addNotification('successfully added extra info');
+            navigate(ROUTES.letsTripGroupTour);
           },
           tourId: groupTourRaw.tourId,
           en: filterEnglishInfo,
@@ -264,7 +285,7 @@ export const LestTripTourEditForm: React.FC = () => {
   };
 
   const handleAvailableDateDelete = (field: any, remove: any) => {
-    const existDate = groupTourRaw?.availableDate[field.key];
+    const existDate = groupTourRaw?.availableDate[field.name];
     if (existDate) {
       modal.confirm({
         okText: 'Delete',
@@ -284,7 +305,7 @@ export const LestTripTourEditForm: React.FC = () => {
   };
 
   const handleExtraInfoEnglishDelete = (subField: any, remove: any) => {
-    const existItem = groupTourRaw?.extraInformation.en[subField.key];
+    const existItem = groupTourRaw?.extraInformation.en[subField.name];
 
     if (existItem) {
       modal.confirm({
@@ -306,7 +327,7 @@ export const LestTripTourEditForm: React.FC = () => {
   };
 
   const handleExtraInfoRussianDelete = (subField: any, remove: any) => {
-    const existItem = groupTourRaw?.extraInformation.ru[subField.key];
+    const existItem = groupTourRaw?.extraInformation.ru[subField.name];
 
     if (existItem) {
       modal.confirm({
@@ -325,6 +346,27 @@ export const LestTripTourEditForm: React.FC = () => {
         },
       });
     } else remove(subField.name);
+  };
+
+  const handleItenararyDelete = (field: any, remove: any) => {
+    const existItem = groupTourRaw?.tourItenarary[field.name];
+
+    if (existItem) {
+      modal.confirm({
+        okText: 'Delete',
+        title: `You want to delete right ?`,
+        onOk: () => {
+          removeItenararyLetsTripGroupTour({
+            callback() {
+              addNotification('successfully deleted tour itenarary');
+              remove(field.name);
+            },
+            tourId: groupTourRaw?.tourId,
+            tourItenararyItemId: existItem?.id as number,
+          });
+        },
+      });
+    } else remove(field.name);
   };
 
   const selectOptionCountry = countries?.map((el) => ({
@@ -406,6 +448,7 @@ export const LestTripTourEditForm: React.FC = () => {
           })),
         })),
         tourItenarary: groupTourRaw?.tourItenarary.map((el) => ({
+          id: el.id,
           itineraryTitleEn: el.title.en,
           itineraryTitleRu: el.title.ru,
           itineraryItemOrder: el.item_order,
@@ -658,7 +701,8 @@ export const LestTripTourEditForm: React.FC = () => {
                     key={field.key}
                     extra={
                       <Icon
-                        name="CloseOutlined"
+                        color="red"
+                        name="DeleteOutlined"
                         onClick={() => {
                           if (groupTourRaw) {
                             handleAvailableDateDelete(field, remove);
@@ -826,9 +870,10 @@ export const LestTripTourEditForm: React.FC = () => {
                     key={field.key}
                     extra={
                       <Icon
-                        name="CloseOutlined"
+                        color="red"
+                        name="DeleteOutlined"
                         onClick={() => {
-                          remove(field.name);
+                          handleItenararyDelete(field, remove);
                         }}
                       />
                     }
@@ -1002,21 +1047,30 @@ export const LestTripTourEditForm: React.FC = () => {
                     <BaseForm.Item
                       name={[field.name, 'itineraryImgUrl']}
                       label={'itinerary image'}
-                      rules={[{ message: 'itinerary image is required?', type: 'object' }]}
+                      rules={[
+                        {
+                          required: groupTourRaw?.tourItenarary[field.name]?.imageUrl
+                            ? false
+                            : true,
+                          message: 'itinerary image is required?',
+                          type: 'object',
+                        },
+                      ]}
                     >
                       <Upload.Dragger
-                        key={field.key}
+                        key={field.name}
                         style={{ width: '100%' }}
                         listType="picture"
                         name="files"
                         multiple={false}
                         fileList={
-                          groupTourRaw
+                          groupTourRaw?.tourItenarary[field.name]?.imageUrl
                             ? [
                                 {
-                                  uid: groupTourRaw?.tourItenarary[field.key]?.imageUrl + field.key,
-                                  name: groupTourRaw?.tourItenarary[field.key]?.imageUrl,
-                                  url: groupTourRaw?.tourItenarary[field.key]?.imageUrl,
+                                  uid:
+                                    groupTourRaw?.tourItenarary[field.name]?.imageUrl + field.name,
+                                  name: groupTourRaw?.tourItenarary[field.name]?.imageUrl,
+                                  url: groupTourRaw?.tourItenarary[field.name]?.imageUrl,
                                   status: 'done',
                                 },
                               ]
@@ -1027,8 +1081,16 @@ export const LestTripTourEditForm: React.FC = () => {
                         beforeUpload={(file) => file.type.split('/')[0] === 'image'}
                         action={`${BASE_URL}/api/file`}
                       >
-                        <Icon fontSize="20" color="blue" name="InboxOutlined" />
-                        <div style={{ marginTop: 8 }}>
+                        <div
+                          style={{
+                            marginTop: 8,
+                            display: groupTourRaw?.tourItenarary[field.name]?.imageUrl
+                              ? 'none'
+                              : 'block',
+                          }}
+                        >
+                          <Icon fontSize="20" color="blue" name="InboxOutlined" />
+                          <br />
                           Click or drag file to this area to upload
                         </div>
                         {previewImage && (
@@ -1095,6 +1157,7 @@ export const LestTripTourEditForm: React.FC = () => {
                       <BaseForm.List
                         name={[field.name, 'en']}
                         initialValue={groupTourRaw?.extraInformation.en.map((el) => ({
+                          id: el.id,
                           value: el.value,
                           title: el.title,
                         }))}
@@ -1118,7 +1181,8 @@ export const LestTripTourEditForm: React.FC = () => {
                                   <Input placeholder="value" />
                                 </BaseForm.Item>
                                 <Icon
-                                  name="CloseOutlined"
+                                  color="red"
+                                  name="DeleteOutlined"
                                   onClick={() => {
                                     if (groupTourRaw?.extraInformation.en.length) {
                                       handleExtraInfoEnglishDelete(subField, subOpt.remove);
@@ -1164,6 +1228,7 @@ export const LestTripTourEditForm: React.FC = () => {
                       <BaseForm.List
                         name={[field.name, 'ru']}
                         initialValue={groupTourRaw?.extraInformation.ru.map((el) => ({
+                          id: el.id,
                           value: el.value,
                           title: el.title,
                         }))}
@@ -1187,7 +1252,8 @@ export const LestTripTourEditForm: React.FC = () => {
                                   <Input placeholder="value" />
                                 </BaseForm.Item>
                                 <Icon
-                                  name="CloseOutlined"
+                                  color="red"
+                                  name="DeleteOutlined"
                                   onClick={() => {
                                     if (groupTourRaw?.extraInformation.ru.length) {
                                       handleExtraInfoRussianDelete(subField, subOpt.remove);

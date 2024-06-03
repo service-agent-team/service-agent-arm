@@ -95,6 +95,16 @@ export interface ILetsTripIndividualRemoveItenararyPayload {
   tourItenararyItemId: number;
 }
 
+export interface ILetsTripIndividualOtherUpdatesPayload {
+  callback(): void;
+  tourId: number;
+  body: {
+    startingPrice: number;
+    countryId: number;
+    videoUrl: string;
+  };
+}
+
 export interface ILetsTripGIndividualTourCreatePayload {
   callback(): void;
   duration: Duration;
