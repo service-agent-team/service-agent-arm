@@ -119,7 +119,7 @@ export const utils = () => {
       title: 'Id',
       dataIndex: 'userId',
       key: 'userId',
-      width: '10%',
+      width: '4%',
       sorter: (a, b) => a.userId - b.userId,
       sortDirections: ['descend', 'ascend'],
     },
@@ -127,33 +127,33 @@ export const utils = () => {
       title: 'Name',
       dataIndex: 'firstName',
       key: 'name',
-      width: '20%',
+      width: '15%',
       ...getColumnSearchProps('firstName'),
     },
     {
       title: 'Last name',
       dataIndex: 'lastName',
       key: 'lastName',
-      width: '20%',
+      width: '15%',
       ...getColumnSearchProps('lastName'),
     },
     {
       title: 'City',
       dataIndex: 'city',
       key: 'city',
-      width: '15%',
+      width: '10%',
     },
     {
       title: 'Phone number',
       dataIndex: 'login',
       key: 'login',
-      width: '15%',
+      width: '10%',
     },
     {
       title: 'Role',
       dataIndex: 'userRolePermissions',
       key: 'userRolePermissions',
-      width: '15%',
+      width: '10%',
       render: (userRolePermissions) => (
         <Row style={{ gap: '4px' }}>
           {userRolePermissions.map((el: any) => {
@@ -170,7 +170,7 @@ export const utils = () => {
       title: 'Role Permissions',
       dataIndex: 'userRolePermissions',
       key: 'userRolePermissions',
-      width: '15%',
+      width: '10%',
       render: (userRolePermissions) => (
         <Row style={{ gap: '4px' }}>
           {userRolePermissions.map((el: any) =>
@@ -187,7 +187,7 @@ export const utils = () => {
       title: 'Project permissions',
       dataIndex: 'userProjectPermissions',
       key: 'userProjectPermissions',
-      width: '30%',
+      width: '20%',
       render: (userProjectPermissions) => (
         <Row style={{ gap: '4px' }}>
           {userProjectPermissions.map((el: any) => {

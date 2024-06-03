@@ -4,6 +4,7 @@ import {
   ILetsTripGIndividualTourCreatePayload,
   ILetsTripIndividualAddItenararyPayload,
   ILetsTripIndividualAddPricePayload,
+  ILetsTripIndividualOtherUpdatesPayload,
   ILetsTripIndividualRemoveItenararyPayload,
   ILetsTripIndividualRemovePricePayload,
   ILetsTripIndividualTour,
@@ -84,7 +85,7 @@ export const addImageLetsTripIndividualTour = createAsyncThunk<
   ILetsTripIndividualTour,
   ILetsTripIndividualTourImagePayload
 >(
-  EndPointes.letsTripIndividualTour.getAll + '/tourId/add/image',
+  EndPointes.letsTripIndividualTour.getAll + 'tourId/add/image',
   async ({ callback, tourId, images }, thunkApi) => {
     try {
       const response = await LetsTripIndividualTourService.addImage(tourId, { images });
@@ -185,6 +186,24 @@ export const removeItenararyLetsTripIndividualTour = createAsyncThunk<
         tourId,
         tourItenararyItemId,
       );
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const otherUpdatesLetsTripIndividualTour = createAsyncThunk<
+  ILetsTripIndividualTour,
+  ILetsTripIndividualOtherUpdatesPayload
+>(
+  EndPointes.letsTripIndividualTour.getAll + 'update/tourId',
+  async ({ callback, tourId, body }, thunkApi) => {
+    try {
+      const response = await LetsTripIndividualTourService.otherUpdates(tourId, body);
       if (response.data) {
         callback();
       }

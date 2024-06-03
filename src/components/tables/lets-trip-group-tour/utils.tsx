@@ -152,6 +152,7 @@ export const utils = () => {
       width: '4%',
       sorter: (a, b) => a.tourId - b.tourId,
       sortDirections: ['descend', 'ascend'],
+      render: (value) => value,
     },
     {
       title: 'Tour Name',

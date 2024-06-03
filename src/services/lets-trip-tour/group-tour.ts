@@ -85,6 +85,19 @@ export const LetsTripGroupTourService = {
     );
     return response;
   },
+  async addItenarary(tourId: number, body: any) {
+    const response = await $axios.post(
+      `${EndPointes.letsTripGroupTour.getAll}/${tourId}/add/tour-itenarary`,
+      body,
+    );
+    return response;
+  },
+  async removeItenarary(tourId: number, tourItenararyItemId: number) {
+    const response = await $axios.delete(
+      `${EndPointes.letsTripGroupTour.getAll}/${tourId}/remove/tour-itenarary/${tourItenararyItemId}`,
+    );
+    return response;
+  },
   async delete(id: string) {
     const response = await $axios.delete(EndPointes.letsTripGroupTour.delete + id);
     return response;

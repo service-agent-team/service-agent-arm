@@ -20,6 +20,8 @@ import {
   ILetsTripGroupTourOtherUpdatesPayload,
   ILetsTripGroupTourAddExtraInfoPayload,
   ILetsTripGroupTourRemoveExtraInfoPayload,
+  ILetsTripGroupTourAddItenararyPayload,
+  ILetsTripGroupTourRemoveItenararyPayload,
 } from './types';
 import { LetsTripGroupTourService } from '@/services';
 
@@ -259,6 +261,42 @@ export const removeExtraInfoLetsTripGroupTour = createAsyncThunk<
   async ({ callback, tourId, extraInfoId, lang }, thunkApi) => {
     try {
       const response = await LetsTripGroupTourService.removeExtraInfo(tourId, extraInfoId, lang);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const addItenararyLetsTripGroupTour = createAsyncThunk<
+  IGetOneRawLetsTripTourResponse,
+  ILetsTripGroupTourAddItenararyPayload
+>(
+  EndPointes.letsTripGroupTour.getAll + '/tourId/add/itenarary',
+  async ({ callback, tourId, body }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.addItenarary(tourId, body);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const removeItenararyLetsTripGroupTour = createAsyncThunk<
+  IGetOneRawLetsTripTourResponse,
+  ILetsTripGroupTourRemoveItenararyPayload
+>(
+  EndPointes.letsTripGroupTour.getAll + '/tourId/remove/tour-itenarary/tourItenararyItemId',
+  async ({ callback, tourId, tourItenararyItemId }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.removeItenarary(tourId, tourItenararyItemId);
       if (response.data) {
         callback();
       }

@@ -42,6 +42,7 @@ interface Departures {
 }
 
 interface TourItinerary {
+  id?: number;
   itineraryTitleEn: string;
   itineraryTitleRu: string;
   description: [

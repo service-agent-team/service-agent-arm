@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { Id, IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
+import { useNavigate } from 'react-router-dom';
 
 export const LestTripIndividualTourEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -25,6 +26,7 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
     removePriceLetsTripIndividualTour,
     addItenararyLetsTripIndividualTour,
     removeItenararyLetsTripIndividualTour,
+    otherUpdatesLetsTripIndividualTour,
   } = useActions();
   const [fileList, setFileList] = useState<UploadFile[]>(
     individualTourRaw?.images.map((el) => ({ uid: el, name: el, url: el, status: 'done' })) || [],
@@ -44,6 +46,7 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
   );
   const [previewImage, setPreviewImage] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
+  const navigate = useNavigate();
 
   const onFinish = ({
     nameRu,
@@ -115,13 +118,23 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
         });
       }
 
-      // if (
-      //   startingPrice !== individualTourRaw.startingPrice ||
-      //   countryId !== individualTourRaw.country.id ||
-      //   videoUrl?.file?.url !== individualTourRaw.videoUrl
-      // ) {
-      //   console.log('changed');
-      // }
+      if (
+        startingPrice !== individualTourRaw.startingPrice ||
+        countryId !== individualTourRaw.country.id ||
+        (typeof videoUrl !== 'undefined' && videoUrl?.file?.url !== individualTourRaw.videoUrl)
+      ) {
+        otherUpdatesLetsTripIndividualTour({
+          callback() {
+            addNotification('country, starting price and video changed');
+          },
+          tourId: individualTourRaw?.id as number,
+          body: {
+            countryId: countryId as number,
+            startingPrice,
+            videoUrl: videoUrl?.file?.url || individualTourRaw.videoUrl,
+          },
+        });
+      }
 
       const newPrices = tourPrices?.filter((p) => !p?.id);
 
@@ -142,14 +155,50 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
         });
       }
 
-      // console.log(images);
-      // console.log(videoUrl);
-      // console.log(tourItenarary);
+      tourItenarary.filter((el) => {
+        if (!el.id) {
+          return addItenararyLetsTripIndividualTour({
+            callback() {
+              addNotification('tour itenarary added');
+              navigate(ROUTES.letsTripIndividualTour);
+            },
+            tourId: individualTourRaw.id,
+            body: {
+              hour: el.tourItenararyHour,
+              description: [
+                {
+                  en: el.tourItenararyDescriptionEn,
+                  ru: el.tourItenararyDescriptionRu,
+                },
+              ],
+              title: {
+                en: el.tourItenararyTitleEn,
+                ru: el.tourItenararyTitleRu,
+              },
+              imageUrl: `${FILE_URL}/${el.tourItenararyImgUrl?.file?.response?.ids[0]?.id}`,
+            },
+          });
+        }
+      });
+
+      const newImages = images?.fileList
+        .filter((el) => el.response)
+        .flatMap((el) => el.response.ids.map((file: Id) => `${FILE_URL}/${file.id}`));
+      if (newImages?.length) {
+        addImageLetsTripIndividualTour({
+          callback() {
+            addNotification('group tour images added');
+            navigate(ROUTES.letsTripGroupTour);
+          },
+          tourId: individualTourRaw.id as number,
+          images: newImages,
+        });
+      }
     }
   };
 
   const handlePriceDelete = (field: any, remove: any) => {
-    const existPrice = individualTourRaw?.tourPrices[field.key];
+    const existPrice = individualTourRaw?.tourPrices[field.name];
 
     if (existPrice) {
       modal.confirm({
@@ -170,7 +219,7 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
   };
 
   const handleItenararyDelete = (field: any, remove: any) => {
-    const existItenarary = individualTourRaw?.tourItenarary[field.key];
+    const existItenarary = individualTourRaw?.tourItenarary[field.name];
 
     if (existItenarary) {
       modal.confirm({
@@ -268,10 +317,12 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
           tourPriceDescriptionRu: el.description.ru,
         })),
         tourItenarary: individualTourRaw?.tourItenarary?.map((el) => ({
+          id: el.id,
           tourItenararyTitleEn: el.title.en,
           tourItenararyTitleRu: el.title.ru,
           tourItenararyDescriptionEn: el.description[0].en,
           tourItenararyDescriptionRu: el.description[0].ru,
+          tourItenararyHour: el.hour,
         })),
         descriptionEn: individualTourRaw?.description[0].en,
         descriptionRu: individualTourRaw?.description[0].ru,
@@ -464,9 +515,10 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
         </BaseForm.Item>
         <BaseForm.Item
           name="videoUrl"
-          label={'video'}
+          label={'tour video'}
           rules={[
             {
+              required: individualTourRaw?.videoUrl ? false : true,
               message: 'video is required?',
               type: 'object',
             },
@@ -481,9 +533,27 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
             onPreview={handlePreview3}
             beforeUpload={(file) => file.type.split('/')[0] === 'video'}
             action={`${BASE_URL}/api/file`}
+            // onRemove={(file) => {
+            //   if (individualTourRaw && file)
+            //     deleteImageLetsTripIndividualTour({
+            //       callback() {
+            //         addNotification('video removed');
+            //       },
+            //       tourId: individualTourRaw?.id,
+            //       images: [file.url as string],
+            //     });
+            // }}
           >
-            <Icon fontSize="20" color="blue" name="InboxOutlined" />
-            <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+            <div
+              style={{
+                marginTop: 8,
+                display: individualTourRaw?.videoUrl ? 'none' : 'block',
+              }}
+            >
+              <Icon fontSize="20" color="blue" name="InboxOutlined" />
+              <br />
+              Click or drag file to this area to upload
+            </div>
             {previewImage && (
               <Image
                 height={100}
@@ -505,10 +575,11 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
                 <Card
                   key={field.key}
                   size="small"
-                  title={`${field.key + 1}. individual tour itinerary`}
+                  title={`${field.name + 1}. individual tour itinerary`}
                   extra={
                     <Icon
-                      name="CloseOutlined"
+                      color="red"
+                      name="DeleteOutlined"
                       onClick={() => {
                         handleItenararyDelete(field, remove);
                       }}
@@ -544,6 +615,19 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
                         width={'100%'}
                         type="string"
                         placeholder="Enter a tour itenarary title russian ?"
+                      />
+                    </BaseForm.Item>
+                    <BaseForm.Item
+                      style={{ width: '100%' }}
+                      name={[field.name, 'tourItenararyHour']}
+                      label={'tour itenarary hour'}
+                      rules={[{ required: true, message: 'tour itenarary hour is required?' }]}
+                    >
+                      <Input
+                        style={{ width: '100%' }}
+                        width={'100%'}
+                        type="string"
+                        placeholder="Enter a tour itenarary hour ?"
                       />
                     </BaseForm.Item>
                   </Flex>
@@ -586,6 +670,9 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
                     label={'tour itenarary image'}
                     rules={[
                       {
+                        required: individualTourRaw?.tourItenarary[field.name]?.imageUrl
+                          ? false
+                          : true,
                         message: 'tour itenarary image is required?',
                         type: 'object',
                       },
@@ -597,7 +684,7 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
                       name="files"
                       multiple={false}
                       fileList={
-                        individualTourRaw
+                        individualTourRaw?.tourItenarary[field.name]?.imageUrl
                           ? [
                               {
                                 uid:
@@ -614,8 +701,18 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
                       beforeUpload={(file) => file.type.split('/')[0] === 'image'}
                       action={`${BASE_URL}/api/file`}
                     >
-                      <Icon fontSize="20" color="blue" name="InboxOutlined" />
-                      <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+                      <div
+                        style={{
+                          marginTop: 8,
+                          display: individualTourRaw?.tourItenarary[field.name]?.imageUrl
+                            ? 'none'
+                            : 'block',
+                        }}
+                      >
+                        <Icon fontSize="20" color="blue" name="InboxOutlined" />
+                        <br />
+                        Click or drag file to this area to upload
+                      </div>
                       {previewImage && (
                         <Image
                           height={100}
@@ -652,10 +749,11 @@ export const LestTripIndividualTourEditForm: React.FC = () => {
                 <Card
                   key={field.key}
                   size="small"
-                  title={`${field.key + 1}. individual tour price`}
+                  title={`${field.name + 1}. individual tour price`}
                   extra={
                     <Icon
-                      name="CloseOutlined"
+                      color="red"
+                      name="DeleteOutlined"
                       onClick={() => {
                         handlePriceDelete(field, remove);
                       }}
