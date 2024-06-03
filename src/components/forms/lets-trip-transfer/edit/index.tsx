@@ -50,7 +50,7 @@ export const LestTripTransferEditForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={() => {}}
       initialValues={{
-        carCategoryId: transfer?.category.id,
+        carCategoryId: { value: transfer?.category.id, label: transfer?.category.name.en },
         hourlyPrice: transfer?.hourlyPrice,
         pricePerKM: transfer?.pricePerKM,
         manufactureDate: dayjs(transfer?.manufactureDate),

@@ -199,8 +199,11 @@ export const utils = () => {
       key: 'view',
       width: '10%',
       render: (_, record: any) => {
+        const videoUrl = record.videoUrl.split('/');
         return (
-          <LinkButton path={`${ROUTES.letsTripIndividualTour}/view/${record.id}`}>
+          <LinkButton
+            path={`${ROUTES.letsTripIndividualTour}/view/${record.id}?video=${videoUrl[videoUrl.length - 1]}`}
+          >
             <EyeOutlined />
           </LinkButton>
         );

@@ -4,14 +4,17 @@ import { Card } from '@/components/common/card';
 import { H1 } from '@/components/common';
 import { Flex, List, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
-import { ROUTES } from '@/constants';
+import { FILE_URL, ROUTES } from '@/constants';
 import * as S from './styled';
+import { useSearchParams } from 'react-router-dom';
 
 export const LetsTripIndividualTourCard = ({
   data,
 }: {
   data: ILetsTripIndividualTourGetOne | null;
 }) => {
+  const [searchParams] = useSearchParams();
+
   return (
     <>
       <PageTitle
@@ -59,7 +62,11 @@ export const LetsTripIndividualTourCard = ({
         <Flex gap={30}>
           <Card width="100%">
             <S.VideoContainer width="100%" height="100vh" controls>
-              <source width="600px" src={`${data?.videoUrl}`} type="video/mp4" />
+              <source
+                width="600px"
+                src={`${FILE_URL}/${searchParams.get('video')}`}
+                type="video/mp4"
+              />
             </S.VideoContainer>
           </Card>
           <Card width="100%">
