@@ -400,6 +400,7 @@ export const LestTripTourCreateForm: React.FC = () => {
           <Upload.Dragger
             style={{ width: '100%' }}
             name="files"
+            listType="picture"
             multiple={true}
             fileList={fileList}
             onChange={handleChange}
@@ -784,6 +785,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                         key={field.key}
                         style={{ width: '100%' }}
                         name="files"
+                        listType="picture"
                         multiple={true}
                         fileList={fileList2}
                         onChange={handleChange2}
@@ -849,7 +851,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                       name={[field.name, 'EN']}
                       rules={[{ required: true, message: 'field required' }]}
                     >
-                      <Input />
+                      <Input disabled />
                     </BaseForm.Item>
                     <BaseForm.Item
                       label="ENGLISH"
@@ -910,7 +912,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                       name={[field.name, 'RU']}
                       rules={[{ required: true, message: 'field required' }]}
                     >
-                      <Input />
+                      <Input disabled />
                     </BaseForm.Item>
                     <BaseForm.Item
                       label="RUSSIAN"
