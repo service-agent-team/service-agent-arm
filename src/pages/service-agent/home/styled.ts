@@ -12,8 +12,8 @@ export const Block = styled.div`
   }
 
   canvas {
-    max-width: 750px !important;
-    max-height: 750px !important;
+    max-width: 100% !important;
+    max-height: 850px !important;
     width: 100% !important;
     height: 100% !important;
   }

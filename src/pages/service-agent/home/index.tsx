@@ -40,7 +40,7 @@ export const optionsSimCard = {
 };
 
 export const Home = () => {
-  const { getAgentOrdersStatis } = useActions();
+  // const { getAgentOrdersStatis } = useActions();
   // const { statistic } = useTypedSelector((state) => state.agentStatistic);
   const labels = [
     'January',
@@ -64,7 +64,7 @@ export const Home = () => {
     datasets: [
       {
         label: 'Agent',
-        data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 10],
+        data: [3, 5, 11, 21, 8, 9, 12, 14, 15, 14, 15, 10],
         backgroundColor: '#5800FF',
       },
     ],
@@ -93,12 +93,12 @@ export const Home = () => {
 
   useEffect(() => {
     // getAgentOrdersStatis({ start: '12.01.2024', end: '12.02.2024' });
-  }, [getAgentOrdersStatis]);
+  }, []);
 
   return (
     <S.Block>
-      <Bar options={options} data={data} />
-      <Doughnut options={optionsSimCard} data={dataSimCards} />
+      <Bar width={'100%'} options={options} data={data} />
+      {/* <Doughnut options={optionsSimCard} data={dataSimCards} /> */}
     </S.Block>
   );
 };
