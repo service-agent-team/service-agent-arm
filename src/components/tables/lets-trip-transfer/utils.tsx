@@ -53,10 +53,11 @@ export const utils = () => {
       width: '20%',
     },
     {
-      title: 'Price Per (KM)',
+      title: 'Per KM Price ($)',
       dataIndex: 'pricePerKM',
       key: 'pricePerKM',
       width: '15%',
+      render: (value: number) => value / 100 + ' $',
     },
     {
       title: 'Hourly Price ($)',

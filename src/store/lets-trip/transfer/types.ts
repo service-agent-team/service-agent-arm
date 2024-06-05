@@ -84,6 +84,12 @@ export interface ILetsTripTransferUpdatePayload {
   };
 }
 
+export interface ILetsTripTransferUpdateI18Payload {
+  callback(): void;
+  id: number;
+  body: Name;
+}
+
 export interface ILetsTripTransferDeletePayload {
   callback(): void;
   carId: number;

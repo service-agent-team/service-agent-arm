@@ -39,8 +39,8 @@ export const LestTripTransferCreateForm: React.FC = () => {
       body: {
         name: { en: nameEn, ru: nameRu, uz: nameUz },
         carCategoryId,
-        hourlyPrice,
-        pricePerKM,
+        hourlyPrice: hourlyPrice * 100,
+        pricePerKM: pricePerKM * 100,
         pictures: pictures.fileList
           .map((item: UploadFile) =>
             item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
@@ -79,7 +79,7 @@ export const LestTripTransferCreateForm: React.FC = () => {
   };
 
   useEffect(() => {
-    getAllLetsTripTransferCategory({ page: 0, size: 20, deleted: false, callback() {} });
+    getAllLetsTripTransferCategory({ page: 0, size: 20, deleted: false });
   }, []);
 
   return (

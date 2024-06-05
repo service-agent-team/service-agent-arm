@@ -216,6 +216,7 @@ export const EndPointes = {
     getByCategoryId: '/api/transfer/car/get-by-categoryId',
     create: '/api/transfer/car/create',
     update: '/api/transfer/car/update',
+    updateI18: '/api/transfer/update/i18',
     delete: '/api/transfer/car/delete',
   },
 

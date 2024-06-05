@@ -9,7 +9,9 @@ import {
   ILetsTripTransferGetOnePayload,
   ILetsTripTransferPayload,
   ILetsTripTransferResponse,
+  ILetsTripTransferUpdateI18Payload,
   ILetsTripTransferUpdatePayload,
+  Name,
 } from './types';
 import { LetsTripTransferCarService } from '@/services';
 
@@ -72,6 +74,21 @@ export const updateLetsTripTransfer = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const updateI18LetsTripTransfer = createAsyncThunk<any, ILetsTripTransferUpdateI18Payload>(
+  EndPointes.letsTripTransfer.updateI18 + '/id',
+  async ({ callback, id, body }, thunkApi) => {
+    try {
+      const response = await LetsTripTransferCarService.updateI18(id, body);
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
 
 export const deleteLetsTripTransfer = createAsyncThunk<any, ILetsTripTransferDeletePayload>(
   EndPointes.letsTripTransfer.delete,
