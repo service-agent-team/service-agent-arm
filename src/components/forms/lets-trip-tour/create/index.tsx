@@ -42,6 +42,7 @@ export const LestTripTourCreateForm: React.FC = () => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyALfqQ3ezC7K1GxmJ1e5EMqdQzrXdrDcdA',
+    libraries: ['places'],
   });
   const center = { lat: 41.875734, lng: 64.017636 };
 
@@ -431,7 +432,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                 <>
                   <Card
                     size="small"
-                    title={`${field.key + 1}. available date`}
+                    title={`${field.name + 1}. available date`}
                     key={field.key}
                     extra={
                       <Icon
@@ -483,7 +484,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                                 <Flex gap={'15px'}>
                                   <BaseForm.Item
                                     style={{ width: '100%' }}
-                                    name={[subField.key, 'transferTypeEn']}
+                                    name={[subField.name, 'transferTypeEn']}
                                     label={'transfer type english'}
                                     rules={[
                                       {
@@ -504,7 +505,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                                   </BaseForm.Item>
                                   <BaseForm.Item
                                     style={{ width: '100%' }}
-                                    name={[subField.key, 'transferTypeRu']}
+                                    name={[subField.name, 'transferTypeRu']}
                                     label={'transfer type russian'}
                                     rules={[
                                       {
@@ -526,7 +527,7 @@ export const LestTripTourCreateForm: React.FC = () => {
 
                                   <BaseForm.Item
                                     style={{ width: '100%' }}
-                                    name={[subField.key, 'price']}
+                                    name={[subField.name, 'price']}
                                     label={'available price'}
                                     rules={[
                                       { required: true, message: 'available price is required?' },
@@ -597,7 +598,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                 <>
                   <Card
                     size="small"
-                    title={`${field.key + 1}. tour itenarary`}
+                    title={`${field.name + 1}. tour itenarary`}
                     key={field.key}
                     extra={
                       <Icon

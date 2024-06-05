@@ -65,102 +65,108 @@ export const AgentForm: React.FC<IProps> = ({
         },
       });
     }
-    if (value.rolePerm) {
-      const [roleId, permissionId] = value.rolePerm.split('-');
-      const defaultRoleId = agent?.userRolePermissions[0]?.role?.roleId;
+    value.projectPerm.map((p) => {
+      const [projId, permId] = p.split('-');
 
-      if (defaultRoleId) {
-        agentRemoveRolePermission({
-          callback() {
-            agentRemoveRole({
-              callback() {
-                setAgentRolePermissions([]);
-                agentAddRole({
-                  callback() {
-                    agentAddRolePermission({
-                      callback() {
-                        addNotification('add role permission to agent');
-                        const role = roles?.find((role) => role.roleId === +roleId);
-                        const permission = rolePerms?.find(
-                          (perm) => perm.permissionId === +permissionId,
-                        );
-                        setAgentRolePermissions([{ role, permissions: [permission] }]);
-                      },
-                      userId: Number(id),
-                      roleId: +roleId,
-                      permissionId: +permissionId,
-                    });
-                  },
-                  userId: Number(id),
-                  roleId: +roleId,
-                });
-              },
-              userId: Number(id),
-              roleId: +defaultRoleId,
-            });
-          },
-          userId: Number(id),
-          roleId: +defaultRoleId,
-          permissionId: +permissionId,
-        });
-      } else {
-        agentAddRole({
-          callback() {
-            agentAddRolePermission({
-              callback() {
-                addNotification('add role permission to agent');
-                const role = roles?.find((role) => role.roleId === +roleId);
-                const permission = rolePerms?.find((perm) => perm.permissionId === +permissionId);
-                setAgentRolePermissions([{ role, permissions: [permission] }]);
-              },
-              userId: Number(id),
-              roleId: +roleId,
-              permissionId: +permissionId,
-            });
-          },
-          userId: Number(id),
-          roleId: +roleId,
-        });
-      }
-    }
-    if (value.projectPerm) {
-      value.projectPerm.map((el: string) => {
-        const [projectId, permissionId] = el.split('-');
+      const findPerm = agent?.userProjectPermissions.map((el) => el.project?.projectId);
+    });
 
-        const found = agent?.userProjectPermissions?.find(
-          (p) => p.project?.projectId === +projectId,
-        );
-        if (!found && agent && agentProjects) {
-          agentAddProjectToUser({
-            callback() {
-              setAgentProjectPermissions([
-                ...agent.userProjectPermissions,
-                { project: agentProjects.find((p) => p.projectId === +projectId), permissions: [] },
-              ]);
-              agentAddPermissionToUserProject({
-                callback() {
-                  addNotification('successfully add project permission');
-                },
-                userId: Number(id),
-                projectId: +projectId,
-                permissionId: +permissionId,
-              });
-            },
-            userId: Number(id),
-            projectId: +projectId,
-          });
-        } else {
-          agentAddPermissionToUserProject({
-            callback() {
-              addNotification('successfully add project permission');
-            },
-            userId: Number(id),
-            projectId: +projectId,
-            permissionId: +permissionId,
-          });
-        }
-      });
-    }
+    // if (value.rolePerm) {
+    //   const [roleId, permissionId] = value.rolePerm.split('-');
+    //   const defaultRoleId = agent?.userRolePermissions[0]?.role?.roleId;
+
+    //   if (defaultRoleId) {
+    //     agentRemoveRolePermission({
+    //       callback() {
+    //         agentRemoveRole({
+    //           callback() {
+    //             setAgentRolePermissions([]);
+    //             agentAddRole({
+    //               callback() {
+    //                 agentAddRolePermission({
+    //                   callback() {
+    //                     addNotification('add role permission to agent');
+    //                     const role = roles?.find((role) => role.roleId === +roleId);
+    //                     const permission = rolePerms?.find(
+    //                       (perm) => perm.permissionId === +permissionId,
+    //                     );
+    //                     setAgentRolePermissions([{ role, permissions: [permission] }]);
+    //                   },
+    //                   userId: Number(id),
+    //                   roleId: +roleId,
+    //                   permissionId: +permissionId,
+    //                 });
+    //               },
+    //               userId: Number(id),
+    //               roleId: +roleId,
+    //             });
+    //           },
+    //           userId: Number(id),
+    //           roleId: +defaultRoleId,
+    //         });
+    //       },
+    //       userId: Number(id),
+    //       roleId: +defaultRoleId,
+    //       permissionId: +permissionId,
+    //     });
+    //   } else {
+    //     agentAddRole({
+    //       callback() {
+    //         agentAddRolePermission({
+    //           callback() {
+    //             addNotification('add role permission to agent');
+    //             const role = roles?.find((role) => role.roleId === +roleId);
+    //             const permission = rolePerms?.find((perm) => perm.permissionId === +permissionId);
+    //             setAgentRolePermissions([{ role, permissions: [permission] }]);
+    //           },
+    //           userId: Number(id),
+    //           roleId: +roleId,
+    //           permissionId: +permissionId,
+    //         });
+    //       },
+    //       userId: Number(id),
+    //       roleId: +roleId,
+    //     });
+    //   }
+    // }
+    // if (value.projectPerm) {
+    //   value.projectPerm.map((el: string) => {
+    //     const [projectId, permissionId] = el.split('-');
+
+    //     const found = agent?.userProjectPermissions?.find(
+    //       (p) => p.project?.projectId === +projectId,
+    //     );
+    //     if (!found && agent && agentProjects) {
+    //       agentAddProjectToUser({
+    //         callback() {
+    //           setAgentProjectPermissions([
+    //             ...agent.userProjectPermissions,
+    //             { project: agentProjects.find((p) => p.projectId === +projectId), permissions: [] },
+    //           ]);
+    //           agentAddPermissionToUserProject({
+    //             callback() {
+    //               addNotification('successfully add project permission');
+    //             },
+    //             userId: Number(id),
+    //             projectId: +projectId,
+    //             permissionId: +permissionId,
+    //           });
+    //         },
+    //         userId: Number(id),
+    //         projectId: +projectId,
+    //       });
+    //     } else {
+    //       agentAddPermissionToUserProject({
+    //         callback() {
+    //           addNotification('successfully add project permission');
+    //         },
+    //         userId: Number(id),
+    //         projectId: +projectId,
+    //         permissionId: +permissionId,
+    //       });
+    //     }
+    //   });
+    // }
   };
 
   const handleReject = () => {
