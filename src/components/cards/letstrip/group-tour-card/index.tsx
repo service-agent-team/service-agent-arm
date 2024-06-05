@@ -1,7 +1,7 @@
 import { ILetsTripGroupTourGetOne } from '@/store/lets-trip/tour/types';
 import NoThumbImage from '@/assets/images/no-thumbnail.png';
 import { H1 } from '@/components/common';
-import { Button, Flex, List, Tag, Typography } from 'antd';
+import { Button, Flex, List, Steps, Tag, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
@@ -73,6 +73,18 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           ''
         )}
       </Flex>
+      <div style={{ marginTop: '30px' }}>
+        <S.CustomCard width="100%">
+          <H1>{"What's Includes"} </H1>
+          <Flex gap={'20px'} style={{ margin: '20px 0' }}>
+            {data?.priceIncludes.map((el) => (
+              <div key={el}>
+                <Typography.Text>{el}</Typography.Text>
+              </div>
+            ))}
+          </Flex>
+        </S.CustomCard>
+      </div>
       <S.CustomCard width="100%">
         <H1>Select Available Date: </H1>
         <Flex gap={'15px'} style={{ marginTop: '20px' }}>
@@ -115,33 +127,26 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           </>
         </Flex>
       </S.CustomCard>
-      <S.CustomCard width="100%">
-        <H1>Tour Itenarary: </H1>
-        <Flex gap={'20px'} style={{ margin: '20px 0' }}>
-          {data?.tourItenarary.map((el, idx) => (
-            <>
-              <S.CustomCard width="100%" key={idx}>
-                <List>
-                  <List.Item>
-                    <Typography.Text strong>Title: </Typography.Text>
-                    {el.title}
-                  </List.Item>
-                  <List.Item>
-                    <Typography.Text strong>Hour: </Typography.Text>
-                    {el.description[idx].hour}
-                  </List.Item>
-                  {el.description[idx].items.map((desc) => (
-                    <List.Item key={desc}>
-                      <Typography.Text strong>Description: </Typography.Text>
-                      {desc}
-                    </List.Item>
-                  ))}
-                </List>
-              </S.CustomCard>
-            </>
-          ))}
-        </Flex>
-      </S.CustomCard>
+      <div style={{ marginTop: '30px' }}>
+        <S.CustomCard width="100%">
+          <H1>Tour Itenarary: </H1>
+          <Flex gap={'20px'} style={{ margin: '20px 0' }}>
+            {data?.tourItenarary.map((el, idx) => (
+              <>
+                <S.CustomCard width="300px" key={idx}>
+                  <Typography.Text strong>{el.title} </Typography.Text>
+                  <Steps
+                    progressDot
+                    current={el.description.length}
+                    direction="vertical"
+                    items={el.description.map((d) => ({ title: d.hour, description: d.items[0] }))}
+                  />
+                </S.CustomCard>
+              </>
+            ))}
+          </Flex>
+        </S.CustomCard>
+      </div>
     </>
   );
 };

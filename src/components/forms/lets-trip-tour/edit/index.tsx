@@ -935,100 +935,99 @@ export const LestTripTourEditForm: React.FC = () => {
                       {(subFields, { add, remove }) => (
                         <div>
                           {subFields.map((subField) => (
-                            <>
-                              <Card
-                                size="small"
-                                title={`${subField.key + 1}. tour itinerary description`}
-                                extra={
-                                  <Icon
-                                    name="CloseOutlined"
-                                    onClick={() => {
-                                      remove(subField.name);
-                                    }}
+                            <Card
+                              key={field.key + subField.key}
+                              size="small"
+                              title={`${subField.name + 1}. tour itinerary description`}
+                              extra={
+                                <Icon
+                                  name="CloseOutlined"
+                                  onClick={() => {
+                                    remove(subField.name);
+                                  }}
+                                />
+                              }
+                            >
+                              <Flex gap={'15px'}>
+                                <BaseForm.Item
+                                  style={{ width: '100%' }}
+                                  name={[subField.name, 'itineraryItemDescOrder']}
+                                  label={'itinerary item description order'}
+                                  rules={[
+                                    {
+                                      required: true,
+                                      message: 'itinerary item order is required?',
+                                    },
+                                  ]}
+                                >
+                                  <InputNumber
+                                    style={{ width: '100%' }}
+                                    width={'100%'}
+                                    name="itineraryItemDescOrder"
+                                    type="number"
+                                    placeholder="Enter a itinerary item description order ?"
                                   />
-                                }
+                                </BaseForm.Item>
+                                <BaseForm.Item
+                                  style={{ width: '100%' }}
+                                  name={[subField.name, 'itineraryHour']}
+                                  label={'itinerary hour'}
+                                  rules={[
+                                    { required: true, message: 'itinerary hour is required?' },
+                                    {
+                                      type: 'string',
+                                      message: 'Enter itinerary hour ?',
+                                    },
+                                  ]}
+                                >
+                                  <Input
+                                    name="itineraryHour"
+                                    type="string"
+                                    placeholder="Enter a itinerary hour ?"
+                                  />
+                                </BaseForm.Item>
+                              </Flex>
+                              <BaseForm.Item
+                                style={{ width: '100%' }}
+                                name={[subField.name, 'itineraryDescEn']}
+                                label={'itinerary description english'}
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: 'itinerary description english is required?',
+                                  },
+                                  {
+                                    type: 'string',
+                                    message: 'Enter a itinerary description english ?',
+                                  },
+                                ]}
                               >
-                                <Flex gap={'15px'}>
-                                  <BaseForm.Item
-                                    style={{ width: '100%' }}
-                                    name={[subField.name, 'itineraryItemDescOrder']}
-                                    label={'itinerary item description order'}
-                                    rules={[
-                                      {
-                                        required: true,
-                                        message: 'itinerary item order is required?',
-                                      },
-                                    ]}
-                                  >
-                                    <InputNumber
-                                      style={{ width: '100%' }}
-                                      width={'100%'}
-                                      name="itineraryItemDescOrder"
-                                      type="number"
-                                      placeholder="Enter a itinerary item description order ?"
-                                    />
-                                  </BaseForm.Item>
-                                  <BaseForm.Item
-                                    style={{ width: '100%' }}
-                                    name={[subField.name, 'itineraryHour']}
-                                    label={'itinerary hour'}
-                                    rules={[
-                                      { required: true, message: 'itinerary hour is required?' },
-                                      {
-                                        type: 'string',
-                                        message: 'Enter itinerary hour ?',
-                                      },
-                                    ]}
-                                  >
-                                    <Input
-                                      name="itineraryHour"
-                                      type="string"
-                                      placeholder="Enter a itinerary hour ?"
-                                    />
-                                  </BaseForm.Item>
-                                </Flex>
-                                <BaseForm.Item
-                                  style={{ width: '100%' }}
-                                  name={[subField.name, 'itineraryDescEn']}
-                                  label={'itinerary description english'}
-                                  rules={[
-                                    {
-                                      required: true,
-                                      message: 'itinerary description english is required?',
-                                    },
-                                    {
-                                      type: 'string',
-                                      message: 'Enter a itinerary description english ?',
-                                    },
-                                  ]}
-                                >
-                                  <TextArea
-                                    name="itineraryDescEn"
-                                    placeholder="Enter a itinerary description english ?"
-                                  />
-                                </BaseForm.Item>
-                                <BaseForm.Item
-                                  style={{ width: '100%' }}
-                                  name={[subField.name, 'itineraryDescRu']}
-                                  label={'itinerary description russian'}
-                                  rules={[
-                                    {
-                                      required: true,
-                                      message: 'itinerary description russian is required?',
-                                    },
-                                    {
-                                      type: 'string',
-                                      message: 'Enter a itinerary description russian ?',
-                                    },
-                                  ]}
-                                >
-                                  <TextArea
-                                    name="itineraryDescRu"
-                                    placeholder="Enter a itinerary description russian ?"
-                                  />
-                                </BaseForm.Item>
-                              </Card>
-                            </>
+                                <TextArea
+                                  name="itineraryDescEn"
+                                  placeholder="Enter a itinerary description english ?"
+                                />
+                              </BaseForm.Item>
+                              <BaseForm.Item
+                                style={{ width: '100%' }}
+                                name={[subField.name, 'itineraryDescRu']}
+                                label={'itinerary description russian'}
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: 'itinerary description russian is required?',
+                                  },
+                                  {
+                                    type: 'string',
+                                    message: 'Enter a itinerary description russian ?',
+                                  },
+                                ]}
+                              >
+                                <TextArea
+                                  name="itineraryDescRu"
+                                  placeholder="Enter a itinerary description russian ?"
+                                />
+                              </BaseForm.Item>
+                            </Card>
                           ))}
                           <BaseForm.Item>
                             <Button
@@ -1058,7 +1057,7 @@ export const LestTripTourEditForm: React.FC = () => {
                       ]}
                     >
                       <Upload.Dragger
-                        key={field.name}
+                        key={field.key}
                         style={{ width: '100%' }}
                         listType="picture"
                         name="files"
@@ -1147,7 +1146,7 @@ export const LestTripTourEditForm: React.FC = () => {
                       name={[field.name, 'EN']}
                       rules={[{ required: true, message: 'field required' }]}
                     >
-                      <Input />
+                      <Input disabled />
                     </BaseForm.Item>
                     <BaseForm.Item
                       label="ENGLISH"
@@ -1218,7 +1217,7 @@ export const LestTripTourEditForm: React.FC = () => {
                       name={[field.name, 'RU']}
                       rules={[{ required: true, message: 'field required' }]}
                     >
-                      <Input />
+                      <Input disabled />
                     </BaseForm.Item>
                     <BaseForm.Item
                       label="RUSSIAN"
