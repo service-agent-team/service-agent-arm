@@ -14,10 +14,32 @@ export const LestTripTransferEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { transferCategories } = useTypedSelector((state) => state.letsTripTransferCategory);
   const { loading, transfer } = useTypedSelector((state) => state.letsTripTransfer);
-  const { getAllLetsTripTransferCategory, updateLetsTripTransfer } = useActions();
+  const { getAllLetsTripTransferCategory, updateLetsTripTransfer, updateI18LetsTripTransfer } =
+    useActions();
   const navigate = useNavigate();
 
-  const onFinish = ({ carCategoryId, pricePerKM, hourlyPrice, manufactureDate }: IValuesForm) => {
+  const onFinish = ({
+    nameEn,
+    nameRu,
+    nameUz,
+    carCategoryId,
+    pricePerKM,
+    hourlyPrice,
+    manufactureDate,
+  }: IValuesForm) => {
+    if (
+      nameEn !== transfer?.name.en ||
+      nameRu !== transfer?.name.ru ||
+      nameUz !== transfer?.name.uz
+    ) {
+      updateI18LetsTripTransfer({
+        callback() {
+          navigate(ROUTES.letsTripTransfer);
+        },
+        body: { en: nameEn, ru: nameRu, uz: nameUz },
+        id: transfer?.name.id as number,
+      });
+    }
     updateLetsTripTransfer({
       callback() {
         addNotification('successfully edited transfer');
@@ -26,7 +48,7 @@ export const LestTripTransferEditForm: React.FC = () => {
       body: {
         carCategoryId,
         hourlyPrice: hourlyPrice * 100,
-        pricePerKM,
+        pricePerKM: pricePerKM * 100,
         manufactureDate: dateFormatDayJs(manufactureDate),
       },
       carId: transfer?.id as number,
@@ -50,13 +72,42 @@ export const LestTripTransferEditForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={() => {}}
       initialValues={{
+        nameEn: transfer?.name.en,
+        nameRu: transfer?.name.ru,
+        nameUz: transfer?.name.uz,
         carCategoryId: transfer?.category.id,
         hourlyPrice: transfer?.hourlyPrice && transfer?.hourlyPrice / 100,
-        pricePerKM: transfer?.pricePerKM,
+        pricePerKM: transfer?.pricePerKM && transfer.pricePerKM / 100,
         manufactureDate: dayjs(transfer?.manufactureDate),
       }}
     >
       <S.FormContent>
+        <Flex gap={'15px'}>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="nameEn"
+            label={'name english'}
+            rules={[{ required: true, message: 'name english is required?', type: 'string' }]}
+          >
+            <Input type="string" placeholder="Enter a english name ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="nameRu"
+            label={'name russian'}
+            rules={[{ required: true, message: 'name russian is required?', type: 'string' }]}
+          >
+            <Input type="string" placeholder="Enter a russian name ?" />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="nameUz"
+            label={'name uzbek'}
+            rules={[{ required: true, message: 'name uzbek is required?', type: 'string' }]}
+          >
+            <Input type="string" placeholder="Enter a uzbek name ?" />
+          </BaseForm.Item>
+        </Flex>
         <Flex gap={'15px'}>
           <BaseForm.Item
             name="carCategoryId"
@@ -86,7 +137,7 @@ export const LestTripTransferEditForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="hourlyPrice"
-            label={'hourly price'}
+            label={'hourly price ($)'}
             rules={[{ required: true, message: 'hourly price is required?' }]}
           >
             <InputNumber
@@ -99,14 +150,14 @@ export const LestTripTransferEditForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="pricePerKM"
-            label={'price per KM'}
-            rules={[{ required: true, message: 'price per KM is required?' }]}
+            label={'per KM price ($)'}
+            rules={[{ required: true, message: 'per KM price is required?' }]}
           >
             <InputNumber
               style={{ width: '100%' }}
               width={'100%'}
               type="number"
-              placeholder="Enter a price per KM ?"
+              placeholder="Enter a per KM price?"
             />
           </BaseForm.Item>
         </Flex>

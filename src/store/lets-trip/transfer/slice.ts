@@ -5,6 +5,7 @@ import {
   deleteLetsTripTransfer,
   getAllLetsTripTransfer,
   getOneLetsTripTransfer,
+  updateI18LetsTripTransfer,
   updateLetsTripTransfer,
 } from './actions';
 
@@ -85,6 +86,19 @@ export const letsTripTransferSlice = createSlice({
         state.errors = null;
       })
       .addCase(updateLetsTripTransfer.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
+      .addCase(updateI18LetsTripTransfer.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(updateI18LetsTripTransfer.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.transfer = payload;
+        state.errors = null;
+      })
+      .addCase(updateI18LetsTripTransfer.rejected, (state, { payload }) => {
         state.loading.patch = false;
         state.errors = payload;
       })

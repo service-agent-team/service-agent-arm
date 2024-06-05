@@ -19,6 +19,9 @@ export const LetsTripTransferCarService = {
   async updateTransfer(id: number, body: any) {
     return await $axios.patch(`${EndPointes.letsTripTransfer.update}/${id}`, body);
   },
+  async updateI18(id: number, body: any) {
+    return await $axios.put(`${EndPointes.letsTripTransfer.updateI18}/${id}`, body);
+  },
   async deleteTransfer(id: number) {
     return await $axios.delete(`${EndPointes.letsTripTransfer.delete}/${id}`);
   },
