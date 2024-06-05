@@ -11,7 +11,6 @@ import {
   ILetsTripTransferResponse,
   ILetsTripTransferUpdateI18Payload,
   ILetsTripTransferUpdatePayload,
-  Name,
 } from './types';
 import { LetsTripTransferCarService } from '@/services';
 

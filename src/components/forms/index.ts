@@ -18,3 +18,5 @@ export * from './agent-tariff';
 export * from './agent-project';
 export * from './project';
 export * from './role';
+export * from './user-role';
+export * from './user-permission';
