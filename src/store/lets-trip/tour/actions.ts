@@ -100,6 +100,24 @@ export const updateByObjectLetsTripGroupTour = createAsyncThunk<
   }
 });
 
+export const updatePriceNoteTripGroupTour = createAsyncThunk<
+  UpdateByObject,
+  ILetsTripTourUpdateByObjectPayload
+>(
+  EndPointes.letsTripTour.updateByObject + '/price-note/id',
+  async ({ callback, id, en, ru }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.updatePriceNote(id, { en, ru });
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
 export const addNewDateLetsTripGroupTour = createAsyncThunk<
   IGetOneRawLetsTripTourResponse,
   ILetsTripGroupTourAddNewMonthPayload

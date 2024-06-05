@@ -25,7 +25,7 @@ export const LestTripTransferEditForm: React.FC = () => {
       },
       body: {
         carCategoryId,
-        hourlyPrice,
+        hourlyPrice: hourlyPrice * 100,
         pricePerKM,
         manufactureDate: dateFormatDayJs(manufactureDate),
       },
@@ -39,7 +39,7 @@ export const LestTripTransferEditForm: React.FC = () => {
   }));
 
   useEffect(() => {
-    getAllLetsTripTransferCategory({ page: 0, size: 20, deleted: false, callback() {} });
+    getAllLetsTripTransferCategory({ page: 0, size: 20, deleted: false });
   }, []);
 
   return (
@@ -50,8 +50,8 @@ export const LestTripTransferEditForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={() => {}}
       initialValues={{
-        carCategoryId: { value: transfer?.category.id, label: transfer?.category.name.en },
-        hourlyPrice: transfer?.hourlyPrice,
+        carCategoryId: transfer?.category.id,
+        hourlyPrice: transfer?.hourlyPrice && transfer?.hourlyPrice / 100,
         pricePerKM: transfer?.pricePerKM,
         manufactureDate: dayjs(transfer?.manufactureDate),
       }}
@@ -110,7 +110,7 @@ export const LestTripTransferEditForm: React.FC = () => {
             />
           </BaseForm.Item>
         </Flex>
-        <PrimaryBtn htmlType="submit" loading={loading.post}>
+        <PrimaryBtn htmlType="submit" loading={loading.patch}>
           Edit
         </PrimaryBtn>
       </S.FormContent>

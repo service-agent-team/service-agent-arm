@@ -59,10 +59,11 @@ export const utils = () => {
       width: '15%',
     },
     {
-      title: 'Hourly Price (Hour)',
+      title: 'Hourly Price ($)',
       dataIndex: 'hourlyPrice',
       key: 'hourlyPrice',
       width: '10%',
+      render: (value: number) => value / 100 + ' $',
     },
     {
       title: 'Created At Date',
@@ -87,19 +88,19 @@ export const utils = () => {
       render: (value) =>
         value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
     },
-    {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      width: '10%',
-      render: (_: number) => {
-        return (
-          <LinkButton path={`#`}>
-            <EyeOutlined />
-          </LinkButton>
-        );
-      },
-    },
+    // {
+    //   title: 'View',
+    //   dataIndex: 'id',
+    //   key: 'view',
+    //   width: '10%',
+    //   render: (_: number) => {
+    //     return (
+    //       <LinkButton path={`#`}>
+    //         <EyeOutlined />
+    //       </LinkButton>
+    //     );
+    //   },
+    // },
     {
       title: 'Actions',
       dataIndex: 'action',

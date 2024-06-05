@@ -36,6 +36,7 @@ export const LestTripTourEditForm: React.FC = () => {
   } = useTypedSelector((state) => state.letsTripTour);
   const {
     updateByObjectLetsTripGroupTour,
+    updatePriceNoteTripGroupTour,
     getAllLetsTripCountry,
     setLetsTripGroupTourLocations,
     addNewDateLetsTripGroupTour,
@@ -157,7 +158,7 @@ export const LestTripTourEditForm: React.FC = () => {
         });
       }
       if (groupTourRaw.priceNote.en !== priceNoteEn || groupTourRaw.priceNote.ru !== priceNoteRu) {
-        updateByObjectLetsTripGroupTour({
+        updatePriceNoteTripGroupTour({
           callback() {
             addNotification('price note changed');
             navigate(ROUTES.letsTripGroupTour);

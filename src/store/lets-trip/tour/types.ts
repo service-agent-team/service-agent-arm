@@ -79,6 +79,7 @@ export interface ILetsTripGroupTourCreatePayload {
 }
 
 export interface UpdateByObject {
+  id: number;
   en: string;
   ru: string;
 }

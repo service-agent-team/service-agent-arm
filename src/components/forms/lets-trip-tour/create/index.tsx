@@ -7,6 +7,7 @@ import {
   Card,
   DatePicker,
   Flex,
+  Form,
   GetProp,
   Image,
   Input,
@@ -42,7 +43,6 @@ export const LestTripTourCreateForm: React.FC = () => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyALfqQ3ezC7K1GxmJ1e5EMqdQzrXdrDcdA',
-    libraries: ['places'],
   });
   const center = { lat: 41.875734, lng: 64.017636 };
 
@@ -425,8 +425,19 @@ export const LestTripTourCreateForm: React.FC = () => {
             )}
           </Upload.Dragger>
         </BaseForm.Item>
-        <BaseForm.List name="availableDate">
-          {(fields, { add, remove }) => (
+        <BaseForm.List
+          name="availableDate"
+          rules={[
+            {
+              validator: async (_, availableDate) => {
+                if (!availableDate) {
+                  return Promise.reject(new Error('available date filed required ?'));
+                }
+              },
+            },
+          ]}
+        >
+          {(fields, { add, remove }, { errors }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
               {fields.map((field) => (
                 <>
@@ -461,8 +472,21 @@ export const LestTripTourCreateForm: React.FC = () => {
                         <DatePicker picker="year" style={{ width: '100%' }} />
                       </BaseForm.Item>
                     </Flex>
-                    <BaseForm.List name={[field.key, 'departures']}>
-                      {(subFields, { add, remove }) => (
+                    <BaseForm.List
+                      name={[field.key, 'departures']}
+                      rules={[
+                        {
+                          validator: async (_, departures) => {
+                            if (!departures) {
+                              return Promise.reject(
+                                new Error('available date departures field required ?'),
+                              );
+                            }
+                          },
+                        },
+                      ]}
+                    >
+                      {(subFields, { add, remove }, { errors }) => (
                         <div
                           key={field.key}
                           style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}
@@ -572,6 +596,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                               {subFields.length ? '✅' : '❌'}
                             </Button>
                           </BaseForm.Item>
+                          <BaseForm.ErrorList errors={errors} />
                         </div>
                       )}
                     </BaseForm.List>
@@ -588,11 +613,23 @@ export const LestTripTourCreateForm: React.FC = () => {
                   add available date ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
+              <BaseForm.ErrorList errors={errors} />
             </div>
           )}
         </BaseForm.List>
-        <BaseForm.List name="tourItenarary">
-          {(fields, { add, remove }) => (
+        <BaseForm.List
+          name="tourItenarary"
+          rules={[
+            {
+              validator: async (_, tourItenarary) => {
+                if (!tourItenarary) {
+                  return Promise.reject(new Error('tour itenarary field required ?'));
+                }
+              },
+            },
+          ]}
+        >
+          {(fields, { add, remove }, { errors }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
               {fields.map((field) => (
                 <>
@@ -661,9 +698,21 @@ export const LestTripTourCreateForm: React.FC = () => {
                         />
                       </BaseForm.Item>
                     </Flex>
-
-                    <BaseForm.List name={[field.key, 'description']}>
-                      {(subFields, { add, remove }) => (
+                    <BaseForm.List
+                      name={[field.key, 'description']}
+                      rules={[
+                        {
+                          validator: async (_, description) => {
+                            if (!description) {
+                              return Promise.reject(
+                                new Error('tour itenarary description field required ?'),
+                              );
+                            }
+                          },
+                        },
+                      ]}
+                    >
+                      {(subFields, { add, remove }, { errors }) => (
                         <div>
                           {subFields.map((subField) => (
                             <>
@@ -772,6 +821,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                               {subFields.length ? '✅' : '❌'}
                             </Button>
                           </BaseForm.Item>
+                          <BaseForm.ErrorList errors={errors} />
                         </div>
                       )}
                     </BaseForm.List>
@@ -825,11 +875,23 @@ export const LestTripTourCreateForm: React.FC = () => {
                   add tour itineraries ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
+              <BaseForm.ErrorList errors={errors} />
             </div>
           )}
         </BaseForm.List>
-        <BaseForm.List name="extraInformation">
-          {(fields, { add, remove }) => (
+        <BaseForm.List
+          name="extraInformation"
+          rules={[
+            {
+              validator: async (_, extraInformation) => {
+                if (!extraInformation) {
+                  return Promise.reject(new Error('extra information field required?'));
+                }
+              },
+            },
+          ]}
+        >
+          {(fields, { add, remove }, { errors }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
               {fields.map((field) => (
                 <>
@@ -859,8 +921,19 @@ export const LestTripTourCreateForm: React.FC = () => {
                       initialValue={{ EN: 'EN' }}
                       rules={[{ required: true, message: 'field required' }]}
                     >
-                      <BaseForm.List name={[field.name, 'en']}>
-                        {(subFields, subOpt) => (
+                      <BaseForm.List
+                        name={[field.name, 'en']}
+                        rules={[
+                          {
+                            validator: async (_, en) => {
+                              if (!en) {
+                                return Promise.reject(new Error('field required ?'));
+                              }
+                            },
+                          },
+                        ]}
+                      >
+                        {(subFields, subOpt, { errors }) => (
                           <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
                             {subFields.map((subField) => (
                               <Space key={subField.key}>
@@ -886,9 +959,12 @@ export const LestTripTourCreateForm: React.FC = () => {
                                 />
                               </Space>
                             ))}
-                            <Button type="dashed" onClick={() => subOpt.add()} block>
-                              + Add Sub Item {subFields.length ? '✅' : '❌'}
-                            </Button>
+                            <div>
+                              <Button type="dashed" onClick={() => subOpt.add()} block>
+                                + Add Sub Item {subFields.length ? '✅' : '❌'}
+                              </Button>
+                              <BaseForm.ErrorList errors={errors} />
+                            </div>
                           </div>
                         )}
                       </BaseForm.List>
@@ -920,8 +996,19 @@ export const LestTripTourCreateForm: React.FC = () => {
                       initialValue={{ RU: 'RU' }}
                       rules={[{ required: true, message: 'field required' }]}
                     >
-                      <BaseForm.List name={[field.name, 'ru']}>
-                        {(subFields, subOpt) => (
+                      <BaseForm.List
+                        name={[field.name, 'ru']}
+                        rules={[
+                          {
+                            validator: async (_, ru) => {
+                              if (!ru) {
+                                return Promise.reject(new Error('field required ?'));
+                              }
+                            },
+                          },
+                        ]}
+                      >
+                        {(subFields, subOpt, { errors }) => (
                           <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
                             {subFields.map((subField) => (
                               <Space key={subField.key}>
@@ -950,6 +1037,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                             <Button type="dashed" onClick={() => subOpt.add()} block>
                               + Add Sub Item {subFields.length ? '✅' : '❌'}
                             </Button>
+                            <BaseForm.ErrorList errors={errors} />
                           </div>
                         )}
                       </BaseForm.List>
@@ -971,6 +1059,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                   add extra information ({fields.length}) {fields.length ? '✅' : '❌'}
                 </Button>
               </BaseForm.Item>
+              <BaseForm.ErrorList errors={errors} />
             </div>
           )}
         </BaseForm.List>
