@@ -45,7 +45,6 @@ export interface ILetsTripTransferCategoryResponse {
 }
 
 export interface ILetsTripTransferCategoryPayload {
-  callback(): void;
   page: number;
   size: number;
   deleted?: boolean;

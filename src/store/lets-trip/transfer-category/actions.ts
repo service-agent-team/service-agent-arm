@@ -15,20 +15,14 @@ import { LetsTripTransferCategoryService } from '@/services';
 export const getAllLetsTripTransferCategory = createAsyncThunk<
   ILetsTripTransferCategoryResponse,
   ILetsTripTransferCategoryPayload
->(
-  EndPointes.letsTripTransferCategory.getAll,
-  async ({ callback, page, size, deleted }, thunkApi) => {
-    try {
-      const response = await LetsTripTransferCategoryService.getAllCategory(page, size, deleted);
-      if (response.status) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
-    }
-  },
-);
+>(EndPointes.letsTripTransferCategory.getAll, async ({ page, size, deleted }, thunkApi) => {
+  try {
+    const response = await LetsTripTransferCategoryService.getAllCategory(page, size, deleted);
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
 export const getOneLetsTripTransferCategory = createAsyncThunk<
   ILetsTripTransferCategory,

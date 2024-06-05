@@ -18,6 +18,7 @@ import {
   removeItenararyLetsTripGroupTour,
   removeLocationLetsTripGroupTour,
   updateByObjectLetsTripGroupTour,
+  updatePriceNoteTripGroupTour,
 } from './actions';
 
 const initialState: ILetsTripGroupTourInitialState = {
@@ -107,6 +108,18 @@ export const letsTripGroupTourSlice = createSlice({
         state.errors = null;
       })
       .addCase(updateByObjectLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(updatePriceNoteTripGroupTour.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(updatePriceNoteTripGroupTour.fulfilled, (state) => {
+        state.loading.post = false;
+        state.errors = null;
+      })
+      .addCase(updatePriceNoteTripGroupTour.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })

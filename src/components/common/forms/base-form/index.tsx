@@ -3,7 +3,7 @@ import { ComponentProps } from 'react';
 
 import { FormLayout } from 'antd/es/form/Form';
 import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
-import { BaseFormItem, BaseFormList, BaseFormTitle } from '../components';
+import { BaseFormErrorList, BaseFormItem, BaseFormList, BaseFormTitle } from '../components';
 import { BaseFormInterface } from '../types';
 
 export type BaseFormProps = Omit<ComponentProps<typeof Form>, 'onFinish'> & {
@@ -30,5 +30,6 @@ export const BaseForm: BaseFormInterface<BaseFormProps> = ({
 BaseForm.Title = BaseFormTitle;
 BaseForm.Item = BaseFormItem;
 BaseForm.List = BaseFormList;
+BaseForm.ErrorList = BaseFormErrorList;
 BaseForm.useForm = Form.useForm;
 BaseForm.Provider = Form.Provider;

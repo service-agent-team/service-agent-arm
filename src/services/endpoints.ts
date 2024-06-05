@@ -193,6 +193,7 @@ export const EndPointes = {
 
   letsTripTour: {
     updateByObject: '/api/tours/updateByObject/',
+    updatePriceNote: '/api/tours/update/priceNote/',
   },
 
   letsTripIndividualTour: {
