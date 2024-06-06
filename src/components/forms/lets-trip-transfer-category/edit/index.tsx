@@ -35,7 +35,7 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
         navigate(ROUTES.letsTripTransferCategory);
       },
       body: {
-        startingPrice,
+        startingPrice: startingPrice * 100,
         luggage,
         seats,
       },
@@ -54,7 +54,7 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
         nameEn: transferCategory?.name.en,
         nameRu: transferCategory?.name.ru,
         nameUz: transferCategory?.name.uz,
-        startingPrice: transferCategory?.startingPrice,
+        startingPrice: transferCategory?.startingPrice && transferCategory?.startingPrice / 100,
         luggage: transferCategory?.luggage,
         seats: transferCategory?.seats,
       }}

@@ -1,7 +1,7 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
-import { DatePicker, Flex, GetProp, Image, Input, Select, Upload, UploadProps } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { BaseForm, InputNumber, PrimaryBtn } from '@/components';
+import { DatePicker, Flex, Input, Select } from 'antd';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from '../types';
 import * as S from './styled';

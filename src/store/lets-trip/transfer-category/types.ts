@@ -8,6 +8,7 @@ export interface ILetsTripTransferInitialState {
   transferCategories: ILetsTripTransferCategory[] | null;
   activeTransferCategories: ILetsTripTransferCategory[] | null;
   transferCategory: ILetsTripTransferCategory | null;
+  pagination: IPagination;
   deleted: boolean;
   errors: unknown | string[] | string;
 }
@@ -84,4 +85,10 @@ export interface Sort {
   sorted: boolean;
   unsorted: boolean;
   empty: boolean;
+}
+
+export interface IPagination {
+  current: number;
+  pageSize: number;
+  total: number;
 }

@@ -15,8 +15,7 @@ export const LetsTripTransferCategoryTable = () => {
   useEffect(() => {
     getAllLetsTripTransferCategory({
       page: 0,
-      size: 30,
-      callback() {},
+      size: 100,
       deleted: !deleted,
     });
   }, [deleted]);

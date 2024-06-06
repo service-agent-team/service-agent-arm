@@ -16,7 +16,7 @@ export const UserPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
   const { users } = useTypedSelector((state) => state.users);
   const { permissions } = useTypedSelector((state) => state.permission);
   const { projects } = useTypedSelector((state) => state.project);
-  const { loading } = useTypedSelector((state) => state.userPermission);
+  const { loading, userPermission } = useTypedSelector((state) => state.userPermission);
 
   const onFinish = (value: IUserPermissionValues) => {
     if (type === 'create') {
@@ -68,7 +68,21 @@ export const UserPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
 
   return (
     <>
-      <BaseForm name="userPermission" form={form} layout="vertical" onFinish={onFinish}>
+      <BaseForm
+        name="userPermission"
+        form={form}
+        layout="vertical"
+        onFinish={onFinish}
+        initialValues={
+          type === 'edit'
+            ? {
+                userId: userPermission?.user_id?.user_id,
+                permissionId: userPermission?.permission_id?.permission_id,
+                projectId: userPermission?.project_id?.project_id,
+              }
+            : {}
+        }
+      >
         <BaseForm.Item
           name="userId"
           label={'user'}

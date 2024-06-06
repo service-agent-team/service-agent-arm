@@ -51,10 +51,11 @@ export const utils = () => {
       width: '25%',
     },
     {
-      title: 'Starting Price',
+      title: 'Starting Price ($)',
       dataIndex: 'startingPrice',
       key: 'startingPrice',
       width: '10%',
+      render: (value) => value / 100 + ' $',
     },
     {
       title: 'Seats',
@@ -85,19 +86,19 @@ export const utils = () => {
         return dateParser(date);
       },
     },
-    {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      width: '10%',
-      render: (_: number) => {
-        return (
-          <LinkButton path={`#`}>
-            <EyeOutlined />
-          </LinkButton>
-        );
-      },
-    },
+    // {
+    //   title: 'View',
+    //   dataIndex: 'id',
+    //   key: 'view',
+    //   width: '10%',
+    //   render: (_: number) => {
+    //     return (
+    //       <LinkButton path={`#`}>
+    //         <EyeOutlined />
+    //       </LinkButton>
+    //     );
+    //   },
+    // },
     {
       title: 'Actions',
       dataIndex: 'action',
