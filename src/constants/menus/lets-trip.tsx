@@ -30,12 +30,12 @@ export const letsTrip = [
   {
     icon: 'CarOutlined',
     key: ROUTES.letsTripTransfer,
-    label: 'Transfers',
+    label: 'Cars',
   },
   {
     icon: 'CarOutlined',
     key: ROUTES.letsTripTransferCategory,
-    label: 'Transfer Category',
+    label: 'Car Category',
   },
   // {
   //   icon: 'DiffOutlined',

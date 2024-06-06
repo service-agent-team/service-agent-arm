@@ -33,6 +33,7 @@ const initialState: ILetsTripGroupTourInitialState = {
   groupTourRaw: null,
   activeTours: null,
   locations: [],
+  pagination: { current: 0, pageSize: 10, total: 10 },
   errors: null,
   deleted: true,
 };
@@ -54,7 +55,10 @@ export const letsTripGroupTourSlice = createSlice({
       state.locations = payload;
     },
     setLetsTripGroupTourRaw: (state, { payload }) => {
-      state.locations = payload;
+      state.groupTourRaw = payload;
+    },
+    setLetsTripGroupTourPagination: (state, { payload }) => {
+      state.pagination = payload;
     },
   },
   extraReducers: (builder) => {
@@ -65,8 +69,14 @@ export const letsTripGroupTourSlice = createSlice({
       })
       .addCase(getAllLetsTripGroupTour.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.groupTours = payload.content;
+        if (state.groupTours) state.groupTours.push(...payload.content);
+        else state.groupTours = payload.content;
         state.activeTours = payload.content?.filter((el) => el?.deleted === false);
+        state.pagination = {
+          current: payload.pageable.pageNumber,
+          pageSize: payload.pageable.pageSize,
+          total: payload.totalElements,
+        };
         state.errors = null;
       })
       .addCase(getAllLetsTripGroupTour.rejected, (state, { payload }) => {

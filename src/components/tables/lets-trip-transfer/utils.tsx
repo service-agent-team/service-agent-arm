@@ -1,10 +1,9 @@
-import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { LinkButton } from '@/components/common/buttons';
 import { dateParser } from '@/common/utils/format';
 import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
-import { modal } from '@/components';
+import { Icon, modal } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
@@ -114,9 +113,12 @@ export const utils = () => {
               'No Actions'
             ) : (
               <>
+                <Button type="primary" key={1} onClick={() => {}}>
+                  <Icon name="PlusOutlined" />
+                </Button>
                 <Button
                   type="primary"
-                  key={1}
+                  key={2}
                   onClick={() => {
                     getOneLetsTripTransfer({
                       callback() {
@@ -128,7 +130,7 @@ export const utils = () => {
                 >
                   <EditOutlined />
                 </Button>
-                <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
+                <Button type="primary" danger key={3} onClick={() => handleDelete(record)}>
                   <DeleteOutlined />
                 </Button>
               </>

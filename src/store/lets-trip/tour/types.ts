@@ -10,6 +10,7 @@ export interface ILetsTripGroupTourInitialState {
   groupTourRaw: ILetsTripGroupTour | null;
   activeTours: ILetsTripGroupTour[] | null;
   locations: Location2[];
+  pagination: IPagination;
   errors: unknown | string[] | string;
   deleted: boolean;
 }
@@ -348,4 +349,10 @@ export interface TourItenarary2 {
 export interface Items2 {
   items: string[];
   hour: string;
+}
+
+export interface IPagination {
+  current: number;
+  pageSize: number;
+  total: number;
 }

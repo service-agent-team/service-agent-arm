@@ -22,7 +22,7 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
       },
       body: {
         name: { en: nameEn, ru: nameRu, uz: nameUz },
-        startingPrice,
+        startingPrice: startingPrice * 100,
         luggage,
         seats,
       },
