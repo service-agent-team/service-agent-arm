@@ -6,7 +6,7 @@ import { PageTitle } from '@/components/page-title';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne | null }) => {
   const { isLoaded } = useJsApiLoader({
@@ -20,7 +20,7 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
     lat: 43.45,
     lng: -80.49,
   };
-  const [date, setDate] = useState(0);
+  // const [date, setDate] = useState(0);
 
   return (
     <>
@@ -76,16 +76,19 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
       <div style={{ marginTop: '30px' }}>
         <S.CustomCard width="100%">
           <H1>{"What's Includes"} </H1>
-          <Flex gap={'20px'} style={{ margin: '20px 0' }}>
-            {data?.priceIncludes.map((el) => (
-              <div key={el}>
-                <Typography.Text>{el}</Typography.Text>
-              </div>
-            ))}
-          </Flex>
+          {data?.priceIncludes.map((el) => (
+            <div key={el}>
+              <Typography.Text>✅ {el}</Typography.Text>
+            </div>
+          ))}
+          {data?.priceNotIncludes.map((el) => (
+            <div key={el}>
+              <Typography.Text>❌ {el}</Typography.Text>
+            </div>
+          ))}
         </S.CustomCard>
       </div>
-      <S.CustomCard width="100%">
+      {/* <S.CustomCard width="100%">
         <H1>Select Available Date: </H1>
         <Flex gap={'15px'} style={{ marginTop: '20px' }}>
           {data?.availableDate.map((el, idx) => (
@@ -126,7 +129,7 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
             </Flex>
           </>
         </Flex>
-      </S.CustomCard>
+      </S.CustomCard> */}
       <div style={{ marginTop: '30px' }}>
         <S.CustomCard width="100%">
           <H1>Tour Itenarary: </H1>

@@ -16,7 +16,7 @@ export interface IValuesForm {
   descriptionRu: string;
   descriptionEn: string;
   tourItenarary: TourItinerary[];
-  availableDate: AvailableDate[];
+  // availableDate: AvailableDate[];
 }
 
 export interface IFileResponse {

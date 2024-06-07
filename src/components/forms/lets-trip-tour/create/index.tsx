@@ -76,7 +76,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     priceIncludeRu,
     images,
     extraInformation,
-    availableDate,
+    // availableDate,
     tourItenarary,
   }: IValuesForm) => {
     if (locations.length === 0) {
@@ -96,23 +96,23 @@ export const LestTripTourCreateForm: React.FC = () => {
         item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
       ),
       locations,
-      availableDate: availableDate?.map((el) => {
-        return {
-          month: +generateUTC(el.month).split('-')[1],
-          year: +generateUTC(el.month).split('-')[0],
-          departures: el.departures.map((dep) => {
-            return {
-              price: dep.price,
-              transferType: {
-                en: dep.transferTypeEn,
-                ru: dep.transferTypeRu,
-              },
-              startDate: dateFormatDayJs(dep.transferDate[0]),
-              endDate: dateFormatDayJs(dep.transferDate[1]),
-            };
-          }),
-        };
-      }),
+      // availableDate: availableDate?.map((el) => {
+      //   return {
+      //     month: +generateUTC(el.month).split('-')[1],
+      //     year: +generateUTC(el.month).split('-')[0],
+      //     departures: el.departures.map((dep) => {
+      //       return {
+      //         price: dep.price,
+      //         transferType: {
+      //           en: dep.transferTypeEn,
+      //           ru: dep.transferTypeRu,
+      //         },
+      //         startDate: dateFormatDayJs(dep.transferDate[0]),
+      //         endDate: dateFormatDayJs(dep.transferDate[1]),
+      //       };
+      //     }),
+      //   };
+      // }),
       extraInformation: { en: extraInformation[0].en, ru: extraInformation[0].ru },
       startingPrice,
       priceNote: {
@@ -425,7 +425,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             )}
           </Upload.Dragger>
         </BaseForm.Item>
-        <BaseForm.List
+        {/* <BaseForm.List
           name="availableDate"
           rules={[
             {
@@ -616,7 +616,7 @@ export const LestTripTourCreateForm: React.FC = () => {
               <BaseForm.ErrorList errors={errors} />
             </div>
           )}
-        </BaseForm.List>
+        </BaseForm.List> */}
         <BaseForm.List
           name="tourItenarary"
           rules={[
