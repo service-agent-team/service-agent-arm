@@ -1,16 +1,22 @@
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { addNotification } from '@/common';
+import { useActions, useTypedSelector } from '@/common/hooks';
+import { dateParser } from '@/common/utils/format';
+import { Icon, modal } from '@/components';
+import { ROUTES } from '@/constants';
+import { IDirection, ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Space, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { dateParser } from '@/common/utils/format';
-import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
-import { Icon, modal } from '@/components';
-import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common';
-import { ROUTES } from '@/constants';
 import { useNavigate } from 'react-router-dom';
 
 export const utils = () => {
-  const { deleteLetsTripTransfer, setLetsTripTransfers, getOneLetsTripTransfer } = useActions();
+  const {
+    deleteLetsTripTransfer,
+    setLetsTripTransfers,
+    getOneLetsTripTransfer,
+    setCarModal,
+    setSelectCar,
+  } = useActions();
   const { transfers } = useTypedSelector((state) => state.letsTripTransfer);
   const navigate = useNavigate();
 
@@ -28,6 +34,11 @@ export const utils = () => {
         });
       },
     });
+  };
+
+  const openSettingsModal = (record: ILetsTripTransfer) => {
+    setCarModal(true);
+    setSelectCar(record.id);
   };
 
   const columns: ColumnsType<ILetsTripTransfer> = [
@@ -80,13 +91,62 @@ export const utils = () => {
       key: 'manufactureDate',
       width: '25%',
     },
+    // {
+    //   title: 'Active',
+    //   dataIndex: 'deleted',
+    //   key: 'deleted',
+    //   width: '5%',
+    //   render: (value) =>
+    //     value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
+    // },
     {
-      title: 'Active',
-      dataIndex: 'deleted',
+      title: 'Source Boundry',
+      dataIndex: 'directions',
       key: 'deleted',
       width: '5%',
-      render: (value) =>
-        value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
+      render: (el: IDirection[]) =>
+        el.map((el, i) => (
+          <Tag key={i} color="success">
+            {el.sourceBoundary.name.en}
+          </Tag>
+        )),
+    },
+    {
+      title: 'Destination Boundry',
+      dataIndex: 'directions',
+      key: 'deleted',
+      width: '5%',
+      render: (el: IDirection[]) =>
+        el.map((el, i) => (
+          <Tag key={i} color="red">
+            {el.destinationBoundary.name.en}
+          </Tag>
+        )),
+    },
+
+    {
+      title: 'Transfer Price',
+      dataIndex: 'directions',
+      key: 'deleted',
+      width: '5%',
+      render: (el: IDirection[]) =>
+        el.map((el, i) => (
+          <Tag key={i} color="success">
+            {el.transferPrice}
+          </Tag>
+        )),
+    },
+    {
+      title: 'Hourly Price',
+      dataIndex: 'directions',
+      key: 'deleted',
+      width: '5%',
+      render: (el: IDirection[]) =>
+        el.map((el, i) => (
+          <Tag key={i} color="success">
+            {el.hourlyPrice}
+          </Tag>
+        )),
     },
     // {
     //   title: 'View',
@@ -106,15 +166,15 @@ export const utils = () => {
       dataIndex: 'action',
       key: 'action',
       width: '10%',
-      render: (_, record: any) => {
+      render: (_, record: ILetsTripTransfer) => {
         return (
           <Space>
             {record.deleted ? (
               'No Actions'
             ) : (
               <>
-                <Button type="primary" key={1} onClick={() => {}}>
-                  <Icon name="PlusOutlined" />
+                <Button type="primary" key={1} onClick={() => openSettingsModal(record)}>
+                  <Icon name="SettingOutlined" />
                 </Button>
                 <Button
                   type="primary"

@@ -1,4 +1,8 @@
 import { $axios } from '@/common/config';
+import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
+import { ICreateCarDirection, IGlobalCountry } from '@/types';
+import { IGlobalResponce } from '@/types/reponces';
+import { AxiosResponse } from 'axios';
 import { EndPointes } from '../endpoints';
 
 export const LetsTripTransferCarService = {
@@ -24,5 +28,24 @@ export const LetsTripTransferCarService = {
   },
   async deleteTransfer(id: number) {
     return await $axios.delete(`${EndPointes.letsTripTransfer.delete}/${id}`);
+  },
+
+  async addDirectionCar(carId: number, direction: ICreateCarDirection) {
+    return await $axios.post<ICreateCarDirection, AxiosResponse<ILetsTripTransfer>>(
+      `${EndPointes.letsTripTransfer.addDirection}/${carId}`,
+      direction,
+    );
+  },
+
+  async getCountries() {
+    return await $axios.get<IGlobalResponce<IGlobalCountry[]>>(
+      EndPointes.letsTripTransfer.countries + '?page=0&size=5',
+    );
+  },
+
+  async getRegions(countryId: number) {
+    return await $axios.get<IGlobalResponce<IGlobalCountry[]>>(
+      `${EndPointes.letsTripTransfer.regions}/${countryId}?page=0&size=10&direction=ASC`,
+    );
   },
 };

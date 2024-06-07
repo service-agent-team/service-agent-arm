@@ -3,6 +3,7 @@ import { Input as AntInput } from 'antd';
 import styled from 'styled-components';
 
 export const Input = styled(AntInput)`
+  height: 50px !important;
   .ant-input-group-addon:first-child,
   .ant-input-group-addon:last-child {
     min-width: 5.5rem;

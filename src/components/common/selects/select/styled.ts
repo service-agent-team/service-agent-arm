@@ -12,6 +12,7 @@ export interface SelectProps {
 export const Select = styled(AntSelect).withConfig({
   shouldForwardProp: (prop) => !['shadow', 'width'].includes(prop),
 })<SelectProps>`
+  height: 50px !important;
   width: ${(props) => props.width && normalizeProp(props.width)};
   font-weight: ${FONT_WEIGHT.medium};
 

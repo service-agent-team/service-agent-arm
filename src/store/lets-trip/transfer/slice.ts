@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ILetsTripTransferInitialState } from './types';
 import {
+  countryRegions,
   createLetsTripTransfer,
   deleteLetsTripTransfer,
   getAllLetsTripTransfer,
   getOneLetsTripTransfer,
+  globalCountries,
+  transferCarSettings,
   updateI18LetsTripTransfer,
   updateLetsTripTransfer,
 } from './actions';
+import { ILetsTripTransferInitialState } from './types';
 
 const initialState: ILetsTripTransferInitialState = {
   loading: {
@@ -16,8 +19,16 @@ const initialState: ILetsTripTransferInitialState = {
     patch: false,
     delete: false,
   },
-  transfers: null,
-  activeTransfers: null,
+  modal: {
+    car_settings: false,
+  },
+  car_details: {
+    select_car_id: null,
+  },
+  global_countries: [],
+  country_regions: [],
+  transfers: [],
+  activeTransfers: [],
   transfer: null,
   deleted: true,
   errors: null,
@@ -32,6 +43,12 @@ export const letsTripTransferSlice = createSlice({
     },
     setLetsTripTransferStatus: (state, { payload }) => {
       state.deleted = payload;
+    },
+    setCarModal: (state, { payload }) => {
+      state.modal.car_settings = payload;
+    },
+    setSelectCar: (state, { payload }) => {
+      state.car_details.select_car_id = payload;
     },
   },
   extraReducers: (builder) => {
@@ -112,6 +129,47 @@ export const letsTripTransferSlice = createSlice({
       })
       .addCase(deleteLetsTripTransfer.rejected, (state, { payload }) => {
         state.loading.delete = false;
+        state.errors = payload;
+      })
+      .addCase(transferCarSettings.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(transferCarSettings.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        console.log(payload.data);
+
+        state.transfers = [...state.transfers, payload.data];
+        state.errors = null;
+      })
+      .addCase(transferCarSettings.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(globalCountries.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(globalCountries.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.global_countries = payload.data.content;
+        state.errors = null;
+      })
+      .addCase(globalCountries.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(countryRegions.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(countryRegions.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.country_regions = payload.data.content;
+        state.errors = null;
+      })
+      .addCase(countryRegions.rejected, (state, { payload }) => {
+        state.loading.get = false;
         state.errors = payload;
       });
   },

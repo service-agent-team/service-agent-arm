@@ -1,3 +1,4 @@
+import { ICreateCarDirection, IGlobalCountry } from '@/types';
 import { ILetsTripTransferCategory } from '../transfer-category/types';
 
 export interface ILetsTripTransferInitialState {
@@ -7,7 +8,15 @@ export interface ILetsTripTransferInitialState {
     patch: boolean;
     delete: boolean;
   };
-  transfers: ILetsTripTransfer[] | null;
+  modal: {
+    car_settings: boolean;
+  };
+  car_details: {
+    select_car_id: number | null;
+  };
+  global_countries: IGlobalCountry[];
+  country_regions: IGlobalCountry[];
+  transfers: ILetsTripTransfer[];
   activeTransfers: ILetsTripTransfer[] | null;
   transfer: ILetsTripTransfer | null;
   deleted: boolean;
@@ -22,9 +31,25 @@ export interface ILetsTripTransfer {
   pricePerKM: number;
   hourlyPrice: number;
   manufactureDate: string;
+  directions: IDirection[];
   createdAt: string;
   updatedAt: string;
   deleted: boolean;
+}
+
+export interface IDirection {
+  id: number;
+  transferPrice: number;
+  hourlyPrice: number;
+  sourceBoundary: Boundary;
+  destinationBoundary: Boundary;
+}
+
+export interface Boundary {
+  id: number;
+  name: Name;
+  code: string;
+  type: string;
 }
 
 export interface Name {
@@ -93,6 +118,16 @@ export interface ILetsTripTransferUpdateI18Payload {
 export interface ILetsTripTransferDeletePayload {
   callback(): void;
   carId: number;
+}
+
+export interface ICreateTransferDirectionPay {
+  carId: number;
+  direction: ICreateCarDirection;
+  callback?: () => void;
+}
+
+export interface ICountryRegions {
+  countryId: number;
 }
 
 export interface Pageable {

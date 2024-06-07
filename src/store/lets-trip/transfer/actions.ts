@@ -1,7 +1,13 @@
 import { errorCatch } from '@/common';
+import { LetsTripTransferCarService } from '@/services';
 import { EndPointes } from '@/services/endpoints';
+import { IGlobalCountry } from '@/types';
+import { IGlobalResponce } from '@/types/reponces';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
 import {
+  ICountryRegions,
+  ICreateTransferDirectionPay,
   ILetsTripTransfer,
   ILetsTripTransferCreatePayload,
   ILetsTripTransferCreateResponse,
@@ -12,7 +18,6 @@ import {
   ILetsTripTransferUpdateI18Payload,
   ILetsTripTransferUpdatePayload,
 } from './types';
-import { LetsTripTransferCarService } from '@/services';
 
 export const getAllLetsTripTransfer = createAsyncThunk<
   ILetsTripTransferResponse,
@@ -97,6 +102,45 @@ export const deleteLetsTripTransfer = createAsyncThunk<any, ILetsTripTransferDel
       if (response.status) {
         callback();
       }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const transferCarSettings = createAsyncThunk<
+  AxiosResponse<ILetsTripTransfer>,
+  ICreateTransferDirectionPay
+>(EndPointes.letsTripTransfer.addDirection, async ({ carId, direction, callback }, thunkApi) => {
+  try {
+    const response = await LetsTripTransferCarService.addDirectionCar(carId, direction);
+    if (response.data && callback) {
+      callback();
+    }
+    return response;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const globalCountries = createAsyncThunk<IGlobalResponce<IGlobalCountry[]>, any>(
+  EndPointes.letsTripTransfer.countries,
+  async (_, thunkApi) => {
+    try {
+      const response = await LetsTripTransferCarService.getCountries();
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const countryRegions = createAsyncThunk<IGlobalResponce<IGlobalCountry[]>, ICountryRegions>(
+  EndPointes.letsTripTransfer.regions,
+  async ({ countryId }, thunkApi) => {
+    try {
+      const response = await LetsTripTransferCarService.getRegions(countryId);
       return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });

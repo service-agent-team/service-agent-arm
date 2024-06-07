@@ -218,6 +218,9 @@ export const EndPointes = {
     update: '/api/transfer/car/update',
     updateI18: '/api/transfer/update/i18',
     delete: '/api/transfer/car/delete',
+    addDirection: '/api/transfer/car/add-directions',
+    countries: 'api/country/get-all',
+    regions: 'api/country/region',
   },
 
   letsTripTransferCategory: {

@@ -1,6 +1,5 @@
 import { Form } from 'antd';
 import { ComponentProps } from 'react';
-
 import { FormLayout } from 'antd/es/form/Form';
 import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import { BaseFormErrorList, BaseFormItem, BaseFormList, BaseFormTitle } from '../components';

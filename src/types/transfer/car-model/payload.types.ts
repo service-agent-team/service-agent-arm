@@ -4,6 +4,13 @@ export interface CreateCarPayload {
   attributes: any;
 }
 
+export interface ICreateCarDirection {
+  transferPrice: number;
+  hourlyPrice: number;
+  sourceBoundaryId: number;
+  destinationBoundaryId: number;
+}
+
 export interface ISetImagePayload {
   data: any;
   callback: () => void;

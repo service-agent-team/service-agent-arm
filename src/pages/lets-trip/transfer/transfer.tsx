@@ -1,6 +1,7 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
+import { TransferCarSettingsModal } from '@/components/modal';
 import { LetsTripTransferTable } from '@/components/tables';
 import { ROUTES } from '@/constants';
 import { Space, Switch, Typography } from 'antd';
@@ -26,6 +27,7 @@ export const LetsTripTransfer = () => {
         </Space>
       </PageTitle>
       <LetsTripTransferTable />
+      <TransferCarSettingsModal />
     </SimplePage>
   );
 };
