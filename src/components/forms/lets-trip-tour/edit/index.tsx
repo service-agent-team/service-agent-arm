@@ -114,7 +114,7 @@ export const LestTripTourEditForm: React.FC = () => {
     priceIncludeRu,
     images,
     extraInformation,
-    availableDate,
+    // availableDate,
     tourItenarary,
   }: IValuesForm) => {
     if (locations.length === 0) {
@@ -226,31 +226,31 @@ export const LestTripTourEditForm: React.FC = () => {
         }
       });
 
-      availableDate.splice(groupTourRaw.availableDate.length).map((el) => {
-        const formatMonth = +dateFormatDayJs(el.month, 'M');
-        const formatYear = +dateFormatDayJs(el.year, 'YYYY');
+      // availableDate.splice(groupTourRaw.availableDate.length).map((el) => {
+      //   const formatMonth = +dateFormatDayJs(el.month, 'M');
+      //   const formatYear = +dateFormatDayJs(el.year, 'YYYY');
 
-        addNewDateLetsTripGroupTour({
-          callback() {
-            addNotification('available date added');
-            navigate(ROUTES.letsTripGroupTour);
-          },
-          tourId: groupTourRaw.tourId,
-          availableDateItem: {
-            month: formatMonth,
-            year: formatYear,
-            departures: el.departures.map((dep) => ({
-              price: dep.price,
-              transferType: {
-                en: dep.transferTypeEn,
-                ru: dep.transferTypeRu,
-              },
-              startDate: dateFormatDayJs(dep.transferDate[0]),
-              endDate: dateFormatDayJs(dep.transferDate[1]),
-            })),
-          },
-        });
-      });
+      //   addNewDateLetsTripGroupTour({
+      //     callback() {
+      //       addNotification('available date added');
+      //       navigate(ROUTES.letsTripGroupTour);
+      //     },
+      //     tourId: groupTourRaw.tourId,
+      //     availableDateItem: {
+      //       month: formatMonth,
+      //       year: formatYear,
+      //       departures: el.departures.map((dep) => ({
+      //         price: dep.price,
+      //         transferType: {
+      //           en: dep.transferTypeEn,
+      //           ru: dep.transferTypeRu,
+      //         },
+      //         startDate: dateFormatDayJs(dep.transferDate[0]),
+      //         endDate: dateFormatDayJs(dep.transferDate[1]),
+      //       })),
+      //     },
+      //   });
+      // });
 
       const newImages = images?.fileList
         .filter((el) => el.response)
@@ -438,16 +438,16 @@ export const LestTripTourEditForm: React.FC = () => {
         extraInformation: [
           { en: groupTourRaw?.extraInformation?.en, ru: groupTourRaw?.extraInformation?.ru },
         ],
-        availableDate: groupTourRaw?.availableDate.map((el) => ({
-          month: dayjs(`${el?.year}-${el?.month}`),
-          year: dayjs(`${el?.year}-${el?.month}`),
-          departures: el?.departures?.map((dep) => ({
-            price: dep.price,
-            transferTypeEn: dep.transferType.en,
-            transferTypeRu: dep.transferType.ru,
-            transferDate: [dayjs(dep.startDate), dayjs(dep.endDate)],
-          })),
-        })),
+        // availableDate: groupTourRaw?.availableDate.map((el) => ({
+        //   month: dayjs(`${el?.year}-${el?.month}`),
+        //   year: dayjs(`${el?.year}-${el?.month}`),
+        //   departures: el?.departures?.map((dep) => ({
+        //     price: dep.price,
+        //     transferTypeEn: dep.transferType.en,
+        //     transferTypeRu: dep.transferType.ru,
+        //     transferDate: [dayjs(dep.startDate), dayjs(dep.endDate)],
+        //   })),
+        // })),
         tourItenarary: groupTourRaw?.tourItenarary.map((el) => ({
           id: el.id,
           itineraryTitleEn: el.title.en,
@@ -691,7 +691,7 @@ export const LestTripTourEditForm: React.FC = () => {
             )}
           </Upload.Dragger>
         </BaseForm.Item>
-        <BaseForm.List name="availableDate">
+        {/* <BaseForm.List name="availableDate">
           {(fields, { add, remove }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
               {fields.map((field) => (
@@ -859,7 +859,7 @@ export const LestTripTourEditForm: React.FC = () => {
               </BaseForm.Item>
             </div>
           )}
-        </BaseForm.List>
+        </BaseForm.List> */}
         <BaseForm.List name="tourItenarary">
           {(fields, { add, remove }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>

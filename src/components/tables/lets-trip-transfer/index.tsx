@@ -24,6 +24,7 @@ export const LetsTripTransferTable = () => {
   return (
     <Table
       columns={utils()}
+      // expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
       dataSource={
         transfers && !deleted
           ? (transfers as ILetsTripTransfer[])
