@@ -75,7 +75,7 @@ export interface ILetsTripGroupTourCreatePayload {
   description: Description2[];
   priceIncludes: PriceIncludes;
   locations: Location[];
-  availableDate: AvailableDate[];
+  // availableDate: AvailableDate[];
   tourItenarary: TourItinerary[];
 }
 

@@ -137,8 +137,6 @@ export const letsTripTransferSlice = createSlice({
       })
       .addCase(transferCarSettings.fulfilled, (state, { payload }) => {
         state.loading.post = false;
-        console.log(payload.data);
-
         state.transfers = [...state.transfers, payload.data];
         state.errors = null;
       })
