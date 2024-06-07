@@ -1,13 +1,12 @@
-import { ILetsTripTransferCategory } from '@/store/lets-trip/transfer-category/types';
-import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Space, Tag } from 'antd';
-import { ColumnsType } from 'antd/es/table';
-import { LinkButton } from '@/components/common/buttons';
+import { addNotification } from '@/common';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { dateParser } from '@/common/utils/format';
 import { modal } from '@/components';
-import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
+import { ILetsTripTransferCategory } from '@/store/lets-trip/transfer-category/types';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Button, Space, Tag } from 'antd';
+import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 
 export const utils = () => {
@@ -43,6 +42,13 @@ export const utils = () => {
       width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
+    },
+
+    {
+      title: 'Priority',
+      dataIndex: 'priority',
+      key: 'name',
+      width: '5%',
     },
     {
       title: 'Category Name',

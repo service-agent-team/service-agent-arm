@@ -5,4 +5,5 @@ export interface IValuesForm {
   startingPrice: number;
   seats: number;
   luggage: number;
+  priority: number;
 }

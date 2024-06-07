@@ -1,8 +1,8 @@
-import { Table } from 'antd';
-import { utils } from './utils';
-import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
+import { Table } from 'antd';
+import { useEffect } from 'react';
+import { utils } from './utils';
 
 export const LetsTripTransferTable = () => {
   const { getAllLetsTripTransfer } = useActions();
@@ -31,6 +31,7 @@ export const LetsTripTransferTable = () => {
       }
       loading={get}
       bordered
+      scroll={{ x: 1000 }}
     />
   );
 };

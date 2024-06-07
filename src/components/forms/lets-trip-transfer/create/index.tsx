@@ -52,7 +52,7 @@ export const LestTripTransferCreateForm: React.FC = () => {
   };
 
   const selectOptionTransferCategory = transferCategories?.map((category) => ({
-    label: category.name.en,
+    label: `${category.name.en} --> seats  ${category.seats}`,
     value: category.id,
   }));
 

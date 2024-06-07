@@ -44,9 +44,12 @@ export const utils = () => {
   const columns: ColumnsType<ILetsTripTransfer> = [
     {
       title: 'Id',
-      dataIndex: 'id',
+      dataIndex: '',
+      render: (_: any, __: any, index: number) => {
+        return <>{index + 1}</>;
+      },
       key: 'id',
-      width: '4%',
+      width: '40%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
     },
@@ -54,33 +57,33 @@ export const utils = () => {
       title: 'Car Name',
       dataIndex: ['name', 'en'],
       key: 'name',
-      width: '20%',
+      width: '50%',
     },
     {
       title: 'Car Category',
       dataIndex: ['category', 'name', 'en'],
       key: 'category',
-      width: '20%',
+      width: '230',
     },
     {
       title: 'Per KM Price ($)',
       dataIndex: 'pricePerKM',
       key: 'pricePerKM',
-      width: '15%',
+      width: '230px',
       render: (value: number) => value / 100 + ' $',
     },
     {
       title: 'Hourly Price ($)',
       dataIndex: 'hourlyPrice',
       key: 'hourlyPrice',
-      width: '10%',
+      width: '230px',
       render: (value: number) => value / 100 + ' $',
     },
     {
       title: 'Created At Date',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      width: '25%',
+      width: '230px',
       render: (date) => {
         return dateParser(date);
       },
@@ -89,7 +92,7 @@ export const utils = () => {
       title: 'Manufacture Date',
       dataIndex: 'manufactureDate',
       key: 'manufactureDate',
-      width: '25%',
+      width: '230px',
     },
     // {
     //   title: 'Active',
@@ -100,7 +103,7 @@ export const utils = () => {
     //     value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
     // },
     {
-      title: 'Source Boundry',
+      title: 'Source Boundary',
       dataIndex: 'directions',
       key: 'deleted',
       width: '5%',
@@ -112,7 +115,7 @@ export const utils = () => {
         )),
     },
     {
-      title: 'Destination Boundry',
+      title: 'Destination Boundary',
       dataIndex: 'directions',
       key: 'deleted',
       width: '5%',

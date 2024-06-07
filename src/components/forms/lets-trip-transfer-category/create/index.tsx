@@ -1,12 +1,12 @@
+import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, InputNumber, PrimaryBtn } from '@/components';
+import { ROUTES } from '@/constants';
 import { Flex, Input } from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from '../types';
 import * as S from './styled';
-import { addNotification } from '@/common';
-import { ROUTES } from '@/constants';
 
 export const LestTripTransferCategoryCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -14,7 +14,15 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
   const { createLetsTripTransferCategory } = useActions();
   const navigate = useNavigate();
 
-  const onFinish = ({ nameEn, nameRu, nameUz, startingPrice, seats, luggage }: IValuesForm) => {
+  const onFinish = ({
+    nameEn,
+    nameRu,
+    nameUz,
+    startingPrice,
+    seats,
+    luggage,
+    priority,
+  }: IValuesForm) => {
     createLetsTripTransferCategory({
       callback() {
         addNotification('successfully added transfer category');
@@ -25,6 +33,7 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
         startingPrice: startingPrice * 100,
         luggage,
         seats,
+        priority,
       },
     });
   };
@@ -102,6 +111,19 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
               width={'100%'}
               type="number"
               placeholder="Enter a luggage ?"
+            />
+          </BaseForm.Item>
+          <BaseForm.Item
+            style={{ width: '100%' }}
+            name="priority"
+            label={'priority'}
+            rules={[{ required: true, message: 'priority is required?' }]}
+          >
+            <InputNumber
+              style={{ width: '100%' }}
+              width={'100%'}
+              type="number"
+              placeholder="Enter a priority ?"
             />
           </BaseForm.Item>
         </Flex>
