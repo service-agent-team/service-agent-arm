@@ -1,11 +1,10 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { dateParser } from '@/common/utils/format';
-import { modal } from '@/components';
+import { Icon, modal } from '@/components';
 import { ROUTES } from '@/constants';
 import { ILetsTripTransferCategory } from '@/store/lets-trip/transfer-category/types';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Space, Tag } from 'antd';
+import { Button, Space } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,14 +12,14 @@ export const utils = () => {
   const {
     deleteLetsTripTransferCategory,
     setLetsTripTransfersCategories,
-    getOneLetsTripTransferCategory,
+    setLetsTripTransferSelectCategoryId,
   } = useActions();
   const { transferCategories } = useTypedSelector((state) => state.letsTripTransferCategory);
   const navigate = useNavigate();
 
   const handleDelete = (record: any) => {
     modal.confirm({
-      okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
+      okText: 'Delete',
       title: `You want to delete right ?`,
       onOk: () => {
         deleteLetsTripTransferCategory({
@@ -42,13 +41,9 @@ export const utils = () => {
       width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
-    },
-
-    {
-      title: 'Priority',
-      dataIndex: 'priority',
-      key: 'name',
-      width: '5%',
+      render: (_: any, __: any, index: number) => {
+        return <>{index + 1}</>;
+      },
     },
     {
       title: 'Category Name',
@@ -76,12 +71,10 @@ export const utils = () => {
       width: '10%',
     },
     {
-      title: 'Active',
-      dataIndex: 'deleted',
-      key: 'deleted',
-      width: '10%',
-      render: (value) =>
-        value ? <Tag color="red">DELETED</Tag> : <Tag color="success">ACTIVE</Tag>,
+      title: 'Priority',
+      dataIndex: 'priority',
+      key: 'name',
+      width: '5%',
     },
     {
       title: 'Created At Date',
@@ -92,19 +85,24 @@ export const utils = () => {
         return dateParser(date);
       },
     },
-    // {
-    //   title: 'View',
-    //   dataIndex: 'id',
-    //   key: 'view',
-    //   width: '10%',
-    //   render: (_: number) => {
-    //     return (
-    //       <LinkButton path={`#`}>
-    //         <EyeOutlined />
-    //       </LinkButton>
-    //     );
-    //   },
-    // },
+    {
+      title: 'View',
+      dataIndex: 'id',
+      key: 'view',
+      width: '5%',
+      render: (id: number, record) => {
+        return (
+          <Button
+            onClick={() => {
+              navigate(`${ROUTES.letsTripTransferCategory}/${id}`);
+              setLetsTripTransferSelectCategoryId(record);
+            }}
+          >
+            <Icon name="EyeOutlined" />
+          </Button>
+        );
+      },
+    },
     {
       title: 'Actions',
       dataIndex: 'action',
@@ -121,18 +119,13 @@ export const utils = () => {
                   type="primary"
                   key={1}
                   onClick={() => {
-                    getOneLetsTripTransferCategory({
-                      callback() {
-                        navigate(`${ROUTES.letsTripTransferCategory}/edit/${record.id}`);
-                      },
-                      categoryId: record.id,
-                    });
+                    navigate(`${ROUTES.letsTripTransferCategory}/edit/${record.id}`);
                   }}
                 >
-                  <EditOutlined />
+                  <Icon name="EditOutlined" />
                 </Button>
                 <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
-                  <DeleteOutlined />
+                  <Icon name="DeleteOutlined" />
                 </Button>
               </>
             )}

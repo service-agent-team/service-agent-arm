@@ -30,6 +30,8 @@ export interface ILetsTripTransfer {
   pictures: string[];
   manufactureDate: string;
   directions: IDirection[];
+  luggage: number;
+  seats: number;
   createdAt: string;
   updatedAt: string;
   deleted: boolean;
@@ -84,11 +86,18 @@ export interface ILetsTripTransferGetOnePayload {
   carId: number;
 }
 
+export interface ILetsTripTransferGetByCategoryIdPayload {
+  categoryId: number;
+  page: number;
+  size: number;
+}
 export interface ILetsTripTransferCreatePayload {
   callback(): void;
   body: {
     name: Name;
     carCategoryId: number;
+    seats: number;
+    luggage: number;
     pictures: string[];
     manufactureDate: string;
   };
@@ -99,6 +108,8 @@ export interface ILetsTripTransferUpdatePayload {
   carId: number;
   body: {
     carCategoryId: number;
+    seats: number;
+    luggage: number;
     manufactureDate: string;
   };
 }

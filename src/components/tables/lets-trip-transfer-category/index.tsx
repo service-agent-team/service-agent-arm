@@ -1,30 +1,34 @@
-import { Table } from 'antd';
 import { utils } from './utils';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { ILetsTripTransferCategory } from '@/store/lets-trip/transfer-category/types';
+import { Table } from '@/components/common';
 
 export const LetsTripTransferCategoryTable = () => {
-  const { getAllLetsTripTransferCategory } = useActions();
+  const { getAllLetsTripTransferCategory, setPagination } = useActions();
   const {
     transferCategories,
-    deleted,
     loading: { get },
   } = useTypedSelector((state) => state.letsTripTransferCategory);
+  const {
+    pagination: { current, pageSize, total },
+  } = useTypedSelector((state) => state.app);
 
   useEffect(() => {
     getAllLetsTripTransferCategory({
-      page: 0,
-      size: 100,
-      deleted: !deleted,
+      page: current,
+      size: pageSize,
+      deleted: false,
     });
-  }, [deleted]);
+  }, [current]);
 
   return (
     <Table
       columns={utils()}
       dataSource={transferCategories as ILetsTripTransferCategory[]}
       loading={get}
+      pagination={{ current, pageSize, total }}
+      onChange={(p) => setPagination(p)}
       bordered
     />
   );

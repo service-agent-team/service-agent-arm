@@ -116,7 +116,7 @@ export const letsTrip = [
     ),
   },
   {
-    path: ROUTES.letsTripTransfer,
+    path: ROUTES.letsTripTransferCategoryId,
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripTransferPage />

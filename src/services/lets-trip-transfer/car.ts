@@ -6,15 +6,15 @@ import { AxiosResponse } from 'axios';
 import { EndPointes } from '../endpoints';
 
 export const LetsTripTransferCarService = {
-  async getAllTransfer(page = 0, size = 10) {
-    return await $axios.get(`${EndPointes.letsTripTransfer.getAll}?page=${page}&size=${size}`);
+  async getAllTransfer(page: number, size = 10) {
+    return await $axios.get(`${EndPointes.letsTripTransfer.getAll}?page=${page - 1}&size=${size}`);
   },
   async getOneTransfer(id: number) {
     return await $axios.get(`${EndPointes.letsTripTransfer.getOne}/${id}`);
   },
-  async getByCategoryId(id: string, page = 0, size = 10) {
+  async getByCategoryId(id: number, page: number, size = 10) {
     return await $axios.get(
-      `${EndPointes.letsTripTransfer.getByCategoryId}/${id}?page=${page}&size=${size}`,
+      `${EndPointes.letsTripTransfer.getByCategoryId}/${id}?page=${page - 1}&size=${size}`,
     );
   },
   async createTransfer(body: any) {

@@ -89,6 +89,7 @@ export const ROUTES = {
   letsTripTransferCreate: '/lets-trip/transfer/create',
   letsTripTransferEdit: '/lets-trip/transfer/edit/:id',
   letsTripTransferCategory: '/lets-trip/transfer-category',
+  letsTripTransferCategoryId: '/lets-trip/transfer-category/:id',
   letsTripTransferCategoryCreate: '/lets-trip/transfer-category/create',
   letsTripTransferCategoryEdit: '/lets-trip/transfer-category/edit/:id',
   letsTripEsimGo: '/lets-trip/esimgo',

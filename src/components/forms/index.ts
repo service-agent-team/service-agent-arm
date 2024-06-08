@@ -10,8 +10,6 @@ export { CarTypeForm } from './car-type-form';
 export * from './lets-trip-country';
 export * from './lets-trip-individual-tour';
 export * from './lets-trip-tour';
-export * from './lets-trip-transfer';
-export * from './lets-trip-transfer-category';
 export * from './letstrip';
 export { PermisionsForm } from './permissions-form';
 export { ProductCreateForm } from './product-form';
