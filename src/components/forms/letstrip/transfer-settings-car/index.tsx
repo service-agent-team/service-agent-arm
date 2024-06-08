@@ -34,13 +34,13 @@ export const TransferCarSettinsForm = () => {
       direction: {
         sourceBoundaryId,
         destinationBoundaryId,
-        hourlyPrice: +hourlyPrice,
-        transferPrice: +transferPrice,
+        hourlyPrice: +hourlyPrice * 100,
+        transferPrice: +transferPrice * 100,
       },
       callback: () => {
         getAllLetsTripTransfer({
           page: 0,
-          size: 30,
+          size: 50,
           callback() {},
         });
         setCarModal(false);
@@ -56,13 +56,13 @@ export const TransferCarSettinsForm = () => {
   const regions = country_regions.map((el) => ({ value: el.id, label: el.name.en }));
 
   return (
-    <BaseForm name="Car settins" form={form} layout="vertical" onFinish={onFinish}>
+    <BaseForm name="Car settings" form={form} layout="vertical" onFinish={onFinish}>
       <Row gutter={10}>
         <Col span={12}>
           <BaseForm.Item
             name="sourceCountryId"
             label={'Source Country'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Source Country is required!' }]}
           >
             <Select
               options={sourceCountry}
@@ -75,7 +75,7 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="destinationCountryId"
             label={'Destination Country'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Destination Country is required!' }]}
           >
             <Select
               options={sourceCountry}
@@ -89,7 +89,7 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="sourceBoundaryId"
             label={'Source Boundary'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Select Source Boundary is required!' }]}
           >
             <Select options={regions} placeholder="Select Source Boundary" />
           </BaseForm.Item>
@@ -99,7 +99,7 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="destinationBoundaryId"
             label={'Destination Boundary'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Destination Boundary is required!' }]}
           >
             <Select options={regions} placeholder="Select Destination Boundary" />
           </BaseForm.Item>
@@ -109,18 +109,18 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="transferPrice"
             label={'Transfer Price'}
-            rules={[{ required: true, message: 'tariff name is required!' }]}
+            rules={[{ required: true, message: 'Transfer price is required!' }]}
           >
-            <Input placeholder="Enter tariff name" />
+            <Input placeholder="Enter transfer price" />
           </BaseForm.Item>
         </Col>
         <Col span={12}>
           <BaseForm.Item
             name="hourlyPrice"
             label={'Hourly Price'}
-            rules={[{ required: true, message: 'tariff name is required!' }]}
+            rules={[{ required: true, message: 'Hourly Price is required!' }]}
           >
-            <Input placeholder="Enter tariff name" />
+            <Input placeholder="Enter hourly price" />
           </BaseForm.Item>
         </Col>
 

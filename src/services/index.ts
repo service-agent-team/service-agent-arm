@@ -22,3 +22,4 @@ export * from './lets-trip-transfer';
 export * from './lets-trip-country';
 export * from './lets-trip-category';
 export * from './lets-trip-statistic';
+export * from './lets-trip';

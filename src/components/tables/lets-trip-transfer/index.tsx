@@ -16,7 +16,7 @@ export const LetsTripTransferTable = () => {
   useEffect(() => {
     getAllLetsTripTransfer({
       page: 0,
-      size: 30,
+      size: 50,
       callback() {},
     });
   }, []);

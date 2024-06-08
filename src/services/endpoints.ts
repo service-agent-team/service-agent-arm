@@ -210,6 +210,11 @@ export const EndPointes = {
     delete: '/api/tours/countries/',
   },
 
+  letsTripGlobalCountry: {
+    getAll: '/api/country/get-all',
+    create: '/api/country/create',
+  },
+
   letsTripTransfer: {
     getAll: '/api/transfer/car/get-all',
     getOne: '/api/transfer/car/get-one',

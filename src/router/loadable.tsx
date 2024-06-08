@@ -82,3 +82,5 @@ export const LetsTripTransferCategoryEditPage = getLoadablePage('LetsTripTransfe
 export const LetsTripEsimGoPage = getLoadablePage('LetsTripEsimGo');
 export const LetsTripCountryPage = getLoadablePage('LetsTripCountry');
 export const LetsTripCountryCreatePage = getLoadablePage('LetsTripCountryCreate');
+export const LetsTripGlobalCountryPage = getLoadablePage('LetsTripGlobalCountry');
+export const LetsTripGlobalCountryCreatePage = getLoadablePage('LetsTripGlobalCountryCreate');

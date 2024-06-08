@@ -27,8 +27,6 @@ export const LestTripTransferCreateForm: React.FC = () => {
     nameUz,
     carCategoryId,
     pictures,
-    pricePerKM,
-    hourlyPrice,
     manufactureDate,
   }: IValuesForm) => {
     createLetsTripTransfer({
@@ -39,8 +37,6 @@ export const LestTripTransferCreateForm: React.FC = () => {
       body: {
         name: { en: nameEn, ru: nameRu, uz: nameUz },
         carCategoryId,
-        hourlyPrice: hourlyPrice * 100,
-        pricePerKM: pricePerKM * 100,
         pictures: pictures.fileList
           .map((item: UploadFile) =>
             item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
@@ -139,34 +135,6 @@ export const LestTripTransferCreateForm: React.FC = () => {
               style={{ width: '100%' }}
               format={'YYYY-MM-DD'}
               disabledDate={(current) => current && current > dayjs().endOf('day')}
-            />
-          </BaseForm.Item>
-        </Flex>
-        <Flex gap={'15px'}>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="hourlyPrice"
-            label={'hourly price'}
-            rules={[{ required: true, message: 'hourly price is required?' }]}
-          >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              type="number"
-              placeholder="Enter a hourly price ?"
-            />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="pricePerKM"
-            label={'price per KM'}
-            rules={[{ required: true, message: 'price per KM is required?' }]}
-          >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              type="number"
-              placeholder="Enter a price per KM ?"
             />
           </BaseForm.Item>
         </Flex>
