@@ -47,6 +47,11 @@ export const letsTrip = [
     key: ROUTES.letsTripCountry,
     label: 'Countries',
   },
+  {
+    icon: 'GlobalOutlined',
+    key: ROUTES.letsTripGlobalCountry,
+    label: 'Global Countries',
+  },
 ];
 
 export const LetsTripConf = {

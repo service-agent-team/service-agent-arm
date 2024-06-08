@@ -5,7 +5,7 @@ import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
 import {
   Button,
   Card,
-  DatePicker,
+  // DatePicker,
   Flex,
   GetProp,
   Image,
@@ -19,10 +19,10 @@ import React, { useEffect, useState } from 'react';
 import { Id, IGoogleMouseEvent, IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
-import { dateFormatDayJs } from '@/common/utils/format';
+// import { dateFormatDayJs } from '@/common/utils/format';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import toast from 'react-hot-toast';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 
 export const LestTripTourEditForm: React.FC = () => {
@@ -39,7 +39,7 @@ export const LestTripTourEditForm: React.FC = () => {
     updatePriceNoteTripGroupTour,
     getAllLetsTripCountry,
     setLetsTripGroupTourLocations,
-    addNewDateLetsTripGroupTour,
+    // addNewDateLetsTripGroupTour,
     removeDateLetsTripGroupTour,
     addLocationLetsTripGroupTour,
     removeLocationLetsTripGroupTour,

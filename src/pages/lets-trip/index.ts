@@ -7,3 +7,4 @@ export * from './transfer';
 export * from './transfer-category';
 export * from './esimgo';
 export * from './country';
+export * from './global-country';

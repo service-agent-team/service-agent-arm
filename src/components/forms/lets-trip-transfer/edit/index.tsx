@@ -18,15 +18,7 @@ export const LestTripTransferEditForm: React.FC = () => {
     useActions();
   const navigate = useNavigate();
 
-  const onFinish = ({
-    nameEn,
-    nameRu,
-    nameUz,
-    carCategoryId,
-    pricePerKM,
-    hourlyPrice,
-    manufactureDate,
-  }: IValuesForm) => {
+  const onFinish = ({ nameEn, nameRu, nameUz, carCategoryId, manufactureDate }: IValuesForm) => {
     if (
       nameEn !== transfer?.name.en ||
       nameRu !== transfer?.name.ru ||
@@ -47,8 +39,6 @@ export const LestTripTransferEditForm: React.FC = () => {
       },
       body: {
         carCategoryId,
-        hourlyPrice: hourlyPrice * 100,
-        pricePerKM: pricePerKM * 100,
         manufactureDate: dateFormatDayJs(manufactureDate),
       },
       carId: transfer?.id as number,
@@ -76,8 +66,6 @@ export const LestTripTransferEditForm: React.FC = () => {
         nameRu: transfer?.name.ru,
         nameUz: transfer?.name.uz,
         carCategoryId: transfer?.category.id,
-        hourlyPrice: transfer?.hourlyPrice && transfer?.hourlyPrice / 100,
-        pricePerKM: transfer?.pricePerKM && transfer.pricePerKM / 100,
         manufactureDate: dayjs(transfer?.manufactureDate),
       }}
     >
@@ -130,34 +118,6 @@ export const LestTripTransferEditForm: React.FC = () => {
               style={{ width: '100%' }}
               format={'YYYY-MM-DD'}
               disabledDate={(current) => current && current > dayjs().endOf('day')}
-            />
-          </BaseForm.Item>
-        </Flex>
-        <Flex gap={'15px'}>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="hourlyPrice"
-            label={'hourly price ($)'}
-            rules={[{ required: true, message: 'hourly price is required?' }]}
-          >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              type="number"
-              placeholder="Enter a hourly price ?"
-            />
-          </BaseForm.Item>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="pricePerKM"
-            label={'per KM price ($)'}
-            rules={[{ required: true, message: 'per KM price is required?' }]}
-          >
-            <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
-              type="number"
-              placeholder="Enter a per KM price?"
             />
           </BaseForm.Item>
         </Flex>

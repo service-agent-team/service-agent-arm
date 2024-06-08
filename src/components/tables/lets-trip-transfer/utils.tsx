@@ -44,12 +44,12 @@ export const utils = () => {
   const columns: ColumnsType<ILetsTripTransfer> = [
     {
       title: 'Id',
-      dataIndex: '',
+      dataIndex: 'id',
       render: (_: any, __: any, index: number) => {
         return <>{index + 1}</>;
       },
       key: 'id',
-      width: '40%',
+      width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
     },
@@ -57,27 +57,13 @@ export const utils = () => {
       title: 'Car Name',
       dataIndex: ['name', 'en'],
       key: 'name',
-      width: '50%',
+      width: '25%',
     },
     {
       title: 'Car Category',
       dataIndex: ['category', 'name', 'en'],
       key: 'category',
-      width: '230',
-    },
-    {
-      title: 'Per KM Price ($)',
-      dataIndex: 'pricePerKM',
-      key: 'pricePerKM',
       width: '230px',
-      render: (value: number) => value / 100 + ' $',
-    },
-    {
-      title: 'Hourly Price ($)',
-      dataIndex: 'hourlyPrice',
-      key: 'hourlyPrice',
-      width: '230px',
-      render: (value: number) => value / 100 + ' $',
     },
     {
       title: 'Created At Date',
@@ -92,7 +78,7 @@ export const utils = () => {
       title: 'Manufacture Date',
       dataIndex: 'manufactureDate',
       key: 'manufactureDate',
-      width: '230px',
+      width: '130px',
     },
     // {
     //   title: 'Active',
@@ -135,7 +121,7 @@ export const utils = () => {
       render: (el: IDirection[]) =>
         el.map((el, i) => (
           <Tag key={i} color="success">
-            {el.transferPrice}
+            {el.transferPrice / 100 + ' $'}
           </Tag>
         )),
     },
@@ -147,7 +133,7 @@ export const utils = () => {
       render: (el: IDirection[]) =>
         el.map((el, i) => (
           <Tag key={i} color="success">
-            {el.hourlyPrice}
+            {el.hourlyPrice / 100 + ' $'}
           </Tag>
         )),
     },

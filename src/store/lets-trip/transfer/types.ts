@@ -28,8 +28,6 @@ export interface ILetsTripTransfer {
   name: Name;
   category: ILetsTripTransferCategory;
   pictures: string[];
-  pricePerKM: number;
-  hourlyPrice: number;
   manufactureDate: string;
   directions: IDirection[];
   createdAt: string;
@@ -92,8 +90,6 @@ export interface ILetsTripTransferCreatePayload {
     name: Name;
     carCategoryId: number;
     pictures: string[];
-    pricePerKM: number;
-    hourlyPrice: number;
     manufactureDate: string;
   };
 }
@@ -103,8 +99,6 @@ export interface ILetsTripTransferUpdatePayload {
   carId: number;
   body: {
     carCategoryId: number;
-    pricePerKM: number;
-    hourlyPrice: number;
     manufactureDate: string;
   };
 }

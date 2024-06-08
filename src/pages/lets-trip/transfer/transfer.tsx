@@ -16,7 +16,7 @@ export const LetsTripTransfer = () => {
   const restData = () => {
     getAllLetsTripTransfer({
       page: 0,
-      size: 30,
+      size: 100,
       callback() {},
     });
   };
