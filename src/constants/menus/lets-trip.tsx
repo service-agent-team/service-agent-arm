@@ -27,11 +27,11 @@ export const letsTrip = [
     key: ROUTES.letsTripIndividualTour,
     label: 'Individual Tours',
   },
-  {
-    icon: 'CarOutlined',
-    key: ROUTES.letsTripTransfer,
-    label: 'Cars',
-  },
+  // {
+  //   icon: 'CarOutlined',
+  //   key: ROUTES.letsTripTransfer,
+  //   label: 'Cars',
+  // },
   {
     icon: 'CarOutlined',
     key: ROUTES.letsTripTransferCategory,

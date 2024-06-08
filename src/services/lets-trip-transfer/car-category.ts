@@ -2,9 +2,9 @@ import { $axios } from '@/common/config';
 import { EndPointes } from '../endpoints';
 
 export const LetsTripTransferCategoryService = {
-  async getAllCategory(page = 0, size = 10, deleted: boolean = false) {
+  async getAllCategory(page: number, size = 10, deleted: boolean = false) {
     return await $axios.get(
-      `${EndPointes.letsTripTransferCategory.getAll}?page=${page}&size=${size}&deleted=${deleted}`,
+      `${EndPointes.letsTripTransferCategory.getAll}?page=${page - 1}&size=${size}&deleted=${deleted}`,
     );
   },
   async getOneTransferCategory(id: number) {

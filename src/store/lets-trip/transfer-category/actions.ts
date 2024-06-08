@@ -11,6 +11,7 @@ import {
   ILetsTripTransferCategoryUpdatePayload,
 } from './types';
 import { LetsTripTransferCategoryService } from '@/services';
+import { appActions } from '@/store/app';
 
 export const getAllLetsTripTransferCategory = createAsyncThunk<
   ILetsTripTransferCategoryResponse,
@@ -18,6 +19,13 @@ export const getAllLetsTripTransferCategory = createAsyncThunk<
 >(EndPointes.letsTripTransferCategory.getAll, async ({ page, size, deleted }, thunkApi) => {
   try {
     const response = await LetsTripTransferCategoryService.getAllCategory(page, size, deleted);
+    thunkApi.dispatch(
+      appActions.setPagination({
+        current: response.data.pageable.pageNumber + 1,
+        pageSize: response.data.pageable.pageSize,
+        total: response.data.totalElements,
+      }),
+    );
     return response.data;
   } catch (error) {
     return thunkApi.rejectWithValue({ error: errorCatch(error) });

@@ -5,6 +5,8 @@ export interface IValuesForm {
   nameRu: string;
   nameUz: string;
   carCategoryId: number;
+  seats: number;
+  luggage: number;
   pictures: UploadChangeParam;
   manufactureDate: string;
 }

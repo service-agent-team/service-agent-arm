@@ -1,15 +1,15 @@
 import { useTypedSelector } from '@/common/hooks';
-import { Table } from '@/components/common';
+// import { Table } from '@/components/common';
 import { IDirection, ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
-import { Tag } from 'antd';
-import { ColumnsType } from 'antd/es/table';
+import { TableColumnsType, Tag, Table } from 'antd';
+// import { ColumnsType } from 'antd/es/table';
 import React from 'react';
 
-export const expandedRowRender = (dataSource: ILetsTripTransfer[]): React.ReactNode => {
+export const subUtils = (dataSource: ILetsTripTransfer[]): React.ReactNode => {
   // const { activeTransfers, transfers, deleted } = useTypedSelector(
   //   (state) => state.letsTripTransfer,
   // );
-  const columns: ColumnsType<ILetsTripTransfer> = [
+  const columns: TableColumnsType<ILetsTripTransfer> = [
     {
       title: 'Source Boundry',
       dataIndex: 'directions',

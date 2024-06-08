@@ -7,6 +7,7 @@ import {
   getOneLetsTripTransferCategory,
   updateLetsTripTransferCategory,
 } from './actions';
+import { useActions } from '@/common/hooks';
 
 const initialState: ILetsTripTransferInitialState = {
   loading: {
@@ -16,10 +17,8 @@ const initialState: ILetsTripTransferInitialState = {
     delete: false,
   },
   transferCategories: null,
-  activeTransferCategories: null,
   transferCategory: null,
-  pagination: { current: 0, pageSize: 50, total: 50 },
-  deleted: true,
+  selectCategory: null,
   errors: null,
 };
 
@@ -30,11 +29,8 @@ export const letsTripTransferCategorySlice = createSlice({
     setLetsTripTransfersCategories: (state, { payload }) => {
       state.transferCategories = payload;
     },
-    setLetsTripTransferCategoryStatus: (state, { payload }) => {
-      state.deleted = payload;
-    },
-    setLetsTripTransferCategoryPagination: (state, { payload }) => {
-      state.pagination = payload;
+    setLetsTripTransferSelectCategoryId: (state, { payload }) => {
+      state.selectCategory = payload;
     },
   },
   extraReducers: (builder) => {
@@ -46,11 +42,6 @@ export const letsTripTransferCategorySlice = createSlice({
       .addCase(getAllLetsTripTransferCategory.fulfilled, (state, { payload }) => {
         state.loading.get = false;
         state.transferCategories = payload.content;
-        state.pagination = {
-          current: payload.pageable.pageNumber,
-          pageSize: payload.pageable.pageSize,
-          total: payload.totalElements,
-        };
         state.errors = null;
       })
       .addCase(getAllLetsTripTransferCategory.rejected, (state, { payload }) => {

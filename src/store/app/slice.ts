@@ -13,6 +13,11 @@ const initialState: TInitialState = {
   previewTitle: '',
   previewImage: '',
   menu: [],
+  pagination: {
+    current: 1,
+    pageSize: 10,
+    total: 10,
+  },
 };
 
 const appSlice = createSlice({
@@ -54,6 +59,10 @@ const appSlice = createSlice({
 
     setPreviewTitle: (state, { payload }) => {
       state.previewTitle = payload;
+    },
+
+    setPagination: (state, { payload }) => {
+      state.pagination = payload;
     },
   },
 });

@@ -12,12 +12,14 @@ import {
   ILetsTripTransferCreatePayload,
   ILetsTripTransferCreateResponse,
   ILetsTripTransferDeletePayload,
+  ILetsTripTransferGetByCategoryIdPayload,
   ILetsTripTransferGetOnePayload,
   ILetsTripTransferPayload,
   ILetsTripTransferResponse,
   ILetsTripTransferUpdateI18Payload,
   ILetsTripTransferUpdatePayload,
 } from './types';
+import { appActions } from '@/store/app';
 
 export const getAllLetsTripTransfer = createAsyncThunk<
   ILetsTripTransferResponse,
@@ -40,8 +42,29 @@ export const getOneLetsTripTransfer = createAsyncThunk<
 >(EndPointes.letsTripTransfer.getOne, async ({ callback, carId }, thunkApi) => {
   try {
     const response = await LetsTripTransferCarService.getOneTransfer(carId);
-    if (response.status) {
+    if (response.data) {
       callback();
+    }
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const getByCategoryIdLetsTripTransfer = createAsyncThunk<
+  ILetsTripTransferResponse,
+  ILetsTripTransferGetByCategoryIdPayload
+>(EndPointes.letsTripTransfer.getByCategoryId, async ({ categoryId, page, size }, thunkApi) => {
+  try {
+    const response = await LetsTripTransferCarService.getByCategoryId(categoryId, page, size);
+    if (response.data) {
+      thunkApi.dispatch(
+        appActions.setPagination({
+          current: response.data.pageable.pageNumber + 1,
+          pageSize: response.data.pageable.pageSize,
+          total: response.data.totalElements,
+        }),
+      );
     }
     return response.data;
   } catch (error) {

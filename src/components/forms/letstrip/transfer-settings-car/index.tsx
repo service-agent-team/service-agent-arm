@@ -3,6 +3,7 @@ import { BaseForm, Input, PrimaryBtn, Select } from '@/components';
 import { ICreateCarDirection } from '@/types';
 import { Col, Row } from 'antd';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export const TransferCarSettinsForm = () => {
   const [form] = BaseForm.useForm();
@@ -11,13 +12,17 @@ export const TransferCarSettinsForm = () => {
     globalCountries,
     countryRegions,
     setCarModal,
-    getAllLetsTripTransfer,
+    getByCategoryIdLetsTripTransfer,
   } = useActions();
   const {
     car_details: { select_car_id },
     global_countries,
     country_regions,
   } = useTypedSelector((state) => state.letsTripTransfer);
+  const { id } = useParams();
+  const {
+    pagination: { current, pageSize },
+  } = useTypedSelector((state) => state.app);
 
   useEffect(() => {
     globalCountries({});
@@ -38,10 +43,10 @@ export const TransferCarSettinsForm = () => {
         transferPrice: +transferPrice * 100,
       },
       callback: () => {
-        getAllLetsTripTransfer({
-          page: 0,
-          size: 50,
-          callback() {},
+        getByCategoryIdLetsTripTransfer({
+          page: current,
+          size: pageSize,
+          categoryId: Number(id),
         });
         setCarModal(false);
       },
