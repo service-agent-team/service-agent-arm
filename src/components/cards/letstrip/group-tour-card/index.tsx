@@ -38,7 +38,7 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           <S.Title>{data?.name}</S.Title>
           <S.InfoCard width="384px">
             <Typography.Text strong>Starting Price: </Typography.Text>
-            {data?.startingPrice} $<H1>Extra Information: </H1>
+            {Number(data?.startingPrice) / 100} $<H1>Extra Information: </H1>
             <List>
               {data?.extraInformation.map((el, idx) => (
                 <List.Item key={el.title + idx}>

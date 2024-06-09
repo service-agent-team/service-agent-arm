@@ -140,7 +140,7 @@ export const LestTripTourEditForm: React.FC = () => {
           },
           tourId: groupTourRaw.tourId as number,
           countryId: countryId as number,
-          startingPrice,
+          startingPrice: startingPrice * 100,
         });
       }
       if (
@@ -426,7 +426,7 @@ export const LestTripTourEditForm: React.FC = () => {
         nameEn: groupTourRaw?.name?.en,
         nameRu: groupTourRaw?.name?.ru,
         countryId: groupTourRaw?.country?.id,
-        startingPrice: groupTourRaw?.startingPrice,
+        startingPrice: Number(groupTourRaw?.startingPrice) / 100,
         descriptionEn: groupTourRaw?.description[0]?.en,
         descriptionRu: groupTourRaw?.description[0]?.ru,
         priceNoteEn: groupTourRaw?.priceNote?.en,
