@@ -3,7 +3,7 @@ import { Table } from 'antd';
 import { useEffect } from 'react';
 import { utils } from './utils';
 import { useParams } from 'react-router-dom';
-// import { subUtils } from './sub-utils';
+import { subUtils } from './sub-utils';
 
 export const LetsTripTransferTable = () => {
   const { getByCategoryIdLetsTripTransfer, setPagination } = useActions();
@@ -28,10 +28,9 @@ export const LetsTripTransferTable = () => {
   return (
     <Table
       columns={utils()}
-      // expandable={{
-      //   expandedRowRender: subUtils(transfers as ILetsTripTransfer[]),
-      //   defaultExpandedRowKeys: ['0'],
-      // }}
+      expandable={{
+        expandedRowRender: (record) => subUtils(record),
+      }}
       dataSource={transfers}
       loading={get}
       bordered

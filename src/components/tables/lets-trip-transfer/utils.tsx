@@ -3,8 +3,8 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 import { dateParser } from '@/common/utils/format';
 import { Icon, modal } from '@/components';
 import { ROUTES } from '@/constants';
-import { IDirection, ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
-import { Button, Space, Tag } from 'antd';
+import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
+import { Button, Space } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 
@@ -72,55 +72,6 @@ export const utils = () => {
       dataIndex: 'manufactureDate',
       key: 'manufactureDate',
       width: '130px',
-    },
-    {
-      title: 'Source Boundary',
-      dataIndex: 'directions',
-      key: 'deleted',
-      width: '5%',
-      render: (el: IDirection[]) =>
-        el?.map((el, i) => (
-          <Tag key={i} color="success">
-            {el.sourceBoundary.name.en}
-          </Tag>
-        )),
-    },
-    {
-      title: 'Destination Boundary',
-      dataIndex: 'directions',
-      key: 'deleted',
-      width: '5%',
-      render: (el: IDirection[]) =>
-        el?.map((el, i) => (
-          <Tag key={i} color="red">
-            {el.destinationBoundary.name.en}
-          </Tag>
-        )),
-    },
-
-    {
-      title: 'Transfer Price',
-      dataIndex: 'directions',
-      key: 'deleted',
-      width: '5%',
-      render: (el: IDirection[]) =>
-        el?.map((el, i) => (
-          <Tag key={i} color="success">
-            {el.transferPrice / 100 + ' $'}
-          </Tag>
-        )),
-    },
-    {
-      title: 'Hourly Price',
-      dataIndex: 'directions',
-      key: 'deleted',
-      width: '5%',
-      render: (el: IDirection[]) =>
-        el?.map((el, i) => (
-          <Tag key={i} color="success">
-            {el.hourlyPrice / 100 + ' $'}
-          </Tag>
-        )),
     },
     {
       title: 'Actions',
