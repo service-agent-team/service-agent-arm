@@ -79,7 +79,7 @@ export const utils = () => {
       key: 'deleted',
       width: '5%',
       render: (el: IDirection[]) =>
-        el.map((el, i) => (
+        el?.map((el, i) => (
           <Tag key={i} color="success">
             {el.sourceBoundary.name.en}
           </Tag>
@@ -91,7 +91,7 @@ export const utils = () => {
       key: 'deleted',
       width: '5%',
       render: (el: IDirection[]) =>
-        el.map((el, i) => (
+        el?.map((el, i) => (
           <Tag key={i} color="red">
             {el.destinationBoundary.name.en}
           </Tag>
@@ -104,7 +104,7 @@ export const utils = () => {
       key: 'deleted',
       width: '5%',
       render: (el: IDirection[]) =>
-        el.map((el, i) => (
+        el?.map((el, i) => (
           <Tag key={i} color="success">
             {el.transferPrice / 100 + ' $'}
           </Tag>
@@ -116,7 +116,7 @@ export const utils = () => {
       key: 'deleted',
       width: '5%',
       render: (el: IDirection[]) =>
-        el.map((el, i) => (
+        el?.map((el, i) => (
           <Tag key={i} color="success">
             {el.hourlyPrice / 100 + ' $'}
           </Tag>
