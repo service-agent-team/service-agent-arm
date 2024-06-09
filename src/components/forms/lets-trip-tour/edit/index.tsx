@@ -40,7 +40,7 @@ export const LestTripTourEditForm: React.FC = () => {
     getAllLetsTripCountry,
     setLetsTripGroupTourLocations,
     // addNewDateLetsTripGroupTour,
-    removeDateLetsTripGroupTour,
+    // removeDateLetsTripGroupTour,
     addLocationLetsTripGroupTour,
     removeLocationLetsTripGroupTour,
     addImageLetsTripGroupTour,
@@ -285,25 +285,25 @@ export const LestTripTourEditForm: React.FC = () => {
     }
   };
 
-  const handleAvailableDateDelete = (field: any, remove: any) => {
-    const existDate = groupTourRaw?.availableDate[field.name];
-    if (existDate) {
-      modal.confirm({
-        okText: 'Delete',
-        title: `You want to delete right ?`,
-        onOk: () => {
-          removeDateLetsTripGroupTour({
-            callback() {
-              addNotification('available date deleted');
-              remove(field.name);
-            },
-            availableDateItemId: existDate.id as number,
-            tourId: groupTourRaw?.tourId as number,
-          });
-        },
-      });
-    } else remove(field.name);
-  };
+  // const handleAvailableDateDelete = (field: any, remove: any) => {
+  //   const existDate = groupTourRaw?.availableDate[field.name];
+  //   if (existDate) {
+  //     modal.confirm({
+  //       okText: 'Delete',
+  //       title: `You want to delete right ?`,
+  //       onOk: () => {
+  //         removeDateLetsTripGroupTour({
+  //           callback() {
+  //             addNotification('available date deleted');
+  //             remove(field.name);
+  //           },
+  //           availableDateItemId: existDate.id as number,
+  //           tourId: groupTourRaw?.tourId as number,
+  //         });
+  //       },
+  //     });
+  //   } else remove(field.name);
+  // };
 
   const handleExtraInfoEnglishDelete = (subField: any, remove: any) => {
     const existItem = groupTourRaw?.extraInformation.en[subField.name];

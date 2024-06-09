@@ -3,7 +3,7 @@ import { Flex } from 'antd';
 import { LayoutHeader } from '../style';
 import { HeaderProps } from '../type';
 import { Breadcrumb } from './breadcrumb';
-import { HeaderFullscreen, ProfileDropdown, SettingsDropdown } from './components';
+import { BackButton, HeaderFullscreen, ProfileDropdown, SettingsDropdown } from './components';
 
 export const Header = ({ bg, collapsed, setCollapsed }: HeaderProps) => {
   const handleClickMenu = () => setCollapsed(!collapsed);
@@ -22,9 +22,9 @@ export const Header = ({ bg, collapsed, setCollapsed }: HeaderProps) => {
         </Flex>
 
         <Flex gap="small">
+          <BackButton />
           <HeaderFullscreen />
           <SettingsDropdown />
-
           <ProfileDropdown />
         </Flex>
       </LayoutHeader>

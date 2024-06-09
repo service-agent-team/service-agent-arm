@@ -1,7 +1,7 @@
 import { ILetsTripGroupTourGetOne } from '@/store/lets-trip/tour/types';
 import NoThumbImage from '@/assets/images/no-thumbnail.png';
 import { H1 } from '@/components/common';
-import { Button, Flex, List, Steps, Tag, Typography } from 'antd';
+import { Flex, List, Steps, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
