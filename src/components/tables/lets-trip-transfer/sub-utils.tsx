@@ -6,6 +6,13 @@ import React from 'react';
 export const subUtils = (dataSource: ILetsTripTransfer): React.ReactNode => {
   const columns: TableColumnsType<IDirection> = [
     {
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id',
+      width: '4%',
+      render: (_: any, __: any, index: number) => index + 1,
+    },
+    {
       title: 'Source Boundary',
       dataIndex: ['sourceBoundary', 'name', 'en'],
       key: 'sourceBoundary',
@@ -24,14 +31,14 @@ export const subUtils = (dataSource: ILetsTripTransfer): React.ReactNode => {
       dataIndex: 'transferPrice',
       key: 'transferPrice',
       width: '25%',
-      render: (el) => <Tag color="success">{el}</Tag>,
+      render: (el) => el / 100 + ' $',
     },
     {
       title: 'Hourly Price',
       dataIndex: 'hourlyPrice',
       key: 'hourlyPrice',
       width: '25%',
-      render: (el) => <Tag color="success">{el}</Tag>,
+      render: (el) => el / 100 + ' $',
     },
   ];
 

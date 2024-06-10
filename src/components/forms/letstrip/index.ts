@@ -5,3 +5,4 @@ export {
   LestTripTransferCategoryCreateForm,
   LestTripTransferCategoryEditForm,
 } from './transfer-category';
+export { GlobalRegionForm } from './global-region';

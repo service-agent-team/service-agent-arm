@@ -12,6 +12,7 @@ const initialState: ILetsTripGlobalCountryInitialState = {
   },
   globalCountries: null,
   globalCountry: null,
+  selectCountry: null,
   locations: [],
   errors: null,
 };
@@ -25,6 +26,9 @@ export const letsTripGlobalCountrySlice = createSlice({
     },
     setGlobalCountryLocations: (state, { payload }) => {
       state.locations = payload;
+    },
+    setSelectGlobalCountry: (state, { payload }) => {
+      state.selectCountry = payload;
     },
   },
   extraReducers: (builder) => {
@@ -48,7 +52,7 @@ export const letsTripGlobalCountrySlice = createSlice({
       })
       .addCase(createGlobalCountry.fulfilled, (state, { payload }) => {
         state.loading.post = false;
-        state.globalCountry = payload;
+        state.globalCountries?.push(payload);
         state.errors = null;
       })
       .addCase(createGlobalCountry.rejected, (state, { payload }) => {

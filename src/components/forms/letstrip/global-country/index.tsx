@@ -1,5 +1,5 @@
 import { addNotification } from '@/common/utils/addNotification';
-import { BaseForm, Icon, PrimaryBtn } from '@/components';
+import { BaseForm, PrimaryBtn } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from './types';
@@ -8,6 +8,7 @@ import * as S from './styled';
 import { Col, Input, Row } from 'antd';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import { IGoogleMouseEvent } from '../../lets-trip-tour/types';
+import toast from 'react-hot-toast';
 
 export const GlobalCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
@@ -20,20 +21,24 @@ export const GlobalCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
   });
   const center = { lat: 41.875734, lng: 64.017636 };
 
-  const onFinish = ({ code, nameEn, nameRu, nameUz, lowerCorner, upperCorner }: IValuesForm) => {
+  const onFinish = ({ code, nameEn, nameRu, nameUz }: IValuesForm) => {
+    if (locations.length < 2) {
+      return toast.error('location required', { position: 'top-right' });
+    }
     if (type === 'create') {
       const name = { en: nameEn, ru: nameRu, uz: nameUz };
       createGlobalCountry({
         body: {
           name,
           code,
-          lowerCorner,
-          upperCorner,
+          upperCorner: { longitude: locations[0].lng, latitude: locations[0].lat },
+          lowerCorner: { longitude: locations[1].lng, latitude: locations[1].lat },
           parentId: 1,
         },
         callback: () => {
           addNotification('global country created');
           navigate(ROUTES.letsTripGlobalCountry);
+          setGlobalCountryLocations(null);
         },
       });
     } else if (type === 'edit') {
@@ -61,7 +66,6 @@ export const GlobalCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
       );
     }
   };
-  // console.log(locations);
 
   return (
     <BaseForm

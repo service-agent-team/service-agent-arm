@@ -38,13 +38,11 @@ export const utils = () => {
     {
       title: 'Id',
       dataIndex: 'id',
-      render: (_: any, __: any, index: number) => {
-        return <>{index + 1}</>;
-      },
       key: 'id',
       width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
+      render: (_: any, __: any, index: number) => index + 1,
     },
     {
       title: 'Car Name',

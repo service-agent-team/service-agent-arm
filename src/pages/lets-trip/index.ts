@@ -8,3 +8,4 @@ export * from './transfer-category';
 export * from './esimgo';
 export * from './country';
 export * from './global-country';
+export * from './global-region';

@@ -5,18 +5,19 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 import { ILetsTripGlobalCountry } from '@/store/lets-trip/global-country/types';
 
 export const LetsTripGlobalCountryTable = () => {
-  const { getAllGlobalCountry } = useActions();
+  const { getAllGlobalCountry, setPagination } = useActions();
   const {
     globalCountries,
     loading: { get },
   } = useTypedSelector((state) => state.letsTripGlobalCountry);
-
-  // console.log(globalCountries);
+  const {
+    pagination: { current, pageSize, total },
+  } = useTypedSelector((state) => state.app);
 
   useEffect(() => {
     getAllGlobalCountry({
-      page: 0,
-      size: 100,
+      page: current - 1,
+      size: pageSize,
     });
   }, []);
 
@@ -24,6 +25,8 @@ export const LetsTripGlobalCountryTable = () => {
     <Table
       columns={utils()}
       dataSource={globalCountries ? (globalCountries as ILetsTripGlobalCountry[]) : []}
+      onChange={(p) => setPagination(p)}
+      pagination={{ current, pageSize, total }}
       loading={get}
       bordered
     />
