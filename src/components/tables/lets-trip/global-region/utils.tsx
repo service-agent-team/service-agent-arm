@@ -5,17 +5,19 @@ import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { dateParser } from '@/common/utils/format';
-import { Icon } from '@/components';
-import { useActions } from '@/common/hooks';
+import { Icon, modal } from '@/components';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
-import { ILetsTripGlobalCountry } from '@/store/lets-trip/global-country/types';
+import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
+import { ILetsTripGlobalRegion } from '@/store/lets-trip/global-region/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { setSelectGlobalCountry } = useActions();
+  // const { deleteLetsTripCountry, setGlobalCountry } = useActions();
+  // const { errors, globalCountries } = useTypedSelector((state) => state.letsTripGlobalCountry);
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -47,7 +49,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripGlobalCountry> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripGlobalRegion> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -125,7 +127,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<ILetsTripGlobalCountry> = [
+  const columns: ColumnsType<ILetsTripGlobalRegion> = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -133,6 +135,7 @@ export const utils = () => {
       width: '4%',
       sorter: (a, b) => {
         if (a.id && b.id) a.id - b.id;
+
         return 0;
       },
       sortDirections: ['descend', 'ascend'],
@@ -166,56 +169,6 @@ export const utils = () => {
       width: '20%',
       render: (date) => {
         return dateParser(date);
-      },
-    },
-    {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'id',
-      width: '5%',
-      render: (id: number, record) => (
-        <Button
-          onClick={() => {
-            navigate(`${ROUTES.letsTripGlobalRegion}/${id}`);
-            setSelectGlobalCountry(record);
-          }}
-        >
-          <Icon name="EyeOutlined" />
-        </Button>
-      ),
-    },
-    {
-      title: 'Actions',
-      dataIndex: 'action',
-      key: 'action',
-      width: '10%',
-      render: (_: number, record) => {
-        return (
-          <Space>
-            <Button
-              key={1}
-              type="primary"
-              onClick={() => {
-                navigate(ROUTES.letsTripGlobalRegionCreate);
-                setSelectGlobalCountry(record);
-              }}
-            >
-              <Icon name="SettingOutlined" />
-            </Button>
-            {/* <Button
-              type="primary"
-              key={2}
-              onClick={() => {
-                navigate(`${ROUTES.letsTripGlobalRegion}/${id}`);
-              }}
-            >
-              <Icon name="EditOutlined" />
-            </Button> */}
-            {/* <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
-              <DeleteOutlined />
-            </Button> */}
-          </Space>
-        );
       },
     },
   ];

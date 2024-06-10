@@ -1,20 +1,20 @@
 import { errorCatch } from '@/common';
 import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LetsTripGlobalCountryService } from '@/services';
+import { LetsTripGlobalRegionService } from '@/services';
 import {
-  CreateGlobalCountryPayload,
+  CreateGlobalRegionPayload,
   GlobalCountryPayload,
   GlobalCountryResponse,
-  ILetsTripGlobalCountry,
+  ILetsTripGlobalRegion,
 } from './types';
 import { appActions } from '@/store/app';
 
-export const getAllGlobalCountry = createAsyncThunk<GlobalCountryResponse, GlobalCountryPayload>(
-  EndPointes.letsTripGlobalCountry.getAll,
-  async ({ page, size }, thunkApi) => {
+export const getByCountryIdRegion = createAsyncThunk<GlobalCountryResponse, GlobalCountryPayload>(
+  EndPointes.letsTripGlobalRegion.getByCountryId,
+  async ({ countryId, page, size }, thunkApi) => {
     try {
-      const response = await LetsTripGlobalCountryService.getAll(page, size);
+      const response = await LetsTripGlobalRegionService.getByCountryId(countryId, page, size);
       thunkApi.dispatch(
         appActions.setPagination({
           current: response.data.data.pageable.pageNumber + 1,
@@ -29,12 +29,12 @@ export const getAllGlobalCountry = createAsyncThunk<GlobalCountryResponse, Globa
   },
 );
 
-export const createGlobalCountry = createAsyncThunk<
-  ILetsTripGlobalCountry,
-  CreateGlobalCountryPayload
->(EndPointes.letsTripGlobalCountry.create, async ({ callback, body }, thunkApi) => {
+export const createGlobalRegion = createAsyncThunk<
+  ILetsTripGlobalRegion,
+  CreateGlobalRegionPayload
+>(EndPointes.letsTripGlobalRegion.create, async ({ callback, body }, thunkApi) => {
   try {
-    const response = await LetsTripGlobalCountryService.create(body);
+    const response = await LetsTripGlobalRegionService.create(body);
     if (response.status == 201) {
       callback();
     }

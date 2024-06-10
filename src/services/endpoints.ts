@@ -215,6 +215,11 @@ export const EndPointes = {
     create: '/api/country/create',
   },
 
+  letsTripGlobalRegion: {
+    getByCountryId: '/api/country/region',
+    create: '/api/country/region/create',
+  },
+
   letsTripTransfer: {
     getAll: '/api/transfer/car/get-all',
     getOne: '/api/transfer/car/get-one',

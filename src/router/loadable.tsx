@@ -84,3 +84,5 @@ export const LetsTripCountryPage = getLoadablePage('LetsTripCountry');
 export const LetsTripCountryCreatePage = getLoadablePage('LetsTripCountryCreate');
 export const LetsTripGlobalCountryPage = getLoadablePage('LetsTripGlobalCountry');
 export const LetsTripGlobalCountryCreatePage = getLoadablePage('LetsTripGlobalCountryCreate');
+export const LetsTripGlobalRegionPage = getLoadablePage('LetsTripGlobalRegion');
+export const LetsTripGlobalRegionCreatePage = getLoadablePage('LetsTripGlobalRegionCreate');

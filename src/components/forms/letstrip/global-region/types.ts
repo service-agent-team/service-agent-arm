@@ -3,4 +3,5 @@ export interface IValuesForm {
   nameRu: string;
   nameUz: string;
   code: string;
+  parentId: number;
 }

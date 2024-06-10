@@ -1,6 +1,5 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { Icon, PageTitle } from '@/components';
-import { LinkButton } from '@/components/common/buttons';
 import { SimplePage } from '@/components/common/page';
 import { TransferCarSettingsModal } from '@/components/modal';
 import { LetsTripTransferTable } from '@/components/tables';

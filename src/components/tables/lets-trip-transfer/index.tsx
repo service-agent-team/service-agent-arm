@@ -23,7 +23,7 @@ export const LetsTripTransferTable = () => {
       size: pageSize,
       categoryId: Number(selectCategory?.id) || Number(id),
     });
-  }, [current, pageSize, selectCategory?.id]);
+  }, [current, pageSize, id]);
 
   return (
     <Table
@@ -31,12 +31,12 @@ export const LetsTripTransferTable = () => {
       expandable={{
         expandedRowRender: (record) => subUtils(record),
       }}
-      dataSource={transfers}
-      loading={get}
-      bordered
       pagination={{ current, pageSize, total }}
       onChange={(p) => setPagination(p)}
+      dataSource={transfers}
       scroll={{ x: 1000 }}
+      loading={get}
+      bordered
     />
   );
 };

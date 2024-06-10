@@ -1,6 +1,6 @@
 import { Pageable, Sort } from '@/types/reponces';
 
-export interface ILetsTripGlobalCountryInitialState {
+export interface ILetsTripGlobalRegionInitialState {
   loading: {
     get: boolean;
     post: boolean;
@@ -8,10 +8,9 @@ export interface ILetsTripGlobalCountryInitialState {
     put: boolean;
     delete: boolean;
   };
-  globalCountries: ILetsTripGlobalCountry[] | null;
-  globalCountry: ILetsTripGlobalCountry | null;
+  globalRegions: ILetsTripGlobalRegion[] | null;
+  globalRegion: ILetsTripGlobalRegion | null;
   locations: Location2[];
-  selectCountry: ILetsTripGlobalCountry | null;
   errors: unknown | string[] | string;
 }
 
@@ -22,7 +21,7 @@ export interface GlobalCountryResponse {
 }
 
 export interface GlobalCountryResponseData {
-  content: ILetsTripGlobalCountry[];
+  content: ILetsTripGlobalRegion[];
   pageable: Pageable;
   totalPages: number;
   totalElements: number;
@@ -36,16 +35,17 @@ export interface GlobalCountryResponseData {
 }
 
 export interface GlobalCountryPayload {
+  countryId: number;
   page: number;
   size: number;
 }
 
-export interface CreateGlobalCountryPayload {
+export interface CreateGlobalRegionPayload {
   callback(): void;
-  body: CreateGlobalCountryBody;
+  body: CreateGlobalRegionBody;
 }
 
-export interface CreateGlobalCountryBody {
+export interface CreateGlobalRegionBody {
   code: string;
   name: Name;
   lowerCorner: Location;
@@ -53,8 +53,9 @@ export interface CreateGlobalCountryBody {
   parentId: number;
 }
 
-export interface ILetsTripGlobalCountry {
+export interface ILetsTripGlobalRegion {
   id?: number;
+  parentId: number;
   name: Name;
   lineString: string;
   lowerCorner: Location;
