@@ -1,11 +1,11 @@
+import { addNotification } from '@/common';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { AutoComplete, BaseForm, PrimaryBtn } from '@/components';
 import { Select } from 'antd';
 import React, { useEffect } from 'react';
-import * as S from './styled';
-import { IValuesForm } from '../types';
-import { useActions, useTypedSelector } from '@/common/hooks';
-import { addNotification } from '@/common';
 import { useParams } from 'react-router-dom';
+import { IValuesForm } from '../types';
+import * as S from './styled';
 
 export const AgentUserRoleEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();

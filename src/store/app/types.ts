@@ -9,6 +9,9 @@ export type TInitialState = {
   menu: IMenu[];
   fileList: any[];
   imageId: number;
+  page: number | null;
+  total_page: number | null;
+  search: string | null;
 };
 
 export enum ETheme {

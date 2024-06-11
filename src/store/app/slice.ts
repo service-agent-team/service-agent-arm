@@ -13,6 +13,8 @@ const initialState: TInitialState = {
   previewTitle: '',
   previewImage: '',
   menu: [],
+  page: null,
+  search: null,
 };
 
 const appSlice = createSlice({
@@ -54,6 +56,12 @@ const appSlice = createSlice({
 
     setPreviewTitle: (state, { payload }) => {
       state.previewTitle = payload;
+    },
+    setSearch: (state, { payload }) => {
+      state.search = payload;
+    },
+    setPage: (state, { payload }) => {
+      state.page = payload;
     },
   },
 });
