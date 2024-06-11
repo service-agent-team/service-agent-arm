@@ -213,6 +213,7 @@ export const EndPointes = {
   letsTripGlobalCountry: {
     getAll: '/api/country/get-all',
     create: '/api/country/create',
+    updateImage: '/api/country/update-image',
   },
 
   letsTripGlobalRegion: {

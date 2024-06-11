@@ -24,13 +24,13 @@ import toast from 'react-hot-toast';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const { countries } = useTypedSelector((state) => state.letsTripCountry);
+  const { globalCountries } = useTypedSelector((state) => state.letsTripGlobalCountry);
   const {
     loading: { post },
     locations,
     errors,
   } = useTypedSelector((state) => state.letsTripTour);
-  const { createLetsTripGroupTour, getAllLetsTripCountry, setLetsTripGroupTourLocations } =
+  const { createLetsTripGroupTour, getAllGlobalCountry, setLetsTripGroupTourLocations } =
     useActions();
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -151,8 +151,8 @@ export const LestTripTourCreateForm: React.FC = () => {
     });
   };
 
-  const selectOptionCountry = countries?.map((el) => ({
-    label: el.name ? el.name : el.code,
+  const selectOptionCountry = globalCountries?.map((el) => ({
+    label: el.name.en,
     value: el.id,
   }));
 
@@ -191,7 +191,7 @@ export const LestTripTourCreateForm: React.FC = () => {
   };
 
   useEffect(() => {
-    getAllLetsTripCountry({ callback() {}, page: 0, size: 100 });
+    getAllGlobalCountry({ page: 0, size: 100 });
     if (errors) addNotification(errors);
   }, [errors]);
 

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ILetsTripGlobalCountryInitialState } from './types';
-import { createGlobalCountry, getAllGlobalCountry } from './actions';
+import { createGlobalCountry, getAllGlobalCountry, updateImageGlobalCountry } from './actions';
 
 const initialState: ILetsTripGlobalCountryInitialState = {
   loading: {
@@ -22,7 +22,7 @@ export const letsTripGlobalCountrySlice = createSlice({
   initialState,
   reducers: {
     setGlobalCountry: (state, { payload }) => {
-      state.globalCountries = payload;
+      state.globalCountry = payload;
     },
     setGlobalCountryLocations: (state, { payload }) => {
       state.locations = payload;
@@ -57,6 +57,19 @@ export const letsTripGlobalCountrySlice = createSlice({
       })
       .addCase(createGlobalCountry.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(updateImageGlobalCountry.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(updateImageGlobalCountry.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.globalCountry = payload;
+        state.errors = null;
+      })
+      .addCase(updateImageGlobalCountry.rejected, (state, { payload }) => {
+        state.loading.patch = false;
         state.errors = payload;
       });
   },

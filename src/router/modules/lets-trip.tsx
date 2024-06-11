@@ -24,6 +24,7 @@ import {
   LetsTripGlobalCountryCreatePage,
   LetsTripGlobalRegionPage,
   LetsTripGlobalRegionCreatePage,
+  LetsTripGlobalCountryEditPage,
 } from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
@@ -202,6 +203,14 @@ export const letsTrip = [
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripGlobalCountryCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripGlobalCountryEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripGlobalCountryEditPage />
       </Suspense>
     ),
   },

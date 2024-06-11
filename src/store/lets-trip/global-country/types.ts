@@ -50,7 +50,18 @@ export interface CreateGlobalCountryBody {
   name: Name;
   lowerCorner: Location;
   upperCorner: Location;
-  parentId: number;
+  defaultLocation: Location;
+  pictureUrl: string;
+}
+
+export interface UpdateImageGlobalCountryPayload {
+  callback(): void;
+  body: UpdateImageGlobalCountryBody;
+}
+
+export interface UpdateImageGlobalCountryBody {
+  id: number;
+  pictureUrl: string;
 }
 
 export interface ILetsTripGlobalCountry {
@@ -59,9 +70,11 @@ export interface ILetsTripGlobalCountry {
   lineString: string;
   lowerCorner: Location;
   upperCorner: Location;
+  defaultLocation: Location;
   code: string;
   type: string;
   deleted: boolean;
+  picture: string;
 }
 
 export interface Name {
