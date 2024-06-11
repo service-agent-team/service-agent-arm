@@ -5,7 +5,7 @@ import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
 import {
   Button,
   Card,
-  DatePicker,
+  // DatePicker,
   Flex,
   GetProp,
   Image,
@@ -19,15 +19,15 @@ import React, { useEffect, useState } from 'react';
 import { Id, IGoogleMouseEvent, IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
-import { dateFormatDayJs } from '@/common/utils/format';
+// import { dateFormatDayJs } from '@/common/utils/format';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import toast from 'react-hot-toast';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 
 export const LestTripTourEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const { countries } = useTypedSelector((state) => state.letsTripCountry);
+  const { globalCountries } = useTypedSelector((state) => state.letsTripGlobalCountry);
   const {
     loading: { post, patch },
     locations,
@@ -37,10 +37,10 @@ export const LestTripTourEditForm: React.FC = () => {
   const {
     updateByObjectLetsTripGroupTour,
     updatePriceNoteTripGroupTour,
-    getAllLetsTripCountry,
+    getAllGlobalCountry,
     setLetsTripGroupTourLocations,
-    addNewDateLetsTripGroupTour,
-    removeDateLetsTripGroupTour,
+    // addNewDateLetsTripGroupTour,
+    // removeDateLetsTripGroupTour,
     addLocationLetsTripGroupTour,
     removeLocationLetsTripGroupTour,
     addImageLetsTripGroupTour,
@@ -132,7 +132,7 @@ export const LestTripTourEditForm: React.FC = () => {
           id: groupTourRaw.name?.id as number,
         });
       }
-      if (startingPrice !== groupTourRaw.startingPrice || countryId !== groupTourRaw.country.id) {
+      if (startingPrice !== groupTourRaw.startingPrice || countryId !== groupTourRaw.countryId) {
         otherUpdatesLetsTripGroupTour({
           callback() {
             addNotification('country and starting price changed');
@@ -140,7 +140,7 @@ export const LestTripTourEditForm: React.FC = () => {
           },
           tourId: groupTourRaw.tourId as number,
           countryId: countryId as number,
-          startingPrice,
+          startingPrice: startingPrice * 100,
         });
       }
       if (
@@ -285,25 +285,25 @@ export const LestTripTourEditForm: React.FC = () => {
     }
   };
 
-  const handleAvailableDateDelete = (field: any, remove: any) => {
-    const existDate = groupTourRaw?.availableDate[field.name];
-    if (existDate) {
-      modal.confirm({
-        okText: 'Delete',
-        title: `You want to delete right ?`,
-        onOk: () => {
-          removeDateLetsTripGroupTour({
-            callback() {
-              addNotification('available date deleted');
-              remove(field.name);
-            },
-            availableDateItemId: existDate.id as number,
-            tourId: groupTourRaw?.tourId as number,
-          });
-        },
-      });
-    } else remove(field.name);
-  };
+  // const handleAvailableDateDelete = (field: any, remove: any) => {
+  //   const existDate = groupTourRaw?.availableDate[field.name];
+  //   if (existDate) {
+  //     modal.confirm({
+  //       okText: 'Delete',
+  //       title: `You want to delete right ?`,
+  //       onOk: () => {
+  //         removeDateLetsTripGroupTour({
+  //           callback() {
+  //             addNotification('available date deleted');
+  //             remove(field.name);
+  //           },
+  //           availableDateItemId: existDate.id as number,
+  //           tourId: groupTourRaw?.tourId as number,
+  //         });
+  //       },
+  //     });
+  //   } else remove(field.name);
+  // };
 
   const handleExtraInfoEnglishDelete = (subField: any, remove: any) => {
     const existItem = groupTourRaw?.extraInformation.en[subField.name];
@@ -370,8 +370,8 @@ export const LestTripTourEditForm: React.FC = () => {
     } else remove(field.name);
   };
 
-  const selectOptionCountry = countries?.map((el) => ({
-    label: el.name ? el.name : el.code,
+  const selectOptionCountry = globalCountries?.map((el) => ({
+    label: el.name.en ? el.name.en : el.code,
     value: el.id,
   }));
 
@@ -410,7 +410,7 @@ export const LestTripTourEditForm: React.FC = () => {
   };
 
   useEffect(() => {
-    getAllLetsTripCountry({ callback() {}, page: 0, size: 100 });
+    getAllGlobalCountry({ page: 0, size: 100 });
     if (groupTourRaw?.locations) setLetsTripGroupTourLocations(groupTourRaw?.locations);
     if (errors) addNotification(errors);
   }, [errors]);
@@ -425,8 +425,8 @@ export const LestTripTourEditForm: React.FC = () => {
       initialValues={{
         nameEn: groupTourRaw?.name?.en,
         nameRu: groupTourRaw?.name?.ru,
-        countryId: groupTourRaw?.country?.id,
-        startingPrice: groupTourRaw?.startingPrice,
+        countryId: groupTourRaw?.countryId,
+        startingPrice: Number(groupTourRaw?.startingPrice) / 100,
         descriptionEn: groupTourRaw?.description[0]?.en,
         descriptionRu: groupTourRaw?.description[0]?.ru,
         priceNoteEn: groupTourRaw?.priceNote?.en,

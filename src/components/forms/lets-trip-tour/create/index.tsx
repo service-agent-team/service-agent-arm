@@ -5,9 +5,7 @@ import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
 import {
   Button,
   Card,
-  DatePicker,
   Flex,
-  Form,
   GetProp,
   Image,
   Input,
@@ -21,19 +19,18 @@ import { useNavigate } from 'react-router-dom';
 import { Id, IGoogleMouseEvent, IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
-import { dateFormatDayJs, generateUTC } from '@/common/utils/format';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import toast from 'react-hot-toast';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
-  const { countries } = useTypedSelector((state) => state.letsTripCountry);
+  const { globalCountries } = useTypedSelector((state) => state.letsTripGlobalCountry);
   const {
     loading: { post },
     locations,
     errors,
   } = useTypedSelector((state) => state.letsTripTour);
-  const { createLetsTripGroupTour, getAllLetsTripCountry, setLetsTripGroupTourLocations } =
+  const { createLetsTripGroupTour, getAllGlobalCountry, setLetsTripGroupTourLocations } =
     useActions();
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -114,7 +111,7 @@ export const LestTripTourCreateForm: React.FC = () => {
       //   };
       // }),
       extraInformation: { en: extraInformation[0].en, ru: extraInformation[0].ru },
-      startingPrice,
+      startingPrice: startingPrice * 100,
       priceNote: {
         en: priceNoteEn,
         ru: priceNoteRu,
@@ -154,8 +151,8 @@ export const LestTripTourCreateForm: React.FC = () => {
     });
   };
 
-  const selectOptionCountry = countries?.map((el) => ({
-    label: el.name ? el.name : el.code,
+  const selectOptionCountry = globalCountries?.map((el) => ({
+    label: el.name.en,
     value: el.id,
   }));
 
@@ -194,7 +191,7 @@ export const LestTripTourCreateForm: React.FC = () => {
   };
 
   useEffect(() => {
-    getAllLetsTripCountry({ callback() {}, page: 0, size: 100 });
+    getAllGlobalCountry({ page: 0, size: 100 });
     if (errors) addNotification(errors);
   }, [errors]);
 
@@ -271,7 +268,7 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             style={{ width: '100%' }}
             name="startingPrice"
-            label={'starting price'}
+            label={'starting price ($)'}
             rules={[{ required: true, message: 'starting price is required?' }]}
           >
             <InputNumber

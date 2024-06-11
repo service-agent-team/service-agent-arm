@@ -1,5 +1,5 @@
 import { addNotification } from '@/common/utils/addNotification';
-import { BaseForm, Icon, PrimaryBtn, TextArea } from '@/components';
+import { BaseForm, Icon, PrimaryBtn } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { Id, IValuesForm } from './types';
@@ -14,7 +14,6 @@ export const LetsTripCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
   const { loading } = useTypedSelector((state) => state.letsTripCountry);
   const { createLetsTripCountry } = useActions();
   const navigate = useNavigate();
-  // const { id } = useParams();
   const { country } = useTypedSelector((state) => state.letsTripCountry);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [previewImage, setPreviewImage] = useState('');
@@ -92,65 +91,26 @@ export const LetsTripCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
         <Flex gap={'15px'}>
           <BaseForm.Item
             name="nameEn"
-            label={'nameEn'}
+            label={'name english'}
             style={{ width: '100%' }}
-            rules={[
-              { required: true, message: 'filed is required' },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value) {
-                    return Promise.reject(new Error('filed is required'));
-                  }
-                  if (getFieldValue('nameEn') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('error from form!'));
-                },
-              }),
-            ]}
+            rules={[{ required: true, message: 'filed is required' }]}
           >
-            <Input placeholder="Enter nameEn ?" />
+            <Input placeholder="Enter name english ?" />
           </BaseForm.Item>
           <BaseForm.Item
             name="nameRu"
-            label={'nameRu'}
+            label={'name russian'}
             style={{ width: '100%' }}
-            rules={[
-              { required: true, message: 'filed is required' },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value) {
-                    return Promise.reject(new Error('filed is required'));
-                  }
-                  if (getFieldValue('nameRu') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('error from form!'));
-                },
-              }),
-            ]}
+            rules={[{ required: true, message: 'filed is required' }]}
           >
-            <Input placeholder="Enter nameRu ?" />
+            <Input placeholder="Enter name russian ?" />
           </BaseForm.Item>
         </Flex>
         <BaseForm.Item
           name="code"
           label={'country code'}
           style={{ width: '100%' }}
-          rules={[
-            { required: true, message: 'filed is required' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value) {
-                  return Promise.reject(new Error('filed is required'));
-                }
-                if (getFieldValue('code') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from form!'));
-              },
-            }),
-          ]}
+          rules={[{ required: true, message: 'filed is required' }]}
         >
           <Input placeholder="Enter country code ?" />
         </BaseForm.Item>

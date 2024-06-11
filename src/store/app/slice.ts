@@ -15,6 +15,11 @@ const initialState: TInitialState = {
   menu: [],
   page: null,
   search: null,
+  pagination: {
+    current: 1,
+    pageSize: 10,
+    total: 10,
+  },
 };
 
 const appSlice = createSlice({
@@ -62,6 +67,9 @@ const appSlice = createSlice({
     },
     setPage: (state, { payload }) => {
       state.page = payload;
+    },
+    setPagination: (state, { payload }) => {
+      state.pagination = payload;
     },
   },
 });

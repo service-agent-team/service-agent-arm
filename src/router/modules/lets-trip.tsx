@@ -20,6 +20,11 @@ import {
   LetsTripTransferCategoryPage,
   LetsTripTransferCategoryCreatePage,
   LetsTripTransferCategoryEditPage,
+  LetsTripGlobalCountryPage,
+  LetsTripGlobalCountryCreatePage,
+  LetsTripGlobalRegionPage,
+  LetsTripGlobalRegionCreatePage,
+  LetsTripGlobalCountryEditPage,
 } from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
@@ -114,7 +119,7 @@ export const letsTrip = [
     ),
   },
   {
-    path: ROUTES.letsTripTransfer,
+    path: ROUTES.letsTripTransferCategoryId,
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripTransferPage />
@@ -182,6 +187,46 @@ export const letsTrip = [
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripCountryCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripGlobalCountry,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripGlobalCountryPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripGlobalCountryCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripGlobalCountryCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripGlobalCountryEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripGlobalCountryEditPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripGlobalRegionById,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripGlobalRegionPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripGlobalRegionCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripGlobalRegionCreatePage />
       </Suspense>
     ),
   },

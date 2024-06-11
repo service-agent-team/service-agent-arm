@@ -28,7 +28,7 @@ export interface ILetsTripGroupTour {
   priceIncludes: PriceIncludes;
   priceNotIncludes: PriceNotIncludes;
   priceNote: PriceNote;
-  country: Country;
+  countryId: number;
   deleted?: boolean;
   createdAt?: string;
 }

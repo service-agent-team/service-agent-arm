@@ -58,6 +58,10 @@ import * as LetsTripTransferCategoryReduce from '../lets-trip/transfer-category/
 import { LetsTripTransferCategorySliceActions } from '../lets-trip/transfer-category/slice';
 import * as LetsTripCountryReduce from '../lets-trip/country/actions';
 import { LetsTripCountrySliceActions } from '../lets-trip/country/slice';
+import * as LetsTripGlobalCountryReduce from '../lets-trip/global-country/actions';
+import { LetsTripGlobalCountrySliceActions } from '../lets-trip/global-country/slice';
+import * as LetsTripGlobalRegionReduce from '../lets-trip/global-region/actions';
+import { LetsTripGlobalRegionSliceActions } from '../lets-trip/global-region/slice';
 import * as LetsTripCategoryReduce from '../lets-trip/category/actions';
 import { LetsTripCategorySliceActions } from '../lets-trip/category/slice';
 import * as LetsTripStatisticReduce from '../lets-trip/statistic/actions';
@@ -125,8 +129,12 @@ export const AllActions = {
   ...LetsTripTransferCategorySliceActions,
   ...LetsTripCountryReduce,
   ...LetsTripCountrySliceActions,
+  ...LetsTripGlobalCountryReduce,
+  ...LetsTripGlobalCountrySliceActions,
   ...LetsTripCategoryReduce,
   ...LetsTripCategorySliceActions,
   ...LetsTripStatisticReduce,
   ...LetsTripStatisticSliceActions,
+  ...LetsTripGlobalRegionReduce,
+  ...LetsTripGlobalRegionSliceActions,
 };

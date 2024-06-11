@@ -3,6 +3,7 @@ import { BaseForm, Input, PrimaryBtn, Select } from '@/components';
 import { ICreateCarDirection } from '@/types';
 import { Col, Row } from 'antd';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 export const TransferCarSettinsForm = () => {
   const [form] = BaseForm.useForm();
@@ -11,13 +12,17 @@ export const TransferCarSettinsForm = () => {
     globalCountries,
     countryRegions,
     setCarModal,
-    getAllLetsTripTransfer,
+    getByCategoryIdLetsTripTransfer,
   } = useActions();
   const {
     car_details: { select_car_id },
     global_countries,
     country_regions,
   } = useTypedSelector((state) => state.letsTripTransfer);
+  const { id } = useParams();
+  const {
+    pagination: { current, pageSize },
+  } = useTypedSelector((state) => state.app);
 
   useEffect(() => {
     globalCountries({});
@@ -34,14 +39,14 @@ export const TransferCarSettinsForm = () => {
       direction: {
         sourceBoundaryId,
         destinationBoundaryId,
-        hourlyPrice: +hourlyPrice,
-        transferPrice: +transferPrice,
+        hourlyPrice: +hourlyPrice * 100,
+        transferPrice: +transferPrice * 100,
       },
       callback: () => {
-        getAllLetsTripTransfer({
-          page: 0,
-          size: 30,
-          callback() {},
+        getByCategoryIdLetsTripTransfer({
+          page: current,
+          size: pageSize,
+          categoryId: Number(id),
         });
         setCarModal(false);
       },
@@ -56,13 +61,13 @@ export const TransferCarSettinsForm = () => {
   const regions = country_regions.map((el) => ({ value: el.id, label: el.name.en }));
 
   return (
-    <BaseForm name="Car settins" form={form} layout="vertical" onFinish={onFinish}>
+    <BaseForm name="Car settings" form={form} layout="vertical" onFinish={onFinish}>
       <Row gutter={10}>
         <Col span={12}>
           <BaseForm.Item
             name="sourceCountryId"
             label={'Source Country'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Source Country is required!' }]}
           >
             <Select
               options={sourceCountry}
@@ -75,7 +80,7 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="destinationCountryId"
             label={'Destination Country'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Destination Country is required!' }]}
           >
             <Select
               options={sourceCountry}
@@ -89,7 +94,7 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="sourceBoundaryId"
             label={'Source Boundary'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Select Source Boundary is required!' }]}
           >
             <Select options={regions} placeholder="Select Source Boundary" />
           </BaseForm.Item>
@@ -99,7 +104,7 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="destinationBoundaryId"
             label={'Destination Boundary'}
-            rules={[{ required: true, message: 'category is required!' }]}
+            rules={[{ required: true, message: 'Destination Boundary is required!' }]}
           >
             <Select options={regions} placeholder="Select Destination Boundary" />
           </BaseForm.Item>
@@ -109,18 +114,18 @@ export const TransferCarSettinsForm = () => {
           <BaseForm.Item
             name="transferPrice"
             label={'Transfer Price'}
-            rules={[{ required: true, message: 'tariff name is required!' }]}
+            rules={[{ required: true, message: 'Transfer price is required!' }]}
           >
-            <Input placeholder="Enter tariff name" />
+            <Input placeholder="Enter transfer price" />
           </BaseForm.Item>
         </Col>
         <Col span={12}>
           <BaseForm.Item
             name="hourlyPrice"
             label={'Hourly Price'}
-            rules={[{ required: true, message: 'tariff name is required!' }]}
+            rules={[{ required: true, message: 'Hourly Price is required!' }]}
           >
-            <Input placeholder="Enter tariff name" />
+            <Input placeholder="Enter hourly price" />
           </BaseForm.Item>
         </Col>
 

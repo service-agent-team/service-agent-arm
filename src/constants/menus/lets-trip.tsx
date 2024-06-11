@@ -27,11 +27,11 @@ export const letsTrip = [
     key: ROUTES.letsTripIndividualTour,
     label: 'Individual Tours',
   },
-  {
-    icon: 'CarOutlined',
-    key: ROUTES.letsTripTransfer,
-    label: 'Cars',
-  },
+  // {
+  //   icon: 'CarOutlined',
+  //   key: ROUTES.letsTripTransfer,
+  //   label: 'Cars',
+  // },
   {
     icon: 'CarOutlined',
     key: ROUTES.letsTripTransferCategory,
@@ -46,6 +46,11 @@ export const letsTrip = [
     icon: 'GlobalOutlined',
     key: ROUTES.letsTripCountry,
     label: 'Countries',
+  },
+  {
+    icon: 'GlobalOutlined',
+    key: ROUTES.letsTripGlobalCountry,
+    label: 'Global Countries',
   },
 ];
 

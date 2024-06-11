@@ -10,8 +10,8 @@ export type TInitialState = {
   fileList: any[];
   imageId: number;
   page: number | null;
-  total_page: number | null;
   search: string | null;
+  pagination: IPagination;
 };
 
 export enum ETheme {
@@ -29,4 +29,10 @@ export interface IMenu {
 export interface MenuChildren {
   key: string;
   label: string;
+}
+
+export interface IPagination {
+  current: number;
+  pageSize: number;
+  total: number;
 }

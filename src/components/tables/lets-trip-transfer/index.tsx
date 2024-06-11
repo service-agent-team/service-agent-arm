@@ -1,38 +1,42 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
 import { Table } from 'antd';
 import { useEffect } from 'react';
 import { utils } from './utils';
+import { useParams } from 'react-router-dom';
+import { subUtils } from './sub-utils';
 
 export const LetsTripTransferTable = () => {
-  const { getAllLetsTripTransfer } = useActions();
+  const { getByCategoryIdLetsTripTransfer, setPagination } = useActions();
   const {
-    activeTransfers,
     transfers,
-    deleted,
     loading: { get },
   } = useTypedSelector((state) => state.letsTripTransfer);
+  const { selectCategory } = useTypedSelector((state) => state.letsTripTransferCategory);
+  const {
+    pagination: { current, pageSize, total },
+  } = useTypedSelector((state) => state.app);
+  const { id } = useParams();
 
   useEffect(() => {
-    getAllLetsTripTransfer({
-      page: 0,
-      size: 30,
-      callback() {},
+    getByCategoryIdLetsTripTransfer({
+      page: current,
+      size: pageSize,
+      categoryId: Number(selectCategory?.id) || Number(id),
     });
-  }, []);
+  }, [current, pageSize, id]);
 
   return (
     <Table
       columns={utils()}
-      // expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
-      dataSource={
-        transfers && !deleted
-          ? (transfers as ILetsTripTransfer[])
-          : (activeTransfers as ILetsTripTransfer[])
-      }
+      expandable={{
+        expandedRowRender: (record) => subUtils(record),
+      }}
+      pagination={{ current, pageSize, total }}
+      onChange={(p) => setPagination(p)}
+      dataSource={transfers}
+      scroll={{ x: 1000 }}
       loading={get}
       bordered
-      scroll={{ x: 1000 }}
     />
   );
 };

@@ -4,6 +4,7 @@ import {
   createLetsTripTransfer,
   deleteLetsTripTransfer,
   getAllLetsTripTransfer,
+  getByCategoryIdLetsTripTransfer,
   getOneLetsTripTransfer,
   globalCountries,
   transferCarSettings,
@@ -61,9 +62,23 @@ export const letsTripTransferSlice = createSlice({
         state.loading.get = false;
         state.transfers = payload.content;
         state.activeTransfers = payload.content.filter((t) => t.deleted === false);
+
         state.errors = null;
       })
       .addCase(getAllLetsTripTransfer.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getByCategoryIdLetsTripTransfer.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getByCategoryIdLetsTripTransfer.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.transfers = payload.content;
+        state.errors = null;
+      })
+      .addCase(getByCategoryIdLetsTripTransfer.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })

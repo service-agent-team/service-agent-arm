@@ -28,10 +28,10 @@ export interface ILetsTripTransfer {
   name: Name;
   category: ILetsTripTransferCategory;
   pictures: string[];
-  pricePerKM: number;
-  hourlyPrice: number;
   manufactureDate: string;
   directions: IDirection[];
+  luggage: number;
+  seats: number;
   createdAt: string;
   updatedAt: string;
   deleted: boolean;
@@ -86,14 +86,19 @@ export interface ILetsTripTransferGetOnePayload {
   carId: number;
 }
 
+export interface ILetsTripTransferGetByCategoryIdPayload {
+  categoryId: number;
+  page: number;
+  size: number;
+}
 export interface ILetsTripTransferCreatePayload {
   callback(): void;
   body: {
     name: Name;
     carCategoryId: number;
+    seats: number;
+    luggage: number;
     pictures: string[];
-    pricePerKM: number;
-    hourlyPrice: number;
     manufactureDate: string;
   };
 }
@@ -103,8 +108,8 @@ export interface ILetsTripTransferUpdatePayload {
   carId: number;
   body: {
     carCategoryId: number;
-    pricePerKM: number;
-    hourlyPrice: number;
+    seats: number;
+    luggage: number;
     manufactureDate: string;
   };
 }

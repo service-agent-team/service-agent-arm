@@ -1,7 +1,7 @@
 import { ILetsTripGroupTourGetOne } from '@/store/lets-trip/tour/types';
 import NoThumbImage from '@/assets/images/no-thumbnail.png';
 import { H1 } from '@/components/common';
-import { Button, Flex, List, Steps, Tag, Typography } from 'antd';
+import { Flex, List, Steps, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
 import { ROUTES } from '@/constants';
 import * as S from './styled';
@@ -38,7 +38,7 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           <S.Title>{data?.name}</S.Title>
           <S.InfoCard width="384px">
             <Typography.Text strong>Starting Price: </Typography.Text>
-            {data?.startingPrice} $<H1>Extra Information: </H1>
+            {Number(data?.startingPrice) / 100} $<H1>Extra Information: </H1>
             <List>
               {data?.extraInformation.map((el, idx) => (
                 <List.Item key={el.title + idx}>

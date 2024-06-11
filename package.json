@@ -33,6 +33,7 @@
     "sass": "^1.69.5",
     "styled-components": "^6.1.1",
     "typeface-montserrat": "^1.1.13",
+    "use-places-autocomplete": "^4.0.1",
     "web-vitals": "^3.5.0"
   },
   "devDependencies": {
