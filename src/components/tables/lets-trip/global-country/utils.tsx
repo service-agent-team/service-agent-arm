@@ -15,7 +15,7 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { setSelectGlobalCountry } = useActions();
+  const { setSelectGlobalCountry, setGlobalCountry } = useActions();
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -202,15 +202,16 @@ export const utils = () => {
             >
               <Icon name="SettingOutlined" />
             </Button>
-            {/* <Button
+            <Button
               type="primary"
               key={2}
               onClick={() => {
-                navigate(`${ROUTES.letsTripGlobalRegion}/${id}`);
+                navigate(`${ROUTES.letsTripGlobalCountry}/edit/${record.id}`);
+                setGlobalCountry(record);
               }}
             >
               <Icon name="EditOutlined" />
-            </Button> */}
+            </Button>
             {/* <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
               <DeleteOutlined />
             </Button> */}

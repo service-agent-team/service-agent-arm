@@ -199,6 +199,7 @@ export const LestTripTransferCreateForm: React.FC = () => {
                 style={{ width: '100%' }}
                 name="files"
                 multiple={true}
+                listType="picture"
                 fileList={fileList}
                 onChange={handleChange}
                 onPreview={handlePreview}

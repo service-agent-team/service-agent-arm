@@ -7,6 +7,7 @@ import {
   GlobalCountryPayload,
   GlobalCountryResponse,
   ILetsTripGlobalCountry,
+  UpdateImageGlobalCountryPayload,
 } from './types';
 import { appActions } from '@/store/app';
 
@@ -36,6 +37,21 @@ export const createGlobalCountry = createAsyncThunk<
   try {
     const response = await LetsTripGlobalCountryService.create(body);
     if (response.status == 201) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const updateImageGlobalCountry = createAsyncThunk<
+  ILetsTripGlobalCountry,
+  UpdateImageGlobalCountryPayload
+>(EndPointes.letsTripGlobalCountry.updateImage, async ({ callback, body }, thunkApi) => {
+  try {
+    const response = await LetsTripGlobalCountryService.updateImage(body);
+    if (response.status == 200) {
       callback();
     }
     return response.data;

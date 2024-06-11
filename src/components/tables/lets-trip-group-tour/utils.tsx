@@ -158,23 +158,16 @@ export const utils = () => {
       title: 'Tour Name',
       dataIndex: 'name',
       key: 'name',
-      width: '20%',
+      width: '25%',
       render: (value) => value.en,
     },
     {
       title: 'Starting Price',
       dataIndex: 'startingPrice',
       key: 'startingPrice',
-      width: '20%',
+      width: '25%',
       ...getColumnSearchProps('startingPrice'),
       render: (value) => `${value / 100} $`,
-    },
-    {
-      title: 'Country',
-      dataIndex: 'country',
-      key: 'country',
-      width: '5%',
-      render: (value) => value.name.en?.toUpperCase(),
     },
     {
       title: 'Active',
@@ -188,7 +181,7 @@ export const utils = () => {
       title: 'Created At',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      width: '20%',
+      width: '25%',
       render: (date) => {
         return dateParser(date);
       },
