@@ -8,6 +8,7 @@ import {
   geOneLetsTripIndividualTour,
   geOneRawLetsTripIndividualTour,
   getAllLetsTripIndividualTour,
+  getByCountryLetsTripIndividualTour,
   otherUpdatesLetsTripIndividualTour,
   removeItenararyLetsTripIndividualTour,
   removePriceLetsTripIndividualTour,
@@ -24,6 +25,7 @@ const initialState: ILetsTripIndividualTourInitialState = {
   individualTours: null,
   individualTourRaw: null,
   activeIndividualTours: null,
+  byCountryIndividualTours: null,
   deleted: true,
   errors: null,
 };
@@ -55,6 +57,19 @@ export const letsTripIndividualTourSlice = createSlice({
         state.errors = null;
       })
       .addCase(getAllLetsTripIndividualTour.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getByCountryLetsTripIndividualTour.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getByCountryLetsTripIndividualTour.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.byCountryIndividualTours = payload.content;
+        state.errors = null;
+      })
+      .addCase(getByCountryLetsTripIndividualTour.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })

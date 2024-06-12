@@ -64,6 +64,11 @@ export interface UpdateImageGlobalCountryBody {
   pictureUrl: string;
 }
 
+export interface deleteGlobalCountryPayload {
+  callback(): void;
+  countryId: number;
+}
+
 export interface ILetsTripGlobalCountry {
   id?: number;
   name: Name;

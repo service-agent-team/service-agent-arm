@@ -2,7 +2,7 @@ import { errorCatch } from '@/common';
 import { LetsTripTransferCarService } from '@/services';
 import { EndPointes } from '@/services/endpoints';
 import { IGlobalCountry } from '@/types';
-import { IGlobalResponce } from '@/types/reponces';
+import { IGlobalResponse } from '@/types/reponces';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import {
@@ -147,7 +147,7 @@ export const transferCarSettings = createAsyncThunk<
   }
 });
 
-export const globalCountries = createAsyncThunk<IGlobalResponce<IGlobalCountry[]>, any>(
+export const globalCountries = createAsyncThunk<IGlobalResponse<IGlobalCountry[]>, any>(
   EndPointes.letsTripTransfer.countries,
   async (_, thunkApi) => {
     try {
@@ -159,7 +159,7 @@ export const globalCountries = createAsyncThunk<IGlobalResponce<IGlobalCountry[]
   },
 );
 
-export const countryRegions = createAsyncThunk<IGlobalResponce<IGlobalCountry[]>, ICountryRegions>(
+export const countryRegions = createAsyncThunk<IGlobalResponse<IGlobalCountry[]>, ICountryRegions>(
   EndPointes.letsTripTransfer.regions,
   async ({ countryId }, thunkApi) => {
     try {

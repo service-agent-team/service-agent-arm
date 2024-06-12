@@ -7,7 +7,7 @@ import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
 import * as S from './styled';
 import { Col, GetProp, Image, Input, Row, Upload, UploadFile } from 'antd';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
-import { IGoogleMouseEvent } from '../../lets-trip-tour/types';
+import { IGoogleMouseEvent } from '../group-tour/types';
 import toast from 'react-hot-toast';
 import { UploadProps } from 'antd/lib';
 import { useEffect, useState } from 'react';

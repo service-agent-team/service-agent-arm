@@ -20,4 +20,8 @@ export const LetsTripGlobalCountryService = {
     const response = await $axios.patch(EndPointes.letsTripGlobalCountry.updateImage, body);
     return response;
   },
+  async deleteCountry(countryId: number) {
+    const response = await $axios.patch(`${EndPointes.letsTripGlobalCountry.delete}/${countryId}`);
+    return response;
+  },
 };

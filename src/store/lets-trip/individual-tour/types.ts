@@ -1,3 +1,5 @@
+import { Pageable, Sort } from '@/types/response';
+
 export interface ILetsTripIndividualTourInitialState {
   loading: {
     get: boolean;
@@ -9,6 +11,7 @@ export interface ILetsTripIndividualTourInitialState {
   individualTourRaw: ILetsTripIndividualTour | null;
   individualTour: ILetsTripIndividualTourGetOne | null;
   activeIndividualTours: ILetsTripIndividualTour[] | null;
+  byCountryIndividualTours: ILetsTripIndividualTourByCountryId[] | null;
   deleted: boolean;
   errors: unknown | string[] | string;
 }
@@ -29,6 +32,19 @@ export interface ILetsTripIndividualTour {
   createdAt: string;
 }
 
+export interface ILetsTripIndividualTourByCountryId {
+  id: number;
+  duration: string;
+  images: string[];
+  priceNote: string;
+  videoUrl: string;
+  name: string;
+  tourItenarary: TourItenarary[];
+  description: string[];
+  startingPrice: number;
+  tourPrices: TourPrice[];
+}
+
 export interface ILetsTripIndividualTourResponse {
   content: ILetsTripIndividualTour[];
   pageable: Pageable;
@@ -38,7 +54,21 @@ export interface ILetsTripIndividualTourResponse {
   numberOfElements: number;
   size: number;
   number: number;
-  sort: Sort2;
+  sort: Sort;
+  first: boolean;
+  empty: boolean;
+}
+
+export interface ILetsTripIndividualTourByCountryIdResponse {
+  content: ILetsTripIndividualTourByCountryId[];
+  pageable: Pageable;
+  totalElements: number;
+  totalPages: number;
+  last: boolean;
+  numberOfElements: number;
+  size: number;
+  number: number;
+  sort: Sort;
   first: boolean;
   empty: boolean;
 }
@@ -48,12 +78,21 @@ export interface IGetOneLetsTripTourResponse extends ILetsTripIndividualTourGetO
 export interface ILetsTripIndividualTourCreateResponse extends ILetsTripIndividualTour {}
 
 export interface ILetsTripIndividualTourPayload {
-  callback(): void;
+  page: number;
+  size: number;
+}
+
+export interface ILetsTripIndividualTourByCountryPayload {
+  countryId: number;
   page: number;
   size: number;
 }
 
 export interface ILetsTripIndividualTourGetOnePayload {
+  id: string;
+}
+
+export interface ILetsTripIndividualTourDeletePayload {
   callback(): void;
   id: string;
 }
@@ -194,27 +233,6 @@ export interface Name2 {
   id?: number;
   ru: string;
   en: string;
-}
-
-export interface Pageable {
-  pageNumber: number;
-  pageSize: number;
-  sort: Sort;
-  offset: number;
-  paged: boolean;
-  unpaged: boolean;
-}
-
-export interface Sort {
-  sorted: boolean;
-  unsorted: boolean;
-  empty: boolean;
-}
-
-export interface Sort2 {
-  sorted: boolean;
-  unsorted: boolean;
-  empty: boolean;
 }
 
 export interface ILetsTripIndividualTourGetOne {

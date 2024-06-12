@@ -10,6 +10,7 @@ import { useActions } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ILetsTripGlobalCountry } from '@/store/lets-trip/global-country/types';
 import { ROUTES } from '@/constants';
+import { globalCountryHandleDeleteConfirm } from '@/components/modal';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -23,24 +24,6 @@ export const utils = () => {
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
-
-  // const handleDelete = (record: any) => {
-  //   modal.confirm({
-  //     okText: `${record.isDeleted ? 'Enable' : 'Delete'}`,
-  //     title: `You want to delete right ?`,
-  //     onOk: () => {
-  //       deleteLetsTripCountry({
-  //         callback() {
-  //           addNotification('successfully deleted');
-  //           if (globalCountries)
-  //             setGlobalCountry(globalCountries.filter((el) => el.id !== record.id));
-  //         },
-  //         id: record.id,
-  //       });
-  //       if (errors) addNotification(errors);
-  //     },
-  //   });
-  // };
 
   const handleReset = (clearFilters: () => void) => {
     clearFilters();
@@ -212,9 +195,14 @@ export const utils = () => {
             >
               <Icon name="EditOutlined" />
             </Button>
-            {/* <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
-              <DeleteOutlined />
-            </Button> */}
+            <Button
+              type="primary"
+              danger
+              key={3}
+              onClick={() => globalCountryHandleDeleteConfirm(record)}
+            >
+              <Icon name="DeleteOutlined" />
+            </Button>
           </Space>
         );
       },

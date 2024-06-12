@@ -7,41 +7,16 @@ export const letsTrip = [
     key: ROUTES.letsTripHome,
     label: 'Home',
   },
-  // {
-  //   icon: 'InboxOutlined',
-  //   key: ROUTES.letTripLuggage,
-  //   label: 'Luggage delivery',
-  // },
-  // {
-  //   icon: 'MedicineBoxOutlined',
-  //   key: ROUTES.letsTripOrder,
-  //   label: 'Orders',
-  // },
   {
     icon: 'UsergroupAddOutlined',
-    key: ROUTES.letsTripGroupTour,
-    label: 'Group Tours',
+    key: ROUTES.letsTripTour,
+    label: 'Tours',
   },
-  {
-    icon: 'UserAddOutlined',
-    key: ROUTES.letsTripIndividualTour,
-    label: 'Individual Tours',
-  },
-  // {
-  //   icon: 'CarOutlined',
-  //   key: ROUTES.letsTripTransfer,
-  //   label: 'Cars',
-  // },
   {
     icon: 'CarOutlined',
     key: ROUTES.letsTripTransferCategory,
-    label: 'Car Category',
+    label: 'Cars',
   },
-  // {
-  //   icon: 'DiffOutlined',
-  //   key: ROUTES.letsTripEsimGo,
-  //   label: 'Esim Go',
-  // },
   {
     icon: 'GlobalOutlined',
     key: ROUTES.letsTripCountry,

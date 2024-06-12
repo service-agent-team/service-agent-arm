@@ -4,6 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { LetsTripGlobalCountryService } from '@/services';
 import {
   CreateGlobalCountryPayload,
+  deleteGlobalCountryPayload,
   GlobalCountryPayload,
   GlobalCountryResponse,
   ILetsTripGlobalCountry,
@@ -59,3 +60,18 @@ export const updateImageGlobalCountry = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const deleteGlobalCountry = createAsyncThunk<any, deleteGlobalCountryPayload>(
+  EndPointes.letsTripGlobalCountry.updateImage,
+  async ({ callback, countryId }, thunkApi) => {
+    try {
+      const response = await LetsTripGlobalCountryService.deleteCountry(countryId);
+      if (response.status == 204) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);

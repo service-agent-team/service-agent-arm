@@ -1,9 +1,8 @@
-import { ILetsTripGroupTourGetOne } from '@/store/lets-trip/tour/types';
+import { ILetsTripGroupTourGetOne } from '@/store/lets-trip/group-tour/types';
 import NoThumbImage from '@/assets/images/no-thumbnail.png';
 import { H1 } from '@/components/common';
 import { Flex, List, Steps, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
-import { ROUTES } from '@/constants';
 import * as S from './styled';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 // import { useState } from 'react';
@@ -24,12 +23,7 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
 
   return (
     <>
-      <PageTitle
-        title={`Tour Name: ${data?.name}`}
-        route={ROUTES.letsTripGroupTour}
-        icon="ArrowLeftOutlined"
-        label="Back"
-      />
+      <PageTitle title={`Tour Name: ${data?.name}`} />
       <Flex style={{ margin: '30px 0' }} justify="space-between" wrap="wrap" gap={30}>
         <S.ImageBlock>
           <S.CustomImageGroup items={data?.images}>
