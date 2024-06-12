@@ -5,18 +5,19 @@ import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { dateParser } from '@/common/utils/format';
-import { Icon } from '@/components';
-import { useActions } from '@/common/hooks';
+import { Icon, modal } from '@/components';
+import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { ILetsTripGlobalCountry } from '@/store/lets-trip/global-country/types';
 import { ROUTES } from '@/constants';
-import { globalCountryHandleDeleteConfirm } from '@/components/modal';
+import { addNotification } from '@/common';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { setSelectGlobalCountry, setGlobalCountry } = useActions();
+  const { setSelectGlobalCountry, setGlobalCountry, deleteGlobalCountry } = useActions();
+  const { globalCountries } = useTypedSelector((state) => state.letsTripGlobalCountry);
   const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
@@ -28,6 +29,23 @@ export const utils = () => {
   const handleReset = (clearFilters: () => void) => {
     clearFilters();
     setSearchText('');
+  };
+
+  const handleDelete = (record: ILetsTripGlobalCountry) => {
+    return modal.confirm({
+      okText: 'Delete',
+      title: `You want to delete right ?`,
+      onOk: () => {
+        deleteGlobalCountry({
+          callback() {
+            addNotification('successfully deleted');
+            if (globalCountries)
+              setGlobalCountry(globalCountries.filter((el) => el.id !== record.id));
+          },
+          countryId: Number(record?.id),
+        });
+      },
+    });
   };
 
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripGlobalCountry> => ({
@@ -195,12 +213,7 @@ export const utils = () => {
             >
               <Icon name="EditOutlined" />
             </Button>
-            <Button
-              type="primary"
-              danger
-              key={3}
-              onClick={() => globalCountryHandleDeleteConfirm(record)}
-            >
+            <Button type="primary" danger key={3} onClick={() => handleDelete(record)}>
               <Icon name="DeleteOutlined" />
             </Button>
           </Space>

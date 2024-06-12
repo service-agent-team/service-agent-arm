@@ -1,4 +1,4 @@
-import { Pageable, Sort } from '@/types/reponces';
+import { Pageable, Sort } from '@/types/response';
 
 export interface ILetsTripGlobalRegionInitialState {
   loading: {

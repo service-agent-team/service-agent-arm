@@ -1,7 +1,7 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, modal, PrimaryBtn, TextArea } from '@/components';
-import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
+import { BASE_URL, FILE_URL } from '@/constants';
 import {
   Button,
   Card,
@@ -37,6 +37,7 @@ export const LestTripTourEditForm: React.FC = () => {
   const {
     updateByObjectLetsTripGroupTour,
     updatePriceNoteTripGroupTour,
+    updatePriceIncludesGroupTour,
     getAllGlobalCountry,
     getOneRawLetsTripTour,
     setLetsTripGroupTourLocations,
@@ -212,13 +213,13 @@ export const LestTripTourEditForm: React.FC = () => {
         groupTourRaw.priceIncludes.en[0] !== priceIncludeEn ||
         groupTourRaw.priceIncludes.ru[0] !== priceIncludeRu
       ) {
-        updateByObjectLetsTripGroupTour({
+        updatePriceIncludesGroupTour({
           callback() {
             addNotification('price includes changed');
             navigate(-1);
           },
-          en: priceIncludeEn,
-          ru: priceIncludeRu,
+          en: [priceIncludeEn],
+          ru: [priceIncludeRu],
           id: groupTourRaw.priceIncludes.id as number,
         });
       }
@@ -226,13 +227,13 @@ export const LestTripTourEditForm: React.FC = () => {
         groupTourRaw.priceNotIncludes.en[0] !== priceNotIncludeEn ||
         groupTourRaw.priceNotIncludes.ru[0] !== priceNotIncludeRu
       ) {
-        updateByObjectLetsTripGroupTour({
+        updatePriceIncludesGroupTour({
           callback() {
             addNotification('price not includes changed');
             navigate(-1);
           },
-          en: priceNotIncludeEn,
-          ru: priceNotIncludeRu,
+          en: [priceNotIncludeEn],
+          ru: [priceNotIncludeRu],
           id: groupTourRaw.priceNotIncludes.id as number,
         });
       }
@@ -454,6 +455,7 @@ export const LestTripTourEditForm: React.FC = () => {
     getOneRawLetsTripTour({
       id: id as string,
     });
+
     if (groupTourRaw?.locations) setLetsTripGroupTourLocations(groupTourRaw?.locations);
 
     if (errors) addNotification(errors);
