@@ -6,7 +6,7 @@ import { IValuesForm } from './types';
 import { ROUTES } from '@/constants';
 import { Col, Row } from 'antd';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
-import { IGoogleMouseEvent } from '../../lets-trip-tour/types';
+import { IGoogleMouseEvent } from '../group-tour/types';
 import toast from 'react-hot-toast';
 
 export const GlobalRegionForm = ({ type }: { type: 'edit' | 'create' }) => {

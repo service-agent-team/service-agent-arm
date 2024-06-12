@@ -8,7 +8,10 @@ import {
   ILetsTripIndividualRemoveItenararyPayload,
   ILetsTripIndividualRemovePricePayload,
   ILetsTripIndividualTour,
+  ILetsTripIndividualTourByCountryIdResponse,
+  ILetsTripIndividualTourByCountryPayload,
   ILetsTripIndividualTourCreateResponse,
+  ILetsTripIndividualTourDeletePayload,
   ILetsTripIndividualTourGetOnePayload,
   ILetsTripIndividualTourImagePayload,
   ILetsTripIndividualTourPayload,
@@ -17,34 +20,47 @@ import {
 import { EndPointes } from '@/services/endpoints';
 import { LetsTripIndividualTourService } from '@/services';
 import { errorCatch } from '@/common';
+import { appActions } from '@/store/app';
 
 export const getAllLetsTripIndividualTour = createAsyncThunk<
   ILetsTripIndividualTourResponse,
   ILetsTripIndividualTourPayload
->(
-  EndPointes.letsTripIndividualTour.getAll + '/get-all',
-  async ({ callback, page, size }, thunkApi) => {
-    try {
-      const response = await LetsTripIndividualTourService.getAll(page, size);
-      if (response.data) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+>(EndPointes.letsTripIndividualTour.getAll + '/get-all', async ({ page, size }, thunkApi) => {
+  try {
+    const response = await LetsTripIndividualTourService.getAll(page, size);
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const getByCountryLetsTripIndividualTour = createAsyncThunk<
+  ILetsTripIndividualTourByCountryIdResponse,
+  ILetsTripIndividualTourByCountryPayload
+>(EndPointes.letsTripIndividualTour.getByCountry, async ({ countryId, page, size }, thunkApi) => {
+  try {
+    const response = await LetsTripIndividualTourService.getByCountry(countryId, page, size);
+    if (response.data) {
+      thunkApi.dispatch(
+        appActions.setPagination({
+          current: response.data.pageable.pageNumber + 1,
+          pageSize: response.data.pageable.pageSize,
+          total: response.data.totalElements,
+        }),
+      );
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
 export const geOneLetsTripIndividualTour = createAsyncThunk<
   IGetOneLetsTripTourResponse,
   ILetsTripIndividualTourGetOnePayload
->(EndPointes.letsTripIndividualTour.getOne + '/get-one', async ({ callback, id }, thunkApi) => {
+>(EndPointes.letsTripIndividualTour.getOne + '/get-one', async ({ id }, thunkApi) => {
   try {
     const response = await LetsTripIndividualTourService.getOne(id);
-    if (response.data) {
-      callback();
-    }
     return response.data;
   } catch (error) {
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
@@ -54,12 +70,9 @@ export const geOneLetsTripIndividualTour = createAsyncThunk<
 export const geOneRawLetsTripIndividualTour = createAsyncThunk<
   ILetsTripIndividualTour,
   ILetsTripIndividualTourGetOnePayload
->(EndPointes.letsTripIndividualTour.getOne + '/get-one/raw', async ({ callback, id }, thunkApi) => {
+>(EndPointes.letsTripIndividualTour.getOne + '/get-one/raw', async ({ id }, thunkApi) => {
   try {
     const response = await LetsTripIndividualTourService.getOneRaw(id);
-    if (response.data) {
-      callback();
-    }
     return response.data;
   } catch (error) {
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
@@ -216,7 +229,7 @@ export const otherUpdatesLetsTripIndividualTour = createAsyncThunk<
 
 export const deleteLetsTripIndividualTour = createAsyncThunk<
   ILetsTripIndividualTourCreateResponse,
-  ILetsTripIndividualTourGetOnePayload
+  ILetsTripIndividualTourDeletePayload
 >(EndPointes.letsTripIndividualTour.delete + '/delete', async ({ callback, id }, thunkApi) => {
   try {
     const response = await LetsTripIndividualTourService.delete(id);

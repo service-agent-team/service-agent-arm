@@ -25,6 +25,8 @@ import {
   LetsTripGlobalRegionPage,
   LetsTripGlobalRegionCreatePage,
   LetsTripGlobalCountryEditPage,
+  LetsTripTourPage,
+  LetsTripByCountryTourPage,
 } from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
@@ -51,6 +53,22 @@ export const letsTrip = [
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripOrderPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripTour,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripTourPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.letsTripTourByCountry,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LetsTripByCountryTourPage />
       </Suspense>
     ),
   },

@@ -1,2 +1,3 @@
-export { LetsTripGlobalCountryTable } from './global-country';
-export { LetsTripGlobalRegionTable } from './global-region';
+export * from './global-country';
+export * from './global-region';
+export * from './tour';

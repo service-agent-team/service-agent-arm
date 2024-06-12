@@ -39,7 +39,7 @@ export const letsTripGlobalCountrySlice = createSlice({
       })
       .addCase(getAllGlobalCountry.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.globalCountries = payload.data.content;
+        state.globalCountries = payload.data.content.filter((c) => c.deleted === false);
         state.errors = null;
       })
       .addCase(getAllGlobalCountry.rejected, (state, { payload }) => {

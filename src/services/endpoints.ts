@@ -199,7 +199,7 @@ export const EndPointes = {
   letsTripIndividualTour: {
     getAll: '/api/tours/individual-tours/',
     getOne: '/api/tours/individual-tours/',
-    getByCountry: '/api/tours/individual-tours/by-county/',
+    getByCountry: '/api/tours/individual-tours/by-country',
     create: '/api/tours/individual-tours/',
     delete: '/api/tours/individual-tours/',
   },
@@ -214,6 +214,7 @@ export const EndPointes = {
     getAll: '/api/country/get-all',
     create: '/api/country/create',
     updateImage: '/api/country/update-image',
+    delete: '/api/country/delete',
   },
 
   letsTripGlobalRegion: {

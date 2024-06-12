@@ -4,7 +4,7 @@ import { Card } from '@/components/common/card';
 import { H1 } from '@/components/common';
 import { Flex, List, Typography } from 'antd';
 import { PageTitle } from '@/components/page-title';
-import { FILE_URL, ROUTES } from '@/constants';
+import { FILE_URL } from '@/constants';
 import * as S from './styled';
 import { useSearchParams } from 'react-router-dom';
 
@@ -17,12 +17,7 @@ export const LetsTripIndividualTourCard = ({
 
   return (
     <>
-      <PageTitle
-        title={`Tour Name: ${data?.name}`}
-        route={ROUTES.letsTripIndividualTour}
-        icon="ArrowLeftOutlined"
-        label="Back"
-      />
+      <PageTitle title={`Tour Name: ${data?.name}`} />
       <Flex style={{ margin: '30px 0' }} gap={30} wrap="wrap">
         <S.ImageBlock>
           <S.CustomImageGroup items={data?.images}>
