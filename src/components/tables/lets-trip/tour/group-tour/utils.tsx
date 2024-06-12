@@ -184,11 +184,9 @@ export const utils = () => {
       dataIndex: 'tourId',
       key: 'view',
       width: '10%',
-      render: (_, record: any) => {
+      render: (_, record: ILetsTripGroupTourByCountryId) => {
         return (
-          <LinkButton
-            path={record.deleted ? '#' : `${ROUTES.letsTripGroupTour}/view/${record.tourId}`}
-          >
+          <LinkButton path={`${ROUTES.letsTripGroupTour}/view/${record.tourId}`}>
             <Icon name="EyeOutlined" />
           </LinkButton>
         );
@@ -199,35 +197,23 @@ export const utils = () => {
       dataIndex: 'action',
       key: 'action',
       width: '10%',
-      render: (_: any, record: any) => {
+      render: (_, record: ILetsTripGroupTourByCountryId) => {
         return (
           <Space>
-            {record.deleted ? (
-              'No Actions'
-            ) : (
-              <>
-                <Button
-                  type="primary"
-                  key={1}
-                  onClick={() =>
-                    navigate(
-                      `${ROUTES.letsTripTour}/by-country/${countryId}/${tourType}/edit/${record.tourId}`,
-                    )
-                  }
-                >
-                  <Icon name="EditOutlined" />
-                </Button>
-                <Button
-                  type="primary"
-                  danger
-                  disabled={record.deleted}
-                  key={2}
-                  onClick={() => handleDelete(record)}
-                >
-                  <Icon name="DeleteOutlined" />
-                </Button>
-              </>
-            )}
+            <Button
+              type="primary"
+              key={1}
+              onClick={() =>
+                navigate(
+                  `${ROUTES.letsTripTour}/by-country/${countryId}/${tourType}/edit/${record.tourId}`,
+                )
+              }
+            >
+              <Icon name="EditOutlined" />
+            </Button>
+            <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
+              <Icon name="DeleteOutlined" />
+            </Button>
           </Space>
         );
       },

@@ -1,4 +1,4 @@
-import { Pageable, Sort } from '@/types/reponces';
+import { Pageable, Sort } from '@/types/response';
 
 export interface ILetsTripGroupTourInitialState {
   loading: {
@@ -119,6 +119,16 @@ export interface UpdateByObject {
   id: number;
   en: string;
   ru: string;
+}
+
+export interface UpdatePriceIncludes {
+  en: string[];
+  ru: string[];
+}
+
+export interface UpdatePriceIncludesPayload extends UpdatePriceIncludes {
+  callback(): void;
+  id: number;
 }
 
 export interface ILetsTripTourUpdateByObjectPayload extends UpdateByObject {

@@ -4,7 +4,7 @@ import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea } from '@/components'
 import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
 import { Button, Card, Flex, GetProp, Image, Input, Select, Upload, UploadProps } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Id, IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
@@ -23,6 +23,9 @@ export const LestTripIndividualTourCreateForm: React.FC = () => {
   const [fileList3, setFileList3] = useState<UploadFile[]>([]);
   const [previewImage, setPreviewImage] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
+  const { countryId } = useParams();
+
+  form.setFieldValue('countryId', Number(countryId));
 
   const onFinish = ({
     nameRu,

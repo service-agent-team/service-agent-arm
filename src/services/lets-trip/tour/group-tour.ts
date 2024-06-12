@@ -35,6 +35,10 @@ export const LetsTripGroupTourService = {
     const response = await $axios.put(EndPointes.letsTripTour.updatePriceNote + id, body);
     return response;
   },
+  async updatePriceIncludes(id: number, body: { en: string[]; ru: string[] }) {
+    const response = await $axios.put(EndPointes.letsTripTour.updatePriceIncludes + id, body);
+    return response;
+  },
   async addAvailableDate(tourId: number, body: any) {
     const response = await $axios.patch(
       `${EndPointes.letsTripGroupTour.getAll}/${tourId}/add/new-month`,

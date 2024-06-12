@@ -2,7 +2,7 @@ import { errorCatch } from '@/common';
 import { LetsTripTransferCarService } from '@/services';
 import { EndPointes } from '@/services/endpoints';
 import { IGlobalCountry } from '@/types';
-import { IGlobalResponse } from '@/types/reponces';
+import { IGlobalResponse } from '@/types/response';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosResponse } from 'axios';
 import {

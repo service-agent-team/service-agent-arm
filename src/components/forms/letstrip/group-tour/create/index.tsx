@@ -15,7 +15,7 @@ import {
   UploadProps,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Id, IGoogleMouseEvent, IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
@@ -45,6 +45,7 @@ export const LestTripTourCreateForm: React.FC = () => {
   const {
     pagination: { current, pageSize },
   } = useTypedSelector((state) => state.app);
+  const { countryId } = useParams();
 
   const handleMapClick = (event: IGoogleMouseEvent) => {
     if (event.latLng) {
@@ -60,6 +61,8 @@ export const LestTripTourCreateForm: React.FC = () => {
       locations?.filter((l) => l.lat !== loc?.latLng?.lat() && l.lng !== loc.latLng?.lng()) || [],
     );
   };
+
+  form.setFieldValue('countryId', Number(countryId));
 
   const onFinish = ({
     nameEn,
