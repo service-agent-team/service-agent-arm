@@ -18,6 +18,7 @@ export interface ILetsTripTransferInitialState {
   country_regions: IGlobalCountry[];
   transfers: ILetsTripTransfer[];
   activeTransfers: ILetsTripTransfer[] | null;
+  searchTransfers: ILetsTripTransfer[] | null;
   transfer: ILetsTripTransfer | null;
   deleted: boolean;
   errors: unknown | string[] | string;
@@ -76,9 +77,15 @@ export interface ILetsTripTransferResponse {
 export interface ILetsTripTransferCreateResponse extends ILetsTripTransfer {}
 
 export interface ILetsTripTransferPayload {
-  callback(): void;
   page: number;
   size: number;
+}
+
+export interface ILetsTripTransferSearchPayload {
+  callback?(): void;
+  page: number;
+  size: number;
+  name: string;
 }
 
 export interface ILetsTripTransferGetOnePayload {
@@ -128,6 +135,12 @@ export interface ILetsTripTransferDeletePayload {
 export interface ICreateTransferDirectionPay {
   carId: number;
   direction: ICreateCarDirection;
+  callback?: () => void;
+}
+
+export interface IDeleteDirectionPay {
+  carId: number;
+  directionId: number;
   callback?: () => void;
 }
 

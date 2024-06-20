@@ -7,11 +7,11 @@ export interface ILetsTripGroupTourInitialState {
     patch: boolean;
     delete: boolean;
   };
-  groupTours: ILetsTripGroupTour[] | null;
   groupTour: ILetsTripGroupTourGetOne | null;
   groupTourRaw: ILetsTripGroupTour | null;
   activeTours: ILetsTripGroupTour[] | null;
-  byCountryIdTours: ILetsTripGroupTourByCountryId[] | null;
+  byCountryIdTours: ILetsTripGroupTour[] | null;
+  searchGroupTours: ILetsTripGroupTour[] | null;
   locations: Location2[];
   errors: unknown | string[] | string;
   deleted: boolean;
@@ -35,40 +35,11 @@ export interface ILetsTripGroupTour {
   createdAt?: string;
 }
 
-export interface ILetsTripGroupTourByCountryId {
-  priceNotIncludes: string[];
-  extraInformation: ExtraInformation[];
-  images: string[];
-  priceNote: string;
-  tourId: number;
-  name: string;
-  tourItenarary: TourItinerary[];
-  description: string[];
-  priceIncludes: string[];
-  locations: Location[];
-  country: string;
-  startingPrice: number;
-}
-
 export interface ILetsTripGroupTourResponse {
   content: ILetsTripGroupTour[];
   pageable: Pageable;
   totalPages: number;
   totalElements: number;
-  last: boolean;
-  numberOfElements: number;
-  size: number;
-  number: number;
-  sort: Sort;
-  first: boolean;
-  empty: boolean;
-}
-
-export interface ILetsTripGroupTourByCountryIdResponse {
-  content: ILetsTripGroupTourByCountryId[];
-  pageable: Pageable;
-  totalElements: number;
-  totalPages: number;
   last: boolean;
   numberOfElements: number;
   size: number;
@@ -84,6 +55,13 @@ export interface ILetsTripGroupTourByCountryIdPayload {
   size: number;
 }
 
+export interface ILetsTripGroupTourSearchPayload {
+  countryId: number;
+  page: number;
+  size: number;
+  name: string;
+}
+
 export interface IGetOneLetsTripTourResponse extends ILetsTripGroupTourGetOne {}
 export interface IGetOneRawLetsTripTourResponse extends ILetsTripGroupTour {}
 
@@ -97,6 +75,7 @@ export interface ILetsTripGroupTourPayload {
 
 export interface ILetsTripGroupTourGetOnePayload {
   id: string;
+  callback?(): void;
 }
 
 export interface ILetsTripGroupTourCreatePayload {

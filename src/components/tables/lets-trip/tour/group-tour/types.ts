@@ -1,8 +1,8 @@
-import { ILetsTripGroupTourByCountryId } from '@/store/lets-trip/group-tour/types';
+import { ILetsTripGroupTour } from '@/store/lets-trip/group-tour/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
-export type DataIndex = keyof ILetsTripGroupTourByCountryId;
+export type DataIndex = keyof ILetsTripGroupTour;
 
 export interface IHandleSearchProps {
   selectedKeys: Key[];

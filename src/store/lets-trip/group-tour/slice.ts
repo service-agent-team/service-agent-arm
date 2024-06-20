@@ -9,7 +9,6 @@ import {
   createLetsTripGroupTour,
   deleteImageLetsTripGroupTour,
   deleteLetsTripGroupTour,
-  getAllLetsTripGroupTour,
   getByCountryIdLetsTripGroupTour,
   getOneLetsTripTour,
   getOneRawLetsTripTour,
@@ -18,6 +17,7 @@ import {
   removeExtraInfoLetsTripGroupTour,
   removeItenararyLetsTripGroupTour,
   removeLocationLetsTripGroupTour,
+  searchLetsTripGroupTour,
   updateByObjectLetsTripGroupTour,
   updatePriceIncludesGroupTour,
   updatePriceNoteTripGroupTour,
@@ -30,11 +30,11 @@ const initialState: ILetsTripGroupTourInitialState = {
     patch: false,
     delete: false,
   },
-  groupTours: null,
   groupTour: null,
   groupTourRaw: null,
   activeTours: null,
   byCountryIdTours: null,
+  searchGroupTours: [],
   locations: [],
   errors: null,
   deleted: true,
@@ -44,9 +44,6 @@ export const letsTripGroupTourSlice = createSlice({
   name: 'letsTripTour',
   initialState,
   reducers: {
-    setLetsTripGroupTour: (state, { payload }) => {
-      state.groupTours = payload;
-    },
     setLetsTripGroupTourByCountryId: (state, { payload }) => {
       state.byCountryIdTours = payload;
     },
@@ -65,22 +62,19 @@ export const letsTripGroupTourSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllLetsTripGroupTour.pending, (state) => {
+      .addCase(searchLetsTripGroupTour.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
       })
-      .addCase(getAllLetsTripGroupTour.fulfilled, (state, { payload }) => {
+      .addCase(searchLetsTripGroupTour.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        if (state.groupTours) state.groupTours.push(...payload.content);
-        else state.groupTours = payload.content;
-        state.activeTours = payload.content?.filter((el) => el?.deleted === false);
+        state.searchGroupTours = payload.content;
         state.errors = null;
       })
-      .addCase(getAllLetsTripGroupTour.rejected, (state, { payload }) => {
+      .addCase(searchLetsTripGroupTour.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
-
       .addCase(getByCountryIdLetsTripGroupTour.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
@@ -242,7 +236,7 @@ export const letsTripGroupTourSlice = createSlice({
       })
       .addCase(createLetsTripGroupTour.fulfilled, (state, { payload }) => {
         state.loading.post = false;
-        state.groupTours?.push(payload);
+        state.byCountryIdTours?.push(payload);
         state.errors = null;
       })
       .addCase(createLetsTripGroupTour.rejected, (state, { payload }) => {

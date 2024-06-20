@@ -1,5 +1,10 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { Icon, LetsTripGroupTourTable, LetsTripIndividualTourTable } from '@/components';
+import {
+  Icon,
+  LetsTripGroupTourTable,
+  LetsTripIndividualTourTable,
+  SearchInput,
+} from '@/components';
 import { SimplePage } from '@/components/common/page';
 import { ROUTES } from '@/constants';
 import { Button, Col, Row, Tabs } from 'antd';
@@ -66,6 +71,9 @@ export const LetsTripByCountryTour = () => {
         activeKey={tourType}
         tabBarExtraContent={
           <Row gutter={12}>
+            <Col>
+              <SearchInput placeholder="Search a group tour" />
+            </Col>
             <Col>
               <Button onClick={restData} type="primary" shape="circle">
                 <Icon name="SyncOutlined" />

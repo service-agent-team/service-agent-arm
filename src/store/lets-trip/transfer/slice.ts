@@ -3,10 +3,12 @@ import {
   countryRegions,
   createLetsTripTransfer,
   deleteLetsTripTransfer,
+  deleteTransferDirection,
   getAllLetsTripTransfer,
   getByCategoryIdLetsTripTransfer,
   getOneLetsTripTransfer,
   globalCountries,
+  searchLetsTripTransfer,
   transferCarSettings,
   updateI18LetsTripTransfer,
   updateLetsTripTransfer,
@@ -30,6 +32,7 @@ const initialState: ILetsTripTransferInitialState = {
   country_regions: [],
   transfers: [],
   activeTransfers: [],
+  searchTransfers: [],
   transfer: null,
   deleted: true,
   errors: null,
@@ -62,10 +65,22 @@ export const letsTripTransferSlice = createSlice({
         state.loading.get = false;
         state.transfers = payload.content;
         state.activeTransfers = payload.content.filter((t) => t.deleted === false);
-
         state.errors = null;
       })
       .addCase(getAllLetsTripTransfer.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(searchLetsTripTransfer.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(searchLetsTripTransfer.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.searchTransfers = payload.content;
+        state.errors = null;
+      })
+      .addCase(searchLetsTripTransfer.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
@@ -157,6 +172,18 @@ export const letsTripTransferSlice = createSlice({
       })
       .addCase(transferCarSettings.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(deleteTransferDirection.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(deleteTransferDirection.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.errors = null;
+      })
+      .addCase(deleteTransferDirection.rejected, (state, { payload }) => {
+        state.loading.delete = false;
         state.errors = payload;
       })
       .addCase(globalCountries.pending, (state) => {

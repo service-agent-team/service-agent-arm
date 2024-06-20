@@ -1,5 +1,5 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { Icon, PageTitle } from '@/components';
+import { Icon, PageTitle, SearchInput } from '@/components';
 import { SimplePage } from '@/components/common/page';
 import { TransferCarSettingsModal } from '@/components/modal';
 import { LetsTripTransferTable } from '@/components/tables';
@@ -36,6 +36,7 @@ export const LetsTripTransfer = () => {
         route={ROUTES.letsTripTransferCreate}
         label="Create car"
       >
+        <SearchInput />
         <Button onClick={restData} type="primary" shape="circle">
           <Icon name="SyncOutlined" />
         </Button>

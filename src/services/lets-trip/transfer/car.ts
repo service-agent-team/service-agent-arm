@@ -7,14 +7,19 @@ import { EndPointes } from '../../endpoints';
 
 export const LetsTripTransferCarService = {
   async getAllTransfer(page: number, size = 10) {
-    return await $axios.get(`${EndPointes.letsTripTransfer.getAll}?page=${page - 1}&size=${size}`);
+    return await $axios.get(`${EndPointes.letsTripTransfer.getAll}?page=${page}&size=${size}`);
+  },
+  async search(name: string, page: number, size = 10) {
+    return await $axios.get(
+      `${EndPointes.letsTripTransfer.search}?name=${name}&page=${page}&size=${size}&deleted=false`,
+    );
   },
   async getOneTransfer(id: number) {
     return await $axios.get(`${EndPointes.letsTripTransfer.getOne}/${id}`);
   },
   async getByCategoryId(id: number, page: number, size = 10) {
     return await $axios.get(
-      `${EndPointes.letsTripTransfer.getByCategoryId}/${id}?page=${page - 1}&size=${size}`,
+      `${EndPointes.letsTripTransfer.getByCategoryId}/${id}?page=${page}&size=${size}`,
     );
   },
   async createTransfer(body: any) {
@@ -34,6 +39,12 @@ export const LetsTripTransferCarService = {
     return await $axios.post<ICreateCarDirection, AxiosResponse<ILetsTripTransfer>>(
       `${EndPointes.letsTripTransfer.addDirection}/${carId}`,
       direction,
+    );
+  },
+
+  async deleteDirectionCar(carId: number, directionId: number) {
+    return await $axios.delete(
+      `${EndPointes.letsTripTransfer.deleteDirection}/${carId}/direction/${directionId}`,
     );
   },
 
