@@ -2,16 +2,15 @@ import { $axios } from '@/common/config';
 import { EndPointes } from '../../endpoints';
 
 export const LetsTripGroupTourService = {
-  async getAll(page = 0, size = 10) {
+  async getByCountryId(countryId: number, page = 0, size = 10) {
     const response = await $axios.get(
-      `${EndPointes.letsTripGroupTour.getAll}?page=${page}&size=${size}`,
+      `${EndPointes.letsTripGroupTour.getAll}?countryId=${countryId}&${countryId}?page=${page}&size=${size}`,
     );
     return response;
   },
-  async getByCountryId(countryId: number, page = 0, size = 10) {
+  async search(countryId: number, name: string, page = 0, size = 10) {
     const response = await $axios.get(
-      `${EndPointes.letsTripGroupTour.getAll}/by-country/${countryId}?page=${page}&size=${size}`,
-      { headers: { 'Accept-Language': 'EN' } },
+      `${EndPointes.letsTripGroupTour.search}?countryId=${countryId}&name=${name}&page=${page}&size=${size}`,
     );
     return response;
   },

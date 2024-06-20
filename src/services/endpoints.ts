@@ -185,6 +185,7 @@ export const EndPointes = {
   letsTripGroupTour: {
     getAll: '/api/tours/group-tours',
     getOne: '/api/tours/group-tours',
+    search: '/api/tours/group-tours/search',
     getOneRaw: '/api/tours/group-tours/raw',
     getByCountry: '/api/tours/group-tours/by-county',
     create: '/api/tours/group-tours',
@@ -225,6 +226,7 @@ export const EndPointes = {
 
   letsTripTransfer: {
     getAll: '/api/transfer/car/get-all',
+    search: '/api/transfer/car/search',
     getOne: '/api/transfer/car/get-one',
     getByCategoryId: '/api/transfer/car/get-by-categoryId',
     create: '/api/transfer/car/create',
@@ -232,6 +234,7 @@ export const EndPointes = {
     updateI18: '/api/transfer/update/i18',
     delete: '/api/transfer/car/delete',
     addDirection: '/api/transfer/car/add-directions',
+    deleteDirection: '/api/transfer/car',
     countries: 'api/country/get-all',
     regions: 'api/country/region',
   },

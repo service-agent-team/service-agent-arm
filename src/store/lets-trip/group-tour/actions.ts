@@ -3,7 +3,6 @@ import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   IGetOneLetsTripTourResponse,
-  ILetsTripGroupTourPayload,
   ILetsTripGroupTourCreatePayload,
   ILetsTripGroupTourCreateResponse,
   ILetsTripGroupTourGetOnePayload,
@@ -22,22 +21,28 @@ import {
   ILetsTripGroupTourRemoveExtraInfoPayload,
   ILetsTripGroupTourAddItenararyPayload,
   ILetsTripGroupTourRemoveItenararyPayload,
-  ILetsTripGroupTourByCountryIdResponse,
   ILetsTripGroupTourByCountryIdPayload,
   UpdatePriceIncludes,
   UpdatePriceIncludesPayload,
+  ILetsTripGroupTourSearchPayload,
 } from './types';
 import { LetsTripGroupTourService } from '@/services';
 import { appActions } from '@/store/app';
 
-export const getAllLetsTripGroupTour = createAsyncThunk<
+export const getByCountryIdLetsTripGroupTour = createAsyncThunk<
   ILetsTripGroupTourResponse,
-  ILetsTripGroupTourPayload
->(EndPointes.letsTripGroupTour.getAll + '/get-all', async ({ callback, page, size }, thunkApi) => {
+  ILetsTripGroupTourByCountryIdPayload
+>(EndPointes.letsTripGroupTour.getByCountry, async ({ countryId, page, size }, thunkApi) => {
   try {
-    const response = await LetsTripGroupTourService.getAll(page, size);
+    const response = await LetsTripGroupTourService.getByCountryId(countryId, page, size);
     if (response.data) {
-      callback();
+      thunkApi.dispatch(
+        appActions.setPagination({
+          current: response.data.pageable.pageNumber + 1,
+          pageSize: response.data.pageable.pageSize,
+          total: response.data.totalElements,
+        }),
+      );
     }
     return response.data;
   } catch (error) {
@@ -45,12 +50,12 @@ export const getAllLetsTripGroupTour = createAsyncThunk<
   }
 });
 
-export const getByCountryIdLetsTripGroupTour = createAsyncThunk<
-  ILetsTripGroupTourByCountryIdResponse,
-  ILetsTripGroupTourByCountryIdPayload
->(EndPointes.letsTripGroupTour.getByCountry, async ({ countryId, page, size }, thunkApi) => {
+export const searchLetsTripGroupTour = createAsyncThunk<
+  ILetsTripGroupTourResponse,
+  ILetsTripGroupTourSearchPayload
+>(EndPointes.letsTripGroupTour.search, async ({ countryId, name, page, size }, thunkApi) => {
   try {
-    const response = await LetsTripGroupTourService.getByCountryId(countryId, page, size);
+    const response = await LetsTripGroupTourService.search(countryId, name, page, size);
     if (response.data) {
       thunkApi.dispatch(
         appActions.setPagination({
@@ -81,9 +86,12 @@ export const getOneLetsTripTour = createAsyncThunk<
 export const getOneRawLetsTripTour = createAsyncThunk<
   IGetOneRawLetsTripTourResponse,
   ILetsTripGroupTourGetOnePayload
->(EndPointes.letsTripGroupTour.getOneRaw + '/id', async ({ id }, thunkApi) => {
+>(EndPointes.letsTripGroupTour.getOneRaw + '/id', async ({ callback, id }, thunkApi) => {
   try {
     const response = await LetsTripGroupTourService.getOneTourRaw(id);
+    if (response.data && callback) {
+      callback();
+    }
     return response.data;
   } catch (error) {
     return thunkApi.rejectWithValue({ error: errorCatch(error) });

@@ -3,31 +3,47 @@ import { utils } from './utils';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useParams } from 'react-router-dom';
-import { ILetsTripGroupTourByCountryId } from '@/store/lets-trip/group-tour/types';
+import { ILetsTripGroupTour } from '@/store/lets-trip/group-tour/types';
 
 export const LetsTripGroupTourTable = () => {
-  const { getByCountryIdLetsTripGroupTour, setPagination } = useActions();
+  const { getByCountryIdLetsTripGroupTour, setPagination, searchLetsTripGroupTour } = useActions();
   const {
+    searchGroupTours,
     byCountryIdTours,
     loading: { get },
   } = useTypedSelector((state) => state.letsTripTour);
   const {
+    search,
     pagination: { current, pageSize, total },
   } = useTypedSelector((state) => state.app);
   const { countryId } = useParams();
 
   useEffect(() => {
-    getByCountryIdLetsTripGroupTour({
+    if (search === '') {
+      getByCountryIdLetsTripGroupTour({
+        page: current - 1,
+        size: pageSize,
+        countryId: Number(countryId),
+      });
+      return;
+    }
+
+    searchLetsTripGroupTour({
+      name: search as string,
       page: current - 1,
       size: pageSize,
       countryId: Number(countryId),
     });
-  }, [countryId, current, pageSize]);
+  }, [countryId, current, pageSize, search]);
 
   return (
     <Table
       columns={utils()}
-      dataSource={byCountryIdTours as ILetsTripGroupTourByCountryId[]}
+      dataSource={
+        search && searchGroupTours?.length
+          ? (searchGroupTours as ILetsTripGroupTour[])
+          : (byCountryIdTours as ILetsTripGroupTour[])
+      }
       pagination={{ current, pageSize, total }}
       onChange={(p) => setPagination(p)}
       loading={get}

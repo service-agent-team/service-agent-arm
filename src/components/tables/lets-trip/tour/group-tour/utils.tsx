@@ -1,26 +1,32 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
-import { Key, useRef, useState } from 'react';
+import { Key, useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
 import { dateParser } from '@/common/utils/format';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ILetsTripGroupTourByCountryId } from '@/store/lets-trip/group-tour/types';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { ROUTES } from '@/constants';
 import { Icon, modal } from '@/components';
 import { addNotification } from '@/common';
+import { ILetsTripGroupTour } from '@/store/lets-trip/group-tour/types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { deleteLetsTripGroupTour, setLetsTripGroupTourByCountryId } = useActions();
+  const {
+    deleteLetsTripGroupTour,
+    setLetsTripGroupTourByCountryId,
+    getAllGlobalCountry,
+    getOneRawLetsTripTour,
+  } = useActions();
   const { byCountryIdTours } = useTypedSelector((state) => state.letsTripTour);
   const navigate = useNavigate();
   const { countryId, tourType } = useParams();
+  const { globalCountries } = useTypedSelector((state) => state.letsTripGlobalCountry);
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -33,7 +39,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const handleDelete = (record: ILetsTripGroupTourByCountryId) => {
+  const handleDelete = (record: ILetsTripGroupTour) => {
     modal.confirm({
       okText: 'Delete',
       title: `You want to delete right ?`,
@@ -52,9 +58,14 @@ export const utils = () => {
     });
   };
 
-  const getColumnSearchProps = (
-    dataIndex: DataIndex,
-  ): ColumnType<ILetsTripGroupTourByCountryId> => ({
+  useEffect(() => {
+    getAllGlobalCountry({
+      page: 0,
+      size: 300,
+    });
+  }, []);
+
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripGroupTour> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -132,7 +143,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<ILetsTripGroupTourByCountryId> = [
+  const columns: ColumnsType<ILetsTripGroupTour> = [
     {
       title: 'Id',
       dataIndex: 'tourId',
@@ -144,15 +155,16 @@ export const utils = () => {
     },
     {
       title: 'Tour Name',
-      dataIndex: 'name',
+      dataIndex: ['name', 'en'],
       key: 'name',
       width: '25%',
     },
     {
       title: 'Country',
-      dataIndex: 'country',
-      key: 'country',
+      dataIndex: 'countryId',
+      key: 'countryId',
       width: '25%',
+      render: (id: number) => globalCountries?.find((c) => c.id === id)?.name?.en,
     },
     {
       title: 'Starting Price',
@@ -184,7 +196,7 @@ export const utils = () => {
       dataIndex: 'tourId',
       key: 'view',
       width: '10%',
-      render: (_, record: ILetsTripGroupTourByCountryId) => {
+      render: (_, record: ILetsTripGroupTour) => {
         return (
           <LinkButton path={`${ROUTES.letsTripGroupTour}/view/${record.tourId}`}>
             <Icon name="EyeOutlined" />
@@ -197,16 +209,21 @@ export const utils = () => {
       dataIndex: 'action',
       key: 'action',
       width: '10%',
-      render: (_, record: ILetsTripGroupTourByCountryId) => {
+      render: (_, record: ILetsTripGroupTour) => {
         return (
           <Space>
             <Button
               type="primary"
               key={1}
               onClick={() =>
-                navigate(
-                  `${ROUTES.letsTripTour}/by-country/${countryId}/${tourType}/edit/${record.tourId}`,
-                )
+                getOneRawLetsTripTour({
+                  id: String(record.tourId),
+                  callback: () => {
+                    navigate(
+                      `${ROUTES.letsTripTour}/by-country/${countryId}/${tourType}/edit/${record.tourId}`,
+                    );
+                  },
+                })
               }
             >
               <Icon name="EditOutlined" />

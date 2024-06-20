@@ -8,6 +8,7 @@ import { AxiosResponse } from 'axios';
 import {
   ICountryRegions,
   ICreateTransferDirectionPay,
+  IDeleteDirectionPay,
   ILetsTripTransfer,
   ILetsTripTransferCreatePayload,
   ILetsTripTransferCreateResponse,
@@ -16,6 +17,7 @@ import {
   ILetsTripTransferGetOnePayload,
   ILetsTripTransferPayload,
   ILetsTripTransferResponse,
+  ILetsTripTransferSearchPayload,
   ILetsTripTransferUpdateI18Payload,
   ILetsTripTransferUpdatePayload,
 } from './types';
@@ -24,12 +26,31 @@ import { appActions } from '@/store/app';
 export const getAllLetsTripTransfer = createAsyncThunk<
   ILetsTripTransferResponse,
   ILetsTripTransferPayload
->(EndPointes.letsTripTransfer.getAll, async ({ callback, page, size }, thunkApi) => {
+>(EndPointes.letsTripTransfer.getAll, async ({ page, size }, thunkApi) => {
   try {
     const response = await LetsTripTransferCarService.getAllTransfer(page, size);
-    if (response.status) {
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
+export const searchLetsTripTransfer = createAsyncThunk<
+  ILetsTripTransferResponse,
+  ILetsTripTransferSearchPayload
+>(EndPointes.letsTripTransfer.search, async ({ callback, name, page, size }, thunkApi) => {
+  try {
+    const response = await LetsTripTransferCarService.search(name, page, size);
+    if (response.data && callback) {
       callback();
     }
+    thunkApi.dispatch(
+      appActions.setPagination({
+        current: response.data.pageable.pageNumber + 1,
+        pageSize: response.data.pageable.pageSize,
+        total: response.data.totalElements,
+      }),
+    );
     return response.data;
   } catch (error) {
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
@@ -146,6 +167,21 @@ export const transferCarSettings = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const deleteTransferDirection = createAsyncThunk<any, IDeleteDirectionPay>(
+  EndPointes.letsTripTransfer.deleteDirection + '/direction/delete',
+  async ({ carId, directionId, callback }, thunkApi) => {
+    try {
+      const response = await LetsTripTransferCarService.deleteDirectionCar(carId, directionId);
+      if (response.data && callback) {
+        callback();
+      }
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
 
 export const globalCountries = createAsyncThunk<IGlobalResponse<IGlobalCountry[]>, any>(
   EndPointes.letsTripTransfer.countries,

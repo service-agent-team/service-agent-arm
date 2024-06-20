@@ -7,7 +7,6 @@ import {
   getOneLetsTripTransferCategory,
   updateLetsTripTransferCategory,
 } from './actions';
-import { useActions } from '@/common/hooks';
 
 const initialState: ILetsTripTransferInitialState = {
   loading: {
