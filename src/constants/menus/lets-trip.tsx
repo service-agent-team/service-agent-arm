@@ -27,6 +27,26 @@ export const letsTrip = [
     key: ROUTES.letsTripGlobalCountry,
     label: 'Global Countries',
   },
+  {
+    icon: 'WalletOutlined',
+    key: ROUTES.letsTripOrder + 'tour',
+    label: 'Tour Orders',
+  },
+  {
+    icon: 'WalletOutlined',
+    key: ROUTES.letsTripOrder + 'transfer',
+    label: 'Transfer Orders',
+  },
+  {
+    icon: 'WalletOutlined',
+    key: ROUTES.letsTripOrder + 'sim_card',
+    label: 'Sim Orders',
+  },
+  {
+    icon: 'WalletOutlined',
+    key: ROUTES.letsTripOrder + 'luggage',
+    label: 'Luggage Orders',
+  },
 ];
 
 export const LetsTripConf = {

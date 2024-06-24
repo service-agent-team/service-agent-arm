@@ -1,5 +1,5 @@
 import { $axios } from '@/common/config';
-import { EndPointes } from '../endpoints';
+import { EndPointes } from '../../endpoints';
 
 export const LetsTripCategoryService = {
   async getAll(page = 0, size = 10) {

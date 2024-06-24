@@ -4,7 +4,7 @@ import { SimplePage } from '@/components/common/page';
 import { TransferCarSettingsModal } from '@/components/modal';
 import { LetsTripTransferTable } from '@/components/tables';
 import { ROUTES } from '@/constants';
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -36,10 +36,16 @@ export const LetsTripTransfer = () => {
         route={ROUTES.letsTripTransferCreate}
         label="Create car"
       >
-        <SearchInput />
-        <Button onClick={restData} type="primary" shape="circle">
-          <Icon name="SyncOutlined" />
-        </Button>
+        <Row gutter={24} style={{ marginRight: '10px' }}>
+          <Col>
+            <SearchInput />
+          </Col>
+          <Col>
+            <Button onClick={restData} type="primary" shape="circle">
+              <Icon name="SyncOutlined" />
+            </Button>
+          </Col>
+        </Row>
       </PageTitle>
       <LetsTripTransferTable />
       <TransferCarSettingsModal />

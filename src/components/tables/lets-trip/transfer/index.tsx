@@ -50,6 +50,7 @@ export const LetsTripTransferTable = () => {
       onChange={(p) => setPagination(p)}
       dataSource={search && searchTransfers?.length ? searchTransfers : transfers}
       scroll={{ x: 1000 }}
+      rowKey={'id'}
       loading={get}
       bordered
     />

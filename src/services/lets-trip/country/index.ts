@@ -1,5 +1,5 @@
 import { $axios } from '@/common/config';
-import { EndPointes } from '../endpoints';
+import { EndPointes } from '../../endpoints';
 
 export const LetsTripCountryService = {
   async getAll() {

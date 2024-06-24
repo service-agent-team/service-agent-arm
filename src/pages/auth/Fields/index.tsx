@@ -19,7 +19,7 @@ export const UsernameField = ({ label, value, placeholder }: IFieldsProps) => (
       },
     ]}
   >
-    <Input placeholder={placeholder} className={cn('sign')} />
+    <Input autoComplete="on" autoFocus placeholder={placeholder} className={cn('sign')} />
   </Form.Item>
 );
 
@@ -36,6 +36,6 @@ export const PasswordField = ({ name, label, value, placeholder }: IFieldsProps)
       },
     ]}
   >
-    <Input.Password placeholder={placeholder} className={cn('sign')} />
+    <Input.Password autoComplete="on" placeholder={placeholder} className={cn('sign')} />
   </Form.Item>
 );

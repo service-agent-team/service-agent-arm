@@ -49,7 +49,7 @@ export const letsTrip = [
     ),
   },
   {
-    path: ROUTES.letsTripOrder,
+    path: ROUTES.letsTripTourOrder,
     element: (
       <Suspense fallback={<Loading />}>
         <LetsTripOrderPage />

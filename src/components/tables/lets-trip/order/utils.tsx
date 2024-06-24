@@ -1,17 +1,19 @@
-import { SearchOutlined, EyeOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Row, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
-import { LinkButton } from '@/components/common/buttons';
-import { ILetsTripOrder, LetsTripOrderStatus } from '@/store/lets-trip/order/types';
+import { ILetsTripOrder } from '@/store/lets-trip/order/types';
 import { dateParser } from '@/common/utils/format';
+import { Icon } from '../../../common/icon/icon';
+import { useActions, useTypedSelector } from '@/common/hooks';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const { setModal, setLetsTripOrder } = useActions();
+  const { isModal } = useTypedSelector((state) => state.app);
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -22,6 +24,11 @@ export const utils = () => {
   const handleReset = (clearFilters: () => void) => {
     clearFilters();
     setSearchText('');
+  };
+
+  const handleViewModal = (record: ILetsTripOrder) => {
+    setLetsTripOrder(record);
+    setModal(!isModal);
   };
 
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripOrder> => ({
@@ -39,7 +46,7 @@ export const utils = () => {
           <Button
             type="primary"
             onClick={() => handleSearch({ selectedKeys, confirm, dataIndex })}
-            icon={<SearchOutlined />}
+            icon={<Icon name="SearchOutlined" />}
             size="small"
             style={{ width: 90 }}
           >
@@ -76,7 +83,7 @@ export const utils = () => {
       </div>
     ),
     filterIcon: (filtered: boolean) => (
-      <SearchOutlined style={{ color: filtered ? '#1677ff' : undefined }} />
+      <Icon name="SearchOutlined" style={{ color: filtered ? '#1677ff' : undefined }} />
     ),
     onFilter: (value, record) => {
       return (record as any)[dataIndex]
@@ -110,71 +117,61 @@ export const utils = () => {
       width: '4%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
+      render: (_, __, i: number) => i + 1,
     },
-    {
-      title: 'User Id',
-      dataIndex: 'userId',
-      key: 'userId',
-      width: '20%',
-      ...getColumnSearchProps('userId'),
-    },
-    {
-      title: 'Service Order Id',
-      dataIndex: 'serviceOrderId',
-      key: 'serviceOrderId',
-      width: '20%',
-      ...getColumnSearchProps('serviceOrderId'),
-    },
-    {
-      title: 'Product Id',
-      dataIndex: 'productId',
-      key: 'productId',
-      width: '20%',
-      ...getColumnSearchProps('productId'),
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      width: '20%',
-      ...getColumnSearchProps('price'),
-    },
+    // {
+    //   title: 'User Id',
+    //   dataIndex: 'userId',
+    //   key: 'userId',
+    //   width: '8%',
+    //   ...getColumnSearchProps('userId'),
+    // },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
       width: '20%',
-      render: (_, { status }) => (
-        <Row style={{ gap: '4px' }}>
-          <Tag
-            key={Math.random() * 100}
-            color={`${
-              status === LetsTripOrderStatus.active
-                ? 'success'
-                : status === LetsTripOrderStatus.pending
-                  ? 'warning'
-                  : status === LetsTripOrderStatus.rejected
-                    ? 'red'
-                    : 'primary'
-            }`}
-          >
-            {status.toUpperCase()}
-          </Tag>
-        </Row>
-      ),
+      ...getColumnSearchProps('status'),
     },
     {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'view',
-      render: (_: number) => {
-        return (
-          <LinkButton path={`#`}>
-            <EyeOutlined />
-          </LinkButton>
-        );
-      },
+      title: 'Project',
+      dataIndex: 'type',
+      key: 'type',
+      width: '20%',
+      ...getColumnSearchProps('type'),
     },
+    {
+      title: 'Price ($)',
+      dataIndex: 'price',
+      key: 'price',
+      width: '20%',
+      ...getColumnSearchProps('price'),
+      render: (price: number) => price / 100 + ' $',
+    },
+    // {
+    //   title: 'Status',
+    //   dataIndex: 'status',
+    //   key: 'status',
+    //   width: '20%',
+    //   render: (_, { status }) => (
+    //     <Row style={{ gap: '4px' }}>
+    //       <Tag
+    //         key={Math.random() * 100}
+    //         color={`${
+    //           status === LetsTripOrderStatus.active
+    //             ? 'success'
+    //             : status === LetsTripOrderStatus.pending
+    //               ? 'warning'
+    //               : status === LetsTripOrderStatus.rejected
+    //                 ? 'red'
+    //                 : 'primary'
+    //         }`}
+    //       >
+    //         {status.toUpperCase()}
+    //       </Tag>
+    //     </Row>
+    //   ),
+    // },
     {
       title: 'Created At',
       dataIndex: 'createdAt',
@@ -182,6 +179,19 @@ export const utils = () => {
       width: '20%',
       render: (date) => {
         return dateParser(date);
+      },
+    },
+    {
+      title: 'View',
+      dataIndex: 'id',
+      key: 'view',
+      width: '5%',
+      render: (_: number, record) => {
+        return (
+          <Button onClick={() => handleViewModal(record)}>
+            <Icon name="EyeOutlined" />
+          </Button>
+        );
       },
     },
   ];
