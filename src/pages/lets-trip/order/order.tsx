@@ -61,7 +61,7 @@ export const LetsTripOrder = () => {
           width={'100%'}
           options={options}
           defaultValue={status}
-          onChange={handleChangeStatus}
+          onChange={(e: LetsTripOrderStatus) => handleChangeStatus(e)}
         />
       </Flex>
       <LetsTripOrderTable />
