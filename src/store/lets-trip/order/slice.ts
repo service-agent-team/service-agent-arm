@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  ILetsTripOrder,
-  ILetsTripOrderInitialState,
-  LetsTripOrderStatus,
-  LetsTripOrderType,
-} from './types';
+import { ILetsTripOrderInitialState, LetsTripOrderStatus, LetsTripOrderType } from './types';
 import { getLetsTripOrderByStatus } from './actions';
 
 const initialState: ILetsTripOrderInitialState = {

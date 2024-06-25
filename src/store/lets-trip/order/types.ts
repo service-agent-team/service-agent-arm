@@ -1,3 +1,5 @@
+import { ILetsTripGroupTour } from '../group-tour/types';
+
 export enum LetsTripOrderStatus {
   DELIVERED = 'DELIVERED',
   CREATED = 'CREATED',
@@ -54,31 +56,4 @@ export interface ILetsTripOrder {
   price: number;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface Detail {
-  tourId: number;
-  company?: Company;
-  category?: Category;
-  orderDate?: string;
-  orderInfo?: OrderInfo;
-  numberOfTravellers?: number;
-}
-
-export interface Company {
-  id: number;
-  name: string;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-  deleted: boolean;
-}
-
-export interface OrderInfo {
-  email: string;
-  phone: string;
-  comment: string;
-  country: string;
 }

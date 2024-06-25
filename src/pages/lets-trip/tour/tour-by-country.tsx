@@ -7,9 +7,10 @@ import {
 } from '@/components';
 import { SimplePage } from '@/components/common/page';
 import { ROUTES } from '@/constants';
-import { Button, Col, Row, Tabs } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import * as S from './styled';
 
 export const LetsTripByCountryTour = () => {
   const { getByCountryIdLetsTripGroupTour, getByCountryLetsTripIndividualTour } = useActions();
@@ -63,7 +64,7 @@ export const LetsTripByCountryTour = () => {
 
   return (
     <SimplePage>
-      <Tabs
+      <S.CustomTabs
         size="large"
         type="card"
         items={items}

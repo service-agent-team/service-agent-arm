@@ -36,7 +36,7 @@ export const LetsTripTransfer = () => {
         route={ROUTES.letsTripTransferCreate}
         label="Create car"
       >
-        <Row gutter={24} style={{ marginRight: '10px' }}>
+        <Row gutter={24} style={{ marginRight: '2px' }}>
           <Col>
             <SearchInput />
           </Col>

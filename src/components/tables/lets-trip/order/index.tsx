@@ -19,13 +19,13 @@ export const LetsTripOrderTable = () => {
     getLetsTripOrderByStatus({
       status,
       type,
-      page: 0,
+      page: 5,
       size: 10,
     });
-  }, [status, type, project]);
 
-  if (project && typeof project === 'string')
-    setLetsTripOrderType(project.toUpperCase() as LetsTripOrderType);
+    if (project && typeof project === 'string')
+      setLetsTripOrderType(project.toUpperCase() as LetsTripOrderType);
+  }, [status, type, project]);
 
   return (
     <Table

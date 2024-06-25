@@ -26,7 +26,12 @@ export const LetsTripTransferCategory = () => {
         route={ROUTES.letsTripTransferCategoryCreate}
         label="Create"
       >
-        <Button onClick={restData} type="primary" shape="circle">
+        <Button
+          style={{ display: 'block', marginRight: '12px' }}
+          onClick={restData}
+          type="primary"
+          shape="circle"
+        >
           <Icon name="SyncOutlined" />
         </Button>
       </PageTitle>
