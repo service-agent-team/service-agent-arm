@@ -70,7 +70,7 @@ export const LetsTripByCountryTour = () => {
         onChange={(e) => handleChange(e)}
         activeKey={tourType}
         tabBarExtraContent={
-          <Row gutter={12}>
+          <Row gutter={24}>
             <Col>
               <SearchInput placeholder="Search a group tour" />
             </Col>

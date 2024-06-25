@@ -256,4 +256,8 @@ export const EndPointes = {
   letsTripStatistic: {
     getAll: '/api/products/statistic/get-all',
   },
+
+  letsTripOrder: {
+    getByStatus: '/api/order/status',
+  },
 } as const;

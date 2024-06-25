@@ -75,7 +75,11 @@ export const ROUTES = {
   // lets-trip
   letstrip: '/lets-trip',
   letsTripHome: '/lets-trip/home',
-  letsTripOrder: '/lets-trip/order',
+  letsTripOrder: '/lets-trip/order/',
+  letsTripTourOrder: '/lets-trip/order/:project',
+  letsTripTransferOrder: '/lets-trip/order/:project',
+  letsTripSimOrder: '/lets-trip/order/:project',
+  letsTripLuggageOrder: '/lets-trip/order/:project',
   letTripLuggage: '/lets-trip/luggage',
   letsTripTour: '/lets-trip/tour',
   letsTripTourByCountry: '/lets-trip/tour/by-country/:countryId/:tourType',
