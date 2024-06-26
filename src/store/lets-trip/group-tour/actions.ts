@@ -58,7 +58,7 @@ export const searchLetsTripGroupTour = createAsyncThunk<
     const response = await LetsTripGroupTourService.search(countryId, name, page, size);
     if (response.data) {
       thunkApi.dispatch(
-        appActions.setPagination({
+        appActions.setSearchPagination({
           current: response.data.pageable.pageNumber + 1,
           pageSize: response.data.pageable.pageSize,
           total: response.data.totalElements,
