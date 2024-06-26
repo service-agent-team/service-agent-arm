@@ -1,5 +1,3 @@
-import { ILetsTripGroupTour } from '../group-tour/types';
-
 export enum LetsTripOrderStatus {
   DELIVERED = 'DELIVERED',
   CREATED = 'CREATED',

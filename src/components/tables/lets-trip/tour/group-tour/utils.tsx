@@ -17,12 +17,8 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const {
-    deleteLetsTripGroupTour,
-    setLetsTripGroupTourByCountryId,
-    getAllGlobalCountry,
-    getOneRawLetsTripTour,
-  } = useActions();
+  const { deleteLetsTripGroupTour, setLetsTripGroupTourByCountryId, getOneRawLetsTripTour } =
+    useActions();
   const { byCountryIdTours } = useTypedSelector((state) => state.letsTripTour);
   const navigate = useNavigate();
   const { countryId, tourType } = useParams();
@@ -57,13 +53,6 @@ export const utils = () => {
       },
     });
   };
-
-  useEffect(() => {
-    getAllGlobalCountry({
-      page: 0,
-      size: 300,
-    });
-  }, []);
 
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ILetsTripGroupTour> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (

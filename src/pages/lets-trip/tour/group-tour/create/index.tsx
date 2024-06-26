@@ -1,16 +1,16 @@
-import { PageTitle } from '@/components';
+import { LestTripTourCreateForm, PageTitle } from '@/components';
+import { useTypedSelector } from '@/common/hooks';
 import * as S from './styled';
-import { ROUTES } from '@/constants';
-import { LestTripTourCreateForm } from '@/components/forms';
-import { useParams } from 'react-router-dom';
 
 export const LetsTripTourGroupCreate = () => {
-  const { countryId } = useParams();
+  const { content } = useTypedSelector((state) => state.app);
 
   return (
     <S.ViewStyled>
       <PageTitle title="Create Group Tour" label="Back" />
       <LestTripTourCreateForm />
+      {/* <TextEditor onSubmit={() => console.log(content)} /> */}
+      {content}
     </S.ViewStyled>
   );
 };
