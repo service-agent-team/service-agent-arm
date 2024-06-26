@@ -1,7 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
-import { Key, useEffect, useRef, useState } from 'react';
+import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { LinkButton } from '@/components/common/buttons';
