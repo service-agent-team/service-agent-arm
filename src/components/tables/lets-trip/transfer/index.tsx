@@ -1,5 +1,5 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { Table } from 'antd';
+import { Table, TablePaginationConfig } from 'antd';
 import { useEffect } from 'react';
 import { utils } from './utils';
 import { useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ export const LetsTripTransferTable = () => {
     setPagination,
     deleteTransferDirection,
     searchLetsTripTransfer,
+    setSearchPagination,
   } = useActions();
   const {
     transfers,
@@ -21,6 +22,7 @@ export const LetsTripTransferTable = () => {
   const {
     search,
     pagination: { current, pageSize, total },
+    searchPagination,
   } = useTypedSelector((state) => state.app);
   const { id } = useParams();
 
@@ -35,10 +37,18 @@ export const LetsTripTransferTable = () => {
     } else
       searchLetsTripTransfer({
         name: search as string,
-        page: current - 1,
-        size: pageSize,
+        page: searchPagination.current - 1,
+        size: searchPagination.pageSize,
       });
-  }, [current, pageSize, search]);
+  }, [current, pageSize, search, searchPagination.current]);
+
+  const handlePagination = (p: TablePaginationConfig) => {
+    if (search) {
+      setSearchPagination(p);
+    } else {
+      setPagination(p);
+    }
+  };
 
   return (
     <Table
@@ -46,8 +56,16 @@ export const LetsTripTransferTable = () => {
       expandable={{
         expandedRowRender: (record) => subUtils(record, deleteTransferDirection),
       }}
-      pagination={{ current, pageSize, total }}
-      onChange={(p) => setPagination(p)}
+      pagination={
+        search
+          ? {
+              current: searchPagination.current,
+              pageSize: searchPagination.pageSize,
+              total: searchPagination.total,
+            }
+          : { current, pageSize, total }
+      }
+      onChange={(p) => handlePagination(p)}
       dataSource={search && searchTransfers?.length ? searchTransfers : transfers}
       scroll={{ x: 1000 }}
       rowKey={'id'}

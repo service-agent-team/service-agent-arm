@@ -20,6 +20,11 @@ const initialState: TInitialState = {
     pageSize: 10,
     total: 10,
   },
+  searchPagination: {
+    current: 1,
+    pageSize: 10,
+    total: 10,
+  },
   content: '',
 };
 
@@ -63,14 +68,21 @@ const appSlice = createSlice({
     setPreviewTitle: (state, { payload }) => {
       state.previewTitle = payload;
     },
+
     setSearch: (state, { payload }) => {
       state.search = payload;
     },
+
     setPage: (state, { payload }) => {
       state.page = payload;
     },
+
     setPagination: (state, { payload }) => {
       state.pagination = payload;
+    },
+
+    setSearchPagination: (state, { payload }) => {
+      state.searchPagination = payload;
     },
 
     setContent: (state, { payload }) => {

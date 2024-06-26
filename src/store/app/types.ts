@@ -12,6 +12,7 @@ export type TInitialState = {
   page: number | null;
   search: string | null;
   pagination: IPagination;
+  searchPagination: IPagination;
   content: string;
 };
 

@@ -45,7 +45,7 @@ export const searchLetsTripTransfer = createAsyncThunk<
       callback();
     }
     thunkApi.dispatch(
-      appActions.setPagination({
+      appActions.setSearchPagination({
         current: response.data.pageable.pageNumber + 1,
         pageSize: response.data.pageable.pageSize,
         total: response.data.totalElements,
