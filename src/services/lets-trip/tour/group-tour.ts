@@ -4,7 +4,7 @@ import { EndPointes } from '../../endpoints';
 export const LetsTripGroupTourService = {
   async getByCountryId(countryId: number, page = 0, size = 10) {
     const response = await $axios.get(
-      `${EndPointes.letsTripGroupTour.getAll}?countryId=${countryId}&${countryId}?page=${page}&size=${size}`,
+      `${EndPointes.letsTripGroupTour.getAll}?countryId=${countryId}&page=${page}&size=${size}&deleted=false`,
     );
     return response;
   },
