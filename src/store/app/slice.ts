@@ -25,7 +25,6 @@ const initialState: TInitialState = {
     pageSize: 10,
     total: 10,
   },
-  content: '',
 };
 
 const appSlice = createSlice({
@@ -83,10 +82,6 @@ const appSlice = createSlice({
 
     setSearchPagination: (state, { payload }) => {
       state.searchPagination = payload;
-    },
-
-    setContent: (state, { payload }) => {
-      state.content = payload;
     },
   },
 });

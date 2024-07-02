@@ -9,18 +9,20 @@ export const PageTitle = ({
   route,
   label,
   children,
+  isHtml,
 }: {
   title: string;
   icon?: string;
   route?: string;
   label?: string;
   children?: ReactNode;
+  isHtml?: boolean;
 }) => {
   const navigate = useNavigate();
 
   return (
     <Row justify={'space-between'} style={{ margin: '20px 0px' }}>
-      <H1>{title}</H1>
+      <H1 isHtml={isHtml}>{title}</H1>
       <Space>
         {children}
         <Button

@@ -13,7 +13,6 @@ export type TInitialState = {
   search: string | null;
   pagination: IPagination;
   searchPagination: IPagination;
-  content: string;
 };
 
 export enum ETheme {

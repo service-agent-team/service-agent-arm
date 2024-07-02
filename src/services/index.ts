@@ -19,3 +19,4 @@ export * from './role';
 export { UserPermissionService as UserPermissionsService } from './user-permission';
 export * from './lets-trip/transfer';
 export * from './lets-trip';
+export * from './files';

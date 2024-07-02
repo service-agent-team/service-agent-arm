@@ -5,11 +5,11 @@ import { BASE_URL, FILE_URL } from '@/constants';
 import {
   Button,
   Card,
-  // DatePicker,
-  Flex,
+  Col,
   GetProp,
   Image,
   Input,
+  Row,
   Select,
   Space,
   Upload,
@@ -17,7 +17,6 @@ import {
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Id, IGoogleMouseEvent, IValuesForm } from '../types';
-import * as S from './styled';
 import { UploadFile } from 'antd/lib';
 // import { dateFormatDayJs } from '@/common/utils/format';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
@@ -38,6 +37,7 @@ export const LestTripTourEditForm: React.FC = () => {
     updateByObjectLetsTripGroupTour,
     updatePriceNoteTripGroupTour,
     updatePriceIncludesGroupTour,
+    priceUpdateLetsTripGroupTour,
     getAllGlobalCountry,
     getOneRawLetsTripTour,
     setLetsTripGroupTourLocations,
@@ -110,6 +110,10 @@ export const LestTripTourEditForm: React.FC = () => {
     nameRu: groupTourRaw?.name?.ru,
     countryId: groupTourRaw?.countryId,
     startingPrice: Number(groupTourRaw?.startingPrice) / 100,
+    upTo2: Number(groupTourRaw?.upTo2) / 100,
+    upTo6: Number(groupTourRaw?.upTo6) / 100,
+    upTo10: Number(groupTourRaw?.upTo10) / 100,
+    upTo20: Number(groupTourRaw?.upTo20) / 100,
     descriptionEn: groupTourRaw?.description[0]?.en,
     descriptionRu: groupTourRaw?.description[0]?.ru,
     priceNoteEn: groupTourRaw?.priceNote?.en,
@@ -145,6 +149,10 @@ export const LestTripTourEditForm: React.FC = () => {
     nameRu,
     countryId,
     startingPrice,
+    upTo2,
+    upTo6,
+    upTo10,
+    upTo20,
     descriptionEn,
     descriptionRu,
     priceNoteEn,
@@ -173,7 +181,10 @@ export const LestTripTourEditForm: React.FC = () => {
           id: groupTourRaw.name?.id as number,
         });
       }
-      if (startingPrice !== groupTourRaw.startingPrice || countryId !== groupTourRaw.countryId) {
+      if (
+        startingPrice !== Number(groupTourRaw.startingPrice) / 100 ||
+        countryId !== groupTourRaw.countryId
+      ) {
         otherUpdatesLetsTripGroupTour({
           callback() {
             addNotification('country and starting price changed');
@@ -182,6 +193,24 @@ export const LestTripTourEditForm: React.FC = () => {
           tourId: groupTourRaw.tourId as number,
           countryId: countryId as number,
           startingPrice: startingPrice * 100,
+        });
+      }
+      if (
+        groupTourRaw.upTo2 !== upTo2 ||
+        groupTourRaw.upTo6 !== upTo6 ||
+        groupTourRaw.upTo10 !== upTo10 ||
+        groupTourRaw.upTo20 !== upTo20
+      ) {
+        priceUpdateLetsTripGroupTour({
+          callback() {
+            addNotification('per persons price changed');
+            navigate(-1);
+          },
+          tourId: Number(groupTourRaw.tourId),
+          upTo2: upTo2 * 100,
+          upTo6: upTo6 * 100,
+          upTo10: upTo10 * 100,
+          upTo20: upTo20 * 100,
         });
       }
       if (
@@ -469,82 +498,62 @@ export const LestTripTourEditForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={() => {}}
     >
-      <S.FormContent>
-        <Flex gap={'15px'}>
+      <Row gutter={12}>
+        <Col span={12}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameEn"
             label={'name english'}
-            rules={[
-              { required: true, message: 'name english is required?' },
-              {
-                type: 'string',
-                message: 'Enter english name ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input name="nameEn" type="string" placeholder="Enter a english name ?" />
           </BaseForm.Item>
+        </Col>
+        <Col span={12}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameRu"
             label={'name russian'}
-            rules={[
-              { required: true, message: 'name russian is required?' },
-              {
-                type: 'string',
-                message: 'Enter russian name ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input name="nameRu" type="string" placeholder="Enter a russian name ? " />
           </BaseForm.Item>
-        </Flex>
-        <Flex gap={'15px'}>
+        </Col>
+
+        <Col span={6}>
           <BaseForm.Item
-            style={{ width: '100%' }}
             name="priceNoteEn"
             label={'price note english'}
-            rules={[
-              { required: true, message: 'price note english is required?' },
-              {
-                type: 'string',
-                message: 'Enter price note english ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input name="priceNoteEn" type="string" placeholder="Enter a price note english ?" />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNoteRu"
             label={'price note russian'}
-            rules={[
-              { required: true, message: 'price note russian is required?' },
-              {
-                type: 'string',
-                message: 'Enter price note russian ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input name="priceNoteRu" type="string" placeholder="Enter a price note russian  ?" />
           </BaseForm.Item>
-        </Flex>
-        <Flex gap={'15px'}>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
-            style={{ width: '100%' }}
             name="startingPrice"
             label={'starting price ($)'}
-            rules={[{ required: true, message: 'starting price is required?' }]}
+            rules={[{ required: true }]}
           >
             <InputNumber
-              style={{ width: '100%' }}
-              width={'100%'}
+              $block
               name="starting price"
               type="number"
               placeholder="Enter a starting price ?"
             />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
             name="countryId"
             style={{ width: '100%' }}
@@ -553,19 +562,52 @@ export const LestTripTourEditForm: React.FC = () => {
           >
             <Select placeholder="Select country?" options={selectOptionCountry} />
           </BaseForm.Item>
-        </Flex>
-        <Flex gap={'15px'}>
+        </Col>
+
+        <Col span={6}>
+          <BaseForm.Item name="upTo2" label={'2 per person price ($)'} rules={[{ required: true }]}>
+            <InputNumber $block name="upTo2" type="number" placeholder="2 per person price ($) ?" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={6}>
+          <BaseForm.Item name="upTo6" label={'6 per person price ($)'} rules={[{ required: true }]}>
+            <InputNumber $block name="upTo6" type="number" placeholder="6 per person price ($) ?" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
-            style={{ width: '100%' }}
+            name="upTo10"
+            label={'10 per person price ($)'}
+            rules={[{ required: true }]}
+          >
+            <InputNumber
+              $block
+              name="upTo10"
+              type="number"
+              placeholder="10 per person price ($) ?"
+            />
+          </BaseForm.Item>
+        </Col>
+        <Col span={6}>
+          <BaseForm.Item
+            name="upTo20"
+            label={'20 per person price ($)'}
+            rules={[{ required: true }]}
+          >
+            <InputNumber
+              $block
+              name="upTo20"
+              type="number"
+              placeholder="20 per person price ($) ?"
+            />
+          </BaseForm.Item>
+        </Col>
+
+        <Col span={6}>
+          <BaseForm.Item
             name="priceIncludeEn"
             label={'price include english'}
-            rules={[
-              { required: true, message: 'price include english is required?' },
-              {
-                type: 'string',
-                message: 'Enter price include english ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input
               name="priceIncludeEn"
@@ -573,17 +615,12 @@ export const LestTripTourEditForm: React.FC = () => {
               placeholder="Enter a price include english ?"
             />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
-            style={{ width: '100%' }}
             name="priceIncludeRu"
             label={'price include russian'}
-            rules={[
-              { required: true, message: 'price include russian is required?' },
-              {
-                type: 'string',
-                message: 'Enter price include russian ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input
               name="priceIncludeRu"
@@ -591,17 +628,12 @@ export const LestTripTourEditForm: React.FC = () => {
               placeholder="Enter a price include russian ?"
             />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
-            style={{ width: '100%' }}
             name="priceNotIncludeEn"
             label={'price not include english'}
-            rules={[
-              { required: true, message: 'price not include english is required?' },
-              {
-                type: 'string',
-                message: 'Enter price not include english ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input
               name="priceNotIncludeEn"
@@ -609,17 +641,13 @@ export const LestTripTourEditForm: React.FC = () => {
               placeholder="Enter a price not include english ?"
             />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priceNotIncludeRu"
             label={'price not include russian'}
-            rules={[
-              { required: true, message: 'price not include russian is required?' },
-              {
-                type: 'string',
-                message: 'Enter price not include russian ?',
-              },
-            ]}
+            rules={[{ required: true }]}
           >
             <Input
               name="priceNotIncludeRu"
@@ -627,77 +655,77 @@ export const LestTripTourEditForm: React.FC = () => {
               placeholder="Enter a price not include russian ?"
             />
           </BaseForm.Item>
-        </Flex>
+        </Col>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionEn"
           label={'description english'}
-          rules={[
-            { required: true, message: 'description english is required?' },
-            {
-              type: 'string',
-              message: 'Enter english description ?',
-            },
-          ]}
+          rules={[{ required: true }]}
         >
+          {/* <TextEditor
+            name="descriptionEn"
+            setContents={String(groupTourRaw?.description[0].en)}
+            placeholder="Enter a english description ?"
+          /> */}
           <TextArea name="descriptionEn" placeholder="Enter a english description ?" />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionRu"
           label={'description russian'}
-          rules={[
-            { required: true, message: 'description russian is required?' },
-            {
-              type: 'string',
-              message: 'Enter russian description ?',
-            },
-          ]}
+          rules={[{ required: true }]}
         >
+          {/* <TextEditor
+            name="descriptionRu"
+            setContents={String(groupTourRaw?.description[0].ru)}
+            placeholder="Enter a russian description ? "
+          /> */}
           <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
         </BaseForm.Item>
-        <BaseForm.Item
-          name="images"
-          label={'tour images'}
-          rules={[{ message: 'tour images is required?', type: 'object' }]}
-        >
-          <Upload.Dragger
-            style={{ width: '100%' }}
-            name="files"
-            listType="picture"
-            multiple={true}
-            fileList={fileList}
-            onChange={handleChange}
-            onPreview={handlePreview}
-            beforeUpload={(file) => file.type.split('/')[0] === 'image'}
-            action={`${BASE_URL}/api/file`}
-            onRemove={(file) => {
-              if (file.url && groupTourRaw?.tourId)
-                deleteImageLetsTripGroupTour({
-                  callback() {
-                    addNotification('group tour image deleted');
-                  },
-                  tourId: groupTourRaw?.tourId,
-                  images: [file.url as string],
-                });
-            }}
+        <Col span={24}>
+          <BaseForm.Item
+            name="images"
+            label={'tour images'}
+            rules={[{ message: 'tour images is required?', type: 'object' }]}
           >
-            <Icon fontSize="20" color="blue" name="InboxOutlined" />
-            <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
-            {previewImage && (
-              <Image
-                height={100}
-                wrapperStyle={{ display: 'none' }}
-                preview={{
-                  visible: previewOpen,
-                  onVisibleChange: (visible) => setPreviewOpen(visible),
-                  afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                }}
-                src={previewImage}
-              />
-            )}
-          </Upload.Dragger>
-        </BaseForm.Item>
+            <Upload.Dragger
+              style={{ width: '100%' }}
+              name="files"
+              listType="picture"
+              multiple={true}
+              fileList={fileList}
+              onChange={handleChange}
+              onPreview={handlePreview}
+              beforeUpload={(file) => file.type.split('/')[0] === 'image'}
+              action={`${BASE_URL}/api/file`}
+              onRemove={(file) => {
+                if (file.url && groupTourRaw?.tourId)
+                  deleteImageLetsTripGroupTour({
+                    callback() {
+                      addNotification('group tour image deleted');
+                    },
+                    tourId: groupTourRaw?.tourId,
+                    images: [file.url as string],
+                  });
+              }}
+            >
+              <Icon fontSize="20" color="blue" name="InboxOutlined" />
+              <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+              {previewImage && (
+                <Image
+                  height={100}
+                  wrapperStyle={{ display: 'none' }}
+                  preview={{
+                    visible: previewOpen,
+                    onVisibleChange: (visible) => setPreviewOpen(visible),
+                    afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                  }}
+                  src={previewImage}
+                />
+              )}
+            </Upload.Dragger>
+          </BaseForm.Item>
+        </Col>
         {/* <BaseForm.List name="availableDate">
           {(fields, { add, remove }) => (
             <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
@@ -867,441 +895,448 @@ export const LestTripTourEditForm: React.FC = () => {
             </div>
           )}
         </BaseForm.List> */}
-        <BaseForm.List name="tourItenarary">
-          {(fields, { add, remove }) => (
-            <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
-              {fields.map((field) => (
-                <>
-                  <Card
-                    size="small"
-                    title={`${field.key + 1}. tour itenarary`}
-                    key={field.key}
-                    extra={
-                      <Icon
-                        color="red"
-                        name="DeleteOutlined"
-                        onClick={() => {
-                          handleItenararyDelete(field, remove);
-                        }}
-                      />
-                    }
-                  >
-                    <Flex gap={'15px'}>
-                      <BaseForm.Item
-                        style={{ width: '100%' }}
-                        name={[field.name, 'itineraryTitleEn']}
-                        label={'itinerary title english'}
-                        rules={[
-                          { required: true, message: 'itinerary title english is required?' },
-                          {
-                            type: 'string',
-                            message: 'Enter itinerary title english ?',
-                          },
-                        ]}
-                      >
-                        <Input
-                          name="itineraryTitleEn"
-                          type="string"
-                          placeholder="Enter a itinerary title english ?"
+        <Col span={24}>
+          <BaseForm.List name="tourItenarary">
+            {(fields, { add, remove }) => (
+              <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
+                {fields.map((field) => (
+                  <>
+                    <Card
+                      size="small"
+                      title={`${field.key + 1}. tour itenarary`}
+                      key={field.key}
+                      extra={
+                        <Icon
+                          color="red"
+                          name="DeleteOutlined"
+                          onClick={() => {
+                            handleItenararyDelete(field, remove);
+                          }}
                         />
-                      </BaseForm.Item>
-                      <BaseForm.Item
-                        style={{ width: '100%' }}
-                        name={[field.name, 'itineraryTitleRu']}
-                        label={'itinerary title russian'}
-                        rules={[
-                          { required: true, message: 'itinerary title russian is required?' },
-                          {
-                            type: 'string',
-                            message: 'Enter itinerary title russian ?',
-                          },
-                        ]}
-                      >
-                        <Input
-                          name="itineraryTitleRu"
-                          type="string"
-                          placeholder="Enter a itinerary title russian ?"
-                        />
-                      </BaseForm.Item>
-                      <BaseForm.Item
-                        style={{ width: '100%' }}
-                        name={[field.name, 'itineraryItemOrder']}
-                        label={'itinerary item order'}
-                        rules={[{ required: true, message: 'itinerary item order is required?' }]}
-                      >
-                        <InputNumber
-                          style={{ width: '100%' }}
-                          width={'100%'}
-                          name="itineraryItemOrder"
-                          type="number"
-                          placeholder="Enter a itinerary item order ?"
-                        />
-                      </BaseForm.Item>
-                    </Flex>
+                      }
+                    >
+                      <Row gutter={12}>
+                        <Col span={8}>
+                          <BaseForm.Item
+                            style={{ width: '100%' }}
+                            name={[field.name, 'itineraryTitleEn']}
+                            label={'itinerary title english'}
+                            rules={[{ required: true }]}
+                          >
+                            <Input
+                              name="itineraryTitleEn"
+                              type="string"
+                              placeholder="Enter a itinerary title english ?"
+                            />
+                          </BaseForm.Item>
+                        </Col>
+                        <Col span={8}>
+                          <BaseForm.Item
+                            style={{ width: '100%' }}
+                            name={[field.name, 'itineraryTitleRu']}
+                            label={'itinerary title russian'}
+                            rules={[{ required: true }]}
+                          >
+                            <Input
+                              name="itineraryTitleRu"
+                              type="string"
+                              placeholder="Enter a itinerary title russian ?"
+                            />
+                          </BaseForm.Item>
+                        </Col>
+                        <Col span={8}>
+                          <BaseForm.Item
+                            style={{ width: '100%' }}
+                            name={[field.name, 'itineraryItemOrder']}
+                            label={'itinerary item order'}
+                            rules={[{ required: true }]}
+                          >
+                            <InputNumber
+                              style={{ width: '100%' }}
+                              width={'100%'}
+                              name="itineraryItemOrder"
+                              type="number"
+                              placeholder="Enter a itinerary item order ?"
+                            />
+                          </BaseForm.Item>
+                        </Col>
+                      </Row>
 
-                    <BaseForm.List name={[field.key, 'description']}>
-                      {(subFields, { add, remove }) => (
-                        <div>
-                          {subFields.map((subField) => (
-                            <Card
-                              key={field.key + subField.key}
-                              size="small"
-                              title={`${subField.name + 1}. tour itinerary description`}
-                              extra={
-                                <Icon
-                                  name="CloseOutlined"
-                                  onClick={() => {
-                                    remove(subField.name);
-                                  }}
-                                />
-                              }
-                            >
-                              <Flex gap={'15px'}>
+                      <BaseForm.List name={[field.key, 'description']}>
+                        {(subFields, { add, remove }) => (
+                          <div>
+                            {subFields.map((subField) => (
+                              <Card
+                                key={field.key + subField.key}
+                                size="small"
+                                title={`${subField.name + 1}. tour itinerary description`}
+                                extra={
+                                  <Icon
+                                    name="CloseOutlined"
+                                    onClick={() => {
+                                      remove(subField.name);
+                                    }}
+                                  />
+                                }
+                              >
+                                <Row gutter={12}>
+                                  <Col span={12}>
+                                    <BaseForm.Item
+                                      style={{ width: '100%' }}
+                                      name={[subField.name, 'itineraryItemDescOrder']}
+                                      label={'itinerary item description order'}
+                                      rules={[
+                                        {
+                                          required: true,
+                                        },
+                                      ]}
+                                    >
+                                      <InputNumber
+                                        style={{ width: '100%' }}
+                                        width={'100%'}
+                                        name="itineraryItemDescOrder"
+                                        type="number"
+                                        placeholder="Enter a itinerary item description order ?"
+                                      />
+                                    </BaseForm.Item>
+                                  </Col>
+                                  <Col span={12}>
+                                    <BaseForm.Item
+                                      style={{ width: '100%' }}
+                                      name={[subField.name, 'itineraryHour']}
+                                      label={'itinerary hour'}
+                                      rules={[{ required: true }]}
+                                    >
+                                      <Input
+                                        name="itineraryHour"
+                                        type="string"
+                                        placeholder="Enter a itinerary hour ?"
+                                      />
+                                    </BaseForm.Item>
+                                  </Col>
+                                </Row>
                                 <BaseForm.Item
                                   style={{ width: '100%' }}
-                                  name={[subField.name, 'itineraryItemDescOrder']}
-                                  label={'itinerary item description order'}
+                                  name={[subField.name, 'itineraryDescEn']}
+                                  label={'itinerary description english'}
                                   rules={[
                                     {
                                       required: true,
-                                      message: 'itinerary item order is required?',
                                     },
                                   ]}
                                 >
-                                  <InputNumber
-                                    style={{ width: '100%' }}
-                                    width={'100%'}
-                                    name="itineraryItemDescOrder"
-                                    type="number"
-                                    placeholder="Enter a itinerary item description order ?"
+                                  {/* <TextEditor
+                                    name="itineraryDescEn"
+                                    setContents={
+                                      groupTourRaw?.tourItenarary[field.name]?.descriptions[
+                                        subField.name
+                                      ]?.items[0]?.en
+                                    }
+                                    placeholder="Enter a itinerary description english ?"
+                                  /> */}
+                                  <TextArea
+                                    name="itineraryDescEn"
+                                    placeholder="Enter a itinerary description english ?"
                                   />
                                 </BaseForm.Item>
                                 <BaseForm.Item
                                   style={{ width: '100%' }}
-                                  name={[subField.name, 'itineraryHour']}
-                                  label={'itinerary hour'}
+                                  name={[subField.name, 'itineraryDescRu']}
+                                  label={'itinerary description russian'}
                                   rules={[
-                                    { required: true, message: 'itinerary hour is required?' },
                                     {
-                                      type: 'string',
-                                      message: 'Enter itinerary hour ?',
+                                      required: true,
                                     },
                                   ]}
                                 >
-                                  <Input
-                                    name="itineraryHour"
-                                    type="string"
-                                    placeholder="Enter a itinerary hour ?"
+                                  {/* <TextEditor
+                                    name="itineraryDescRu"
+                                    setContents={
+                                      groupTourRaw?.tourItenarary[field.name]?.descriptions[
+                                        subField.name
+                                      ]?.items[0]?.ru
+                                    }
+                                    // setContents={groupTourRaw?.tourItenarary}
+                                    placeholder="Enter a itinerary description russian ?"
+                                  /> */}
+                                  <TextArea
+                                    name="itineraryDescRu"
+                                    placeholder="Enter a itinerary description russian ?"
                                   />
                                 </BaseForm.Item>
-                              </Flex>
-                              <BaseForm.Item
-                                style={{ width: '100%' }}
-                                name={[subField.name, 'itineraryDescEn']}
-                                label={'itinerary description english'}
-                                rules={[
-                                  {
-                                    required: true,
-                                    message: 'itinerary description english is required?',
-                                  },
-                                  {
-                                    type: 'string',
-                                    message: 'Enter a itinerary description english ?',
-                                  },
-                                ]}
+                              </Card>
+                            ))}
+                            <BaseForm.Item>
+                              <Button
+                                type="dashed"
+                                onClick={() => add()}
+                                block
+                                icon={<Icon name="PlusOutlined" />}
                               >
-                                <TextArea
-                                  name="itineraryDescEn"
-                                  placeholder="Enter a itinerary description english ?"
-                                />
-                              </BaseForm.Item>
-                              <BaseForm.Item
-                                style={{ width: '100%' }}
-                                name={[subField.name, 'itineraryDescRu']}
-                                label={'itinerary description russian'}
-                                rules={[
-                                  {
-                                    required: true,
-                                    message: 'itinerary description russian is required?',
-                                  },
-                                  {
-                                    type: 'string',
-                                    message: 'Enter a itinerary description russian ?',
-                                  },
-                                ]}
-                              >
-                                <TextArea
-                                  name="itineraryDescRu"
-                                  placeholder="Enter a itinerary description russian ?"
-                                />
-                              </BaseForm.Item>
-                            </Card>
-                          ))}
-                          <BaseForm.Item>
-                            <Button
-                              type="dashed"
-                              onClick={() => add()}
-                              block
-                              icon={<Icon name="PlusOutlined" />}
-                            >
-                              add tour itinerary description ({subFields.length})
-                              {subFields.length ? '✅' : '❌'}
-                            </Button>
-                          </BaseForm.Item>
-                        </div>
-                      )}
-                    </BaseForm.List>
-                    <BaseForm.Item
-                      name={[field.name, 'itineraryImgUrl']}
-                      label={'itinerary image'}
-                      rules={[
-                        {
-                          required: groupTourRaw?.tourItenarary[field.name]?.imageUrl
-                            ? false
-                            : true,
-                          message: 'itinerary image is required?',
-                          type: 'object',
-                        },
-                      ]}
-                    >
-                      <Upload.Dragger
-                        key={field.key}
-                        style={{ width: '100%' }}
-                        listType="picture"
-                        name="files"
-                        multiple={false}
-                        fileList={
-                          groupTourRaw?.tourItenarary[field.name]?.imageUrl
-                            ? [
-                                {
-                                  uid:
-                                    groupTourRaw?.tourItenarary[field.name]?.imageUrl + field.name,
-                                  name: groupTourRaw?.tourItenarary[field.name]?.imageUrl,
-                                  url: groupTourRaw?.tourItenarary[field.name]?.imageUrl,
-                                  status: 'done',
-                                },
-                              ]
-                            : fileList2
-                        }
-                        onChange={handleChange2}
-                        onPreview={handlePreview2}
-                        beforeUpload={(file) => file.type.split('/')[0] === 'image'}
-                        action={`${BASE_URL}/api/file`}
+                                add tour itinerary description ({subFields.length})
+                                {subFields.length ? '✅' : '❌'}
+                              </Button>
+                            </BaseForm.Item>
+                          </div>
+                        )}
+                      </BaseForm.List>
+                      <BaseForm.Item
+                        name={[field.name, 'itineraryImgUrl']}
+                        label={'itinerary image'}
+                        rules={[
+                          {
+                            required: groupTourRaw?.tourItenarary[field.name]?.imageUrl
+                              ? false
+                              : true,
+                            message: 'itinerary image is required?',
+                            type: 'object',
+                          },
+                        ]}
                       >
-                        <div
-                          style={{
-                            marginTop: 8,
-                            display: groupTourRaw?.tourItenarary[field.name]?.imageUrl
-                              ? 'none'
-                              : 'block',
-                          }}
+                        <Upload.Dragger
+                          key={field.key}
+                          style={{ width: '100%' }}
+                          listType="picture"
+                          name="files"
+                          multiple={false}
+                          fileList={
+                            groupTourRaw?.tourItenarary[field.name]?.imageUrl
+                              ? [
+                                  {
+                                    uid:
+                                      groupTourRaw?.tourItenarary[field.name]?.imageUrl +
+                                      field.name,
+                                    name: groupTourRaw?.tourItenarary[field.name]?.imageUrl,
+                                    url: groupTourRaw?.tourItenarary[field.name]?.imageUrl,
+                                    status: 'done',
+                                  },
+                                ]
+                              : fileList2
+                          }
+                          onChange={handleChange2}
+                          onPreview={handlePreview2}
+                          beforeUpload={(file) => file.type.split('/')[0] === 'image'}
+                          action={`${BASE_URL}/api/file`}
                         >
-                          <Icon fontSize="20" color="blue" name="InboxOutlined" />
-                          <br />
-                          Click or drag file to this area to upload
-                        </div>
-                        {previewImage && (
-                          <Image
-                            height={100}
-                            wrapperStyle={{ display: 'none' }}
-                            preview={{
-                              visible: previewOpen,
-                              onVisibleChange: (visible) => setPreviewOpen(visible),
-                              afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                          <div
+                            style={{
+                              marginTop: 8,
+                              display: groupTourRaw?.tourItenarary[field.name]?.imageUrl
+                                ? 'none'
+                                : 'block',
                             }}
-                            src={previewImage}
-                          />
-                        )}
-                      </Upload.Dragger>
-                    </BaseForm.Item>
-                  </Card>
-                </>
-              ))}
-              <BaseForm.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<Icon name="PlusOutlined" />}
-                >
-                  add tour itineraries ({fields.length}) {fields.length ? '✅' : '❌'}
-                </Button>
-              </BaseForm.Item>
-            </div>
-          )}
-        </BaseForm.List>
-        <BaseForm.List name="extraInformation">
-          {(fields, { add, remove }) => (
-            <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
-              {fields.map((field) => (
-                <>
-                  <Card
-                    size="small"
-                    title="ENGLISH"
-                    key={field.key}
-                    extra={
-                      <Icon
-                        name="CloseOutlined"
-                        onClick={() => {
-                          remove(field.name);
-                        }}
-                      />
-                    }
-                  >
-                    <BaseForm.Item
-                      initialValue={'EN'}
-                      label="Information"
-                      name={[field.name, 'EN']}
-                      rules={[{ required: false, message: 'field required' }]}
-                    >
-                      <Input disabled />
-                    </BaseForm.Item>
-                    <BaseForm.Item
-                      label="ENGLISH"
-                      initialValue={{ EN: 'EN' }}
-                      rules={[{ required: false, message: 'field required' }]}
-                    >
-                      <BaseForm.List name={[field.name, 'en']}>
-                        {(subFields, subOpt) => (
-                          <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
-                            {subFields.map((subField) => (
-                              <Space key={subField.key}>
-                                <BaseForm.Item
-                                  noStyle
-                                  name={[subField.name, 'title']}
-                                  rules={[{ required: true, message: 'field required' }]}
-                                >
-                                  <Input placeholder="title" />
-                                </BaseForm.Item>
-                                <BaseForm.Item
-                                  noStyle
-                                  name={[subField.name, 'value']}
-                                  rules={[{ required: true, message: 'field required' }]}
-                                >
-                                  <Input placeholder="value" />
-                                </BaseForm.Item>
-                                <Icon
-                                  color="red"
-                                  name="DeleteOutlined"
-                                  onClick={() => {
-                                    if (groupTourRaw?.extraInformation.en.length) {
-                                      handleExtraInfoEnglishDelete(subField, subOpt.remove);
-                                    }
-                                  }}
-                                />
-                              </Space>
-                            ))}
-                            <Button type="dashed" onClick={() => subOpt.add()} block>
-                              + Add Sub Item {subFields.length ? '✅' : '❌'}
-                            </Button>
+                          >
+                            <Icon fontSize="20" color="blue" name="InboxOutlined" />
+                            <br />
+                            Click or drag file to this area to upload
                           </div>
-                        )}
-                      </BaseForm.List>
-                    </BaseForm.Item>
-                  </Card>
-                  <Card
-                    size="small"
-                    title="RUSSIAN"
-                    key={field.key}
-                    extra={
-                      <Icon
-                        name="CloseOutlined"
-                        onClick={() => {
-                          remove(field.name);
-                        }}
-                      />
-                    }
+                          {previewImage && (
+                            <Image
+                              height={100}
+                              wrapperStyle={{ display: 'none' }}
+                              preview={{
+                                visible: previewOpen,
+                                onVisibleChange: (visible) => setPreviewOpen(visible),
+                                afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                              }}
+                              src={previewImage}
+                            />
+                          )}
+                        </Upload.Dragger>
+                      </BaseForm.Item>
+                    </Card>
+                  </>
+                ))}
+                <BaseForm.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<Icon name="PlusOutlined" />}
                   >
-                    <BaseForm.Item
-                      initialValue={'RU'}
-                      label="Information"
-                      name={[field.name, 'RU']}
-                      rules={[{ required: true, message: 'field required' }]}
+                    add tour itineraries ({fields.length}) {fields.length ? '✅' : '❌'}
+                  </Button>
+                </BaseForm.Item>
+              </div>
+            )}
+          </BaseForm.List>
+        </Col>
+        <Col span={24}>
+          <BaseForm.List name="extraInformation">
+            {(fields, { add, remove }) => (
+              <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
+                {fields.map((field) => (
+                  <>
+                    <Card
+                      size="small"
+                      title="ENGLISH"
+                      key={field.key}
+                      extra={
+                        <Icon
+                          name="CloseOutlined"
+                          onClick={() => {
+                            remove(field.name);
+                          }}
+                        />
+                      }
                     >
-                      <Input disabled />
-                    </BaseForm.Item>
-                    <BaseForm.Item
-                      label="RUSSIAN"
-                      initialValue={{ RU: 'RU' }}
-                      rules={[{ required: true, message: 'field required' }]}
+                      <BaseForm.Item
+                        initialValue={'EN'}
+                        label="Information"
+                        name={[field.name, 'EN']}
+                        rules={[{ required: false, message: 'field required' }]}
+                      >
+                        <Input disabled />
+                      </BaseForm.Item>
+                      <BaseForm.Item
+                        label="ENGLISH"
+                        initialValue={{ EN: 'EN' }}
+                        rules={[{ required: false, message: 'field required' }]}
+                      >
+                        <BaseForm.List name={[field.name, 'en']}>
+                          {(subFields, subOpt) => (
+                            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
+                              {subFields.map((subField) => (
+                                <Space key={subField.key}>
+                                  <BaseForm.Item
+                                    noStyle
+                                    name={[subField.name, 'title']}
+                                    rules={[{ required: true, message: 'field required' }]}
+                                  >
+                                    <Input placeholder="title" />
+                                  </BaseForm.Item>
+                                  <BaseForm.Item
+                                    noStyle
+                                    name={[subField.name, 'value']}
+                                    rules={[{ required: true, message: 'field required' }]}
+                                  >
+                                    <Input placeholder="value" />
+                                  </BaseForm.Item>
+                                  <Icon
+                                    color="red"
+                                    name="DeleteOutlined"
+                                    onClick={() => {
+                                      if (groupTourRaw?.extraInformation.en.length) {
+                                        handleExtraInfoEnglishDelete(subField, subOpt.remove);
+                                      }
+                                    }}
+                                  />
+                                </Space>
+                              ))}
+                              <Button type="dashed" onClick={() => subOpt.add()} block>
+                                + Add Sub Item {subFields.length ? '✅' : '❌'}
+                              </Button>
+                            </div>
+                          )}
+                        </BaseForm.List>
+                      </BaseForm.Item>
+                    </Card>
+                    <Card
+                      size="small"
+                      title="RUSSIAN"
+                      key={field.key}
+                      extra={
+                        <Icon
+                          name="CloseOutlined"
+                          onClick={() => {
+                            remove(field.name);
+                          }}
+                        />
+                      }
                     >
-                      <BaseForm.List name={[field.name, 'ru']}>
-                        {(subFields, subOpt) => (
-                          <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
-                            {subFields.map((subField) => (
-                              <Space key={subField.key}>
-                                <BaseForm.Item
-                                  noStyle
-                                  name={[subField.name, 'title']}
-                                  rules={[{ required: true, message: 'field required' }]}
-                                >
-                                  <Input placeholder="title" />
-                                </BaseForm.Item>
-                                <BaseForm.Item
-                                  noStyle
-                                  name={[subField.name, 'value']}
-                                  rules={[{ required: true, message: 'field required' }]}
-                                >
-                                  <Input placeholder="value" />
-                                </BaseForm.Item>
-                                <Icon
-                                  color="red"
-                                  name="DeleteOutlined"
-                                  onClick={() => {
-                                    if (groupTourRaw?.extraInformation.ru.length) {
-                                      handleExtraInfoRussianDelete(subField, subOpt.remove);
-                                    }
-                                  }}
-                                />
-                              </Space>
-                            ))}
-                            <Button type="dashed" onClick={() => subOpt.add()} block>
-                              + Add Sub Item {subFields.length ? '✅' : '❌'}
-                            </Button>
-                          </div>
-                        )}
-                      </BaseForm.List>
-                    </BaseForm.Item>
-                  </Card>
-                </>
+                      <BaseForm.Item
+                        initialValue={'RU'}
+                        label="Information"
+                        name={[field.name, 'RU']}
+                        rules={[{ required: true, message: 'field required' }]}
+                      >
+                        <Input disabled />
+                      </BaseForm.Item>
+                      <BaseForm.Item
+                        label="RUSSIAN"
+                        initialValue={{ RU: 'RU' }}
+                        rules={[{ required: true, message: 'field required' }]}
+                      >
+                        <BaseForm.List name={[field.name, 'ru']}>
+                          {(subFields, subOpt) => (
+                            <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
+                              {subFields.map((subField) => (
+                                <Space key={subField.key}>
+                                  <BaseForm.Item
+                                    noStyle
+                                    name={[subField.name, 'title']}
+                                    rules={[{ required: true, message: 'field required' }]}
+                                  >
+                                    <Input placeholder="title" />
+                                  </BaseForm.Item>
+                                  <BaseForm.Item
+                                    noStyle
+                                    name={[subField.name, 'value']}
+                                    rules={[{ required: true, message: 'field required' }]}
+                                  >
+                                    <Input placeholder="value" />
+                                  </BaseForm.Item>
+                                  <Icon
+                                    color="red"
+                                    name="DeleteOutlined"
+                                    onClick={() => {
+                                      if (groupTourRaw?.extraInformation.ru.length) {
+                                        handleExtraInfoRussianDelete(subField, subOpt.remove);
+                                      }
+                                    }}
+                                  />
+                                </Space>
+                              ))}
+                              <Button type="dashed" onClick={() => subOpt.add()} block>
+                                + Add Sub Item {subFields.length ? '✅' : '❌'}
+                              </Button>
+                            </div>
+                          )}
+                        </BaseForm.List>
+                      </BaseForm.Item>
+                    </Card>
+                  </>
+                ))}
+                <BaseForm.Item>
+                  <Button
+                    disabled={fields.length === 1}
+                    type="dashed"
+                    onClick={() => {
+                      if (fields.length < 2) add();
+                      return;
+                    }}
+                    block
+                    icon={<Icon name="PlusOutlined" />}
+                  >
+                    add extra information ({fields.length}) {fields.length ? '✅' : '❌'}
+                  </Button>
+                </BaseForm.Item>
+              </div>
+            )}
+          </BaseForm.List>
+        </Col>
+        <Col span={24}>
+          {isLoaded ? (
+            <GoogleMap
+              mapContainerStyle={{ width: '100%', height: '400px' }}
+              zoom={6}
+              center={locations[0] || center}
+              onClick={handleMapClick}
+            >
+              <Polyline
+                path={locations?.map((el) => el)}
+                options={{ strokeColor: '#FF0000', strokeOpacity: 1.0, strokeWeight: 3 }}
+              />
+              {locations?.map((loc, idx) => (
+                <Marker onClick={handleMaker} key={idx} position={loc} />
               ))}
-              <BaseForm.Item>
-                <Button
-                  disabled={fields.length === 1}
-                  type="dashed"
-                  onClick={() => {
-                    if (fields.length < 2) add();
-                    return;
-                  }}
-                  block
-                  icon={<Icon name="PlusOutlined" />}
-                >
-                  add extra information ({fields.length}) {fields.length ? '✅' : '❌'}
-                </Button>
-              </BaseForm.Item>
-            </div>
-          )}
-        </BaseForm.List>
-        {isLoaded ? (
-          <GoogleMap
-            mapContainerStyle={{ width: '100%', height: '400px' }}
-            zoom={6}
-            center={locations[0] || center}
-            onClick={handleMapClick}
-          >
-            <Polyline
-              path={locations?.map((el) => el)}
-              options={{ strokeColor: '#FF0000', strokeOpacity: 1.0, strokeWeight: 3 }}
-            />
-            {locations?.map((loc, idx) => (
-              <Marker onClick={handleMaker} key={idx} position={loc} />
-            ))}
-          </GoogleMap>
-        ) : null}
+            </GoogleMap>
+          ) : null}
+        </Col>
         <PrimaryBtn style={{ marginTop: '15px' }} htmlType="submit" loading={post || patch}>
           Edit
         </PrimaryBtn>
-      </S.FormContent>
+      </Row>
     </BaseForm>
   );
 };
