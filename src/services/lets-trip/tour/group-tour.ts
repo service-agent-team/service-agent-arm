@@ -86,6 +86,13 @@ export const LetsTripGroupTourService = {
     );
     return response;
   },
+  async priceUpdate(tourId: number, body: any) {
+    const response = await $axios.patch(
+      `${EndPointes.letsTripGroupTour.getAll}/price-update/${tourId}`,
+      body,
+    );
+    return response;
+  },
   async addExtraInfo(tourId: number, body: any) {
     const response = await $axios.post(
       `${EndPointes.letsTripGroupTour.getAll}/${tourId}/add/extra-info/all`,

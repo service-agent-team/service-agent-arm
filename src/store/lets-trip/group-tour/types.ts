@@ -23,6 +23,10 @@ export interface ILetsTripGroupTour {
   tourItenarary: TourItinerary[];
   images: string[];
   startingPrice: number;
+  upTo2: number;
+  upTo6: number;
+  upTo10: number;
+  upTo20: number;
   name: Name;
   availableDate: AvailableDate[];
   description: Description2[];
@@ -83,6 +87,10 @@ export interface ILetsTripGroupTourCreatePayload {
   name: Name;
   countryId: number;
   startingPrice: number;
+  upTo2: number;
+  upTo6: number;
+  upTo10: number;
+  upTo20: number;
   priceNote: PriceNote;
   priceNotIncludes: PriceNotIncludes;
   extraInformation: ExtraInformation;
@@ -150,6 +158,15 @@ export interface ILetsTripGroupTourOtherUpdatesPayload {
   tourId: number;
   startingPrice: number;
   countryId: number;
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourPriceUpdatesPayload {
+  tourId: number;
+  upTo2: number;
+  upTo6: number;
+  upTo10: number;
+  upTo20: number;
   callback(): void;
 }
 

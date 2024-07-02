@@ -7,6 +7,10 @@ export interface IValuesForm {
   priceNoteRu: string;
   priceNoteEn: string;
   startingPrice: number;
+  upTo2: number;
+  upTo6: number;
+  upTo10: number;
+  upTo20: number;
   priceNotIncludeRu: string;
   priceNotIncludeEn: string;
   extraInformation: any;

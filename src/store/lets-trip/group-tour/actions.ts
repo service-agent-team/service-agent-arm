@@ -25,6 +25,7 @@ import {
   UpdatePriceIncludes,
   UpdatePriceIncludesPayload,
   ILetsTripGroupTourSearchPayload,
+  ILetsTripGroupTourPriceUpdatesPayload,
 } from './types';
 import { LetsTripGroupTourService } from '@/services';
 import { appActions } from '@/store/app';
@@ -284,6 +285,29 @@ export const otherUpdatesLetsTripGroupTour = createAsyncThunk<
         countryId,
       });
       if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const priceUpdateLetsTripGroupTour = createAsyncThunk<
+  IGetOneRawLetsTripTourResponse,
+  ILetsTripGroupTourPriceUpdatesPayload
+>(
+  EndPointes.letsTripGroupTour.getAll + '/price-update/tourId',
+  async ({ callback, tourId, upTo2, upTo6, upTo10, upTo20 }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.priceUpdate(tourId, {
+        upTo2,
+        upTo6,
+        upTo10,
+        upTo20,
+      });
+      if (response.status === 200) {
         callback();
       }
       return response.data;

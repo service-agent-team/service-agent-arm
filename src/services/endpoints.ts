@@ -260,4 +260,8 @@ export const EndPointes = {
   letsTripOrder: {
     getByStatus: '/api/order/status',
   },
+
+  files: {
+    create: '/api/file',
+  },
 } as const;

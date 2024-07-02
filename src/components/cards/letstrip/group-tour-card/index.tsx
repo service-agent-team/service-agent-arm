@@ -23,13 +23,13 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
 
   return (
     <>
-      <PageTitle title={`Tour Name: ${data?.name}`} />
+      <PageTitle isHtml title={`${data?.name}`} />
       <Flex style={{ margin: '30px 0' }} justify="space-between" wrap="wrap" gap={30}>
         <S.ImageBlock>
           <S.CustomImageGroup items={data?.images}>
             <S.CustomImage width={'100%'} src={data?.images[0]} fallback={NoThumbImage} />
           </S.CustomImageGroup>
-          <S.Title>{data?.name}</S.Title>
+          <S.Title dangerouslySetInnerHTML={{ __html: data?.name as string }} />
           <S.InfoCard width="384px">
             <Typography.Text strong>Starting Price: </Typography.Text>
             {Number(data?.startingPrice) / 100} $<H1>Extra Information: </H1>
@@ -47,9 +47,10 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
         </S.ImageBlock>
         <div>
           <H1 style={{ fontSize: '32px' }}>Description</H1>
-          <Typography.Paragraph style={{ maxWidth: '990px', fontSize: '20px' }}>
-            {data?.description[0]}
-          </Typography.Paragraph>
+          <div
+            style={{ maxWidth: '990px', fontSize: '20px' }}
+            dangerouslySetInnerHTML={{ __html: data?.description[0] as string }}
+          />
         </div>
         {isLoaded ? (
           <GoogleMap
@@ -136,7 +137,10 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
                     progressDot
                     current={el.description.length}
                     direction="vertical"
-                    items={el.description.map((d) => ({ title: d.hour, description: d.items[0] }))}
+                    items={el.description.map((d) => ({
+                      title: d.hour,
+                      description: <div dangerouslySetInnerHTML={{ __html: d.items[0] }} />,
+                    }))}
                   />
                 </S.CustomCard>
               </>

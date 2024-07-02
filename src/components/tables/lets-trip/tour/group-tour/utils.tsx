@@ -147,6 +147,7 @@ export const utils = () => {
       dataIndex: ['name', 'en'],
       key: 'name',
       width: '25%',
+      render: (value) => <div dangerouslySetInnerHTML={{ __html: value }} />,
     },
     {
       title: 'Country',
