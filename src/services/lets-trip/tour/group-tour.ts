@@ -93,7 +93,15 @@ export const LetsTripGroupTourService = {
     );
     return response;
   },
-  async addExtraInfo(tourId: number, body: any) {
+  async addExtraInfo(tourId: number, body: any, lang: string) {
+    const response = await $axios.post(
+      `${EndPointes.letsTripGroupTour.getAll}/${tourId}/add/extra-info`,
+      body,
+      { headers: { 'Accept-Language': lang } },
+    );
+    return response;
+  },
+  async addExtraInfoAll(tourId: number, body: any) {
     const response = await $axios.post(
       `${EndPointes.letsTripGroupTour.getAll}/${tourId}/add/extra-info/all`,
       body,

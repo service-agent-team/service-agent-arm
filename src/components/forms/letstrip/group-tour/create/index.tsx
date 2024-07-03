@@ -1,7 +1,7 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea, TextEditor } from '@/components';
-import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
+import { BASE_URL, FILE_URL } from '@/constants';
 import {
   Button,
   Card,
@@ -220,13 +220,11 @@ export const LestTripTourCreateForm: React.FC = () => {
       <Row gutter={10}>
         <Col span={12}>
           <BaseForm.Item name="nameEn" label={'name english'} rules={[{ required: true }]}>
-            {/* <TextEditor name="nameEn" placeholder="Enter a english name ?" /> */}
             <Input name="nameEn" type="string" placeholder="Enter a english name ?" />
           </BaseForm.Item>
         </Col>
         <Col span={12}>
           <BaseForm.Item name="nameRu" label={'name russian'} rules={[{ required: true }]}>
-            {/* <TextEditor name="nameRu" placeholder="Enter a russian name ? " /> */}
             <Input name="nameRu" type="string" placeholder="Enter a russian name ? " />
           </BaseForm.Item>
         </Col>
@@ -556,36 +554,52 @@ export const LestTripTourCreateForm: React.FC = () => {
                                     label={'itinerary description english'}
                                     rules={[
                                       {
-                                        required: true,
+                                        validator: async (_, itenararyDescEn: string) => {
+                                          if (itenararyDescEn === '<p><br></p>') {
+                                            return Promise.reject(
+                                              new Error(
+                                                'extra information english description field required?',
+                                              ),
+                                            );
+                                          }
+                                        },
                                       },
                                     ]}
                                   >
-                                    {/* <TextEditor
-                                      name="itineraryDescEn"
-                                      placeholder="Enter a itinerary description english ?"
-                                    /> */}
-                                    <TextArea
+                                    <TextEditor
                                       name="itineraryDescEn"
                                       placeholder="Enter a itinerary description english ?"
                                     />
+                                    {/* <TextArea
+                                      name="itineraryDescEn"
+                                      placeholder="Enter a itinerary description english ?"
+                                    /> */}
                                   </BaseForm.Item>
                                   <BaseForm.Item
                                     name={[subField.name, 'itineraryDescRu']}
                                     label={'itinerary description russian'}
                                     rules={[
                                       {
-                                        required: true,
+                                        validator: async (_, itenararyDescRu: string) => {
+                                          if (itenararyDescRu === '<p><br></p>') {
+                                            return Promise.reject(
+                                              new Error(
+                                                'extra information russian description field required?',
+                                              ),
+                                            );
+                                          }
+                                        },
                                       },
                                     ]}
                                   >
-                                    {/* <TextEditor
-                                      name="itineraryDescRu"
-                                      placeholder="Enter a itinerary description russian ?"
-                                    /> */}
-                                    <TextArea
+                                    <TextEditor
                                       name="itineraryDescRu"
                                       placeholder="Enter a itinerary description russian ?"
                                     />
+                                    {/* <TextArea
+                                      name="itineraryDescRu"
+                                      placeholder="Enter a itinerary description russian ?"
+                                    /> */}
                                   </BaseForm.Item>
                                 </Card>
                               </>

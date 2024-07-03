@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ILetsTripGroupTourInitialState } from './types';
 import {
   addExtraInfoLetsTripGroupTour,
+  addExtraInfoLetsTripGroupTourAll,
   addImageLetsTripGroupTour,
   addItenararyLetsTripGroupTour,
   addLocationLetsTripGroupTour,
@@ -280,6 +281,19 @@ export const letsTripGroupTourSlice = createSlice({
         state.errors = null;
       })
       .addCase(addExtraInfoLetsTripGroupTour.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(addExtraInfoLetsTripGroupTourAll.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(addExtraInfoLetsTripGroupTourAll.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        state.groupTourRaw = payload;
+        state.errors = null;
+      })
+      .addCase(addExtraInfoLetsTripGroupTourAll.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })
