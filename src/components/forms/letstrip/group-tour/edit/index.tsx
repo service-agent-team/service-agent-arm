@@ -1,6 +1,6 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { BaseForm, Icon, InputNumber, modal, PrimaryBtn, TextArea } from '@/components';
+import { BaseForm, Icon, InputNumber, modal, PrimaryBtn, TextArea, TextEditor } from '@/components';
 import { BASE_URL, FILE_URL } from '@/constants';
 import {
   Button,
@@ -23,6 +23,7 @@ import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/
 import toast from 'react-hot-toast';
 // import dayjs from 'dayjs';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Lang } from '@/store/lets-trip/group-tour/types';
 
 export const LestTripTourEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -196,10 +197,10 @@ export const LestTripTourEditForm: React.FC = () => {
         });
       }
       if (
-        groupTourRaw.upTo2 !== upTo2 ||
-        groupTourRaw.upTo6 !== upTo6 ||
-        groupTourRaw.upTo10 !== upTo10 ||
-        groupTourRaw.upTo20 !== upTo20
+        groupTourRaw.upTo2 / 100 !== upTo2 ||
+        groupTourRaw.upTo6 / 100 !== upTo6 ||
+        groupTourRaw.upTo10 / 100 !== upTo10 ||
+        groupTourRaw.upTo20 / 100 !== upTo20
       ) {
         priceUpdateLetsTripGroupTour({
           callback() {
@@ -341,15 +342,27 @@ export const LestTripTourEditForm: React.FC = () => {
 
       const filterRussianInfo = extraInformation[0]?.ru.filter((item: any) => !item.id);
 
-      if (filterEnglishInfo.length || filterRussianInfo.length) {
+      if (filterEnglishInfo.length) {
         addExtraInfoLetsTripGroupTour({
           callback() {
             addNotification('successfully added extra info');
             navigate(-1);
           },
           tourId: groupTourRaw.tourId,
-          en: filterEnglishInfo,
-          ru: filterRussianInfo,
+          items: filterEnglishInfo,
+          lang: Lang.En,
+        });
+      }
+
+      if (filterRussianInfo.length) {
+        addExtraInfoLetsTripGroupTour({
+          callback() {
+            addNotification('successfully added extra info');
+            navigate(-1);
+          },
+          tourId: groupTourRaw.tourId,
+          items: filterRussianInfo,
+          lang: Lang.Ru,
         });
       }
     }
@@ -1021,23 +1034,31 @@ export const LestTripTourEditForm: React.FC = () => {
                                   label={'itinerary description english'}
                                   rules={[
                                     {
-                                      required: true,
+                                      validator: async (_, itenararyDescEn: string) => {
+                                        if (itenararyDescEn === '<p><br></p>') {
+                                          return Promise.reject(
+                                            new Error(
+                                              'extra information english description field required?',
+                                            ),
+                                          );
+                                        }
+                                      },
                                     },
                                   ]}
                                 >
-                                  {/* <TextEditor
+                                  <TextEditor
                                     name="itineraryDescEn"
                                     setContents={
-                                      groupTourRaw?.tourItenarary[field.name]?.descriptions[
+                                      groupTourRaw?.tourItenarary?.[field.name]?.descriptions?.[
                                         subField.name
-                                      ]?.items[0]?.en
+                                      ]?.items?.[0]?.en
                                     }
                                     placeholder="Enter a itinerary description english ?"
-                                  /> */}
-                                  <TextArea
+                                  />
+                                  {/* <TextArea
                                     name="itineraryDescEn"
                                     placeholder="Enter a itinerary description english ?"
-                                  />
+                                  /> */}
                                 </BaseForm.Item>
                                 <BaseForm.Item
                                   style={{ width: '100%' }}
@@ -1045,24 +1066,32 @@ export const LestTripTourEditForm: React.FC = () => {
                                   label={'itinerary description russian'}
                                   rules={[
                                     {
-                                      required: true,
+                                      validator: async (_, itenararyDescRu: string) => {
+                                        if (itenararyDescRu === '<p><br></p>') {
+                                          return Promise.reject(
+                                            new Error(
+                                              'extra information russian description field required?',
+                                            ),
+                                          );
+                                        }
+                                      },
                                     },
                                   ]}
                                 >
-                                  {/* <TextEditor
+                                  <TextEditor
                                     name="itineraryDescRu"
                                     setContents={
-                                      groupTourRaw?.tourItenarary[field.name]?.descriptions[
+                                      groupTourRaw?.tourItenarary?.[field.name]?.descriptions?.[
                                         subField.name
-                                      ]?.items[0]?.ru
+                                      ]?.items?.[0]?.ru
                                     }
                                     // setContents={groupTourRaw?.tourItenarary}
                                     placeholder="Enter a itinerary description russian ?"
-                                  /> */}
-                                  <TextArea
+                                  />
+                                  {/* <TextArea
                                     name="itineraryDescRu"
                                     placeholder="Enter a itinerary description russian ?"
-                                  />
+                                  /> */}
                                 </BaseForm.Item>
                               </Card>
                             ))}

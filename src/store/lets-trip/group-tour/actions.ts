@@ -17,7 +17,7 @@ import {
   ILetsTripGroupTourRemoveLocationPayload,
   ILetsTripGroupTourImagePayload,
   ILetsTripGroupTourOtherUpdatesPayload,
-  ILetsTripGroupTourAddExtraInfoPayload,
+  ILetsTripGroupTourAddExtraInfoAllPayload,
   ILetsTripGroupTourRemoveExtraInfoPayload,
   ILetsTripGroupTourAddItenararyPayload,
   ILetsTripGroupTourRemoveItenararyPayload,
@@ -26,6 +26,7 @@ import {
   UpdatePriceIncludesPayload,
   ILetsTripGroupTourSearchPayload,
   ILetsTripGroupTourPriceUpdatesPayload,
+  ILetsTripGroupTourAddExtraInfoPayload,
 } from './types';
 import { LetsTripGroupTourService } from '@/services';
 import { appActions } from '@/store/app';
@@ -321,10 +322,34 @@ export const addExtraInfoLetsTripGroupTour = createAsyncThunk<
   IGetOneRawLetsTripTourResponse,
   ILetsTripGroupTourAddExtraInfoPayload
 >(
+  EndPointes.letsTripGroupTour.getAll + '/add/tourId/extra-info',
+  async ({ callback, tourId, items, lang }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.addExtraInfo(
+        tourId,
+        {
+          items,
+        },
+        lang,
+      );
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const addExtraInfoLetsTripGroupTourAll = createAsyncThunk<
+  IGetOneRawLetsTripTourResponse,
+  ILetsTripGroupTourAddExtraInfoAllPayload
+>(
   EndPointes.letsTripGroupTour.getAll + '/add/tourId/extra-info/all',
   async ({ callback, tourId, en, ru }, thunkApi) => {
     try {
-      const response = await LetsTripGroupTourService.addExtraInfo(tourId, {
+      const response = await LetsTripGroupTourService.addExtraInfoAll(tourId, {
         en,
         ru,
       });

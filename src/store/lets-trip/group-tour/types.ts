@@ -172,6 +172,13 @@ export interface ILetsTripGroupTourPriceUpdatesPayload {
 
 export interface ILetsTripGroupTourAddExtraInfoPayload {
   tourId: number;
+  items: En[];
+  lang: Lang;
+  callback(): void;
+}
+
+export interface ILetsTripGroupTourAddExtraInfoAllPayload {
+  tourId: number;
   en: En[];
   ru: Ru[];
   callback(): void;
@@ -370,4 +377,9 @@ export interface TourItenarary2 {
 export interface Items2 {
   items: string[];
   hour: string;
+}
+
+export enum Lang {
+  En = 'EN',
+  Ru = 'RU',
 }
