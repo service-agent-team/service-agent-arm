@@ -3,6 +3,8 @@ import { utils } from './utils';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { ILetsTripGlobalCountry } from '@/store/lets-trip/global-country/types';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants';
 
 export const LetsTripTourTable = () => {
   const { getAllGlobalCountry, setPagination } = useActions();
@@ -13,6 +15,7 @@ export const LetsTripTourTable = () => {
   const {
     pagination: { current, pageSize, total },
   } = useTypedSelector((state) => state.app);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllGlobalCountry({
@@ -28,6 +31,9 @@ export const LetsTripTourTable = () => {
       onChange={(p) => setPagination(p)}
       pagination={{ current, pageSize, total }}
       loading={get}
+      onRow={(c) => ({
+        onClick: () => navigate(`${ROUTES.letsTripTour}/by-country/${c.id}/group`),
+      })}
       bordered
     />
   );

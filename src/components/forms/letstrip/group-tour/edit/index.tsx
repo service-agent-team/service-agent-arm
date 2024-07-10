@@ -57,7 +57,7 @@ export const LestTripTourEditForm: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>(
     groupTourRaw?.images.map((el) => ({ uid: el, name: el, url: el, status: 'done' })) || [],
   );
-  const [fileList2, setFileList2] = useState<UploadFile[]>([]);
+  // const [fileList2, setFileList2] = useState<UploadFile[][]>([]);
   const [previewImage, setPreviewImage] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
   const { isLoaded } = useJsApiLoader({
@@ -291,7 +291,7 @@ export const LestTripTourEditForm: React.FC = () => {
                 ],
               })),
               item_order: el.itineraryItemOrder,
-              imageUrl: `${FILE_URL}/${el.itineraryImgUrl?.file?.response?.ids[0]?.id}`,
+              imageUrl: 'https://files.coreteam.uz/api/v1/media/open/1180', // `${FILE_URL}/${el.itineraryImgUrl?.file?.response?.ids[0]?.id}`,
             },
           });
         }
@@ -471,8 +471,8 @@ export const LestTripTourEditForm: React.FC = () => {
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
     setFileList(newFileList);
 
-  const handleChange2: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList2(newFileList);
+  // const handleChange2: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+  //   setFileList2(newFileList);
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -1109,7 +1109,8 @@ export const LestTripTourEditForm: React.FC = () => {
                           </div>
                         )}
                       </BaseForm.List>
-                      <BaseForm.Item
+                      {/* <BaseForm.Item
+                        key={field.key}
                         name={[field.name, 'itineraryImgUrl']}
                         label={'itinerary image'}
                         rules={[
@@ -1172,7 +1173,7 @@ export const LestTripTourEditForm: React.FC = () => {
                             />
                           )}
                         </Upload.Dragger>
-                      </BaseForm.Item>
+                      </BaseForm.Item> */}
                     </Card>
                   </>
                 ))}

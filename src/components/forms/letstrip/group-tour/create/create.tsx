@@ -85,10 +85,15 @@ export const LestTripTourCreateForm: React.FC = () => {
     extraInformation,
     // availableDate,
     tourItenarary,
+    priceIncludes,
+    priceNotIncludes,
   }: IValuesForm) => {
     if (locations.length === 0) {
       return toast.error('location required', { position: 'top-right' });
     }
+
+    // console.log(priceIncludes);
+    // console.log(priceNotIncludes);
 
     createLetsTripGroupTour({
       callback() {
@@ -145,9 +150,9 @@ export const LestTripTourCreateForm: React.FC = () => {
             ru: el.itineraryTitleRu,
           },
           item_order: el.itineraryItemOrder,
-          imageUrl: 'https://files.coreteam.uz/api/v1/media/open/1180', // ', // tourItenarary[idx].itineraryImgUrl.fileList.flatMap((item: UploadFile) =>
-          // item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
-          //)[idx],
+          imageUrl: tourItenarary[idx].itineraryImgUrl.fileList.flatMap((item: UploadFile) =>
+            item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
+          )[idx],
           description: el.description.map((desc) => {
             return {
               items: [
@@ -228,7 +233,6 @@ export const LestTripTourCreateForm: React.FC = () => {
             <Input name="nameRu" type="string" placeholder="Enter a russian name ? " />
           </BaseForm.Item>
         </Col>
-
         <Col span={6}>
           <BaseForm.Item
             name="priceNoteEn"
@@ -266,7 +270,6 @@ export const LestTripTourCreateForm: React.FC = () => {
             <Select placeholder="Select country?" options={selectOptionCountry} />
           </BaseForm.Item>
         </Col>
-
         <Col span={6}>
           <BaseForm.Item name="upTo2" label={'2 per person price ($)'} rules={[{ required: true }]}>
             <InputNumber $block name="upTo2" type="number" placeholder="2 per person price ($) ?" />
@@ -305,8 +308,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             />
           </BaseForm.Item>
         </Col>
-
-        <Col span={6}>
+        {/* <Col span={6}>
           <BaseForm.Item
             name="priceIncludeEn"
             label={'price include english'}
@@ -332,7 +334,6 @@ export const LestTripTourCreateForm: React.FC = () => {
             />
           </BaseForm.Item>
         </Col>
-
         <Col span={6}>
           <BaseForm.Item
             name="priceNotIncludeEn"
@@ -358,8 +359,7 @@ export const LestTripTourCreateForm: React.FC = () => {
               placeholder="Enter a price not include russian ?"
             />
           </BaseForm.Item>
-        </Col>
-
+        </Col> */}
         <Col span={24}>
           <BaseForm.Item
             name="descriptionEn"
@@ -370,7 +370,6 @@ export const LestTripTourCreateForm: React.FC = () => {
             <TextArea name="descriptionEn" placeholder="Enter a english description ?" />
           </BaseForm.Item>
         </Col>
-
         <Col span={24}>
           <BaseForm.Item
             name="descriptionRu"
@@ -619,7 +618,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                           </div>
                         )}
                       </BaseForm.List>
-                      {/* <BaseForm.Item
+                      <BaseForm.Item
                         name={[field.name, 'itineraryImgUrl']}
                         label={'itinerary image'}
                         rules={[
@@ -658,7 +657,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                             />
                           )}
                         </Upload.Dragger>
-                      </BaseForm.Item> */}
+                      </BaseForm.Item>
                     </Card>
                   </>
                 ))}
@@ -861,6 +860,73 @@ export const LestTripTourCreateForm: React.FC = () => {
                 <BaseForm.ErrorList errors={errors} />
               </div>
             )}
+          </BaseForm.List>
+        </Col>
+
+        <Col span={24}>
+          <BaseForm.List
+            name="priceIncludes"
+            rules={[
+              {
+                validator: async (_, priceIncludes) => {
+                  if (!priceIncludes) {
+                    return Promise.reject(new Error('price includes field required?'));
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) =>
+              fields.map((field) => (
+                <>
+                  <Card
+                    key={field.key}
+                    size="small"
+                    title="price includes"
+                    extra={
+                      <Icon
+                        name="CloseOutlined"
+                        onClick={() => {
+                          remove(field.name);
+                        }}
+                      />
+                    }
+                  >
+                    <Row gutter={12}>
+                      <Col span={12}>
+                        <BaseForm.Item
+                          name={[field.key, 'priceIncludeEn']}
+                          label={'price include english'}
+                          rules={[{ required: true }]}
+                        >
+                          <Input type="string" placeholder="Enter a price include english ?" />
+                        </BaseForm.Item>
+                      </Col>
+                      <Col span={12}>
+                        <BaseForm.Item
+                          name={[field.key, 'priceIncludeRu']}
+                          label={'price include russian'}
+                          rules={[{ required: true }]}
+                        >
+                          <Input type="string" placeholder="Enter a price include russian ?" />
+                        </BaseForm.Item>
+                      </Col>
+                    </Row>
+                  </Card>
+                  <BaseForm.Item>
+                    <Button
+                      block
+                      type="dashed"
+                      onClick={() => add()}
+                      icon={<Icon name="PlusOutlined" />}
+                    >
+                      add tour price includes ✅ ({fields.length}) {fields.length ? '✅' : '❌'}
+                    </Button>
+                  </BaseForm.Item>
+                  <BaseForm.ErrorList errors={errors} />
+                </>
+              ))
+            }
           </BaseForm.List>
         </Col>
         {isLoaded ? (

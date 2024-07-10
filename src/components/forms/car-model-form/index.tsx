@@ -6,7 +6,7 @@ import type { GetProp, UploadFile, UploadProps } from 'antd';
 import { Input, Modal } from 'antd';
 import Upload from 'antd/es/upload';
 import { useState } from 'react';
-import * as S from '../users-form/styled';
+import * as S from '../global/users-form/styled';
 
 export const PHOTO_SIZE_LIMIT = 5 * 1024 * 1024;
 export const VALID_MIME_TYPES = 'image/png, image/jpeg, image/jpg';

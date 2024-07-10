@@ -14,6 +14,7 @@ import {
 import { AgentProjectService } from '@/services';
 import { AxiosResponse } from 'axios';
 import { EndPointesV2 } from '@/services/endpoints-v2';
+import { appActions } from '@/store/app';
 
 export const getAllAgentProject = createAsyncThunk<
   AxiosResponse<IAgentProjectResponseV2>,
@@ -22,6 +23,13 @@ export const getAllAgentProject = createAsyncThunk<
   try {
     const response = await AgentProjectService.getAllAgentProject(pageNumber, pageSize);
     if (response.status == 200) {
+      thunkApi.dispatch(
+        appActions.setPagination({
+          current: response.data.data.pageable.pageNumber + 1,
+          pageSize: response.data.data.pageable.pageSize,
+          total: response.data.data.totalElements,
+        }),
+      );
       callback();
     }
     return response.data;

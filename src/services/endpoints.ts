@@ -78,7 +78,10 @@ export const EndPointes = {
       create: '/api/tariff-category/create/',
     },
     tariffPer: {
-      add: '/api/category/permission/create',
+      addTariffToUser: '/api/agent/tariff-permission/addTariffToUser',
+      addPermissionToUserTariff: '/api/agent/tariff-permission/addPermissionToUserTariff',
+      removeTariffFromUser: '/api/agent/tariff-permission/removeTariffFromUser',
+      removePermissionFromUserTariff: '/api/agent/tariff-permission/removePermissionFromUserTariff',
     },
     // projects
     project: {

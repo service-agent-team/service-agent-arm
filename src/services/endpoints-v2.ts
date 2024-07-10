@@ -18,16 +18,19 @@ export const EndPointesV2 = {
       getOne: '/api/v2/agent',
       updateCanPayment: '/api/agent/updateCanPayment',
       // role permission
+      updatePermissionToUserRole: '/api/agent/role-permission/updatePermissionToUserRole',
       addRoleToUser: '/api/agent/role-permission/addRoleToUser',
       addPermissionToUser: '/api/agent/role-permission/addPermissionToUser',
       removeRoleFromUser: '/api/agent/role-permission/removeRoleFromUser',
       removePermissionFromUserRole: '/api/agent/role-permission/removePermissionFromUserRole',
       // project permission
+      updatePermissionToUserProject: '/api/agent/project-permission/updatePermissionToUserProject',
       addProjectToUser: '/api/agent/project-permission/addProjectToUser',
       addPermissionToUserProject: '/api/agent/project-permission/addPermissionToUserProject',
       removeProjectFromUser: '/api/agent/project-permission/removeProjectFromUser',
       removePermissionFromUserProject:
         '/api/agent/project-permission/removePermissionFromUserProject',
+      updatePermissionToUserTariff: '/api/agent/tariff-permission/updatePermissionToUserTariff',
     },
     getAllOrder: '/api/v2/order/all',
     getAllOrderStatistic: '/api/v2/order/statistica',

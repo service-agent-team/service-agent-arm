@@ -333,6 +333,10 @@ export interface ILetsTripGroupTourGetOne {
   extraInformation: ExtraInformation2[];
   images: string[];
   priceNote: string;
+  upTo2: number;
+  upTo6: number;
+  upTo10: number;
+  upTo20: number;
   tourId: number;
   name: string;
   tourItenarary: TourItenarary2[];

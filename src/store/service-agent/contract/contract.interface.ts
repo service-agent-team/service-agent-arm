@@ -104,7 +104,7 @@ export interface IUserDataV2 {
 
 export interface UserTariffPermission {
   tariff: IAgentTariffV2;
-  permissions: IAgentPermissionV2;
+  permissions: IAgentPermissionV2[];
 }
 
 export interface UserProjectPermission {

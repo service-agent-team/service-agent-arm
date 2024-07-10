@@ -3,7 +3,7 @@ import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, Loading, PrimaryBtn } from '@/components';
 import { Flex, Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import * as S from '../users-form/styled';
+import * as S from '../global/users-form/styled';
 import { ICreateTariffValues } from './types';
 
 export const TariffForm = ({ type }: { type: 'edit' | 'create' }) => {

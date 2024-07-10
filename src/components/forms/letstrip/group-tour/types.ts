@@ -16,6 +16,10 @@ export interface IValuesForm {
   extraInformation: any;
   priceIncludeRu: string;
   priceIncludeEn: string;
+
+  priceIncludes: IPriceInclude;
+  priceNotIncludes: IPriceNotInclude;
+
   images: UploadChangeParam;
   descriptionRu: string;
   descriptionEn: string;
@@ -70,4 +74,13 @@ export interface IGoogleMouseEvent {
   domEvent: MouseEvent | TouchEvent | PointerEvent | KeyboardEvent | Event;
   latLng: any | null;
   stop(): void;
+}
+
+interface IPriceInclude {
+  priceIncludeEn: string[];
+  priceIncludeRu: string[];
+}
+interface IPriceNotInclude {
+  priceNotIncludeEn: string[];
+  priceNotIncludeRu: string[];
 }

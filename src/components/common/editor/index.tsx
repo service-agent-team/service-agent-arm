@@ -17,6 +17,7 @@ export const TextEditor: FC<SunEditorReactProps> = (props) => {
           ['removeFormat'],
           ['outdent', 'indent'],
           ['align', 'horizontalRule', 'list', 'lineHeight'],
+          ['preview', 'fullScreen'],
           // ['image'],
         ],
       }}
