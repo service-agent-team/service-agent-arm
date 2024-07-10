@@ -1,17 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  acceptAgnet,
-  agentAddPermissionToUserProject,
-  agentAddProjectToUser,
-  agentAddRole,
-  agentAddRolePermission,
-  agentRemovePermissionProject,
-  agentRemoveProject,
-  agentRemoveRole,
-  agentRemoveRolePermission,
+  acceptAgent,
   getAllUsers,
   getOneAgent,
-  rejectAgnet,
+  rejectAgent,
   updateCanPaymentAgent,
 } from './contract.action';
 import { IAgentUserStatusType, InitialState } from './contract.interface';
@@ -71,27 +63,27 @@ export const contractSlice = createSlice({
         state.error = error;
         state.loading.get = false;
       })
-      .addCase(acceptAgnet.pending, (state) => {
+      .addCase(acceptAgent.pending, (state) => {
         state.loading.put = true;
         state.error = null;
       })
-      .addCase(acceptAgnet.fulfilled, (state) => {
+      .addCase(acceptAgent.fulfilled, (state) => {
         state.loading.put = false;
         state.error = null;
       })
-      .addCase(acceptAgnet.rejected, (state, { payload }) => {
+      .addCase(acceptAgent.rejected, (state, { payload }) => {
         state.loading.put = false;
         state.error = payload;
       })
-      .addCase(rejectAgnet.pending, (state) => {
+      .addCase(rejectAgent.pending, (state) => {
         state.loading.put = true;
         state.error = null;
       })
-      .addCase(rejectAgnet.fulfilled, (state) => {
+      .addCase(rejectAgent.fulfilled, (state) => {
         state.loading.put = false;
         state.error = null;
       })
-      .addCase(rejectAgnet.rejected, (state, { payload }) => {
+      .addCase(rejectAgent.rejected, (state, { payload }) => {
         state.loading.put = false;
         state.error = payload;
       })
@@ -119,106 +111,6 @@ export const contractSlice = createSlice({
       })
       .addCase(updateCanPaymentAgent.rejected, (state, { payload }) => {
         state.loading.put = false;
-        state.error = payload;
-      })
-      // agent role permissions
-      .addCase(agentAddRole.pending, (state) => {
-        state.loading.post = true;
-        state.error = null;
-      })
-      .addCase(agentAddRole.fulfilled, (state) => {
-        state.loading.post = false;
-        state.error = null;
-      })
-      .addCase(agentAddRole.rejected, (state, { payload }) => {
-        state.loading.post = false;
-        state.error = payload;
-      })
-      .addCase(agentAddRolePermission.pending, (state) => {
-        state.loading.post = true;
-        state.error = null;
-      })
-      .addCase(agentAddRolePermission.fulfilled, (state) => {
-        state.loading.post = false;
-        state.error = null;
-      })
-      .addCase(agentAddRolePermission.rejected, (state, { payload }) => {
-        state.loading.post = false;
-        state.error = payload;
-      })
-      // delete the role
-      .addCase(agentRemoveRole.pending, (state) => {
-        state.loading.delete = true;
-        state.error = null;
-      })
-      .addCase(agentRemoveRole.fulfilled, (state) => {
-        state.loading.delete = false;
-        state.error = null;
-      })
-      .addCase(agentRemoveRole.rejected, (state, { payload }) => {
-        state.loading.delete = false;
-        state.error = payload;
-      })
-      .addCase(agentRemoveRolePermission.pending, (state) => {
-        state.loading.delete = true;
-        state.error = null;
-      })
-      .addCase(agentRemoveRolePermission.fulfilled, (state) => {
-        state.loading.delete = false;
-        state.error = null;
-      })
-      .addCase(agentRemoveRolePermission.rejected, (state, { payload }) => {
-        state.loading.delete = false;
-        state.error = payload;
-      })
-      // agent project permission
-      .addCase(agentAddProjectToUser.pending, (state) => {
-        state.loading.post = true;
-        state.error = null;
-      })
-      .addCase(agentAddProjectToUser.fulfilled, (state) => {
-        state.loading.post = false;
-        state.error = null;
-      })
-      .addCase(agentAddProjectToUser.rejected, (state, { payload }) => {
-        state.loading.post = false;
-        state.error = payload;
-      })
-      .addCase(agentAddPermissionToUserProject.pending, (state) => {
-        state.loading.post = true;
-        state.error = null;
-      })
-      .addCase(agentAddPermissionToUserProject.fulfilled, (state) => {
-        state.loading.post = false;
-        state.error = null;
-      })
-      .addCase(agentAddPermissionToUserProject.rejected, (state, { payload }) => {
-        state.loading.post = false;
-        state.error = payload;
-      })
-      // delete the project
-      .addCase(agentRemoveProject.pending, (state) => {
-        state.loading.delete = true;
-        state.error = null;
-      })
-      .addCase(agentRemoveProject.fulfilled, (state) => {
-        state.loading.delete = false;
-        state.error = null;
-      })
-      .addCase(agentRemoveProject.rejected, (state, { payload }) => {
-        state.loading.delete = false;
-        state.error = payload;
-      })
-      .addCase(agentRemovePermissionProject.pending, (state) => {
-        state.loading.delete = true;
-        state.error = null;
-      })
-      .addCase(agentRemovePermissionProject.fulfilled, (state) => {
-        state.loading.delete = false;
-        state.error = null;
-      })
-      .addCase(agentRemovePermissionProject.rejected, (state, { payload }) => {
-        state.loading.delete = false;
         state.error = payload;
       });
   },

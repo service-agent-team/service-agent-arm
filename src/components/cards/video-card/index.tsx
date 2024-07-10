@@ -6,10 +6,10 @@ export const VideoCard = () => {
   const [searchParams] = useSearchParams();
 
   return (
-    <Card width="600px">
-      <S.VideoContainer width="600px" height="240" controls>
+    <Card width="100%">
+      <S.VideoContainer width="100%" height="240" controls>
         <source
-          width="600px"
+          width="100%"
           src={`http://backend.coreteam.uz:8093/api/v1/file/open/${searchParams.get('video')}`}
           type="video/mp4"
         />

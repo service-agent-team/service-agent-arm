@@ -4,7 +4,7 @@ import { BaseForm, PrimaryBtn } from '@/components';
 import { ICreateCarValues } from '@/pages/transfer/car/create-page/types.ts';
 import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import * as S from '../users-form/styled';
+import * as S from '../global/users-form/styled';
 
 export const CarTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();

@@ -8,3 +8,4 @@ export { AgentRolesService } from './agent-roles/roles.service';
 export { AgentOrderService } from './order';
 export { AgentUserRoleService } from './user-role';
 export { AgentUserPermissionService } from './user-permission';
+export { AgentPermissionsService } from './agent-permissions';

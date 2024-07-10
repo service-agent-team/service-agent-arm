@@ -43,8 +43,8 @@ export const Title = styled.p`
 
 export const InfoCard = styled(Card)`
   position: absolute !important;
-  bottom: -90px;
-  right: 100px;
+  bottom: -50px;
+  right: 60px;
   z-index: 999;
   align-items: start !important;
   background-color: #ffffff !important;

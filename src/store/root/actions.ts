@@ -25,6 +25,8 @@ import * as AgentOrdersActions from '../service-agent/order/actions';
 import { AgentOrderSliceActions } from '../service-agent/order/slices';
 import * as AgentPermissionActions from '../service-agent/permission/action';
 import { AgentPermissionSliceActions } from '../service-agent/permission/slice';
+import * as AgentPermissionsSliceActions from '../service-agent/agent-permission/action';
+import { AgentPermissionsActions } from '../service-agent/agent-permission/slice';
 import * as ProductActions from '../service-agent/product/action';
 import { ProductSliceActions } from '../service-agent/product/slice';
 import * as AgentRolesPermissionActions from '../service-agent/role-permission/actions';
@@ -36,8 +38,6 @@ import { AgentStatisticSliceActions } from '../service-agent/statistic/slice';
 import * as AgentTariffActions from '../service-agent/tariff/tariff.action';
 import * as TariffActions from '../service-agent/tariff/tariff.action';
 import { AgentTariffSliceActions } from '../service-agent/tariff/tariff.slice';
-import * as TariffPermissionActions from '../service-agent/tariffPermission/permission.action';
-import { AgentTariffPermissionSliceActions } from '../service-agent/tariffPermission/permission.slice';
 import * as AgentUserRoleActions from '../service-agent/user-role/action';
 import { AgentUserRoleSliceActions } from '../service-agent/user-role/slice';
 import * as AgentUserPermissionActions from '../service-agent/user-permission/action';
@@ -99,12 +99,12 @@ export const AllActions = {
   ...UserPermissionActions,
   ...CompanySliceActions,
   ...CompanyAction,
-  ...AgentTariffPermissionSliceActions,
-  ...TariffPermissionActions,
   ...AgentRolesPermissionSliceActions,
   ...AgentRolesPermissionActions,
   ...AgentPermissionSliceActions,
+  ...AgentPermissionsSliceActions,
   ...AgentPermissionActions,
+  ...AgentPermissionsActions,
   ...AgentOrderSliceActions,
   ...AgentOrdersActions,
   ...AgentStatisticSliceActions,

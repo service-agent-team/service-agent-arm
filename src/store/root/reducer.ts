@@ -31,6 +31,7 @@ import { LetsTripStatisticReduce } from '../lets-trip/statistic/slice';
 import { LetsTripTransferCategoryReduce } from '../lets-trip/transfer-category/slice';
 import { LetsTripGlobalCountryReduce } from '../lets-trip/global-country/slice';
 import { LetsTripGlobalRegionReduce } from '../lets-trip/global-region/slice';
+import { AgentPermissionsReducer } from '../service-agent/agent-permission/slice';
 
 export const reducer = {
   app: appReducer,
@@ -52,6 +53,7 @@ export const reducer = {
   roles: RolesReducer,
   agentRolesPermission: AgentRolesPermissionReducer,
   agentPermission: AgentPermissionReducer,
+  agentPermissions: AgentPermissionsReducer,
   agentOrder: AgentOrderReducer,
   agentStatistic: AgentStatisticReducer,
   agentUserRole: AgentUserRoleReducer,

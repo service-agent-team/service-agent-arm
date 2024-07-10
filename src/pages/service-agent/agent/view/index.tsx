@@ -1,7 +1,6 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { AgentCard, PageTitle, VideoCard } from '@/components';
+import { AgentCard, PageTitle } from '@/components';
 import { ROUTES } from '@/constants';
-import { Flex } from 'antd';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as S from './styles';
@@ -25,10 +24,7 @@ export const View = () => {
         route={ROUTES.agentControl}
         label="Back"
       />
-      <Flex gap="large" justify="space-evenly" style={{ marginTop: '20px' }}>
-        <VideoCard />
-        <AgentCard data={agent} />
-      </Flex>
+      <AgentCard data={agent} />
     </S.viewStyled>
   );
 };

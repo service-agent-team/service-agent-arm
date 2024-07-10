@@ -1,0 +1,21 @@
+.auth__form {
+  width: 520px;
+}
+.auth__form-btn {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .auth__form {
+    width: 400px;
+  }
+}
+@media only screen and (max-width: 800px) and (max-width: 468px) {
+  .auth__form {
+    width: 300px;
+  }
+}
+.ant-form-item {
+  font-size: 24px !important;
+  line-height: 26px !important;
+}/*# sourceMappingURL=auth.module.css.map */

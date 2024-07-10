@@ -3,7 +3,7 @@ import { addNotification } from '@/common/utils/addNotification';
 import { BaseForm, PrimaryBtn, Select } from '@/components';
 import { Input } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import * as S from '../users-form/styled';
+import * as S from '../../global/users-form/styled';
 import { IAgentPermissionValues } from './types';
 
 export const AgentPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
