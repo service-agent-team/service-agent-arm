@@ -3,7 +3,7 @@ import { ROUTES } from '@/constants';
 import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
-import { SignIn, ProjectsPage } from './loadable';
+import { SignIn, ProjectsPage, LanguageHomePage } from './loadable';
 import { mainRouter, agentRouter, transferRouter, letsTrip } from './modules';
 import {
   global,
@@ -14,6 +14,8 @@ import {
   TransferConf,
   LetsTripConf,
   letsTrip as letsTripMenu,
+  Language,
+  LanguageConf,
 } from '@/constants/menus';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
@@ -45,6 +47,14 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
           path: ROUTES.letstrip,
           element: <GlobalLayout isAuth={isAuth} items={letsTripMenu} conf={LetsTripConf} />,
           children: [...letsTrip],
+        },
+        {
+          path: ROUTES.languageHome,
+          element: (
+            <Suspense fallback={<Loading />}>
+              <LanguageHomePage />
+            </Suspense>
+          ),
         },
       ],
     },

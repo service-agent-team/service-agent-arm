@@ -1,0 +1,1 @@
+export { LanguageHome } from './home';

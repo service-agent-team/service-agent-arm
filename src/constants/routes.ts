@@ -108,4 +108,7 @@ export const ROUTES = {
   letsTripGlobalRegionById: '/lets-trip/global-region/:id',
   letsTripGlobalRegionCreate: '/lets-trip/global-region/create',
   letsTripGlobalCountryEdit: '/lets-trip/global-country/edit/:id',
+
+  // language
+  languageHome: '/language/home',
 } as const;
