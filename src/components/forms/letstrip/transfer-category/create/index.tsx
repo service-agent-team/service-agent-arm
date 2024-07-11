@@ -2,11 +2,10 @@ import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
 import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
-import { Col, Flex, GetProp, Image, Input, Row, Upload, UploadProps } from 'antd';
+import { Col, GetProp, Image, Input, Row, Upload, UploadProps } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from '../types';
-import * as S from './styled';
 import { UploadFile } from 'antd/lib';
 import { Id } from '../../transfer/types';
 

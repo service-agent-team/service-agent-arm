@@ -1,13 +1,14 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
-import { BASE_URL, ROUTES } from '@/constants';
+import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
 import { Col, GetProp, Image, Input, Row, Upload, UploadProps } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IValuesForm } from '../types';
 import * as S from './styled';
 import { UploadFile } from 'antd/lib';
+import { Id } from '../../transfer/types';
 
 export const LestTripTransferCategoryEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -48,6 +49,7 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
     seats,
     luggage,
     priority,
+    image,
   }: IValuesForm) => {
     if (
       nameEn !== transferCategory?.name.en ||
@@ -76,6 +78,20 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
       },
       categoryId: transferCategory?.id as number,
     });
+
+    const imageUrl: string = image.fileList
+      .map((item: UploadFile) => item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`))
+      .flat(Infinity)[0];
+
+    if (transferCategory?.image !== imageUrl) {
+      updateLetsTripTransferCategoryImage({
+        callback() {
+          addNotification('update car category image');
+        },
+        categoryId: transferCategory?.id as number,
+        image: imageUrl,
+      });
+    }
   };
 
   type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
