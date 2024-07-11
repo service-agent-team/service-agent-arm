@@ -1,3 +1,5 @@
+import { UploadChangeParam } from 'antd/es/upload';
+
 export interface IValuesForm {
   nameEn: string;
   nameRu: string;
@@ -6,4 +8,5 @@ export interface IValuesForm {
   seats: number;
   luggage: number;
   priority: number;
+  image: UploadChangeParam;
 }

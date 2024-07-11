@@ -6,6 +6,7 @@ import {
   ILetsTripTransferCategory,
   ILetsTripTransferCategoryCreatePayload,
   ILetsTripTransferCategoryDeletePayload,
+  ILetsTripTransferCategoryImageUpdatePayload,
   ILetsTripTransferCategoryPayload,
   ILetsTripTransferCategoryResponse,
   ILetsTripTransferCategoryUpdatePayload,
@@ -76,6 +77,27 @@ export const updateLetsTripTransferCategory = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const updateLetsTripTransferCategoryImage = createAsyncThunk<
+  ILetsTripTransferCategory,
+  ILetsTripTransferCategoryImageUpdatePayload
+>(
+  EndPointes.letsTripTransferCategory.update + '/id/image',
+  async ({ callback, categoryId, image }, thunkApi) => {
+    try {
+      const response = await LetsTripTransferCategoryService.updateTransferCategoryImage(
+        categoryId,
+        image,
+      );
+      if (response.data) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
 
 export const deleteLetsTripTransferCategory = createAsyncThunk<
   any,
