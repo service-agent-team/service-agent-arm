@@ -21,6 +21,7 @@ export interface ILetsTripTransferCategory {
   updatedAt: string;
   deleted: boolean;
   priority: number;
+  image: string;
 }
 
 export interface Name {
@@ -50,6 +51,7 @@ export interface ICreateTransferCategoryDto {
   seats: number;
   luggage: number;
   priority: number;
+  image: string;
 }
 
 export interface ILetsTripTransferCategoryPayload {
@@ -71,7 +73,20 @@ export interface ILetsTripTransferCategoryCreatePayload {
 export interface ILetsTripTransferCategoryUpdatePayload {
   callback(): void;
   categoryId: number;
-  body: { startingPrice: number; seats: number; luggage: number; priority: number };
+  body: UpdateBody;
+}
+
+export interface ILetsTripTransferCategoryImageUpdatePayload {
+  callback(): void;
+  categoryId: number;
+  image: string;
+}
+
+interface UpdateBody {
+  startingPrice: number;
+  seats: number;
+  luggage: number;
+  priority: number;
 }
 
 export interface ILetsTripTransferCategoryDeletePayload {

@@ -1,23 +1,36 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { BaseForm, InputNumber, PrimaryBtn } from '@/components';
-import { ROUTES } from '@/constants';
-import { Col, Input, Row } from 'antd';
-import React, { useEffect } from 'react';
+import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
+import { BASE_URL, ROUTES } from '@/constants';
+import { Col, GetProp, Image, Input, Row, Upload, UploadProps } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IValuesForm } from '../types';
 import * as S from './styled';
+import { UploadFile } from 'antd/lib';
 
 export const LestTripTransferCategoryEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { loading, transferCategory } = useTypedSelector((state) => state.letsTripTransferCategory);
   const {
     updateLetsTripTransferCategory,
+    updateLetsTripTransferCategoryImage,
     updateI18LetsTripTransfer,
     getOneLetsTripTransferCategory,
   } = useActions();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      name: transferCategory?.image as string,
+      uid: transferCategory?.image as string,
+      url: transferCategory?.image,
+      status: 'done',
+    },
+  ]);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   form.setFieldValue('nameEn', transferCategory?.name.en);
   form.setFieldValue('nameRu', transferCategory?.name.ru);
@@ -63,6 +76,28 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
       },
       categoryId: transferCategory?.id as number,
     });
+  };
+
+  type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
+  const getBase64 = (file: FileType): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as FileType);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
   };
 
   useEffect(() => {
@@ -171,6 +206,50 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
                 type="number"
                 placeholder="Enter a priority ?"
               />
+            </BaseForm.Item>
+          </Col>
+          <Col span={24}>
+            <BaseForm.Item
+              name="image"
+              label={'car category image'}
+              rules={[
+                { required: true, message: 'car category image is required?', type: 'object' },
+                {
+                  validator: (_, value) => {
+                    if (value.fileList.length > 1) {
+                      return Promise.reject(new Error('Only one image is allowed'));
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
+            >
+              <Upload.Dragger
+                style={{ width: '100%' }}
+                name="files"
+                multiple={false}
+                listType="picture"
+                fileList={fileList}
+                onChange={handleChange}
+                onPreview={handlePreview}
+                beforeUpload={(file) => file.type.split('/')[0] === 'image'}
+                action={`${BASE_URL}/api/file`}
+              >
+                <Icon fontSize="20" color="blue" name="InboxOutlined" />
+                <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+                {previewImage && (
+                  <Image
+                    height={100}
+                    wrapperStyle={{ display: 'none' }}
+                    preview={{
+                      visible: previewOpen,
+                      onVisibleChange: (visible) => setPreviewOpen(visible),
+                      afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                    }}
+                    src={previewImage}
+                  />
+                )}
+              </Upload.Dragger>
             </BaseForm.Item>
           </Col>
         </Row>

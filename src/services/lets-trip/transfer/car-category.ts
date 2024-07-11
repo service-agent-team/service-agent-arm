@@ -16,6 +16,11 @@ export const LetsTripTransferCategoryService = {
   async updateTransferCategory(id: number, body: any) {
     return await $axios.patch(`${EndPointes.letsTripTransferCategory.update}/${id}`, body);
   },
+  async updateTransferCategoryImage(id: number, image: string) {
+    return await $axios.patch(`${EndPointes.letsTripTransferCategory.update}/${id}/image`, {
+      image,
+    });
+  },
   async deleteTransferCategory(id: number) {
     return await $axios.delete(`${EndPointes.letsTripTransferCategory.delete}/${id}`);
   },

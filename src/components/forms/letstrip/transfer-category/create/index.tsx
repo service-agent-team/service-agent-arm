@@ -1,18 +1,24 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { BaseForm, InputNumber, PrimaryBtn } from '@/components';
-import { ROUTES } from '@/constants';
-import { Flex, Input } from 'antd';
-import React from 'react';
+import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
+import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
+import { Col, Flex, GetProp, Image, Input, Row, Upload, UploadProps } from 'antd';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from '../types';
 import * as S from './styled';
+import { UploadFile } from 'antd/lib';
+import { Id } from '../../transfer/types';
 
 export const LestTripTransferCategoryCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { loading } = useTypedSelector((state) => state.letsTripTransferCategory);
   const { createLetsTripTransferCategory } = useActions();
   const navigate = useNavigate();
+
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const onFinish = ({
     nameEn,
@@ -22,6 +28,7 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
     seats,
     luggage,
     priority,
+    image,
   }: IValuesForm) => {
     createLetsTripTransferCategory({
       callback() {
@@ -34,8 +41,35 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
         luggage,
         seats,
         priority,
+        image: image.fileList
+          .map((item: UploadFile) =>
+            item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
+          )
+          .flat(Infinity)[0],
       },
     });
+  };
+
+  type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
+
+  const getBase64 = (file: FileType): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+    setFileList(newFileList);
+
+  const handlePreview = async (file: UploadFile) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj as FileType);
+    }
+
+    setPreviewImage(file.url || (file.preview as string));
+    setPreviewOpen(true);
   };
 
   return (
@@ -46,8 +80,8 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={() => {}}
     >
-      <S.FormContent>
-        <Flex gap={'15px'}>
+      <Row gutter={12}>
+        <Col span={8}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameEn"
@@ -56,6 +90,8 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
           >
             <Input type="string" placeholder="Enter a english name ?" />
           </BaseForm.Item>
+        </Col>
+        <Col span={8}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameRu"
@@ -64,6 +100,8 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
           >
             <Input type="string" placeholder="Enter a russian name ?" />
           </BaseForm.Item>
+        </Col>
+        <Col span={8}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="nameUz"
@@ -72,8 +110,8 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
           >
             <Input type="string" placeholder="Enter a uzbek name ?" />
           </BaseForm.Item>
-        </Flex>
-        <Flex gap={'15px'}>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="startingPrice"
@@ -87,6 +125,8 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
               placeholder="Enter a starting price ?"
             />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="seats"
@@ -100,6 +140,8 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
               placeholder="Enter a seats ?"
             />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="luggage"
@@ -113,6 +155,8 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
               placeholder="Enter a luggage ?"
             />
           </BaseForm.Item>
+        </Col>
+        <Col span={6}>
           <BaseForm.Item
             style={{ width: '100%' }}
             name="priority"
@@ -126,11 +170,55 @@ export const LestTripTransferCategoryCreateForm: React.FC = () => {
               placeholder="Enter a priority ?"
             />
           </BaseForm.Item>
-        </Flex>
-        <PrimaryBtn htmlType="submit" loading={loading.post}>
-          Create
-        </PrimaryBtn>
-      </S.FormContent>
+        </Col>
+        <Col span={24}>
+          <BaseForm.Item
+            name="image"
+            label={'car category image'}
+            rules={[
+              { required: true, message: 'car category image is required?', type: 'object' },
+              {
+                validator: (_, value) => {
+                  if (value.fileList.length > 1) {
+                    return Promise.reject(new Error('Only one image is allowed'));
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
+            <Upload.Dragger
+              style={{ width: '100%' }}
+              name="files"
+              multiple={false}
+              listType="picture"
+              fileList={fileList}
+              onChange={handleChange}
+              onPreview={handlePreview}
+              beforeUpload={(file) => file.type.split('/')[0] === 'image'}
+              action={`${BASE_URL}/api/file`}
+            >
+              <Icon fontSize="20" color="blue" name="InboxOutlined" />
+              <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+              {previewImage && (
+                <Image
+                  height={100}
+                  wrapperStyle={{ display: 'none' }}
+                  preview={{
+                    visible: previewOpen,
+                    onVisibleChange: (visible) => setPreviewOpen(visible),
+                    afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                  }}
+                  src={previewImage}
+                />
+              )}
+            </Upload.Dragger>
+          </BaseForm.Item>
+        </Col>
+      </Row>
+      <PrimaryBtn htmlType="submit" loading={loading.post}>
+        Create
+      </PrimaryBtn>
     </BaseForm>
   );
 };

@@ -6,6 +6,7 @@ import {
   getAllLetsTripTransferCategory,
   getOneLetsTripTransferCategory,
   updateLetsTripTransferCategory,
+  updateLetsTripTransferCategoryImage,
 } from './actions';
 
 const initialState: ILetsTripTransferInitialState = {
@@ -83,6 +84,19 @@ export const letsTripTransferCategorySlice = createSlice({
         state.errors = null;
       })
       .addCase(updateLetsTripTransferCategory.rejected, (state, { payload }) => {
+        state.loading.patch = false;
+        state.errors = payload;
+      })
+      .addCase(updateLetsTripTransferCategoryImage.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(updateLetsTripTransferCategoryImage.fulfilled, (state, { payload }) => {
+        state.loading.patch = false;
+        state.transferCategory = payload;
+        state.errors = null;
+      })
+      .addCase(updateLetsTripTransferCategoryImage.rejected, (state, { payload }) => {
         state.loading.patch = false;
         state.errors = payload;
       })
