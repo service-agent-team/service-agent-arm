@@ -14,8 +14,6 @@ import {
   TransferConf,
   LetsTripConf,
   letsTrip as letsTripMenu,
-  Language,
-  LanguageConf,
 } from '@/constants/menus';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
