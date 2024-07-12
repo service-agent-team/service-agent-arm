@@ -83,15 +83,13 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
       .map((item: UploadFile) => item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`))
       .flat(Infinity)[0];
 
-    if (transferCategory?.image !== imageUrl) {
-      updateLetsTripTransferCategoryImage({
-        callback() {
-          addNotification('update car category image');
-        },
-        categoryId: transferCategory?.id as number,
-        image: imageUrl,
-      });
-    }
+    updateLetsTripTransferCategoryImage({
+      callback() {
+        addNotification('update car category image');
+      },
+      categoryId: transferCategory?.id as number,
+      image: imageUrl,
+    });
   };
 
   type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
