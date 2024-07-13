@@ -4,20 +4,19 @@ const btnColor = '#1976D2';
 import { Link } from 'react-router-dom';
 
 export const Text = styled.p`
-  font-size: 25px;
+  font-size: 18px;
   color: ${btnColor};
-  margin-bottom: 20px;
   text-align: center;
   width: 100%;
-  padding: 10px 0px;
+  padding: 10px;
   border-radius: 10px;
   background-color: ${primaryColor};
   font-weight: 700;
 `;
 
 export const Navigate = styled(Link)`
-  width: 350px;
-  height: 50px;
+  width: 250px;
+  height: 40px;
   font-size: large;
   display: flex;
   justify-content: center;
