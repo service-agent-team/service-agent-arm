@@ -3,22 +3,26 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-evenly;
-  background: url(${fon});
-  background-size: 100% 100%;
+  /* height: 100vh; */
+  /* background-color: #1f2d40; */
+  /* background: url(${fon});
+  background-size: 100% 100vh !important;
   background-repeat: repeat;
   background-position: center;
+  background-attachment: fixed; */
   padding: 100px;
 `;
 
 export const Title = styled.h1`
   font-size: 35px;
-  top: 0;
-  color: wheat;
+  color: #1976d2;
   width: 100%;
   text-align: center;
+  font-weight: bold !important;
+  margin-bottom: 30px !important;
+`;
+
+export const Shadow = styled.div`
+  border-radius: 10px;
+  box-shadow: 3px 4px 10px 0px rgba(0, 0, 0, 0.75);
 `;

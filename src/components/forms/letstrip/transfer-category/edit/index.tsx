@@ -1,6 +1,6 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { BaseForm, Icon, InputNumber, PrimaryBtn } from '@/components';
+import { BaseForm, Icon, InputNumber, Loading, PrimaryBtn } from '@/components';
 import { BASE_URL, FILE_URL, ROUTES } from '@/constants';
 import { Col, GetProp, Image, Input, Row, Upload, UploadProps } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -22,14 +22,7 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      name: transferCategory?.image as string,
-      uid: transferCategory?.image as string,
-      url: transferCategory?.image,
-      status: 'done',
-    },
-  ]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [previewImage, setPreviewImage] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
 
@@ -40,6 +33,17 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
   form.setFieldValue('seats', transferCategory?.seats);
   form.setFieldValue('luggage', transferCategory?.luggage);
   form.setFieldValue('priority', transferCategory?.priority);
+
+  useEffect(() => {
+    setFileList([
+      {
+        name: transferCategory?.image as string,
+        uid: transferCategory?.image as string,
+        url: transferCategory?.image,
+        status: 'done',
+      },
+    ]);
+  }, [transferCategory]);
 
   const onFinish = ({
     nameEn,
@@ -121,7 +125,9 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
     });
   }, [id]);
 
-  return (
+  return loading.get ? (
+    <Loading />
+  ) : (
     <BaseForm
       name="letsTripTransferCategoryEditForm"
       form={form}
@@ -230,7 +236,7 @@ export const LestTripTransferCategoryEditForm: React.FC = () => {
                 { required: true, message: 'car category image is required?', type: 'object' },
                 {
                   validator: (_, value) => {
-                    if (value.fileList.length > 1) {
+                    if (value?.fileList?.length > 1) {
                       return Promise.reject(new Error('Only one image is allowed'));
                     }
                     return Promise.resolve();
