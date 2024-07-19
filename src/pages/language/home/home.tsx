@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const LanguageHome = () => {
   const { logout } = useActions();
   const navigate = useNavigate();
+
   const handleLogout = () => {
     modal.confirm({
       title: 'Logout ?',

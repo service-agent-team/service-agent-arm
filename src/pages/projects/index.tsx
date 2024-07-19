@@ -1,11 +1,11 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
 import { ProjectCard } from '@/components/cards/project-card';
+import { UserPermission, UserRoles } from '@/types';
 import { Col, Row, Skeleton } from 'antd';
 import { useEffect } from 'react';
-import { Title, Wrapper, Shadow } from './projects.styles';
-import { UserPermission, UserRoles } from '@/types';
 import { useNavigate } from 'react-router-dom';
+import { Shadow, Title, Wrapper } from './projects.styles';
 
 export const ProjectsPage = () => {
   const { getMe } = useActions();
@@ -32,13 +32,24 @@ export const ProjectsPage = () => {
   return (
     <Wrapper>
       <Title>YOUR PROJECTS</Title>
-      <Row gutter={[12, 12]} justify={'center'}>
-        <Col>
-          <Shadow>{!get && isSupperAdmin && <ProjectCard name="Global" path={`/global`} />}</Shadow>
+      <Row gutter={[12, 12]} justify={'start'}>
+        <Col span={8} xs={{ order: 1 }} sm={{ order: 2 }} md={{ order: 3 }} lg={{ order: 4 }}>
+          <Skeleton loading={get}>
+            <Shadow>
+              {!get && isSupperAdmin && <ProjectCard name="Global" path={`/global`} />}
+            </Shadow>
+          </Skeleton>
         </Col>
-        {!get &&
-          user?.userPermission?.map((el: UserPermission, i: number) => (
-            <Col key={i}>
+        {user?.userPermission?.map((el: UserPermission, i: number) => (
+          <Col
+            span={8}
+            key={i}
+            xs={{ order: 1 }}
+            sm={{ order: 2 }}
+            md={{ order: 3 }}
+            lg={{ order: 4 }}
+          >
+            <Skeleton loading={get}>
               <Shadow>
                 <Skeleton loading={get}>
                   <ProjectCard
@@ -47,8 +58,9 @@ export const ProjectsPage = () => {
                   />
                 </Skeleton>
               </Shadow>
-            </Col>
-          ))}
+            </Skeleton>
+          </Col>
+        ))}
       </Row>
     </Wrapper>
   );

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
+import styled from 'styled-components';
 import { StyleProps } from './type';
 
 export const LayoutSider = styled(Layout.Sider)`
@@ -13,6 +13,9 @@ export const LayoutHeader = styled(Layout.Header)<StyleProps>`
   display: flex;
   justify-content: space-between;
   padding: 0 18px;
+  border-radius: 20px;
+  margin: 0 10px;
+  margin-top: 5px;
 `;
 
 export const LayoutContent = styled(Layout.Content)<StyleProps>`
@@ -21,6 +24,7 @@ export const LayoutContent = styled(Layout.Content)<StyleProps>`
   margin: var(--base);
   overflow-y: auto;
   padding: var(--base);
+  border-radius: 20px;
 `;
 
 export const AntMenu = styled(Menu)`

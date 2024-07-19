@@ -24,5 +24,5 @@ export const Title = styled.h1`
 
 export const Shadow = styled.div`
   border-radius: 10px;
-  box-shadow: 3px 4px 10px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 `;

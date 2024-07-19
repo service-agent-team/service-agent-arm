@@ -1,7 +1,7 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 const primaryColor = '';
 const btnColor = '#1976D2';
-import { Link } from 'react-router-dom';
 
 export const Text = styled.p`
   font-size: 18px;
@@ -12,6 +12,7 @@ export const Text = styled.p`
   border-radius: 10px;
   background-color: ${primaryColor};
   font-weight: 700;
+  margin-bottom: 20px;
 `;
 
 export const Navigate = styled(Link)`
