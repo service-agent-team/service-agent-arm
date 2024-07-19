@@ -60,78 +60,78 @@ export const AgentForm: React.FC<IProps> = ({
         },
       });
     }
-    // const rolePermissions = value.rolePerm.map((rolePerm) => {
-    //   return {
-    //     userId: Number(userId),
-    //     roleId: rolePerm.roleId,
-    //     permissionIds: rolePerm.rolePermissions.reduce((acc: number[], perm) => {
-    //       if (perm.rolePermIsActive) {
-    //         acc.push(perm.rolePermId);
-    //       }
+    const rolePermissions = value.rolePerm.map((rolePerm) => {
+      return {
+        userId: Number(userId),
+        roleId: rolePerm.roleId,
+        permissionIds: rolePerm.rolePermissions.reduce((acc: number[], perm) => {
+          if (perm.rolePermIsActive) {
+            acc.push(perm.rolePermId);
+          }
 
-    //       return acc;
-    //     }, []),
-    //   };
-    // });
-    // const tariffPermissions = value.tariffPerm.map((tariffPerm) => {
-    //   return {
-    //     userId: Number(userId),
-    //     tariffId: tariffPerm.tariffId,
-    //     permissionIds: tariffPerm.tariffPermissions.reduce((acc: number[], perm) => {
-    //       if (perm.tariffPermIsActive) {
-    //         acc.push(perm.tariffPermId);
-    //       }
+          return acc;
+        }, []),
+      };
+    });
+    const tariffPermissions = value.tariffPerm.map((tariffPerm) => {
+      return {
+        userId: Number(userId),
+        tariffId: tariffPerm.tariffId,
+        permissionIds: tariffPerm.tariffPermissions.reduce((acc: number[], perm) => {
+          if (perm.tariffPermIsActive) {
+            acc.push(perm.tariffPermId);
+          }
 
-    //       return acc;
-    //     }, []),
-    //   };
-    // });
-    // const projectPermissions = value.projectPerm.map((projPerm) => {
-    //   return {
-    //     userId: Number(userId),
-    //     projectId: projPerm.projectId,
-    //     permissionIds: projPerm.projectPermissions.reduce((acc: number[], perm) => {
-    //       if (perm.projPermIsActive) {
-    //         acc.push(perm.projPermId);
-    //       }
+          return acc;
+        }, []),
+      };
+    });
+    const projectPermissions = value.projectPerm.map((projPerm) => {
+      return {
+        userId: Number(userId),
+        projectId: projPerm.projectId,
+        permissionIds: projPerm.projectPermissions.reduce((acc: number[], perm) => {
+          if (perm.projPermIsActive) {
+            acc.push(perm.projPermId);
+          }
 
-    //       return acc;
-    //     }, []),
-    //   };
-    // });
+          return acc;
+        }, []),
+      };
+    });
 
-    // rolePermissions.forEach(({ userId, roleId, permissionIds }) => {
-    //   updateAgentRolePermission({
-    //     callback() {
-    //       addNotification('successfully updated role permissions');
-    //     },
-    //     userId,
-    //     roleId,
-    //     permissionIds,
-    //   });
-    // });
+    rolePermissions.forEach(({ userId, roleId, permissionIds }) => {
+      updateAgentRolePermission({
+        callback() {
+          addNotification('successfully updated role permissions');
+        },
+        userId,
+        roleId,
+        permissionIds,
+      });
+    });
 
-    // tariffPermissions.forEach(({ userId, tariffId, permissionIds }) => {
-    //   updateAgentTariffPermission({
-    //     callback() {
-    //       addNotification('successfully updated tariff permissions');
-    //     },
-    //     userId,
-    //     tariffId,
-    //     permissionIds,
-    //   });
-    // });
+    tariffPermissions.forEach(({ userId, tariffId, permissionIds }) => {
+      updateAgentTariffPermission({
+        callback() {
+          addNotification('successfully updated tariff permissions');
+        },
+        userId,
+        tariffId,
+        permissionIds,
+      });
+    });
 
-    // projectPermissions.forEach(({ userId, projectId, permissionIds }) => {
-    //   updateAgentProjectPermission({
-    //     callback() {
-    //       addNotification('successfully updated project permissions');
-    //     },
-    //     userId,
-    //     projectId,
-    //     permissionIds,
-    //   });
-    // });
+    projectPermissions.forEach(({ userId, projectId, permissionIds }) => {
+      updateAgentProjectPermission({
+        callback() {
+          addNotification('successfully updated project permissions');
+        },
+        userId,
+        projectId,
+        permissionIds,
+      });
+    });
   };
 
   const handleReject = () => {
@@ -149,10 +149,13 @@ export const AgentForm: React.FC<IProps> = ({
   const tariffPerms = permissions?.filter((el) => el.type === 'FOR_USER_TARIFF');
 
   const CategorySelectedOptions = categories?.map((el) => ({
-    label: el.name,
+    label: el?.name?.toUpperCase(),
     value: el.tariffId,
   }));
-  const CompanySelectOption = companies?.map((el) => ({ label: el.name, value: el.id }));
+  const CompanySelectOption = companies?.map((el) => ({
+    label: el?.name?.toUpperCase(),
+    value: el.id,
+  }));
 
   useEffect(() => {
     form.setFieldsValue({
@@ -214,128 +217,115 @@ export const AgentForm: React.FC<IProps> = ({
     >
       <Row gutter={12}>
         <Col span={12}>
-          <Card width="100%">
-            <Row gutter={[12, 12]}>
-              <Col span={24}>
-                <VideoCard />
-              </Col>
-              <Col span={24}>
-                <BaseForm.Item label="Project Permissions">
-                  <BaseForm.List
-                    name="projectPerm"
-                    // rules={
-                    //   [
-                    // {
-                    // validator(_, value) {
-                    // console.log(value);
-                    // },
-                    // },
-                    //   ]
-                    // }
-                  >
-                    {(fields) => (
-                      <Collapse
-                        items={fields?.map((field) => ({
-                          key: field.key,
-                          label: agentProjects?.[field.name].name,
-                          children: (
-                            <>
-                              <BaseForm.Item
-                                name={[field.key, 'projectId']}
-                                rules={[{ type: 'number' }]}
-                              >
-                                <Input style={{ display: 'none' }} />
-                              </BaseForm.Item>
-                              <BaseForm.List name={[field.key, 'projectPermissions']}>
-                                {(subFields, __, ___) =>
-                                  subFields?.map((subField) => (
-                                    <Row justify={'space-between'} key={subField.key}>
-                                      <Col>
-                                        <BaseForm.Item name={[subField.key, 'projPermId']}>
-                                          <Tag color="green">
-                                            {projectPerms?.[subField.name].name}
-                                          </Tag>
-                                        </BaseForm.Item>
-                                      </Col>
-                                      <Col>
-                                        <BaseForm.Item name={[subField.key, 'projPermIsActive']}>
-                                          <Switch loading={loading.post} />
-                                        </BaseForm.Item>
-                                      </Col>
-                                      <Col style={{ display: 'none' }}>
-                                        <BaseForm.Item
-                                          name={[subField.key, 'projPermId']}
-                                          rules={[{ type: 'number' }]}
-                                        >
-                                          <Input />
-                                        </BaseForm.Item>
-                                      </Col>
-                                    </Row>
-                                  ))
-                                }
-                              </BaseForm.List>
-                            </>
-                          ),
-                        }))}
-                      />
-                    )}
-                  </BaseForm.List>
-                </BaseForm.Item>
-              </Col>
-              <Col span={24}>
-                <BaseForm.Item label="Tariff Permissions">
-                  <BaseForm.List name="tariffPerm">
-                    {(fields) => (
-                      <Collapse
-                        items={fields?.map((field) => ({
-                          key: field.key,
-                          label: tariffs?.[field.name]?.name,
-                          children: (
-                            <>
-                              <BaseForm.Item
-                                name={[field.key, 'tariffId']}
-                                rules={[{ type: 'number' }]}
-                              >
-                                <Input style={{ display: 'none' }} />
-                              </BaseForm.Item>
-                              <BaseForm.List name={[field.key, 'tariffPermissions']}>
-                                {(subFields, __, ___) =>
-                                  subFields?.map((subField) => (
-                                    <Row justify={'space-between'} key={subField.key}>
-                                      <Col>
-                                        <BaseForm.Item name={[subField.key, 'tariffPermId']}>
-                                          <Tag color="green">
-                                            {tariffPerms?.[subField.name].name}
-                                          </Tag>
-                                        </BaseForm.Item>
-                                      </Col>
-                                      <Col>
-                                        <BaseForm.Item name={[subField.key, 'tariffPermIsActive']}>
-                                          <Switch loading={loading.post} />
-                                        </BaseForm.Item>
-                                      </Col>
-                                      <Col style={{ display: 'none' }}>
-                                        <BaseForm.Item
-                                          name={[subField.key, 'tariffPermId']}
-                                          rules={[{ type: 'number' }]}
-                                        >
-                                          <Input />
-                                        </BaseForm.Item>
-                                      </Col>
-                                    </Row>
-                                  ))
-                                }
-                              </BaseForm.List>
-                            </>
-                          ),
-                        }))}
-                      />
-                    )}
-                  </BaseForm.List>
-                </BaseForm.Item>
-              </Col>
-            </Row>
-          </Card>
+          <Row gutter={[12, 12]}>
+            <Col span={24}>
+              <VideoCard />
+            </Col>
+            <Col span={24}>
+              <BaseForm.Item label="Project Permissions">
+                <BaseForm.List name="projectPerm">
+                  {(fields) => (
+                    <Collapse
+                      items={fields?.map((field) => ({
+                        key: field.key,
+                        label: agentProjects?.[field.name].name,
+                        children: (
+                          <>
+                            <BaseForm.Item
+                              name={[field.key, 'projectId']}
+                              rules={[{ type: 'number' }]}
+                            >
+                              <Input style={{ display: 'none' }} />
+                            </BaseForm.Item>
+                            <BaseForm.List name={[field.key, 'projectPermissions']}>
+                              {(subFields, __, ___) =>
+                                subFields?.map((subField) => (
+                                  <Row justify={'space-between'} key={subField.key}>
+                                    <Col>
+                                      <BaseForm.Item name={[subField.key, 'projPermId']}>
+                                        <Tag color="green">
+                                          {projectPerms?.[subField.name].name}
+                                        </Tag>
+                                      </BaseForm.Item>
+                                    </Col>
+                                    <Col>
+                                      <BaseForm.Item name={[subField.key, 'projPermIsActive']}>
+                                        <Switch loading={loading.post} />
+                                      </BaseForm.Item>
+                                    </Col>
+                                    <Col style={{ display: 'none' }}>
+                                      <BaseForm.Item
+                                        name={[subField.key, 'projPermId']}
+                                        rules={[{ type: 'number' }]}
+                                      >
+                                        <Input />
+                                      </BaseForm.Item>
+                                    </Col>
+                                  </Row>
+                                ))
+                              }
+                            </BaseForm.List>
+                          </>
+                        ),
+                      }))}
+                    />
+                  )}
+                </BaseForm.List>
+              </BaseForm.Item>
+            </Col>
+            <Col span={24}>
+              <BaseForm.Item label="Tariff Permissions">
+                <BaseForm.List name="tariffPerm">
+                  {(fields) => (
+                    <Collapse
+                      items={fields?.map((field) => ({
+                        key: field.key,
+                        label: tariffs?.[field.name]?.name,
+                        children: (
+                          <>
+                            <BaseForm.Item
+                              name={[field.key, 'tariffId']}
+                              rules={[{ type: 'number' }]}
+                            >
+                              <Input style={{ display: 'none' }} />
+                            </BaseForm.Item>
+                            <BaseForm.List name={[field.key, 'tariffPermissions']}>
+                              {(subFields, __, ___) =>
+                                subFields?.map((subField) => (
+                                  <Row justify={'space-between'} key={subField.key}>
+                                    <Col>
+                                      <BaseForm.Item name={[subField.key, 'tariffPermId']}>
+                                        <Tag color="green">
+                                          {tariffPerms?.[subField.name]?.name?.toUpperCase()}
+                                        </Tag>
+                                      </BaseForm.Item>
+                                    </Col>
+                                    <Col>
+                                      <BaseForm.Item name={[subField.key, 'tariffPermIsActive']}>
+                                        <Switch loading={loading.post} />
+                                      </BaseForm.Item>
+                                    </Col>
+                                    <Col style={{ display: 'none' }}>
+                                      <BaseForm.Item
+                                        name={[subField.key, 'tariffPermId']}
+                                        rules={[{ type: 'number' }]}
+                                      >
+                                        <Input />
+                                      </BaseForm.Item>
+                                    </Col>
+                                  </Row>
+                                ))
+                              }
+                            </BaseForm.List>
+                          </>
+                        ),
+                      }))}
+                    />
+                  )}
+                </BaseForm.List>
+              </BaseForm.Item>
+            </Col>
+          </Row>
         </Col>
         <Col span={12}>
           <Card width="100%">
@@ -430,7 +420,7 @@ export const AgentForm: React.FC<IProps> = ({
                                     <Col>
                                       <BaseForm.Item name={[subField.key, 'rolePermId']}>
                                         <Tag color="green">
-                                          {projectPerms?.[subField.name].name}
+                                          {projectPerms?.[subField.name].name?.toUpperCase()}
                                         </Tag>
                                       </BaseForm.Item>
                                     </Col>
@@ -461,7 +451,7 @@ export const AgentForm: React.FC<IProps> = ({
             </Col>
             <Col span={24}>
               <Row justify={'space-between'}>
-                <Col span={12}>
+                <Col span={24}>
                   <BaseForm.Item
                     name="multipe_account"
                     label={'Multiple Account Is Active'}
@@ -471,7 +461,7 @@ export const AgentForm: React.FC<IProps> = ({
                     <Switch defaultValue={false} />
                   </BaseForm.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={24}>
                   <BaseForm.Item
                     name="canPayment"
                     label={'Is Can Payment'}
@@ -498,7 +488,7 @@ export const AgentForm: React.FC<IProps> = ({
           </Card>
         </Col>
         <Col span={24}>
-          {contractStatus !== 'SUCCESS' && (
+          {contractStatus !== 'SUCCESS' && contractStatus !== 'ANONIM' && (
             <Row gutter={24} justify="space-around">
               <Col span={12}>
                 <SimpleButton click={handleReject} color="--negative">
