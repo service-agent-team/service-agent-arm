@@ -1,10 +1,10 @@
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { addNotification } from '@/common/utils/addNotification';
-import { BaseForm, Icon, PrimaryBtn, SimpleButton, VideoCard } from '@/components';
+import { BaseForm, PrimaryBtn, SimpleButton, VideoCard } from '@/components';
 import { ICompany } from '@/store/service-agent/company/types';
 import { IRolesV2 } from '@/store/service-agent/roles/types';
 import { IAgentTariffV2 } from '@/store/service-agent/tariff/types';
-import { Col, Collapse, Input, List, Row, Select, Switch, Tag, TreeSelect, Typography } from 'antd';
+import { Col, Collapse, Input, List, Row, Select, Switch, Tag, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { IParam } from './types';
 import { IUserDataV2, RolePermission } from '@/store/service-agent/contract/contract.interface';

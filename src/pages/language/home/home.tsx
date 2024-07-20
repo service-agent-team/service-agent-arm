@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useActions } from '@/common/hooks';
-import { Icon, modal } from '@/components';
+import { Icon, Loading, modal } from '@/components';
 import { ROUTES } from '@/constants';
 import { FloatButton } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 export const LanguageHome = () => {
   const { logout } = useActions();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const handleLogout = () => {
     modal.confirm({
@@ -19,14 +21,24 @@ export const LanguageHome = () => {
     });
   };
 
+  const handleLoad = () => {
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    return () => setLoading(true);
+  }, []);
+
   return (
     <div>
+      {loading && <Loading />}
       <iframe
         src="https://language.coreteam.uz"
         width="100%"
         height="100vh"
         title="Let's Trip i18 language project"
-        style={{ border: 'none', height: '100vh' }}
+        style={{ border: 'none', height: '100vh', display: loading ? 'none' : 'block' }}
+        onLoad={handleLoad}
       />
       <FloatButton
         type="primary"
