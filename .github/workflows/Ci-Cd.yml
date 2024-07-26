@@ -90,7 +90,7 @@ jobs:
           username: ${{secrets.SERVER_USERNAME}}
           key: ${{secrets.SERVER_PRIVATE_KEY}}
           script: |
-            cd /var/www/html/service-agent-arm
+            cd /var/www/service-agent-arm
             sudo git pull
             sudo npm run build
             echo "Deployed... 🥹😂🥹"
