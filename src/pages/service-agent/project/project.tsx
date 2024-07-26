@@ -1,6 +1,6 @@
 import { PageTitle } from '@/components';
 import { SimplePage } from '@/components/common/page';
-import { AgentProjectTable } from '@/components/tables/agent-project';
+import { AgentProjectTable } from '@/components/tables/service-agent/agent-project';
 import { ROUTES } from '@/constants';
 
 export const AgentProject = () => {

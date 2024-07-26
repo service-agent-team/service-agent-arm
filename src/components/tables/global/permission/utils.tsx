@@ -128,7 +128,7 @@ export const utils = () => {
       title: 'Id',
       dataIndex: 'permission_id',
       key: 'permission_id',
-      width: '4%',
+      width: '2%',
       sorter: (a, b) => a.permission_id - b.permission_id,
       sortDirections: ['descend', 'ascend'],
     },
@@ -136,14 +136,14 @@ export const utils = () => {
       title: 'Name',
       dataIndex: 'permission_name',
       key: 'permission_name',
-      width: '20%',
+      width: '10%',
       ...getColumnSearchProps('permission_name'),
     },
     {
       title: 'Description',
       dataIndex: 'permission_description',
       key: 'permission_description',
-      width: '20%',
+      width: '10%',
       ...getColumnSearchProps('permission_description'),
     },
     {
@@ -218,7 +218,7 @@ export const utils = () => {
       dataIndex: 'action',
       fixed: 'right',
       key: 'action',
-      width: '20%',
+      width: '2%',
       render: (_: any, record) => (
         <Space>
           <Button
