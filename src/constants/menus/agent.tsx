@@ -12,16 +12,16 @@ export const agent = [
     key: ROUTES.agentControl,
     icon: 'UsergroupAddOutlined',
   },
-  {
-    label: 'Orders',
-    key: ROUTES.agentOrders,
-    icon: 'ShoppingOutlined',
-  },
-  {
-    label: 'Products',
-    icon: 'DatabaseOutlined',
-    key: ROUTES.agentProducts,
-  },
+  // {
+  //   label: 'Orders',
+  //   key: ROUTES.agentOrders,
+  //   icon: 'ShoppingOutlined',
+  // },
+  // {
+  //   label: 'Products',
+  //   icon: 'DatabaseOutlined',
+  //   key: ROUTES.agentProducts,
+  // },
   {
     label: 'Tariff Category',
     key: ROUTES.agentTariff,
