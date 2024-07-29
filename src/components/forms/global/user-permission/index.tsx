@@ -86,20 +86,7 @@ export const UserPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
         <BaseForm.Item
           name="userId"
           label={'user'}
-          rules={[
-            { required: true, message: 'filed is required' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value) {
-                  return Promise.reject(new Error('filed is required'));
-                }
-                if (getFieldValue('userId') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from userId!'));
-              },
-            }),
-          ]}
+          rules={[{ required: true, message: 'filed is required' }]}
         >
           <Select placeholder={'Select user'} options={UserIdOptions} />
         </BaseForm.Item>
@@ -107,20 +94,7 @@ export const UserPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
         <BaseForm.Item
           name="permissionId"
           label={'permission'}
-          rules={[
-            { required: true, type: 'number', message: 'filed is required' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value) {
-                  return Promise.reject(new Error('filed is required'));
-                }
-                if (getFieldValue('permissionId') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from permission!'));
-              },
-            }),
-          ]}
+          rules={[{ required: true, type: 'number', message: 'filed is required' }]}
         >
           <Select placeholder="Select permission ?" options={PermissionIdOptions} />
         </BaseForm.Item>
@@ -128,21 +102,18 @@ export const UserPermissionForm = ({ type }: { type: 'edit' | 'create' }) => {
           name="projectId"
           label={'project'}
           rules={[
-            { required: true, type: 'number', message: 'filed is required' },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value) {
-                  return Promise.reject(new Error('filed is required'));
-                }
-                if (getFieldValue('projectId') === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('error from project!'));
-              },
-            }),
+            {
+              required: true,
+              type: type === 'create' ? 'array' : 'number',
+              message: 'filed is required',
+            },
           ]}
         >
-          <Select placeholder="Select permission ?" options={ProjectIdOptions} />
+          <Select
+            mode={type === 'create' ? 'multiple' : undefined}
+            placeholder="Select permission ?"
+            options={ProjectIdOptions}
+          />
         </BaseForm.Item>
         <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
           {type === 'create' ? 'create' : 'edit'}

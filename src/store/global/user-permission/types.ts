@@ -41,7 +41,7 @@ export interface IUserPermissionCreateResponse {
 
 export interface IUserPermissionCreatePayload {
   permissionId: number;
-  projectId: number;
+  projectId: number | number[] | any;
   userId: number;
   callback(): void;
 }
