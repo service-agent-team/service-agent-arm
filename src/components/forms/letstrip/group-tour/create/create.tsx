@@ -92,9 +92,6 @@ export const LestTripTourCreateForm: React.FC = () => {
       return toast.error('location required', { position: 'top-right' });
     }
 
-    console.log(priceIncludes);
-    console.log(priceNotIncludes);
-
     createLetsTripGroupTour({
       callback() {
         addNotification('successfully added group tour');

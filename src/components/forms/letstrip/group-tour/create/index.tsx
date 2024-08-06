@@ -39,7 +39,7 @@ export const LestTripTourCreateForm: React.FC = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyALfqQ3ezC7K1GxmJ1e5EMqdQzrXdrDcdA',
+    googleMapsApiKey: 'AIzaSyANA8h-fA595Nq-OMLG7JmTBWT-1R5eNVQ',
   });
   const center = { lat: 41.875734, lng: 64.017636 };
   const {

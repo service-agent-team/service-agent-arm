@@ -62,7 +62,7 @@ export const LestTripTourEditForm: React.FC = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyALfqQ3ezC7K1GxmJ1e5EMqdQzrXdrDcdA',
+    googleMapsApiKey: 'AIzaSyANA8h-fA595Nq-OMLG7JmTBWT-1R5eNVQ',
   });
   const center = { lat: 41.875734, lng: 64.017636 };
   const navigate = useNavigate();
@@ -106,45 +106,72 @@ export const LestTripTourEditForm: React.FC = () => {
     }
   };
 
-  form.setFieldsValue({
-    nameEn: groupTourRaw?.name?.en,
-    nameRu: groupTourRaw?.name?.ru,
-    countryId: groupTourRaw?.countryId,
-    startingPrice: Number(groupTourRaw?.startingPrice) / 100,
-    upTo2: Number(groupTourRaw?.upTo2) / 100,
-    upTo6: Number(groupTourRaw?.upTo6) / 100,
-    upTo10: Number(groupTourRaw?.upTo10) / 100,
-    upTo20: Number(groupTourRaw?.upTo20) / 100,
-    descriptionEn: groupTourRaw?.description[0]?.en,
-    descriptionRu: groupTourRaw?.description[0]?.ru,
-    priceNoteEn: groupTourRaw?.priceNote?.en,
-    priceNoteRu: groupTourRaw?.priceNote?.ru,
-    priceIncludeEn: groupTourRaw?.priceIncludes?.en[0],
-    priceIncludeRu: groupTourRaw?.priceIncludes?.ru[0],
-    priceIncludes: groupTourRaw?.priceIncludes?.en.map((item) => item),
-    priceNotIncludeEn: groupTourRaw?.priceNotIncludes?.en[0],
-    priceNotIncludeRu: groupTourRaw?.priceNotIncludes?.ru[0],
-    extraInformation: [
-      {
-        en: groupTourRaw?.extraInformation?.en,
-        ru: groupTourRaw?.extraInformation?.ru,
-        EN: 'EN',``
-        RU: 'RU',
-      },
-    ],
-    tourItenarary: groupTourRaw?.tourItenarary.map((el) => ({
-      id: el.id,
-      itineraryTitleEn: el.title.en,
-      itineraryTitleRu: el.title.ru,
-      itineraryItemOrder: el.item_order,
-      description: el.descriptions?.map((item, i) => ({
-        itineraryDescEn: item.items[i].en,
-        itineraryDescRu: item.items[i].ru,
-        itineraryItemDescOrder: item.item_order,
-        itineraryHour: item.hour,
-      })),
-    })),
-  });
+  useEffect(() => {
+    if (id && groupTourRaw) {
+      const priceIncludes =
+        groupTourRaw.priceIncludes.en.length > groupTourRaw.priceIncludes.ru.length
+          ? groupTourRaw.priceNotIncludes.en
+          : groupTourRaw.priceIncludes.ru;
+
+      const priceNotIncludes =
+        groupTourRaw.priceNotIncludes.en.length > groupTourRaw.priceNotIncludes.ru.length
+          ? groupTourRaw.priceNotIncludes.en
+          : groupTourRaw.priceNotIncludes.ru;
+
+      form.setFieldsValue({
+        nameEn: groupTourRaw?.name?.en,
+        nameRu: groupTourRaw?.name?.ru,
+        countryId: groupTourRaw?.countryId,
+        startingPrice: Number(groupTourRaw?.startingPrice) / 100,
+        upTo2: Number(groupTourRaw?.upTo2) / 100,
+        upTo6: Number(groupTourRaw?.upTo6) / 100,
+        upTo10: Number(groupTourRaw?.upTo10) / 100,
+        upTo20: Number(groupTourRaw?.upTo20) / 100,
+        descriptionEn: groupTourRaw?.description[0]?.en,
+        descriptionRu: groupTourRaw?.description[0]?.ru,
+        priceNoteEn: groupTourRaw?.priceNote?.en,
+        priceNoteRu: groupTourRaw?.priceNote?.ru,
+        priceIncludeEn: groupTourRaw?.priceIncludes?.en[0],
+        priceIncludeRu: groupTourRaw?.priceIncludes?.ru[0],
+        priceIncludes: priceIncludes.reduce((acc: any, _, i) => {
+          acc.push({
+            priceIncludeEn: groupTourRaw?.priceIncludes?.en?.[i],
+            priceIncludeRu: groupTourRaw?.priceIncludes?.ru?.[i],
+          });
+          return acc;
+        }, []),
+        priceNotIncludes: priceNotIncludes.reduce((acc: any, _, i) => {
+          acc.push({
+            priceNotIncludeEn: groupTourRaw?.priceNotIncludes?.en?.[i],
+            priceNotIncludeRu: groupTourRaw?.priceNotIncludes?.ru?.[i],
+          });
+          return acc;
+        }, []),
+        priceNotIncludeEn: groupTourRaw?.priceNotIncludes?.en[0],
+        priceNotIncludeRu: groupTourRaw?.priceNotIncludes?.ru[0],
+        extraInformation: [
+          {
+            en: groupTourRaw?.extraInformation?.en,
+            ru: groupTourRaw?.extraInformation?.ru,
+            EN: 'EN',
+            RU: 'RU',
+          },
+        ],
+        tourItenarary: groupTourRaw?.tourItenarary.map((el) => ({
+          id: el.id,
+          itineraryTitleEn: el.title.en,
+          itineraryTitleRu: el.title.ru,
+          itineraryItemOrder: el.item_order,
+          description: el.descriptions?.map((item, i) => ({
+            itineraryDescEn: item.items[i].en,
+            itineraryDescRu: item.items[i].ru,
+            itineraryItemDescOrder: item.item_order,
+            itineraryHour: item.hour,
+          })),
+        })),
+      });
+    }
+  }, [id, groupTourRaw]);
 
   const onFinish = ({
     nameEn,
@@ -163,6 +190,10 @@ export const LestTripTourEditForm: React.FC = () => {
     priceNotIncludeRu,
     priceIncludeEn,
     priceIncludeRu,
+
+    priceIncludes,
+    priceNotIncludes,
+
     images,
     extraInformation,
     // availableDate,
@@ -240,34 +271,26 @@ export const LestTripTourEditForm: React.FC = () => {
           id: groupTourRaw?.priceNote.id as number,
         });
       }
-      if (
-        groupTourRaw.priceIncludes.en[0] !== priceIncludeEn ||
-        groupTourRaw.priceIncludes.ru[0] !== priceIncludeRu
-      ) {
-        updatePriceIncludesGroupTour({
-          callback() {
-            addNotification('price includes changed');
-            navigate(-1);
-          },
-          en: [priceIncludeEn],
-          ru: [priceIncludeRu],
-          id: groupTourRaw.priceIncludes.id as number,
-        });
-      }
-      if (
-        groupTourRaw.priceNotIncludes.en[0] !== priceNotIncludeEn ||
-        groupTourRaw.priceNotIncludes.ru[0] !== priceNotIncludeRu
-      ) {
-        updatePriceIncludesGroupTour({
-          callback() {
-            addNotification('price not includes changed');
-            navigate(-1);
-          },
-          en: [priceNotIncludeEn],
-          ru: [priceNotIncludeRu],
-          id: groupTourRaw.priceNotIncludes.id as number,
-        });
-      }
+      updatePriceIncludesGroupTour({
+        callback() {
+          addNotification('price includes changed');
+          navigate(-1);
+        },
+        en: priceIncludes.map((item) => item.priceIncludeEn),
+        ru: priceIncludes.map((item) => item.priceIncludeRu),
+        id: groupTourRaw.priceIncludes.id as number,
+      });
+
+      updatePriceIncludesGroupTour({
+        callback() {
+          addNotification('price not includes changed');
+          navigate(-1);
+        },
+        en: priceNotIncludes.map((item) => item.priceNotIncludeEn),
+        ru: priceNotIncludes.map((item) => item.priceNotIncludeRu),
+        id: groupTourRaw.priceNotIncludes.id as number,
+      });
+
       tourItenarary.filter((el) => {
         if (!el.id) {
           return addItenararyLetsTripGroupTour({
