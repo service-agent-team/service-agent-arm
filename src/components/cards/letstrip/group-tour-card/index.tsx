@@ -11,7 +11,7 @@ import { Icon } from '@/components/common/icon';
 export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne | null }) => {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyALfqQ3ezC7K1GxmJ1e5EMqdQzrXdrDcdA',
+    googleMapsApiKey: 'AIzaSyANA8h-fA595Nq-OMLG7JmTBWT-1R5eNVQ',
   });
   const center = (data?.locations[0].lat && {
     lat: data?.locations[0].lat,
@@ -171,9 +171,9 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
                     progressDot
                     current={el.description.length}
                     direction="vertical"
-                    items={el.description.map((d) => ({
+                    items={el.description.map((d, i) => ({
                       title: d.hour,
-                      description: <div dangerouslySetInnerHTML={{ __html: d.items[0] }} />,
+                      description: <div dangerouslySetInnerHTML={{ __html: d.items[i] }} />,
                     }))}
                   />
                 </S.CustomCard>

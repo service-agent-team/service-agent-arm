@@ -17,8 +17,8 @@ export interface IValuesForm {
   priceIncludeRu: string;
   priceIncludeEn: string;
 
-  priceIncludes: IPriceInclude;
-  priceNotIncludes: IPriceNotInclude;
+  priceIncludes: IPriceInclude[];
+  priceNotIncludes: IPriceNotInclude[];
 
   images: UploadChangeParam;
   descriptionRu: string;
@@ -77,10 +77,10 @@ export interface IGoogleMouseEvent {
 }
 
 interface IPriceInclude {
-  priceIncludeEn: string[];
-  priceIncludeRu: string[];
+  priceIncludeEn: string;
+  priceIncludeRu: string;
 }
 interface IPriceNotInclude {
-  priceNotIncludeEn: string[];
-  priceNotIncludeRu: string[];
+  priceNotIncludeEn: string;
+  priceNotIncludeRu: string;
 }

@@ -92,9 +92,6 @@ export const LestTripTourCreateForm: React.FC = () => {
       return toast.error('location required', { position: 'top-right' });
     }
 
-    // console.log(priceIncludes);
-    // console.log(priceNotIncludes);
-
     createLetsTripGroupTour({
       callback() {
         addNotification('successfully added group tour');
@@ -876,11 +873,11 @@ export const LestTripTourCreateForm: React.FC = () => {
               },
             ]}
           >
-            {(fields, { add, remove }, { errors }) =>
-              fields.map((field) => (
-                <>
+            {(fields, { add, remove }, { errors }) => (
+              <div>
+                {fields.map((field) => (
                   <Card
-                    key={field.key}
+                    key={field.name}
                     size="small"
                     title="price includes"
                     extra={
@@ -895,7 +892,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                     <Row gutter={12}>
                       <Col span={12}>
                         <BaseForm.Item
-                          name={[field.key, 'priceIncludeEn']}
+                          name={[field.name, 'priceIncludeEn']}
                           label={'price include english'}
                           rules={[{ required: true }]}
                         >
@@ -904,7 +901,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                       </Col>
                       <Col span={12}>
                         <BaseForm.Item
-                          name={[field.key, 'priceIncludeRu']}
+                          name={[field.name, 'priceIncludeRu']}
                           label={'price include russian'}
                           rules={[{ required: true }]}
                         >
@@ -913,20 +910,20 @@ export const LestTripTourCreateForm: React.FC = () => {
                       </Col>
                     </Row>
                   </Card>
-                  <BaseForm.Item>
-                    <Button
-                      block
-                      type="dashed"
-                      onClick={() => add()}
-                      icon={<Icon name="PlusOutlined" />}
-                    >
-                      add tour price includes ✅ ({fields.length}) {fields.length ? '✅' : '❌'}
-                    </Button>
-                  </BaseForm.Item>
-                  <BaseForm.ErrorList errors={errors} />
-                </>
-              ))
-            }
+                ))}
+                <BaseForm.Item>
+                  <Button
+                    block
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<Icon name="PlusOutlined" />}
+                  >
+                    add tour price includes ✅ ({fields.length}) {fields.length ? '✅' : '❌'}
+                  </Button>
+                </BaseForm.Item>
+                <BaseForm.ErrorList errors={errors} />
+              </div>
+            )}
           </BaseForm.List>
         </Col>
         {isLoaded ? (

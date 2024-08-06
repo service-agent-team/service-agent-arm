@@ -62,7 +62,7 @@ export const LestTripTourEditForm: React.FC = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyALfqQ3ezC7K1GxmJ1e5EMqdQzrXdrDcdA',
+    googleMapsApiKey: 'AIzaSyANA8h-fA595Nq-OMLG7JmTBWT-1R5eNVQ',
   });
   const center = { lat: 41.875734, lng: 64.017636 };
   const navigate = useNavigate();
@@ -106,44 +106,72 @@ export const LestTripTourEditForm: React.FC = () => {
     }
   };
 
-  form.setFieldsValue({
-    nameEn: groupTourRaw?.name?.en,
-    nameRu: groupTourRaw?.name?.ru,
-    countryId: groupTourRaw?.countryId,
-    startingPrice: Number(groupTourRaw?.startingPrice) / 100,
-    upTo2: Number(groupTourRaw?.upTo2) / 100,
-    upTo6: Number(groupTourRaw?.upTo6) / 100,
-    upTo10: Number(groupTourRaw?.upTo10) / 100,
-    upTo20: Number(groupTourRaw?.upTo20) / 100,
-    descriptionEn: groupTourRaw?.description[0]?.en,
-    descriptionRu: groupTourRaw?.description[0]?.ru,
-    priceNoteEn: groupTourRaw?.priceNote?.en,
-    priceNoteRu: groupTourRaw?.priceNote?.ru,
-    priceIncludeEn: groupTourRaw?.priceIncludes?.en[0],
-    priceIncludeRu: groupTourRaw?.priceIncludes?.ru[0],
-    priceNotIncludeEn: groupTourRaw?.priceNotIncludes?.en[0],
-    priceNotIncludeRu: groupTourRaw?.priceNotIncludes?.ru[0],
-    extraInformation: [
-      {
-        en: groupTourRaw?.extraInformation?.en,
-        ru: groupTourRaw?.extraInformation?.ru,
-        EN: 'EN',
-        RU: 'RU',
-      },
-    ],
-    tourItenarary: groupTourRaw?.tourItenarary.map((el) => ({
-      id: el.id,
-      itineraryTitleEn: el.title.en,
-      itineraryTitleRu: el.title.ru,
-      itineraryItemOrder: el.item_order,
-      description: el.descriptions?.map((item) => ({
-        itineraryDescEn: item.items[0].en,
-        itineraryDescRu: item.items[0].ru,
-        itineraryItemDescOrder: item.item_order,
-        itineraryHour: item.hour,
-      })),
-    })),
-  });
+  useEffect(() => {
+    if (id && groupTourRaw) {
+      const priceIncludes =
+        groupTourRaw.priceIncludes.en.length > groupTourRaw.priceIncludes.ru.length
+          ? groupTourRaw.priceNotIncludes.en
+          : groupTourRaw.priceIncludes.ru;
+
+      const priceNotIncludes =
+        groupTourRaw.priceNotIncludes.en.length > groupTourRaw.priceNotIncludes.ru.length
+          ? groupTourRaw.priceNotIncludes.en
+          : groupTourRaw.priceNotIncludes.ru;
+
+      form.setFieldsValue({
+        nameEn: groupTourRaw?.name?.en,
+        nameRu: groupTourRaw?.name?.ru,
+        countryId: groupTourRaw?.countryId,
+        startingPrice: Number(groupTourRaw?.startingPrice) / 100,
+        upTo2: Number(groupTourRaw?.upTo2) / 100,
+        upTo6: Number(groupTourRaw?.upTo6) / 100,
+        upTo10: Number(groupTourRaw?.upTo10) / 100,
+        upTo20: Number(groupTourRaw?.upTo20) / 100,
+        descriptionEn: groupTourRaw?.description[0]?.en,
+        descriptionRu: groupTourRaw?.description[0]?.ru,
+        priceNoteEn: groupTourRaw?.priceNote?.en,
+        priceNoteRu: groupTourRaw?.priceNote?.ru,
+        priceIncludeEn: groupTourRaw?.priceIncludes?.en[0],
+        priceIncludeRu: groupTourRaw?.priceIncludes?.ru[0],
+        priceIncludes: priceIncludes.reduce((acc: any, _, i) => {
+          acc.push({
+            priceIncludeEn: groupTourRaw?.priceIncludes?.en?.[i],
+            priceIncludeRu: groupTourRaw?.priceIncludes?.ru?.[i],
+          });
+          return acc;
+        }, []),
+        priceNotIncludes: priceNotIncludes.reduce((acc: any, _, i) => {
+          acc.push({
+            priceNotIncludeEn: groupTourRaw?.priceNotIncludes?.en?.[i],
+            priceNotIncludeRu: groupTourRaw?.priceNotIncludes?.ru?.[i],
+          });
+          return acc;
+        }, []),
+        priceNotIncludeEn: groupTourRaw?.priceNotIncludes?.en[0],
+        priceNotIncludeRu: groupTourRaw?.priceNotIncludes?.ru[0],
+        extraInformation: [
+          {
+            en: groupTourRaw?.extraInformation?.en,
+            ru: groupTourRaw?.extraInformation?.ru,
+            EN: 'EN',
+            RU: 'RU',
+          },
+        ],
+        tourItenarary: groupTourRaw?.tourItenarary.map((el) => ({
+          id: el.id,
+          itineraryTitleEn: el.title.en,
+          itineraryTitleRu: el.title.ru,
+          itineraryItemOrder: el.item_order,
+          description: el.descriptions?.map((item, i) => ({
+            itineraryDescEn: item.items[i].en,
+            itineraryDescRu: item.items[i].ru,
+            itineraryItemDescOrder: item.item_order,
+            itineraryHour: item.hour,
+          })),
+        })),
+      });
+    }
+  }, [id, groupTourRaw]);
 
   const onFinish = ({
     nameEn,
@@ -162,6 +190,10 @@ export const LestTripTourEditForm: React.FC = () => {
     priceNotIncludeRu,
     priceIncludeEn,
     priceIncludeRu,
+
+    priceIncludes,
+    priceNotIncludes,
+
     images,
     extraInformation,
     // availableDate,
@@ -239,34 +271,26 @@ export const LestTripTourEditForm: React.FC = () => {
           id: groupTourRaw?.priceNote.id as number,
         });
       }
-      if (
-        groupTourRaw.priceIncludes.en[0] !== priceIncludeEn ||
-        groupTourRaw.priceIncludes.ru[0] !== priceIncludeRu
-      ) {
-        updatePriceIncludesGroupTour({
-          callback() {
-            addNotification('price includes changed');
-            navigate(-1);
-          },
-          en: [priceIncludeEn],
-          ru: [priceIncludeRu],
-          id: groupTourRaw.priceIncludes.id as number,
-        });
-      }
-      if (
-        groupTourRaw.priceNotIncludes.en[0] !== priceNotIncludeEn ||
-        groupTourRaw.priceNotIncludes.ru[0] !== priceNotIncludeRu
-      ) {
-        updatePriceIncludesGroupTour({
-          callback() {
-            addNotification('price not includes changed');
-            navigate(-1);
-          },
-          en: [priceNotIncludeEn],
-          ru: [priceNotIncludeRu],
-          id: groupTourRaw.priceNotIncludes.id as number,
-        });
-      }
+      updatePriceIncludesGroupTour({
+        callback() {
+          addNotification('price includes changed');
+          navigate(-1);
+        },
+        en: priceIncludes.map((item) => item.priceIncludeEn),
+        ru: priceIncludes.map((item) => item.priceIncludeRu),
+        id: groupTourRaw.priceIncludes.id as number,
+      });
+
+      updatePriceIncludesGroupTour({
+        callback() {
+          addNotification('price not includes changed');
+          navigate(-1);
+        },
+        en: priceNotIncludes.map((item) => item.priceNotIncludeEn),
+        ru: priceNotIncludes.map((item) => item.priceNotIncludeRu),
+        id: groupTourRaw.priceNotIncludes.id as number,
+      });
+
       tourItenarary.filter((el) => {
         if (!el.id) {
           return addItenararyLetsTripGroupTour({
@@ -512,24 +536,48 @@ export const LestTripTourEditForm: React.FC = () => {
       onFinishFailed={() => {}}
     >
       <Row gutter={12}>
-        <Col span={12}>
+        <Col span={24}>
           <BaseForm.Item
-            style={{ width: '100%' }}
             name="nameEn"
             label={'name english'}
-            rules={[{ required: true }]}
+            rules={[
+              { required: true },
+              {
+                validator: async (_, value: string) => {
+                  if (value === '<p><br></p>') {
+                    return Promise.reject(new Error('field required?'));
+                  }
+                },
+              },
+            ]}
           >
-            <Input name="nameEn" type="string" placeholder="Enter a english name ?" />
+            <TextEditor
+              name="nameEn"
+              setContents={groupTourRaw?.name.en}
+              placeholder="Enter a english name ?"
+            />
           </BaseForm.Item>
         </Col>
-        <Col span={12}>
+        <Col span={24}>
           <BaseForm.Item
-            style={{ width: '100%' }}
             name="nameRu"
             label={'name russian'}
-            rules={[{ required: true }]}
+            rules={[
+              { required: true },
+              {
+                validator: async (_, value: string) => {
+                  if (value === '<p><br></p>') {
+                    return Promise.reject(new Error('field required?'));
+                  }
+                },
+              },
+            ]}
           >
-            <Input name="nameRu" type="string" placeholder="Enter a russian name ? " />
+            <TextEditor
+              name="nameRu"
+              setContents={groupTourRaw?.name?.ru}
+              placeholder="Enter a russian name ?"
+            />
           </BaseForm.Item>
         </Col>
 
@@ -616,71 +664,17 @@ export const LestTripTourEditForm: React.FC = () => {
           </BaseForm.Item>
         </Col>
 
-        <Col span={6}>
-          <BaseForm.Item
-            name="priceIncludeEn"
-            label={'price include english'}
-            rules={[{ required: true }]}
-          >
-            <Input
-              name="priceIncludeEn"
-              type="string"
-              placeholder="Enter a price include english ?"
-            />
-          </BaseForm.Item>
-        </Col>
-        <Col span={6}>
-          <BaseForm.Item
-            name="priceIncludeRu"
-            label={'price include russian'}
-            rules={[{ required: true }]}
-          >
-            <Input
-              name="priceIncludeRu"
-              type="string"
-              placeholder="Enter a price include russian ?"
-            />
-          </BaseForm.Item>
-        </Col>
-        <Col span={6}>
-          <BaseForm.Item
-            name="priceNotIncludeEn"
-            label={'price not include english'}
-            rules={[{ required: true }]}
-          >
-            <Input
-              name="priceNotIncludeEn"
-              type="string"
-              placeholder="Enter a price not include english ?"
-            />
-          </BaseForm.Item>
-        </Col>
-        <Col span={6}>
-          <BaseForm.Item
-            style={{ width: '100%' }}
-            name="priceNotIncludeRu"
-            label={'price not include russian'}
-            rules={[{ required: true }]}
-          >
-            <Input
-              name="priceNotIncludeRu"
-              type="string"
-              placeholder="Enter a price not include russian ?"
-            />
-          </BaseForm.Item>
-        </Col>
         <BaseForm.Item
           style={{ width: '100%' }}
           name="descriptionEn"
           label={'description english'}
           rules={[{ required: true }]}
         >
-          {/* <TextEditor
+          <TextEditor
             name="descriptionEn"
             setContents={String(groupTourRaw?.description[0].en)}
             placeholder="Enter a english description ?"
-          /> */}
-          <TextArea name="descriptionEn" placeholder="Enter a english description ?" />
+          />
         </BaseForm.Item>
         <BaseForm.Item
           style={{ width: '100%' }}
@@ -688,12 +682,11 @@ export const LestTripTourEditForm: React.FC = () => {
           label={'description russian'}
           rules={[{ required: true }]}
         >
-          {/* <TextEditor
+          <TextEditor
             name="descriptionRu"
             setContents={String(groupTourRaw?.description[0].ru)}
             placeholder="Enter a russian description ? "
-          /> */}
-          <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
+          />
         </BaseForm.Item>
         <Col span={24}>
           <BaseForm.Item
@@ -1345,6 +1338,147 @@ export const LestTripTourEditForm: React.FC = () => {
             )}
           </BaseForm.List>
         </Col>
+
+        <Col span={24}>
+          <BaseForm.List
+            name="priceIncludes"
+            rules={[
+              {
+                validator: async (_, priceNotIncludes) => {
+                  if (!priceNotIncludes.length) {
+                    return Promise.reject(new Error('price not includes field required?'));
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) => (
+              <div>
+                {fields.map((field) => (
+                  <Card
+                    key={field.name}
+                    size="small"
+                    title={`✅ ${field.name + 1}.price includes`}
+                    extra={
+                      <Icon
+                        name="CloseOutlined"
+                        onClick={() => {
+                          remove(field.name);
+                        }}
+                      />
+                    }
+                  >
+                    <Row gutter={12}>
+                      <Col span={24}>
+                        <BaseForm.Item
+                          name={[field.name, 'priceIncludeEn']}
+                          label={'price include english'}
+                          rules={[{ required: true }]}
+                        >
+                          <TextArea placeholder="Enter a price include english ?" />
+                        </BaseForm.Item>
+                      </Col>
+                      <Col span={24}>
+                        <BaseForm.Item
+                          name={[field.name, 'priceIncludeRu']}
+                          label={'price include russian'}
+                          rules={[{ required: true }]}
+                        >
+                          <TextArea placeholder="Enter a price include russian ?" />
+                        </BaseForm.Item>
+                      </Col>
+                    </Row>
+                  </Card>
+                ))}
+                <BaseForm.Item>
+                  <Button
+                    block
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<Icon name="PlusOutlined" />}
+                  >
+                    add tour price includes ✅ ({fields.length}) {fields.length ? '✅' : '❌'}
+                  </Button>
+                </BaseForm.Item>
+                <BaseForm.ErrorList errors={errors} />
+              </div>
+            )}
+          </BaseForm.List>
+        </Col>
+
+        <Col span={24}>
+          <BaseForm.List
+            name="priceNotIncludes"
+            rules={[
+              {
+                validator: async (_, priceIncludes) => {
+                  if (!priceIncludes.length) {
+                    return Promise.reject(new Error('price includes not field required?'));
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) => (
+              <div>
+                {fields.map((field) => (
+                  <Card
+                    key={field.name}
+                    size="small"
+                    title={`❌ ${field.name + 1}.price not includes`}
+                    extra={
+                      <Icon
+                        name="CloseOutlined"
+                        onClick={() => {
+                          remove(field.name);
+                        }}
+                      />
+                    }
+                  >
+                    <Row gutter={12}>
+                      <Col span={24}>
+                        <BaseForm.Item
+                          name={[field.name, 'priceNotIncludeEn']}
+                          label={'price not include english'}
+                          rules={[{ required: true }]}
+                        >
+                          <TextArea
+                            name="priceNotIncludeEn"
+                            placeholder="Enter a price not include english ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                      <Col span={24}>
+                        <BaseForm.Item
+                          name={[field.name, 'priceNotIncludeRu']}
+                          label={'price not include russian'}
+                          rules={[{ required: true }]}
+                        >
+                          <TextArea
+                            name="priceNotIncludeRu"
+                            placeholder="Enter a price not include russian ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                    </Row>
+                  </Card>
+                ))}
+                <BaseForm.Item>
+                  <Button
+                    block
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<Icon name="PlusOutlined" />}
+                  >
+                    add tour price not includes ❌ ({fields.length}) {fields.length ? '✅' : '❌'}
+                  </Button>
+                </BaseForm.Item>
+                <BaseForm.ErrorList errors={errors} />
+              </div>
+            )}
+          </BaseForm.List>
+        </Col>
+
         <Col span={24}>
           {isLoaded ? (
             <GoogleMap
