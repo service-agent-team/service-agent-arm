@@ -119,5 +119,6 @@ export const ROUTES = {
   bookingFacilityCreate: '/booking/facility/create',
   bookingFacilityEdit: '/booking/facility/edit/:id/:languageType',
   bookingFacilityCategory: '/booking/facility-category',
+  bookingFacilityCategoryCreate: '/booking/facility-category/create',
   bookingCalendarPricing: '/booking/calendar-pricing',
 } as const;

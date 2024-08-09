@@ -1,3 +1,16 @@
+import { BookingFacilityCategoryTable, PageTitle } from '@/components';
+import { ROUTES } from '@/constants';
+
 export const BookingFacilityCategory = () => {
-  return <div>BookingFacilityCategory</div>;
+  return (
+    <>
+      <PageTitle
+        title="Facility Categories"
+        route={ROUTES.bookingFacilityCategory}
+        label="Create"
+        icon="PlusOutlined"
+      />
+      <BookingFacilityCategoryTable />
+    </>
+  );
 };
