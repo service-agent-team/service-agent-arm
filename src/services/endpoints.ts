@@ -267,4 +267,8 @@ export const EndPointes = {
   files: {
     create: '/api/file',
   },
+
+  bookingFacility: {
+    getAll: '/api/booking/facilities',
+  },
 } as const;

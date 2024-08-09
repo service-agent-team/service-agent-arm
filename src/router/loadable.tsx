@@ -92,3 +92,9 @@ export const LetsTripGlobalRegionCreatePage = getLoadablePage('LetsTripGlobalReg
 
 // language
 export const LanguageHomePage = getLoadablePage('LanguageHome');
+
+// booking
+export const BookingHomePage = getLoadablePage('BookingHome');
+export const BookingFacilityPage = getLoadablePage('BookingFacility');
+export const BookingFacilityCategoryPage = getLoadablePage('BookingFacilityCategory');
+export const BookingCalendarPricingPage = getLoadablePage('BookingCalendarPricing');

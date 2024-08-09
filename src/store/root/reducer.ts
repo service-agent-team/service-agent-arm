@@ -21,6 +21,7 @@ import { ProjectReducer } from '../global/project/slice';
 import { AgentProjectReducer } from '../service-agent/project/slice';
 import { UserRoleReducer } from '../global/user-role/slice';
 import { RoleReducer } from '../global/role/slice';
+
 import { UserPermissionReducer } from '../global/user-permission/slice';
 import { LetsTripGroupTourReduce } from '../lets-trip/group-tour/slice';
 import { LetsTripTransferReduce } from '../lets-trip/transfer/slice';
@@ -33,9 +34,12 @@ import { LetsTripGlobalCountryReduce } from '../lets-trip/global-country/slice';
 import { LetsTripGlobalRegionReduce } from '../lets-trip/global-region/slice';
 import { AgentPermissionsReducer } from '../service-agent/agent-permission/slice';
 
+import { BookingFacilityReduce } from '../booking/facility/slice';
+
 export const reducer = {
   app: appReducer,
   auth: AuthReducer,
+
   user: UserReducer,
   users: UserReducer,
   agent: AgentContractReducer,
@@ -51,6 +55,7 @@ export const reducer = {
   car: CarReducer,
   carModel: CarModelReducer,
   roles: RolesReducer,
+
   agentRolesPermission: AgentRolesPermissionReducer,
   agentPermission: AgentPermissionReducer,
   agentPermissions: AgentPermissionsReducer,
@@ -59,6 +64,7 @@ export const reducer = {
   agentUserRole: AgentUserRoleReducer,
   agentUserPermission: AgentUserPermissionReducer,
   agentProject: AgentProjectReducer,
+
   letsTripOrder: LetsTripOrderReduce,
   letsTripTour: LetsTripGroupTourReduce,
   letsTripIndividualTour: LetsTripIndividualTourReduce,
@@ -69,4 +75,6 @@ export const reducer = {
   letsTripCategory: LetsTripCategoryReduce,
   letsTripStatistic: LetsTripStatisticReduce,
   letsTripGlobalRegion: LetsTripGlobalRegionReduce,
+
+  bookingFacility: BookingFacilityReduce,
 };

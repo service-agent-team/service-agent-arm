@@ -67,6 +67,9 @@ import { LetsTripCategorySliceActions } from '../lets-trip/category/slice';
 import * as LetsTripStatisticReduce from '../lets-trip/statistic/actions';
 import { LetsTripStatisticSliceActions } from '../lets-trip/statistic/slice';
 
+import * as BookingFacilityReduce from '../booking/facility/actions';
+import { BookingFacilitySliceActions } from '../booking/facility/slice';
+
 export const AllActions = {
   ...AgentTariffActions,
   ...AgentTariffSliceActions,
@@ -119,6 +122,7 @@ export const AllActions = {
   ...ProjectActions,
   ...AgentProjectActions,
   ...AgentProjectSliceActions,
+
   ...LetsTripGroupTourActions,
   ...LetsTripGroupTourSliceActions,
   ...LetsTripIndividualTourActions,
@@ -137,4 +141,7 @@ export const AllActions = {
   ...LetsTripStatisticSliceActions,
   ...LetsTripGlobalRegionReduce,
   ...LetsTripGlobalRegionSliceActions,
+
+  ...BookingFacilityReduce,
+  ...BookingFacilitySliceActions,
 };
