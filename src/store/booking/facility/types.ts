@@ -83,5 +83,5 @@ export enum FacilityType {
 export interface Category {
   id: number;
   name: string;
-  FacilityLanguageType: FacilityLanguageType;
+  languageType: FacilityLanguageType;
 }
