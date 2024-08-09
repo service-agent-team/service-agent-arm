@@ -35,6 +35,7 @@ import { LetsTripGlobalRegionReduce } from '../lets-trip/global-region/slice';
 import { AgentPermissionsReducer } from '../service-agent/agent-permission/slice';
 
 import { BookingFacilityReduce } from '../booking/facility/slice';
+import { BookingFacilityCategoryReduce } from '../booking/facility-category/slice';
 
 export const reducer = {
   app: appReducer,
@@ -77,4 +78,5 @@ export const reducer = {
   letsTripGlobalRegion: LetsTripGlobalRegionReduce,
 
   bookingFacility: BookingFacilityReduce,
+  bookingFacilityCategory: BookingFacilityCategoryReduce,
 };

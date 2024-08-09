@@ -1,56 +1,25 @@
 import { errorCatch } from '@/common';
 import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LetsTripCountryService } from '@/services';
-import {
-  IGetOneLetsTripCountryResponse,
-  ILetsTripCountryCreatePayload,
-  ILetsTripCountryGetOnePayload,
-  ILetsTripCountryPayload,
-  ILetsTripCountryResponse,
-} from './types';
+import { BookingFacilityCategoryService } from '@/services';
+import { appActions } from '@/store/app';
+import { IFacilityCategoryPayload, IFacilityCategoryResponse } from './types';
 
-export const getAllLetsTripCountry = createAsyncThunk<
-  ILetsTripCountryResponse,
-  ILetsTripCountryPayload
->(EndPointes.letsTripCountry.getAll + '/get-all', async ({ callback }, thunkApi) => {
+export const getAllFacilityCategory = createAsyncThunk<
+  IFacilityCategoryResponse,
+  IFacilityCategoryPayload
+>(EndPointes.letsTripCountry.getAll + '/get-all', async ({ page, size }, thunkApi) => {
   try {
-    const response = await LetsTripCountryService.getAll();
+    const response = await BookingFacilityCategoryService.getAll(page, size);
     if (response.data) {
-      callback();
+      thunkApi.dispatch(
+        appActions.setPagination({
+          total: response.data.count,
+        }),
+      );
     }
     return response.data;
   } catch (error) {
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
-
-export const createLetsTripCountry = createAsyncThunk<
-  IGetOneLetsTripCountryResponse,
-  ILetsTripCountryCreatePayload
->(EndPointes.letsTripCountry.getAll + '/create', async ({ callback, ...body }, thunkApi) => {
-  try {
-    const response = await LetsTripCountryService.create(body);
-    if (response.data) {
-      callback();
-    }
-    return response.data;
-  } catch (error) {
-    return thunkApi.rejectWithValue({ error: errorCatch(error) });
-  }
-});
-
-export const deleteLetsTripCountry = createAsyncThunk<any, ILetsTripCountryGetOnePayload>(
-  EndPointes.letsTripCountry.delete + '/delete',
-  async ({ callback, id }, thunkApi) => {
-    try {
-      const response = await LetsTripCountryService.delete(id);
-      if (response.data) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
-    }
-  },
-);
