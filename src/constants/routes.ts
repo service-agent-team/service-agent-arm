@@ -111,4 +111,12 @@ export const ROUTES = {
 
   // language
   languageHome: '/language/home',
+
+  // booking
+  booking: '/booking',
+  bookingHome: '/booking/home',
+  bookingFacility: '/booking/facility',
+  bookingFacilityCreate: '/booking/facility/create',
+  bookingFacilityCategory: '/booking/facility-category',
+  bookingCalendarPricing: '/booking/calendar-pricing',
 } as const;

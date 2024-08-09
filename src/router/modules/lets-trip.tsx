@@ -31,7 +31,7 @@ import {
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
 
-export const letsTrip = [
+export const letsTripRouter = [
   {
     path: ROUTES.letsTripHome,
     element: (

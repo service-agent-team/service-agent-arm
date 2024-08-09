@@ -4,7 +4,7 @@ import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
 import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { SignIn, ProjectsPage, LanguageHomePage } from './loadable';
-import { mainRouter, agentRouter, transferRouter, letsTrip } from './modules';
+import { mainRouter, agentRouter, transferRouter, letsTripRouter, bookingRouter } from './modules';
 import {
   global,
   GlobalConf,
@@ -14,6 +14,8 @@ import {
   TransferConf,
   LetsTripConf,
   letsTrip as letsTripMenu,
+  booking,
+  BookingConf,
 } from '@/constants/menus';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
@@ -44,7 +46,7 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         {
           path: ROUTES.letstrip,
           element: <GlobalLayout isAuth={isAuth} items={letsTripMenu} conf={LetsTripConf} />,
-          children: [...letsTrip],
+          children: [...letsTripRouter],
         },
         {
           path: ROUTES.languageHome,
@@ -53,6 +55,11 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
               <LanguageHomePage />
             </Suspense>
           ),
+        },
+        {
+          path: ROUTES.booking,
+          element: <GlobalLayout isAuth={isAuth} items={booking} conf={BookingConf} />,
+          children: [...bookingRouter],
         },
       ],
     },
