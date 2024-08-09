@@ -1,128 +1,156 @@
-import { BaseForm, Icon, PrimaryBtn } from '@/components';
+import { BaseForm, PrimaryBtn, TextArea } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { IValues } from './types';
-import { BASE_URL } from '@/constants';
-import { GetProp, Image, Input, Row, Upload, UploadProps } from 'antd';
-import { UploadFile } from 'antd/lib';
-import { useState } from 'react';
+import { Col, Input, Row, Select, Switch } from 'antd';
+import { useEffect } from 'react';
+import { addNotification } from '@/common';
+import { ROUTES } from '@/constants';
+import { FacilityLanguageType } from '@/store/booking/facility/types';
 
-export const LetsTripCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
+export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
-  const { loading } = useTypedSelector((state) => state.letsTripCountry);
-  const { createLetsTripCountry } = useActions();
+  const { facility, loading } = useTypedSelector((s) => s.bookingFacility);
+  const { createFacility, editFacility, getAllFacilityCategory, getOneFacility } = useActions();
   const navigate = useNavigate();
-  const { country } = useTypedSelector((state) => state.letsTripCountry);
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewOpen, setPreviewOpen] = useState(false);
+  const { facilityCategories } = useTypedSelector((s) => s.bookingFacilityCategory);
+  const { id, languageType } = useParams();
 
-  const onFinish = (values: IValues) => {
-    // if (type === 'create') {
-    // } else if (type === 'edit') {
-    // }
-  };
-
-  type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-
-  const getBase64 = (file: FileType): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-    });
-
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList(newFileList);
-
-  const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as FileType);
+  const onFinish = ({ name, description, facilityType, isCommon, categoryId, lang }: IValues) => {
+    if (type === 'create') {
+      createFacility({
+        callback() {
+          addNotification('Successfully added facility');
+          navigate(ROUTES.bookingFacility);
+        },
+        name,
+        description,
+        facilityType,
+        isCommon,
+        categoryId,
+      });
+    } else if (type === 'edit') {
+      editFacility({
+        callback() {
+          addNotification('Successfully edited facility');
+          navigate(ROUTES.bookingFacility);
+        },
+        id: Number(id),
+        lang: lang as FacilityLanguageType,
+        body: {
+          name,
+          description,
+          facilityType,
+          isCommon,
+          categoryId,
+        },
+      });
     }
-
-    setPreviewImage(file.url || (file.preview as string));
-    setPreviewOpen(true);
   };
+
+  const facilityTypeOptions = [
+    { label: 'PROPERTY', value: 'PROPERTY' },
+    { label: 'ROOM', value: 'ROOM' },
+    { label: 'UNKNOWN', value: 'UNKNOWN' },
+  ];
+
+  const facilityCategoryOptions = facilityCategories?.map((f) => ({
+    value: f.id,
+    label: f.name,
+  }));
+
+  const facilityLanguageTypeOptions = [
+    { label: 'UZ', value: 'UZ' },
+    { label: 'RU', value: 'RU' },
+    { label: 'EN', value: 'EN' },
+    { label: 'SP', value: 'SP' },
+    { label: 'AR', value: 'AR' },
+    { label: 'ZH', value: 'ZH' },
+    { label: 'FR', value: 'FR' },
+  ];
+
+  useEffect(() => {
+    if (type === 'create') {
+      getAllFacilityCategory({ page: 0, size: 300 });
+    }
+    if (id) {
+      getAllFacilityCategory({ page: 0, size: 300 });
+      getOneFacility({ id: Number(id), lang: languageType as FacilityLanguageType });
+    }
+  }, [id]);
+
+  useEffect(() => {
+    form.setFieldValue('isCommon', true);
+
+    if (type === 'edit' && facility) {
+      form.setFieldsValue({
+        name: facility?.name,
+        description: facility?.description,
+        facilityType: facility?.facilityType,
+        categoryId: facility?.category.id,
+        isCommon: facility?.common,
+        lang: facility?.languageType,
+      });
+    }
+  }, [facility]);
 
   return (
     <BaseForm
-      initialValues={
-        type === 'edit'
-          ? {
-              code: country?.code,
-              nameEn: country?.name,
-              imageUrl: country?.imageUrl,
-            }
-          : {}
-      }
-      name="letsTripCountryForm"
+      name="facilityForm"
       form={form}
       layout="vertical"
       onFinish={onFinish}
       onFinishFailed={() => {}}
     >
-      <Row>
-        <BaseForm.Item
-          name="nameEn"
-          label={'name english'}
-          style={{ width: '100%' }}
-          rules={[{ required: true, message: 'filed is required' }]}
-        >
-          <Input placeholder="Enter name english ?" />
-        </BaseForm.Item>
-        <BaseForm.Item
-          name="nameRu"
-          label={'name russian'}
-          style={{ width: '100%' }}
-          rules={[{ required: true, message: 'filed is required' }]}
-        >
-          <Input placeholder="Enter name russian ?" />
-        </BaseForm.Item>
-        <BaseForm.Item
-          name="code"
-          label={'country code'}
-          style={{ width: '100%' }}
-          rules={[{ required: true, message: 'filed is required' }]}
-        >
-          <Input placeholder="Enter country code ?" />
-        </BaseForm.Item>
-        <BaseForm.Item
-          name="imageUrl"
-          label={'imageUrl'}
-          rules={[{ required: true, message: 'imageUrl is required?', type: 'object' }]}
-        >
-          <Upload.Dragger
-            style={{ width: '100%' }}
-            name="files"
-            multiple={false}
-            fileList={fileList}
-            onChange={handleChange}
-            onPreview={handlePreview}
-            beforeUpload={(file) => file.type.split('/')[0] === 'image'}
-            action={`${BASE_URL}/api/file`}
-          >
-            <Icon fontSize="20" color="blue" name="InboxOutlined" />
-            <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
-            {previewImage && (
-              <Image
-                height={100}
-                wrapperStyle={{ display: 'none' }}
-                preview={{
-                  visible: previewOpen,
-                  onVisibleChange: (visible) => setPreviewOpen(visible),
-                  afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                }}
-                src={previewImage}
-              />
-            )}
-          </Upload.Dragger>
-        </BaseForm.Item>
-      </Row>
+      <Row gutter={[12, 12]}>
+        <Col span={24}>
+          <BaseForm.Item name="name" label={'Facility name'} rules={[{ required: true }]}>
+            <Input placeholder="Enter facility name ?" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={type === 'edit' ? 7 : 10}>
+          <BaseForm.Item name="facilityType" label={'Facility type'} rules={[{ required: true }]}>
+            <Select options={facilityTypeOptions} placeholder="Select facility type" />
+          </BaseForm.Item>
+        </Col>
 
-      <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
-        {type === 'create' ? 'create' : 'edit'}
-      </PrimaryBtn>
+        <Col span={type === 'edit' ? 7 : 10}>
+          <BaseForm.Item name="categoryId" label={'Facility category'} rules={[{ required: true }]}>
+            <Select options={facilityCategoryOptions} placeholder="Select facility category?" />
+          </BaseForm.Item>
+        </Col>
+        {type === 'edit' ? (
+          <Col span={type === 'edit' ? 7 : 6}>
+            <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
+              <Select
+                options={facilityLanguageTypeOptions}
+                placeholder="Select facility language type"
+              />
+            </BaseForm.Item>
+          </Col>
+        ) : null}
+        <Col span={type === 'edit' ? 3 : 4}>
+          <BaseForm.Item name="isCommon" label={'Is Common'} rules={[{ required: true }]}>
+            <Switch />
+          </BaseForm.Item>
+        </Col>
+
+        <Col span={24}>
+          <BaseForm.Item
+            name="description"
+            label="Facility description"
+            rules={[{ required: true }]}
+          >
+            <TextArea placeholder="Description" />
+          </BaseForm.Item>
+        </Col>
+
+        <Col span={24}>
+          <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
+            {type === 'create' ? 'create' : 'edit'}
+          </PrimaryBtn>
+        </Col>
+      </Row>
     </BaseForm>
   );
 };

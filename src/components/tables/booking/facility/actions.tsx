@@ -28,7 +28,7 @@ export const Actions = ({ record }: { record: IFacility }) => {
 
   return (
     <Flex gap="middle" justify="center">
-      <Link to={ROUTES.bookingFacility}>
+      <Link to={`${ROUTES.bookingFacility}/edit/${record.id}/${record.languageType}`}>
         <Icon btn type="primary" name="EditOutlined" />
       </Link>
 

@@ -154,7 +154,7 @@ export const utils = () => {
       dataIndex: 'category',
       key: 'category',
       width: '20%',
-      render: (value) => value.languageType,
+      render: (value) => value.FacilityLanguageType,
     },
     {
       title: 'Created At',

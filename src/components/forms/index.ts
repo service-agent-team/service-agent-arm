@@ -8,3 +8,4 @@ export { TariffForm } from './tariff-form';
 export { CarModelForm } from './car-model-form';
 export { CarTypeForm } from './car-type-form';
 export { ProductCreateForm } from './product-form';
+export * from './booking';

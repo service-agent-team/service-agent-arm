@@ -5,7 +5,7 @@ export const BookingFacility = () => {
   return (
     <>
       <PageTitle
-        title="Facility Create"
+        title="Facilities"
         route={ROUTES.bookingFacilityCreate}
         label="Create"
         icon="PlusOutlined"

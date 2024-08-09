@@ -69,6 +69,8 @@ import { LetsTripStatisticSliceActions } from '../lets-trip/statistic/slice';
 
 import * as BookingFacilityReduce from '../booking/facility/actions';
 import { BookingFacilitySliceActions } from '../booking/facility/slice';
+import * as BookingFacilityCategoryReduce from '../booking/facility-category/actions';
+import { BookingFacilityCategorySliceActions } from '../booking/facility-category/slice';
 
 export const AllActions = {
   ...AgentTariffActions,
@@ -144,4 +146,6 @@ export const AllActions = {
 
   ...BookingFacilityReduce,
   ...BookingFacilitySliceActions,
+  ...BookingFacilityCategoryReduce,
+  ...BookingFacilityCategorySliceActions,
 };
