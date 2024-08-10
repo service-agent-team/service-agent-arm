@@ -1,44 +1,37 @@
-import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
-import { Suspense } from 'react';
+import { RouteObject } from 'react-router-dom';
 import {
+  BookingBreakfast,
   BookingCalendarPricingPage,
   BookingFacilityCategoryPage,
   BookingFacilityPage,
   BookingHomePage,
 } from '../loadable';
 
-export const bookingRouter = [
+export const bookingRouter: RouteObject[] = [
   {
     path: ROUTES.bookingHome,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingHomePage />
-      </Suspense>
-    ),
+    element: <BookingHomePage />,
   },
   {
     path: ROUTES.bookingFacility,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityPage />
-      </Suspense>
-    ),
+    element: <BookingFacilityPage />,
   },
   {
     path: ROUTES.bookingFacilityCategory,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityCategoryPage />
-      </Suspense>
-    ),
+    element: <BookingFacilityCategoryPage />,
   },
   {
     path: ROUTES.bookingCalendarPricing,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingCalendarPricingPage />
-      </Suspense>
-    ),
+    element: <BookingCalendarPricingPage />,
+  },
+  {
+    path: ROUTES.bookingBreakfast,
+    children: [
+      {
+        index: true,
+        element: <BookingBreakfast />,
+      },
+    ],
   },
 ];

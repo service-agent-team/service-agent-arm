@@ -1,39 +1,40 @@
 import { appReducer } from '../app';
 import { AuthReducer } from '../global/auth/slice';
 import { PermissionReducer } from '../global/permission/slice';
+import { ProjectReducer } from '../global/project/slice';
+import { RoleReducer } from '../global/role/slice';
+import { UserRoleReducer } from '../global/user-role/slice';
 import { UserReducer } from '../global/users/slice';
 import { CarModelReducer } from '../lets-trip/car-model/slice';
 import { CarTypeReducer } from '../lets-trip/car-type/slice';
 import { CarReducer } from '../lets-trip/car/slice';
+import { LetsTripOrderReduce } from '../lets-trip/order/slice';
 import { CompanyReducer } from '../service-agent/company/slice';
 import { AgentContractReducer } from '../service-agent/contract/contract.slice';
 import { AgentOrderReducer } from '../service-agent/order/slices';
 import { AgentPermissionReducer } from '../service-agent/permission/slice';
 import { ProductReducer } from '../service-agent/product/slice';
+import { AgentProjectReducer } from '../service-agent/project/slice';
 import { AgentRolesPermissionReducer } from '../service-agent/role-permission/slice';
 import { RolesReducer } from '../service-agent/roles/slice';
 import { AgentStatisticReducer } from '../service-agent/statistic/slice';
 import { AgentTariffReducer } from '../service-agent/tariff/tariff.slice';
-import { AgentUserRoleReducer } from '../service-agent/user-role/slice';
 import { AgentUserPermissionReducer } from '../service-agent/user-permission/slice';
-import { LetsTripOrderReduce } from '../lets-trip/order/slice';
-import { ProjectReducer } from '../global/project/slice';
-import { AgentProjectReducer } from '../service-agent/project/slice';
-import { UserRoleReducer } from '../global/user-role/slice';
-import { RoleReducer } from '../global/role/slice';
+import { AgentUserRoleReducer } from '../service-agent/user-role/slice';
 
 import { UserPermissionReducer } from '../global/user-permission/slice';
-import { LetsTripGroupTourReduce } from '../lets-trip/group-tour/slice';
-import { LetsTripTransferReduce } from '../lets-trip/transfer/slice';
-import { LetsTripCountryReduce } from '../lets-trip/country/slice';
-import { LetsTripIndividualTourReduce } from '../lets-trip/individual-tour/slice';
 import { LetsTripCategoryReduce } from '../lets-trip/category/slice';
-import { LetsTripStatisticReduce } from '../lets-trip/statistic/slice';
-import { LetsTripTransferCategoryReduce } from '../lets-trip/transfer-category/slice';
+import { LetsTripCountryReduce } from '../lets-trip/country/slice';
 import { LetsTripGlobalCountryReduce } from '../lets-trip/global-country/slice';
 import { LetsTripGlobalRegionReduce } from '../lets-trip/global-region/slice';
+import { LetsTripGroupTourReduce } from '../lets-trip/group-tour/slice';
+import { LetsTripIndividualTourReduce } from '../lets-trip/individual-tour/slice';
+import { LetsTripStatisticReduce } from '../lets-trip/statistic/slice';
+import { LetsTripTransferCategoryReduce } from '../lets-trip/transfer-category/slice';
+import { LetsTripTransferReduce } from '../lets-trip/transfer/slice';
 import { AgentPermissionsReducer } from '../service-agent/agent-permission/slice';
 
+import { breakfastReducer } from '../booking/breakfast/silice';
 import { BookingFacilityReduce } from '../booking/facility/slice';
 
 export const reducer = {
@@ -77,4 +78,5 @@ export const reducer = {
   letsTripGlobalRegion: LetsTripGlobalRegionReduce,
 
   bookingFacility: BookingFacilityReduce,
+  bookingBreakfast: breakfastReducer,
 };

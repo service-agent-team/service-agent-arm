@@ -268,6 +268,10 @@ export const EndPointes = {
     create: '/api/file',
   },
 
+  booking: {
+    breakfast: '/api/booking/breakfast',
+  },
+
   bookingFacility: {
     getAll: '/api/booking/facilities',
   },

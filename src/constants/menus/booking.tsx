@@ -1,7 +1,8 @@
-import { ROUTES } from '../routes';
 import { letstriplogo } from '@/assets';
+import { MenuProps } from 'antd';
+import { ROUTES } from '../routes';
 
-export const booking = [
+export const booking: MenuProps['items'] = [
   {
     icon: 'HomeOutlined',
     key: ROUTES.bookingHome,
@@ -21,6 +22,11 @@ export const booking = [
     icon: 'CalendarOutlined',
     key: ROUTES.bookingCalendarPricing,
     label: 'Calendar Pricing',
+  },
+  {
+    icon: 'InboxOutlined',
+    key: ROUTES.bookingBreakfast,
+    label: 'Breakfast',
   },
 ];
 

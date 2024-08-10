@@ -1,4 +1,5 @@
 export const ROUTES = {
+  add: 'add',
   home: '/',
   global: '/global',
   globalHome: '/global/home',
@@ -119,4 +120,5 @@ export const ROUTES = {
   bookingFacilityCreate: '/booking/facility/create',
   bookingFacilityCategory: '/booking/facility-category',
   bookingCalendarPricing: '/booking/calendar-pricing',
+  bookingBreakfast: '/booking/breakfast',
 } as const;
