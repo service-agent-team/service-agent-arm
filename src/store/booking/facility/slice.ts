@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './types';
-import { deleteFacility, getAllFacility } from './actions';
+import {
+  createFacility,
+  deleteFacility,
+  editFacility,
+  getAllFacility,
+  getOneFacility,
+} from './actions';
 
 const initialState: InitialState = {
   loading: {
@@ -36,6 +42,46 @@ export const bookingFacilitySlice = createSlice({
       })
       .addCase(getAllFacility.rejected, (state, { payload }) => {
         state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getOneFacility.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneFacility.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.facility = payload;
+        state.errors = null;
+      })
+      .addCase(getOneFacility.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(createFacility.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createFacility.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        state.facilities?.push(payload.data);
+        state.errors = null;
+      })
+      .addCase(createFacility.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(editFacility.pending, (state) => {
+        state.loading.put = true;
+        state.errors = null;
+      })
+      .addCase(editFacility.fulfilled, (state, { payload }) => {
+        state.loading.put = false;
+        const foundIndex = state.facilities?.findIndex((f) => f.id === payload.data.id);
+        if (foundIndex && state.facilities) state.facilities[foundIndex] = payload.data;
+        state.errors = null;
+      })
+      .addCase(editFacility.rejected, (state, { payload }) => {
+        state.loading.put = false;
         state.errors = payload;
       })
       .addCase(deleteFacility.pending, (state) => {

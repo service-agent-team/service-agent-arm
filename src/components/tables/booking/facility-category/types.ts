@@ -1,8 +1,8 @@
-import { IFacility } from '@/store/booking/facility/types';
+import { IFacilityCategory } from '@/store/booking/facility-category/types';
 import { FilterConfirmProps } from 'antd/es/table/interface';
 import { Key } from 'react';
 
-export type DataIndex = keyof IFacility;
+export type DataIndex = keyof IFacilityCategory;
 
 export interface IHandleSearchProps {
   selectedKeys: Key[];

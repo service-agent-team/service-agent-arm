@@ -13,9 +13,9 @@ export interface InitialState {
 export interface IFacility {
   id: number;
   name: string;
-  facilityType: string;
+  facilityType: FacilityType;
   description: string;
-  languageType: string;
+  languageType: FacilityLanguageType;
   category: Category;
   common: boolean;
 }
@@ -25,17 +25,38 @@ export interface IFacilityResponse {
   count: number;
 }
 
+export interface IFacilityCreateResponse {
+  data: IFacility;
+}
+
+export interface IGetOneFacilityPayload {
+  id: number;
+  lang: FacilityLanguageType;
+  callback?(): void;
+}
+
 export interface IFacilityPayload {
+  page: number;
+  size: number;
+}
+
+export interface IFacilityBody {
   name: string;
   description: string;
-  facilityType: 'PROPERTY';
-  isBookable: true;
+  facilityType: FacilityType;
+  isCommon: true;
   categoryId: string;
 }
 
-export interface ICreateFacilityPayload {
-  page: number;
-  size: number;
+export interface ICreateFacilityPayload extends IFacilityBody {
+  callback?(): void;
+}
+
+export interface IUpdateFacilityPayload {
+  id: number;
+  lang: FacilityLanguageType;
+  body: IFacilityBody;
+  callback?(): void;
 }
 
 export interface IFacilityDeletePayload {
@@ -43,7 +64,7 @@ export interface IFacilityDeletePayload {
   callback(): void;
 }
 
-export enum LanguageType {
+export enum FacilityLanguageType {
   UZ = 'UZ',
   RU = 'RU',
   EN = 'EN',
@@ -53,8 +74,14 @@ export enum LanguageType {
   FR = 'FR',
 }
 
+export enum FacilityType {
+  PROPERTY = 'PROPERTY',
+  ROOM = 'ROOM',
+  UNKNOWN = 'UNKNOWN',
+}
+
 export interface Category {
   id: number;
   name: string;
-  languageType: LanguageType;
+  languageType: FacilityLanguageType;
 }

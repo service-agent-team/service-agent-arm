@@ -4,6 +4,8 @@ import {
   BookingBreakfast,
   BookingCalendarPricingPage,
   BookingFacilityCategoryPage,
+  BookingFacilityCreatePage,
+  BookingFacilityEditPage,
   BookingFacilityPage,
   BookingHomePage,
 } from '../loadable';
@@ -16,6 +18,22 @@ export const bookingRouter: RouteObject[] = [
   {
     path: ROUTES.bookingFacility,
     element: <BookingFacilityPage />,
+  },
+  {
+    path: ROUTES.bookingFacilityCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <BookingFacilityCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.bookingFacilityEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <BookingFacilityEditPage />
+      </Suspense>
+    ),
   },
   {
     path: ROUTES.bookingFacilityCategory,

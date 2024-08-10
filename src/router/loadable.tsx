@@ -96,6 +96,8 @@ export const LanguageHomePage = getLoadablePage('LanguageHome');
 // booking
 export const BookingHomePage = getLoadablePage('BookingHome');
 export const BookingFacilityPage = getLoadablePage('BookingFacility');
+export const BookingFacilityCreatePage = getLoadablePage('BookingFacilityCreate');
+export const BookingFacilityEditPage = getLoadablePage('BookingFacilityEdit');
 export const BookingFacilityCategoryPage = getLoadablePage('BookingFacilityCategory');
 export const BookingCalendarPricingPage = getLoadablePage('BookingCalendarPricing');
 export const BookingBreakfast = getLoadablePage('Breakfast');

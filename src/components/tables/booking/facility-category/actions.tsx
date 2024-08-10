@@ -1,27 +1,27 @@
 import { Icon, modal } from '@/components';
-import { addNotification } from '@/common';
+// import { addNotification } from '@/common';
 import { IFacility } from '@/store/booking/facility/types';
-import { useActions, useTypedSelector } from '@/common/hooks';
+// import { useActions, useTypedSelector } from '@/common/hooks';
 import { Flex } from 'antd';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/constants';
 
 export const Actions = ({ record }: { record: IFacility }) => {
-  const { deleteFacility, setBookingFacility } = useActions();
-  const { facilities } = useTypedSelector((s) => s.bookingFacility);
+  // const { deleteFacility, setBookingFacility } = useActions();
+  // const { facilities } = useTypedSelector((s) => s.bookingFacility);
 
   const handleDelete = () => {
     return modal.confirm({
       okText: 'Delete',
       title: `You want to delete right ?`,
       onOk: () => {
-        deleteFacility({
-          callback() {
-            addNotification('Successfully deleted');
-            setBookingFacility(facilities?.filter((f) => f.id !== record.id));
-          },
-          id: record.id,
-        });
+        // deleteFacility({
+        //   callback() {
+        //     addNotification('Successfully deleted');
+        //     setBookingFacility(facilities?.filter((f) => f.id !== record.id));
+        //   },
+        //   id: record.id,
+        // });
       },
     });
   };

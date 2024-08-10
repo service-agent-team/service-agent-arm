@@ -1,4 +1,6 @@
-export interface ILetsTripCountryInitialState {
+import { FacilityLanguageType } from '../facility/types';
+
+export interface InitialState {
   loading: {
     get: boolean;
     post: boolean;
@@ -6,46 +8,23 @@ export interface ILetsTripCountryInitialState {
     put: boolean;
     delete: boolean;
   };
-  countries: ILetsTripCountry[] | null;
-  country: ILetsTripCountry | null;
+  facilityCategories: IFacilityCategory[] | null;
+  facilityCategory: IFacilityCategory | null;
   errors: unknown | string[] | string;
 }
 
-export interface ILetsTripCountry {
+export interface IFacilityCategory {
   id: number;
-  name?: string;
-  code: string;
-  regions: any[];
-  imageUrl: string;
+  name: string;
+  FacilityLanguageType: FacilityLanguageType;
 }
 
-export interface ILetsTripCountryResponse {
-  data: ILetsTripCountry[];
+export interface IFacilityCategoryResponse {
+  content: IFacilityCategory[];
+  count: number;
 }
 
-export interface IGetOneLetsTripCountryResponse extends ILetsTripCountry {}
-
-export interface ILetsTripCountryCreateResponse extends ILetsTripCountry {}
-
-export interface ILetsTripCountryPayload {
-  callback(): void;
+export interface IFacilityCategoryPayload {
   page: number;
   size: number;
-}
-
-export interface ILetsTripCountryGetOnePayload {
-  callback(): void;
-  id: string;
-}
-
-export interface ILetsTripCountryCreatePayload {
-  callback(): void;
-  name: Name;
-  imageUrl: string;
-  code: string;
-}
-
-export interface Name {
-  ru: string;
-  en: string;
 }

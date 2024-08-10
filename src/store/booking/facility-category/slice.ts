@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ILetsTripCountryInitialState } from './types';
-import { createLetsTripCountry, deleteLetsTripCountry, getAllLetsTripCountry } from './actions';
+import { InitialState } from './types';
+import { getAllFacilityCategory } from './actions';
 
-const initialState: ILetsTripCountryInitialState = {
+const initialState: InitialState = {
   loading: {
     get: false,
     post: false,
@@ -10,61 +10,36 @@ const initialState: ILetsTripCountryInitialState = {
     patch: false,
     delete: false,
   },
-  countries: null,
-  country: null,
+  facilityCategories: null,
+  facilityCategory: null,
   errors: null,
 };
 
-export const letsTripCountrySlice = createSlice({
-  name: 'letsTripCountry',
+export const bookingFacilityCategorySlice = createSlice({
+  name: 'bookingFacilityCategory',
   initialState,
   reducers: {
-    setLetsTripCountry: (state, { payload }) => {
-      state.countries = payload;
+    setFacilityCategory: (state, { payload }) => {
+      state.facilityCategories = payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllLetsTripCountry.pending, (state) => {
+      .addCase(getAllFacilityCategory.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
       })
-      .addCase(getAllLetsTripCountry.fulfilled, (state, { payload }) => {
+      .addCase(getAllFacilityCategory.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.countries = payload.data;
+        state.facilityCategories = payload.content;
         state.errors = null;
       })
-      .addCase(getAllLetsTripCountry.rejected, (state, { payload }) => {
+      .addCase(getAllFacilityCategory.rejected, (state, { payload }) => {
         state.loading.get = false;
-        state.errors = payload;
-      })
-      .addCase(createLetsTripCountry.pending, (state) => {
-        state.loading.post = true;
-        state.errors = null;
-      })
-      .addCase(createLetsTripCountry.fulfilled, (state, { payload }) => {
-        state.loading.post = false;
-        state.countries?.push(payload);
-        state.errors = null;
-      })
-      .addCase(createLetsTripCountry.rejected, (state, { payload }) => {
-        state.loading.post = false;
-        state.errors = payload;
-      })
-      .addCase(deleteLetsTripCountry.pending, (state) => {
-        state.loading.delete = true;
-        state.errors = null;
-      })
-      .addCase(deleteLetsTripCountry.fulfilled, (state) => {
-        state.loading.delete = false;
-        state.errors = null;
-      })
-      .addCase(deleteLetsTripCountry.rejected, (state, { payload }) => {
-        state.loading.delete = false;
         state.errors = payload;
       });
   },
 });
 
-export const LetsTripCountryReduce = letsTripCountrySlice.reducer;
-export const LetsTripCountrySliceActions = letsTripCountrySlice.actions;
+export const BookingFacilityCategoryReduce = bookingFacilityCategorySlice.reducer;
+export const BookingFacilityCategorySliceActions = bookingFacilityCategorySlice.actions;

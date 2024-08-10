@@ -35,6 +35,7 @@ import { LetsTripTransferReduce } from '../lets-trip/transfer/slice';
 import { AgentPermissionsReducer } from '../service-agent/agent-permission/slice';
 
 import { breakfastReducer } from '../booking/breakfast/silice';
+import { BookingFacilityCategoryReduce } from '../booking/facility-category/slice';
 import { BookingFacilityReduce } from '../booking/facility/slice';
 
 export const reducer = {
@@ -79,4 +80,5 @@ export const reducer = {
 
   bookingFacility: BookingFacilityReduce,
   bookingBreakfast: breakfastReducer,
+  bookingFacilityCategory: BookingFacilityCategoryReduce,
 };

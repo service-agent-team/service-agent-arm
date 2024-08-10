@@ -69,6 +69,8 @@ import { AgentUserRoleSliceActions } from '../service-agent/user-role/slice';
 
 import * as BookingBreakfastActions from '../booking/breakfast/action';
 import { breakfastSliceActions } from '../booking/breakfast/silice';
+import * as BookingFacilityCategoryReduce from '../booking/facility-category/actions';
+import { BookingFacilityCategorySliceActions } from '../booking/facility-category/slice';
 import * as BookingFacilityReduce from '../booking/facility/actions';
 import { BookingFacilitySliceActions } from '../booking/facility/slice';
 
@@ -148,4 +150,6 @@ export const AllActions = {
   ...BookingFacilitySliceActions,
   ...BookingBreakfastActions,
   ...breakfastSliceActions,
+  ...BookingFacilityCategoryReduce,
+  ...BookingFacilityCategorySliceActions,
 };

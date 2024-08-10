@@ -129,28 +129,10 @@ export const utils = () => {
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
-    },
-    {
-      title: 'Type',
-      dataIndex: 'facilityType',
-      key: 'facilityType',
+      title: 'Language Type',
+      dataIndex: 'languageType',
+      key: 'languageType',
       render: (value) => <Tag color="success">{value?.toUpperCase()}</Tag>,
-    },
-    {
-      title: 'Category',
-      dataIndex: 'category',
-      key: 'category',
-      render: (value) => value.name,
-    },
-    {
-      title: 'Category Language Type',
-      dataIndex: 'category',
-      key: 'category',
-      width: 8,
-      render: (value) => <Tag color="success">{value?.languageType?.toUpperCase()}</Tag>,
     },
     {
       title: 'Created At',
