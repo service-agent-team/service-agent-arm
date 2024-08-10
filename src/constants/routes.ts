@@ -120,5 +120,6 @@ export const ROUTES = {
   bookingFacilityEdit: '/booking/facility/edit/:id/:languageType',
   bookingFacilityCategory: '/booking/facility-category',
   bookingFacilityCategoryCreate: '/booking/facility-category/create',
+  bookingFacilityCategoryEdit: '/booking/facility-category/edit/:id/:languageType',
   bookingCalendarPricing: '/booking/calendar-pricing',
 } as const;

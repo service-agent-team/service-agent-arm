@@ -129,14 +129,17 @@ export const utils = () => {
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
+      title: 'Language Type',
+      dataIndex: 'languageType',
+      key: 'languageType',
+      width: 5,
+      align: 'center',
+      render: (value) => <Tag color="success">{value?.toUpperCase()}</Tag>,
     },
     {
       title: 'Type',
-      dataIndex: 'facilityType',
-      key: 'facilityType',
+      dataIndex: 'type',
+      key: 'type',
       render: (value) => <Tag color="success">{value?.toUpperCase()}</Tag>,
     },
     {
@@ -149,7 +152,8 @@ export const utils = () => {
       title: 'Category Language Type',
       dataIndex: 'category',
       key: 'category',
-      width: 8,
+      width: 5,
+      align: 'center',
       render: (value) => <Tag color="success">{value?.languageType?.toUpperCase()}</Tag>,
     },
     {
@@ -164,6 +168,7 @@ export const utils = () => {
       title: 'View',
       dataIndex: 'id',
       key: 'id',
+      width: 10,
       render: (id: number, record) => (
         <Button
           onClick={() => {

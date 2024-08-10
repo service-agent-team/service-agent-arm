@@ -3,6 +3,8 @@ import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
 import {
   BookingCalendarPricingPage,
+  BookingFacilityCategoryCreatePage,
+  BookingFacilityCategoryEditPage,
   BookingFacilityCategoryPage,
   BookingFacilityCreatePage,
   BookingFacilityEditPage,
@@ -48,6 +50,22 @@ export const bookingRouter = [
     element: (
       <Suspense fallback={<Loading />}>
         <BookingFacilityCategoryPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.bookingFacilityCategoryCreate,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <BookingFacilityCategoryCreatePage />
+      </Suspense>
+    ),
+  },
+  {
+    path: ROUTES.bookingFacilityCategoryEdit,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <BookingFacilityCategoryEditPage />
       </Suspense>
     ),
   },

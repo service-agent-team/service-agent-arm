@@ -6,7 +6,7 @@ export const BookingFacilityCategory = () => {
     <>
       <PageTitle
         title="Facility Categories"
-        route={ROUTES.bookingFacilityCategory}
+        route={ROUTES.bookingFacilityCategoryCreate}
         label="Create"
         icon="PlusOutlined"
       />
