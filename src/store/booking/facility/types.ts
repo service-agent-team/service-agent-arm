@@ -7,10 +7,20 @@ export interface InitialState {
     delete: boolean;
   };
   facilities: IFacility[] | null;
-  facility: IFacility | null;
+  facility: IOneFacility | null;
   errors: unknown | string[] | string;
 }
 export interface IFacility {
+  id: number;
+  name: string;
+  type: FacilityType;
+  languageType: FacilityLanguageType;
+  translations: any[];
+  category: Category;
+  common: boolean;
+}
+
+export interface IOneFacility {
   id: number;
   name: string;
   facilityType: FacilityType;

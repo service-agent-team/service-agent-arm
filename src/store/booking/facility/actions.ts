@@ -4,12 +4,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { BookingFacilityService } from '@/services';
 import {
   ICreateFacilityPayload,
-  IFacility,
   IFacilityCreateResponse,
   IFacilityDeletePayload,
   IFacilityPayload,
   IFacilityResponse,
   IGetOneFacilityPayload,
+  IOneFacility,
   IUpdateFacilityPayload,
 } from './types';
 import { appActions } from '@/store/app';
@@ -22,6 +22,7 @@ export const getAllFacility = createAsyncThunk<IFacilityResponse, IFacilityPaylo
       if (response.data) {
         thunkApi.dispatch(
           appActions.setPagination({
+            current: page + 1,
             total: response.data.count,
           }),
         );
@@ -33,7 +34,7 @@ export const getAllFacility = createAsyncThunk<IFacilityResponse, IFacilityPaylo
   },
 );
 
-export const getOneFacility = createAsyncThunk<IFacility, IGetOneFacilityPayload>(
+export const getOneFacility = createAsyncThunk<IOneFacility, IGetOneFacilityPayload>(
   EndPointes.bookingFacility + '/get-one/:id',
   async ({ id, lang, callback }, thunkApi) => {
     try {
