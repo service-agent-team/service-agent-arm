@@ -23,19 +23,11 @@ export const bookingRouter: RouteObject[] = [
   },
   {
     path: ROUTES.bookingFacilityCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityCreatePage />
-      </Suspense>
-    ),
+    element: <BookingFacilityCreatePage />,
   },
   {
     path: ROUTES.bookingFacilityEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityEditPage />
-      </Suspense>
-    ),
+    element: <BookingFacilityEditPage />,
   },
   {
     path: ROUTES.bookingFacilityCategory,
@@ -43,19 +35,11 @@ export const bookingRouter: RouteObject[] = [
   },
   {
     path: ROUTES.bookingFacilityCategoryCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityCategoryCreatePage />
-      </Suspense>
-    ),
+    element: <BookingFacilityCategoryCreatePage />,
   },
   {
     path: ROUTES.bookingFacilityCategoryEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityCategoryEditPage />
-      </Suspense>
-    ),
+    element: <BookingFacilityCategoryEditPage />,
   },
   {
     path: ROUTES.bookingCalendarPricing,
