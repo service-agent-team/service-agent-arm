@@ -1,0 +1,11 @@
+export type TBreakfast = {
+  id: number;
+  name: string;
+  languageType: string;
+  translations: TBreakfastTranslation[];
+};
+
+export interface TBreakfastTranslation {
+  name: string;
+  languageType: string;
+}

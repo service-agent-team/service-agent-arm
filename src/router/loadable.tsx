@@ -102,3 +102,4 @@ export const BookingFacilityCategoryPage = getLoadablePage('BookingFacilityCateg
 export const BookingFacilityCategoryCreatePage = getLoadablePage('BookingFacilityCategoryCreate');
 export const BookingFacilityCategoryEditPage = getLoadablePage('BookingFacilityCategoryEdit');
 export const BookingCalendarPricingPage = getLoadablePage('BookingCalendarPricing');
+export const BookingBreakfast = getLoadablePage('Breakfast');
