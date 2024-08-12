@@ -99,5 +99,7 @@ export const BookingFacilityPage = getLoadablePage('BookingFacility');
 export const BookingFacilityCreatePage = getLoadablePage('BookingFacilityCreate');
 export const BookingFacilityEditPage = getLoadablePage('BookingFacilityEdit');
 export const BookingFacilityCategoryPage = getLoadablePage('BookingFacilityCategory');
+export const BookingFacilityCategoryCreatePage = getLoadablePage('BookingFacilityCategoryCreate');
+export const BookingFacilityCategoryEditPage = getLoadablePage('BookingFacilityCategoryEdit');
 export const BookingCalendarPricingPage = getLoadablePage('BookingCalendarPricing');
 export const BookingBreakfast = getLoadablePage('Breakfast');

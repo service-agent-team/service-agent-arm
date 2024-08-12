@@ -3,6 +3,8 @@ import { RouteObject } from 'react-router-dom';
 import {
   BookingBreakfast,
   BookingCalendarPricingPage,
+  BookingFacilityCategoryCreatePage,
+  BookingFacilityCategoryEditPage,
   BookingFacilityCategoryPage,
   BookingFacilityCreatePage,
   BookingFacilityEditPage,
@@ -30,6 +32,14 @@ export const bookingRouter: RouteObject[] = [
   {
     path: ROUTES.bookingFacilityCategory,
     element: <BookingFacilityCategoryPage />,
+  },
+  {
+    path: ROUTES.bookingFacilityCategoryCreate,
+    element: <BookingFacilityCategoryCreatePage />,
+  },
+  {
+    path: ROUTES.bookingFacilityCategoryEdit,
+    element: <BookingFacilityCategoryEditPage />,
   },
   {
     path: ROUTES.bookingCalendarPricing,
