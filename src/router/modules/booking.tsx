@@ -21,19 +21,11 @@ export const bookingRouter: RouteObject[] = [
   },
   {
     path: ROUTES.bookingFacilityCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityCreatePage />
-      </Suspense>
-    ),
+    element: <BookingFacilityCreatePage />,
   },
   {
     path: ROUTES.bookingFacilityEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <BookingFacilityEditPage />
-      </Suspense>
-    ),
+    element: <BookingFacilityEditPage />,
   },
   {
     path: ROUTES.bookingFacilityCategory,
