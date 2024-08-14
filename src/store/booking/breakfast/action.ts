@@ -16,3 +16,16 @@ export const findBreakfasts = createAsyncThunk<AxiosResponse<TBreakfast[]>, any>
     }
   },
 );
+
+export const createBreakfast = createAsyncThunk<AxiosResponse<TBreakfast>, any>(
+  EndPointes.booking.breakfast,
+  async ({ name, cb }, thunkApi) => {
+    try {
+      const response = await BookingBreakfastService.createBreakfast({ name });
+      cb();
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);

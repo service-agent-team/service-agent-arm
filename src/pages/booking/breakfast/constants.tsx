@@ -1,6 +1,7 @@
 import type { TBreakfast, TBreakfastTranslation } from '@/types/booking';
 import { Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { Actions } from './actions';
 
 export const BeackfastColumn: ColumnsType<TBreakfast> = [
   {
@@ -27,5 +28,11 @@ export const BeackfastColumn: ColumnsType<TBreakfast> = [
         </Tag>
       )),
     key: '3',
+  },
+  {
+    title: 'Actions',
+    dataIndex: 'id',
+    render: (id: number) => <Actions id={id} />,
+    key: '4',
   },
 ];

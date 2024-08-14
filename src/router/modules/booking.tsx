@@ -2,6 +2,7 @@ import { ROUTES } from '@/constants';
 import { RouteObject } from 'react-router-dom';
 import {
   BookingBreakfast,
+  BookingBreakfastDetail,
   BookingCalendarPricingPage,
   BookingFacilityCategoryCreatePage,
   BookingFacilityCategoryEditPage,
@@ -51,6 +52,10 @@ export const bookingRouter: RouteObject[] = [
       {
         index: true,
         element: <BookingBreakfast />,
+      },
+      {
+        path: ROUTES.add,
+        element: <BookingBreakfastDetail />,
       },
     ],
   },

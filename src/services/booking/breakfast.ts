@@ -7,4 +7,7 @@ export const BookingBreakfastService = {
   async findAll({ ...params }) {
     return await this.api.get(EndPointes.booking.breakfast + createQueryString({ ...params }));
   },
+  async createBreakfast(body: any) {
+    return await this.api.post(EndPointes.booking.breakfast, body);
+  },
 };

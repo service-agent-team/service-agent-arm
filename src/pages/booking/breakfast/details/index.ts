@@ -1,0 +1,1 @@
+export { BreakfastDetail } from './detail';
