@@ -19,9 +19,9 @@ export const booking: MenuProps['items'] = [
     label: 'Facility Category',
   },
   {
-    icon: 'CalendarOutlined',
-    key: ROUTES.bookingCalendarPricing,
-    label: 'Calendar Pricing',
+    icon: 'BoxPlotOutlined',
+    key: ROUTES.bookingBedType,
+    label: 'Bed Type',
   },
   {
     icon: 'InboxOutlined',

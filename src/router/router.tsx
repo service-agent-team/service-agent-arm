@@ -1,7 +1,5 @@
-import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
 import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
-import { Suspense } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { SignIn, ProjectsPage, LanguageHomePage } from './loadable';
 import { mainRouter, agentRouter, transferRouter, letsTripRouter, bookingRouter } from './modules';
@@ -50,11 +48,7 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         },
         {
           path: ROUTES.languageHome,
-          element: (
-            <Suspense fallback={<Loading />}>
-              <LanguageHomePage />
-            </Suspense>
-          ),
+          element: <LanguageHomePage />,
         },
         {
           path: ROUTES.booking,
@@ -69,11 +63,7 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
         {
           index: true,
           path: ROUTES.login,
-          element: (
-            <Suspense fallback={<Loading />}>
-              <SignIn />
-            </Suspense>
-          ),
+          element: <SignIn />,
         },
       ],
     },

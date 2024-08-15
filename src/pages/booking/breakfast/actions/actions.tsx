@@ -1,5 +1,5 @@
 import { useActions } from '@/common/hooks';
-import { BreakfastModalKeys } from '@/store/booking/breakfast/silice';
+import { BreakfastModalKeys } from '@/store/booking/breakfast/slice';
 import { DeleteOutlined, EditOutlined, TranslationOutlined } from '@ant-design/icons';
 import { Button, Flex } from 'antd';
 import { Link } from 'react-router-dom';

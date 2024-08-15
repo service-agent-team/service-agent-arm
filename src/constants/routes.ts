@@ -1,6 +1,6 @@
 export const ROUTES = {
   view: ':id',
-  add: 'add',
+  add: 'create',
   home: '/',
   global: '/global',
   globalHome: '/global/home',
@@ -123,6 +123,8 @@ export const ROUTES = {
   bookingFacilityCategory: '/booking/facility-category',
   bookingFacilityCategoryCreate: '/booking/facility-category/create',
   bookingFacilityCategoryEdit: '/booking/facility-category/edit/:id/:languageType',
-  bookingCalendarPricing: '/booking/calendar-pricing',
+  bookingBedType: '/booking/bed-type',
+  bookingBedTypeCreate: '/booking/bed-type/create',
+  bookingBedTypeEdit: '/booking/bed-type/edit/:id/:languageType',
   bookingBreakfast: '/booking/breakfast',
 } as const;

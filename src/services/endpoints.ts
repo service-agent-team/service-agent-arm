@@ -279,4 +279,8 @@ export const EndPointes = {
   bookingFacilityCategory: {
     getAll: '/api/booking/facility-category',
   },
+
+  bookingBedType: {
+    getAll: '/api/booking/bed-type',
+  },
 } as const;

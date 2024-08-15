@@ -1,11 +1,11 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space, Tag } from 'antd';
+import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { dateParser } from '@/common/utils/format';
-import { IFacility } from '@/store/booking/facility/types';
+import { IBedType } from '@/store/booking/bed-type/types';
 import { Actions } from './actions';
 
 export const utils = () => {
@@ -24,7 +24,7 @@ export const utils = () => {
     setSearchText('');
   };
 
-  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IFacility> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IBedType> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
         <Input
@@ -102,7 +102,7 @@ export const utils = () => {
       ),
   });
 
-  const columns: ColumnsType<IFacility> = [
+  const columns: ColumnsType<IBedType> = [
     {
       title: 'Id',
       dataIndex: 'id',
@@ -122,10 +122,9 @@ export const utils = () => {
       ...getColumnSearchProps('name'),
     },
     {
-      title: 'Language Type',
-      dataIndex: 'languageType',
-      key: 'languageType',
-      render: (value) => <Tag color="success">{value?.toUpperCase()}</Tag>,
+      title: 'Size',
+      dataIndex: 'size',
+      key: 'size',
     },
     {
       title: 'Created At',
