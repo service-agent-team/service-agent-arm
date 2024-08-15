@@ -13,8 +13,8 @@ export const BookingBedTypeService = {
   async create(body: IBetTypeBody) {
     return await $axios.post(`${EndPointes.bookingBedType.getAll}`, body);
   },
-  async update(id: number, body: IBetTypeBody) {
-    return await $axios.put(`${EndPointes.bookingBedType.getAll}/${id}`, body);
+  async update(id: number, lang: FacilityLanguageType, body: IBetTypeBody) {
+    return await $axios.put(`${EndPointes.bookingBedType.getAll}/${id}?lang=${lang}`, body);
   },
   async delete(id: number) {
     return await $axios.delete(`${EndPointes.bookingBedType.getAll}/${id}`);

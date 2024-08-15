@@ -5,11 +5,11 @@ import { BeackfastColumn } from './constants';
 
 export const Breakfast = () => {
   const { findBreakfasts } = useActions();
-  const { breakfasts } = useTypedSelector((state) => state.bookingBreakfast);
+  const { breakfasts, loading } = useTypedSelector((state) => state.bookingBreakfast);
 
   useEffect(() => {
     findBreakfasts({});
   }, []);
 
-  return <Table columns={BeackfastColumn} dataSource={breakfasts} />;
+  return <Table loading={loading.get} columns={BeackfastColumn} dataSource={breakfasts} />;
 };

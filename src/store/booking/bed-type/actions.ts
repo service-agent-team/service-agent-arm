@@ -67,9 +67,9 @@ export const createBedType = createAsyncThunk<ICreateResponse, ICreatePayload>(
 
 export const updateBedType = createAsyncThunk<IUpdateResponse, IUpdatePayload>(
   EndPointes.bookingBedType.getAll + '/update/:id',
-  async ({ callback, id, body }, thunkApi) => {
+  async ({ callback, id, lang, body }, thunkApi) => {
     try {
-      const response = await BookingBedTypeService.update(id, body);
+      const response = await BookingBedTypeService.update(id, lang, body);
       if (response.data && callback) {
         callback();
       }

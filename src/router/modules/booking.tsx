@@ -5,6 +5,7 @@ import {
   BookingBedTypeEditPage,
   BookingBedTypePage,
   BookingBreakfast,
+  BookingBreakfastDetail,
   BookingFacilityCategoryCreatePage,
   BookingFacilityCategoryEditPage,
   BookingFacilityCategoryPage,
@@ -21,27 +22,37 @@ export const bookingRouter: RouteObject[] = [
   },
   {
     path: ROUTES.bookingFacility,
-    element: <BookingFacilityPage />,
-  },
-  {
-    path: ROUTES.bookingFacilityCreate,
-    element: <BookingFacilityCreatePage />,
-  },
-  {
-    path: ROUTES.bookingFacilityEdit,
-    element: <BookingFacilityEditPage />,
+    children: [
+      {
+        index: true,
+        element: <BookingFacilityPage />,
+      },
+      {
+        path: ROUTES.add,
+        element: <BookingFacilityCreatePage />,
+      },
+      {
+        path: 'edit/:id/:languageType',
+        element: <BookingFacilityEditPage />,
+      },
+    ],
   },
   {
     path: ROUTES.bookingFacilityCategory,
-    element: <BookingFacilityCategoryPage />,
-  },
-  {
-    path: ROUTES.bookingFacilityCategoryCreate,
-    element: <BookingFacilityCategoryCreatePage />,
-  },
-  {
-    path: ROUTES.bookingFacilityCategoryEdit,
-    element: <BookingFacilityCategoryEditPage />,
+    children: [
+      {
+        index: true,
+        element: <BookingFacilityCategoryPage />,
+      },
+      {
+        path: ROUTES.add,
+        element: <BookingFacilityCategoryCreatePage />,
+      },
+      {
+        path: 'edit/:id/:languageType',
+        element: <BookingFacilityCategoryEditPage />,
+      },
+    ],
   },
   {
     path: ROUTES.bookingBedType,
@@ -51,7 +62,7 @@ export const bookingRouter: RouteObject[] = [
         element: <BookingBedTypePage />,
       },
       {
-        path: 'create',
+        path: ROUTES.add,
         element: <BookingBedTypeCreatePage />,
       },
       {
@@ -66,6 +77,14 @@ export const bookingRouter: RouteObject[] = [
       {
         index: true,
         element: <BookingBreakfast />,
+      },
+      {
+        path: ROUTES.add,
+        element: <BookingBreakfastDetail />,
+      },
+      {
+        path: ROUTES.view,
+        element: <BookingBreakfastDetail />,
       },
     ],
   },

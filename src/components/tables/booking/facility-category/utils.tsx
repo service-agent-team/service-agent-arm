@@ -5,10 +5,6 @@ import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { dateParser } from '@/common/utils/format';
-import { Icon } from '@/components';
-import { useActions } from '@/common/hooks';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '@/constants';
 import { IFacility } from '@/store/booking/facility/types';
 import { Actions } from './actions';
 
@@ -16,9 +12,6 @@ export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
-  const { setSelectGlobalCountry } = useActions();
-  // const { facilities } = useTypedSelector((state) => state.bookingFacility);
-  const navigate = useNavigate();
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -141,21 +134,6 @@ export const utils = () => {
       render: (date) => {
         return dateParser(date);
       },
-    },
-    {
-      title: 'View',
-      dataIndex: 'id',
-      key: 'id',
-      render: (id: number, record) => (
-        <Button
-          onClick={() => {
-            navigate(`${ROUTES.bookingFacility}/${id}`);
-            setSelectGlobalCountry(record);
-          }}
-        >
-          <Icon name="EyeOutlined" />
-        </Button>
-      ),
     },
     {
       title: 'Actions',

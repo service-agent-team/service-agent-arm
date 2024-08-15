@@ -2,7 +2,7 @@ import { BaseForm, PrimaryBtn, TextArea } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IValues } from './types';
-import { Col, Input, Row } from 'antd';
+import { Col, Input, Row, Select } from 'antd';
 import { useEffect } from 'react';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
@@ -20,7 +20,7 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
       createBedType({
         callback() {
           addNotification('Successfully added facility');
-          navigate(ROUTES.bookingFacility);
+          navigate(ROUTES.bookingBedType);
         },
         name,
         description,
@@ -30,7 +30,7 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
       updateBedType({
         callback() {
           addNotification('Successfully edited facility');
-          navigate(ROUTES.bookingFacility);
+          navigate(ROUTES.bookingBedType);
         },
         id: Number(id),
         lang: languageType as FacilityLanguageType,
@@ -49,12 +49,23 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
     }
   }, [id, languageType]);
 
+  const facilityLanguageTypeOptions = [
+    { label: 'UZ', value: 'UZ' },
+    { label: 'RU', value: 'RU' },
+    { label: 'EN', value: 'EN' },
+    { label: 'SP', value: 'SP' },
+    { label: 'AR', value: 'AR' },
+    { label: 'ZH', value: 'ZH' },
+    { label: 'FR', value: 'FR' },
+  ];
+
   useEffect(() => {
     if (type === 'edit' && bedType) {
       form.setFieldsValue({
         name: bedType?.name,
         description: bedType?.description,
         size: bedType?.size,
+        lang: bedType?.lang,
       });
     }
   }, [bedType]);
@@ -68,16 +79,26 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
       onFinishFailed={() => {}}
     >
       <Row gutter={[12, 12]}>
-        <Col span={12}>
+        <Col span={type === 'edit' ? 8 : 12}>
           <BaseForm.Item name="name" label={'Bed type name'} rules={[{ required: true }]}>
             <Input placeholder="Enter bed type name ?" />
           </BaseForm.Item>
         </Col>
-        <Col span={12}>
+        <Col span={type === 'edit' ? 8 : 12}>
           <BaseForm.Item name="size" label={'Bed type size'} rules={[{ required: true }]}>
             <Input placeholder="Enter bed type size ?" />
           </BaseForm.Item>
         </Col>
+        {type === 'edit' ? (
+          <Col span={type === 'edit' ? 8 : 0}>
+            <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
+              <Select
+                options={facilityLanguageTypeOptions}
+                placeholder="Select bed type language type"
+              />
+            </BaseForm.Item>
+          </Col>
+        ) : null}
 
         <Col span={24}>
           <BaseForm.Item

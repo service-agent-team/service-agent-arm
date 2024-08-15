@@ -7,6 +7,9 @@ export interface InitialSate {
     put: boolean;
     delete: boolean;
   };
+  modal: {
+    delete: boolean;
+  };
   breakfasts: TBreakfast[];
   breakfast: TBreakfast | null;
 }

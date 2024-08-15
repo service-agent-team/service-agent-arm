@@ -1,5 +1,6 @@
 export const ROUTES = {
-  add: 'add',
+  view: ':id',
+  add: 'create',
   home: '/',
   global: '/global',
   globalHome: '/global/home',
