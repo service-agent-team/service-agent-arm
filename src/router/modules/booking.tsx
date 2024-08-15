@@ -57,6 +57,10 @@ export const bookingRouter: RouteObject[] = [
         path: ROUTES.add,
         element: <BookingBreakfastDetail />,
       },
+      {
+        path: ROUTES.view,
+        element: <BookingBreakfastDetail />,
+      },
     ],
   },
 ];

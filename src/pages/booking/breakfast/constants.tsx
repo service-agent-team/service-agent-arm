@@ -22,7 +22,7 @@ export const BeackfastColumn: ColumnsType<TBreakfast> = [
     title: 'Languages',
     dataIndex: 'translations',
     render: (lang: TBreakfastTranslation[]) =>
-      lang.map((el, i) => (
+      lang?.map((el, i) => (
         <Tag color="success" key={i}>
           {el.languageType}
         </Tag>

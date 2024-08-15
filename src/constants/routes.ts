@@ -1,4 +1,5 @@
 export const ROUTES = {
+  view: ':id',
   add: 'add',
   home: '/',
   global: '/global',
