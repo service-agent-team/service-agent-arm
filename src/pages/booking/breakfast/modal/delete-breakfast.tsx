@@ -3,7 +3,5 @@ import { Modal } from '@/components';
 
 export const DeleteBreakfastModal = () => {
   const { isModal } = useTypedSelector((state) => state.app);
-  return <Modal open={isModal}>
-    
-  </Modal>;
+  return <Modal open={isModal}></Modal>;
 };

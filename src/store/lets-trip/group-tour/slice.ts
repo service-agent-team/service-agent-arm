@@ -21,6 +21,7 @@ import {
   removeLocationLetsTripGroupTour,
   searchLetsTripGroupTour,
   updateByObjectLetsTripGroupTour,
+  updateItenarary,
   updatePriceIncludesGroupTour,
   updatePriceNoteTripGroupTour,
 } from './actions';
@@ -40,6 +41,7 @@ const initialState: ILetsTripGroupTourInitialState = {
   locations: [],
   errors: null,
   deleted: true,
+  itenararyItem: null,
 };
 
 export const letsTripGroupTourSlice = createSlice({
@@ -60,6 +62,9 @@ export const letsTripGroupTourSlice = createSlice({
     },
     setLetsTripGroupTourRaw: (state, { payload }) => {
       state.groupTourRaw = payload;
+    },
+    setItenararyItem: (state, { payload }) => {
+      state.itenararyItem = payload;
     },
   },
   extraReducers: (builder) => {
@@ -152,6 +157,18 @@ export const letsTripGroupTourSlice = createSlice({
       })
       .addCase(updatePriceIncludesGroupTour.rejected, (state, { payload }) => {
         state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(updateItenarary.pending, (state) => {
+        state.loading.patch = true;
+        state.errors = null;
+      })
+      .addCase(updateItenarary.fulfilled, (state) => {
+        state.loading.patch = false;
+        state.errors = null;
+      })
+      .addCase(updateItenarary.rejected, (state, { payload }) => {
+        state.loading.patch = false;
         state.errors = payload;
       })
       .addCase(addNewDateLetsTripGroupTour.pending, (state) => {

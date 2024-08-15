@@ -13,5 +13,3 @@ export interface InitialSate {
   breakfasts: TBreakfast[];
   breakfast: TBreakfast | null;
 }
-
-

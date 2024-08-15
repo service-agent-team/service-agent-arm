@@ -25,7 +25,7 @@ export const getAllFacilityCategory = createAsyncThunk<
       thunkApi.dispatch(
         appActions.setPagination({
           current: page + 1,
-          total: response.data.count,
+          total: response.data.totalCount,
         }),
       );
     }

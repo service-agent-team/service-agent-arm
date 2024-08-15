@@ -1,5 +1,6 @@
 import { $axios } from '@/common/config';
 import { EndPointes } from '../../endpoints';
+import { ItenararyBody } from '@/store/lets-trip/group-tour/types';
 
 export const LetsTripGroupTourService = {
   async getByCountryId(countryId: number, page = 0, size = 10) {
@@ -36,6 +37,13 @@ export const LetsTripGroupTourService = {
   },
   async updatePriceIncludes(id: number, body: { en: string[]; ru: string[] }) {
     const response = await $axios.put(EndPointes.letsTripTour.updatePriceIncludes + id, body);
+    return response;
+  },
+  async updateItenarary(tourId: number, tourItenararyItemId: number, body: ItenararyBody) {
+    const response = await $axios.put(
+      `${EndPointes.letsTripGroupTour.getAll}/${tourId}/update/tour-itenarary/${tourItenararyItemId}`,
+      body,
+    );
     return response;
   },
   async addAvailableDate(tourId: number, body: any) {
