@@ -1,12 +1,13 @@
-import { BaseForm, PrimaryBtn, TextArea } from '@/components';
-import { useActions, useTypedSelector } from '@/common/hooks';
-import { useNavigate, useParams } from 'react-router-dom';
-import { IValues } from './types';
-import { Col, Input, Row, Select, Switch } from 'antd';
-import { useEffect } from 'react';
 import { addNotification } from '@/common';
+import { LanguageType } from '@/common/enum';
+import { useActions, useTypedSelector } from '@/common/hooks';
+import { BaseForm, PrimaryBtn, TextArea } from '@/components';
 import { ROUTES } from '@/constants';
 import { FacilityLanguageType } from '@/store/booking/facility/types';
+import { Col, Input, Row, Select, Switch } from 'antd';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { IValues } from './types';
 
 export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
@@ -59,15 +60,10 @@ export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
     label: f.name,
   }));
 
-  const facilityLanguageTypeOptions = [
-    { label: 'UZ', value: 'UZ' },
-    { label: 'RU', value: 'RU' },
-    { label: 'EN', value: 'EN' },
-    { label: 'SP', value: 'SP' },
-    { label: 'AR', value: 'AR' },
-    { label: 'ZH', value: 'ZH' },
-    { label: 'FR', value: 'FR' },
-  ];
+  const facilityLanguageTypeOptions = Object.keys(LanguageType).map((el) => ({
+    value: el,
+    label: el,
+  }));
 
   useEffect(() => {
     if (type === 'create') {
