@@ -4,7 +4,12 @@ import * as S from './styles';
 import './table.scss';
 import type { TTable } from './type';
 
-export const Table = ({ isAdd, select, path, ...props }: TableProps<any> & Partial<TTable>) => {
+export const Table = ({
+  isAdd,
+  select,
+  path = 'create',
+  ...props
+}: TableProps<any> & Partial<TTable>) => {
   return (
     <S.Table
       bordered

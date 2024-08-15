@@ -15,6 +15,7 @@ export interface ILetsTripGroupTourInitialState {
   locations: Location2[];
   errors: unknown | string[] | string;
   deleted: boolean;
+  itenararyItem: TourItinerary | null;
 }
 
 export interface ILetsTripGroupTour {
@@ -189,6 +190,20 @@ export interface ILetsTripGroupTourRemoveExtraInfoPayload {
   extraInfoId: number;
   lang: string;
   callback(): void;
+}
+
+export interface ItenararyBody {
+  imageUrl: string;
+  description: Description[];
+  title: Title;
+  item_order: number;
+}
+
+export interface ILetsTripGroupTourItenararyUpdatePayload {
+  tourId: number;
+  tourItenararyId: number;
+  body: ItenararyBody;
+  callback?(): void;
 }
 
 export interface ILetsTripGroupTourAddItenararyPayload {

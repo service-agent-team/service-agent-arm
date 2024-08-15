@@ -1,15 +1,8 @@
-import { BookingFacilityTable, PageTitle } from '@/components';
-import { ROUTES } from '@/constants';
+import { BookingFacilityTable } from '@/components';
 
 export const BookingFacility = () => {
   return (
     <>
-      <PageTitle
-        title="Facilities"
-        route={ROUTES.bookingFacilityCreate}
-        label="Create"
-        icon="PlusOutlined"
-      />
       <BookingFacilityTable />
     </>
   );

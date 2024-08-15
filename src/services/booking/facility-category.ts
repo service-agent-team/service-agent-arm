@@ -1,7 +1,7 @@
 import { $axios } from '@/common/config';
-import { EndPointes } from '../../endpoints';
+import { EndPointes } from '../endpoints';
 import { IFacilityCategoryBody } from '@/store/booking/facility-category/types';
-import { FacilityLanguageType } from '../../../store/booking/facility/types';
+import { FacilityLanguageType } from '../../store/booking/facility/types';
 
 export const BookingFacilityCategoryService = {
   async getAll(page = 0, size = 10) {

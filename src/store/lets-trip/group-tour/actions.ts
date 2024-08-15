@@ -27,9 +27,11 @@ import {
   ILetsTripGroupTourSearchPayload,
   ILetsTripGroupTourPriceUpdatesPayload,
   ILetsTripGroupTourAddExtraInfoPayload,
+  ILetsTripGroupTour,
 } from './types';
 import { LetsTripGroupTourService } from '@/services';
 import { appActions } from '@/store/app';
+import { ILetsTripGroupTourItenararyUpdatePayload } from './types';
 
 export const getByCountryIdLetsTripGroupTour = createAsyncThunk<
   ILetsTripGroupTourResponse,
@@ -162,6 +164,28 @@ export const updatePriceIncludesGroupTour = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const updateItenarary = createAsyncThunk<
+  ILetsTripGroupTour,
+  ILetsTripGroupTourItenararyUpdatePayload
+>(
+  EndPointes.letsTripGroupTour.getAll + '/:tourId/update/tour-itenarary/:id',
+  async ({ callback, tourId, tourItenararyId, body }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.updateItenarary(
+        tourId,
+        tourItenararyId,
+        body,
+      );
+      if (response.data && callback) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
 
 export const addNewDateLetsTripGroupTour = createAsyncThunk<
   IGetOneRawLetsTripTourResponse,

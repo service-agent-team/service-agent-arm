@@ -1,8 +1,10 @@
 import { ROUTES } from '@/constants';
 import { RouteObject } from 'react-router-dom';
 import {
+  BookingBedTypeCreatePage,
+  BookingBedTypeEditPage,
+  BookingBedTypePage,
   BookingBreakfast,
-  BookingCalendarPricingPage,
   BookingFacilityCategoryCreatePage,
   BookingFacilityCategoryEditPage,
   BookingFacilityCategoryPage,
@@ -42,8 +44,21 @@ export const bookingRouter: RouteObject[] = [
     element: <BookingFacilityCategoryEditPage />,
   },
   {
-    path: ROUTES.bookingCalendarPricing,
-    element: <BookingCalendarPricingPage />,
+    path: ROUTES.bookingBedType,
+    children: [
+      {
+        index: true,
+        element: <BookingBedTypePage />,
+      },
+      {
+        path: 'create',
+        element: <BookingBedTypeCreatePage />,
+      },
+      {
+        path: 'edit/:id/:languageType',
+        element: <BookingBedTypeEditPage />,
+      },
+    ],
   },
   {
     path: ROUTES.bookingBreakfast,
