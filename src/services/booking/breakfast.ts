@@ -21,4 +21,11 @@ export const BookingBreakfastService = {
       { name },
     );
   },
+  async deleteBreakfast(id: number) {
+    return await this.api.delete(`${EndPointes.booking.breakfast}/${id}`);
+  },
+
+  async addBreakfastLang(body: any) {
+    return await this.api.post(`${EndPointes.booking.breakfast}/translation`, body);
+  },
 };

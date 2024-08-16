@@ -54,3 +54,29 @@ export const findOneBreakfast = createAsyncThunk<AxiosResponse<TBreakfast>, any>
     }
   },
 );
+
+export const deleteBreakfast = createAsyncThunk<AxiosResponse<TBreakfast>, any>(
+  EndPointes.booking.breakfast + 'delete',
+  async ({ id, cb }, thunkApi) => {
+    try {
+      const response = await BookingBreakfastService.deleteBreakfast(id);
+      cb();
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const addBreakfastLang = createAsyncThunk<AxiosResponse<TBreakfast>, any>(
+  EndPointes.booking.breakfast + 'translation',
+  async ({ body, cb }, thunkApi) => {
+    try {
+      const response = await BookingBreakfastService.addBreakfastLang(body);
+      cb();
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);

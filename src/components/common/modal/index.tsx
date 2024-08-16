@@ -18,13 +18,7 @@ export const Modal: React.FC<ModalProps> = ({ size = 'medium', children, ...prop
   const modalSize = Object.entries(modalSizes).find((sz) => sz[0] === size)?.[1];
 
   return (
-    <S.Modal
-      okButtonProps={{ style: { width: 200, height: 70 }, title: 'ок' }}
-      cancelButtonProps={{ style: { width: 200, height: 70 }, title: 'Бекор қилиш' }}
-      getContainer={false}
-      width={modalSize}
-      {...props}
-    >
+    <S.Modal getContainer={false} width={modalSize} {...props}>
       {children}
     </S.Modal>
   );

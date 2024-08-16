@@ -5,23 +5,26 @@ import { InitialSate } from './type';
 
 const initialState: InitialSate = {
   loading: { get: false, post: false, put: false, delete: false },
-  modal: { delete: false },
+  modal: { delete: false, translation: false },
+  selectable_id: null,
   breakfasts: [],
   breakfast: null,
 };
 
-export enum ModalTypes {
-  delete = 'delete',
-}
-
-type ModalKeys = keyof typeof initialState.modal;
+export type BreakfastModalKeys = keyof typeof initialState.modal;
 
 export const breakfastSlice = createSlice({
   name: EndPointes.booking.breakfast,
   initialState,
   reducers: {
-    setBreakfastModal: (state, { payload }: PayloadAction<{ name: ModalKeys; state: boolean }>) => {
+    setBreakfastModal: (
+      state,
+      { payload }: PayloadAction<{ name: BreakfastModalKeys; state: boolean }>,
+    ) => {
       state.modal[payload.name] = payload.state;
+    },
+    setBreakfastSelectableId: (state, { payload }) => {
+      state.selectable_id = payload;
     },
   },
   extraReducers: (builder) => {

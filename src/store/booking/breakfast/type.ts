@@ -9,7 +9,9 @@ export interface InitialSate {
   };
   modal: {
     delete: boolean;
+    translation: boolean;
   };
+  selectable_id: number | null;
   breakfasts: TBreakfast[];
   breakfast: TBreakfast | null;
 }
