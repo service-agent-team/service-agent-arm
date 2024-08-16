@@ -1,5 +1,5 @@
-import { ROUTES } from '../routes';
 import { letstriplogo } from '@/assets';
+import { ROUTES } from '../routes';
 
 export const letsTrip = [
   {
@@ -46,6 +46,11 @@ export const letsTrip = [
     icon: 'WalletOutlined',
     key: ROUTES.letsTripOrder + 'luggage',
     label: 'Luggage Orders',
+  },
+  {
+    icon: 'WalletOutlined',
+    key: ROUTES.reffral,
+    label: 'Refferal',
   },
 ];
 

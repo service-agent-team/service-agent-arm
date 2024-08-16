@@ -1,35 +1,35 @@
 import { Loading } from '@/components';
-import {
-  LetsTripHomePage,
-  LetsTripLuggagePage,
-  LetsTripOrderPage,
-  LetsTripGroupTourPage,
-  LetsTripGroupTourCreatePage,
-  LetsTripTransferPage,
-  LetsTripEsimGoPage,
-  LetsTripTransferCreatePage,
-  LetsTripGroupTourEditPage,
-  LetsTripIndividualTourPage,
-  LetsTripIndividualTourCreatePage,
-  LetsTripIndividualTourEditPage,
-  LetsTripTourGroupViewPage,
-  LetsTripIndividualTourViewPage,
-  LetsTripCountryPage,
-  LetsTripCountryCreatePage,
-  LetsTripTransferEditPage,
-  LetsTripTransferCategoryPage,
-  LetsTripTransferCategoryCreatePage,
-  LetsTripTransferCategoryEditPage,
-  LetsTripGlobalCountryPage,
-  LetsTripGlobalCountryCreatePage,
-  LetsTripGlobalRegionPage,
-  LetsTripGlobalRegionCreatePage,
-  LetsTripGlobalCountryEditPage,
-  LetsTripTourPage,
-  LetsTripByCountryTourPage,
-} from '../loadable';
 import { ROUTES } from '@/constants';
 import { Suspense } from 'react';
+import {
+  LetsTripByCountryTourPage,
+  LetsTripCountryCreatePage,
+  LetsTripCountryPage,
+  LetsTripEsimGoPage,
+  LetsTripGlobalCountryCreatePage,
+  LetsTripGlobalCountryEditPage,
+  LetsTripGlobalCountryPage,
+  LetsTripGlobalRegionPage,
+  LetsTripGroupTourCreatePage,
+  LetsTripGroupTourEditPage,
+  LetsTripGroupTourPage,
+  LetsTripHomePage,
+  LetsTripIndividualTourCreatePage,
+  LetsTripIndividualTourEditPage,
+  LetsTripIndividualTourPage,
+  LetsTripIndividualTourViewPage,
+  LetsTripLuggagePage,
+  LetsTripOrderPage,
+  LetsTripTourGroupViewPage,
+  LetsTripTourPage,
+  LetsTripTransferCategoryCreatePage,
+  LetsTripTransferCategoryEditPage,
+  LetsTripTransferCategoryPage,
+  LetsTripTransferCreatePage,
+  LetsTripTransferEditPage,
+  LetsTripTransferPage,
+  Refferal,
+} from '../loadable';
 
 export const letsTripRouter = [
   {
@@ -241,11 +241,7 @@ export const letsTripRouter = [
     ),
   },
   {
-    path: ROUTES.letsTripGlobalRegionCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGlobalRegionCreatePage />
-      </Suspense>
-    ),
+    path: ROUTES.reffral,
+    element: <Refferal />,
   },
 ];

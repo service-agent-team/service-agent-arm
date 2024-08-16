@@ -89,6 +89,7 @@ export const LetsTripGlobalCountryCreatePage = getLoadablePage('LetsTripGlobalCo
 export const LetsTripGlobalCountryEditPage = getLoadablePage('LetsTripGlobalCountryEdit');
 export const LetsTripGlobalRegionPage = getLoadablePage('LetsTripGlobalRegion');
 export const LetsTripGlobalRegionCreatePage = getLoadablePage('LetsTripGlobalRegionCreate');
+export const Refferal = getLoadablePage('Refferals');
 
 // language
 export const LanguageHomePage = getLoadablePage('LanguageHome');
