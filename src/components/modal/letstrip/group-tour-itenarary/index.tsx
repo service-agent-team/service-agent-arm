@@ -34,10 +34,10 @@ export const LestTripGroupTourItenararyModal = () => {
         title: { en: titleEn, ru: titleRu },
         item_order: itemOrder,
         imageUrl: '',
-        description: description.map((item) => ({
+        descriptions: description.map((item, i) => ({
           hour: item.hour,
           item_order: item.itemDescOrder,
-          items: [{ en: item.descEn, ru: item.descRu }],
+          items: [{ id: itenararyItem?.descriptions?.[i].id, en: item.descEn, ru: item.descRu }],
         })),
       },
     });
