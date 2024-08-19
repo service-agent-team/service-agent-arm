@@ -6,6 +6,7 @@ import {
   createBedType,
   updateBedType,
   deleteBedType,
+  createBedTypeTranslation,
 } from './actions';
 
 const initialState: InitialState = {
@@ -27,6 +28,9 @@ export const bookingBedTypeSlice = createSlice({
   reducers: {
     setBedType: (state, { payload }) => {
       state.bedTypes = payload;
+    },
+    setOneBedType: (state, { payload }) => {
+      state.bedType = payload;
     },
   },
   extraReducers: (builder) => {
@@ -67,6 +71,27 @@ export const bookingBedTypeSlice = createSlice({
         state.errors = null;
       })
       .addCase(createBedType.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(createBedTypeTranslation.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createBedTypeTranslation.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        if (state.bedTypes) {
+          const foundedIndex = state.bedTypes.findIndex((c) => c.id === payload.data.id);
+          if (foundedIndex !== -1) {
+            state.bedTypes[foundedIndex].translations.push({
+              ...payload.data,
+              languageType: payload.data.lang,
+            });
+          }
+        }
+        state.errors = null;
+      })
+      .addCase(createBedTypeTranslation.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })

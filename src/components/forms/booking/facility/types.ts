@@ -1,4 +1,5 @@
-import { FacilityLanguageType, FacilityType } from '@/store/booking/facility/types';
+import { LanguageType } from '@/common/enum';
+import { FacilityType } from '@/store/booking/facility/types';
 
 export interface IValues {
   name: string;
@@ -6,5 +7,5 @@ export interface IValues {
   facilityType: FacilityType;
   categoryId: string;
   isCommon: true;
-  lang?: FacilityLanguageType;
+  lang?: LanguageType;
 }

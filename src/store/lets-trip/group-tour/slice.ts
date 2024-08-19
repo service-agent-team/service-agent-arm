@@ -163,7 +163,8 @@ export const letsTripGroupTourSlice = createSlice({
         state.loading.patch = true;
         state.errors = null;
       })
-      .addCase(updateItenarary.fulfilled, (state) => {
+      .addCase(updateItenarary.fulfilled, (state, { payload }) => {
+        state.groupTourRaw = payload;
         state.loading.patch = false;
         state.errors = null;
       })

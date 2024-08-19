@@ -194,7 +194,7 @@ export interface ILetsTripGroupTourRemoveExtraInfoPayload {
 
 export interface ItenararyBody {
   imageUrl: string;
-  description: Description[];
+  descriptions: Description[];
   title: Title;
   item_order: number;
 }
@@ -263,6 +263,7 @@ export interface Description {
 }
 
 export interface Items {
+  id?: number;
   ru: string;
   en: string;
 }

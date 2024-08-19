@@ -6,7 +6,9 @@ import {
   IBedType,
   ICreatePayload,
   ICreateResponse,
+  ICreateTranslationPayload,
   IDeletePayload,
+  IDeleteTranslationPayload,
   IGetAllPayload,
   IGetOnePayload,
   IGetOneResponse,
@@ -65,6 +67,24 @@ export const createBedType = createAsyncThunk<ICreateResponse, ICreatePayload>(
   },
 );
 
+export const createBedTypeTranslation = createAsyncThunk<
+  ICreateResponse,
+  ICreateTranslationPayload
+>(
+  EndPointes.bookingBedType.getAll + '/create/translations',
+  async ({ callback, body }, thunkApi) => {
+    try {
+      const response = await BookingBedTypeService.createTranslation(body);
+      if (response.data && callback) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
 export const updateBedType = createAsyncThunk<IUpdateResponse, IUpdatePayload>(
   EndPointes.bookingBedType.getAll + '/update/:id',
   async ({ callback, id, lang, body }, thunkApi) => {
@@ -86,6 +106,21 @@ export const deleteBedType = createAsyncThunk<any, IDeletePayload>(
     try {
       const response = await BookingBedTypeService.delete(id);
       if (response.data && callback) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const deleteBedTypeTranslation = createAsyncThunk<any, IDeleteTranslationPayload>(
+  EndPointes.bookingBedType.getAll + '/delete/translation:id',
+  async ({ callback, id, lang }, thunkApi) => {
+    try {
+      const response = await BookingBedTypeService.deleteTranslation(id, lang);
+      if (response.status === 204 && callback) {
         callback();
       }
       return response.data;

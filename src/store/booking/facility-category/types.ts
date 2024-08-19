@@ -1,4 +1,5 @@
-import { FacilityLanguageType } from '../facility/types';
+import { LanguageType } from '@/common/enum';
+import { TBreakfastTranslation } from '@/types/booking';
 
 export interface InitialState {
   loading: {
@@ -16,14 +17,14 @@ export interface InitialState {
 export interface IFacilityCategory {
   id: number;
   name: string;
-  languageType: FacilityLanguageType;
-  translations: any[];
+  languageType: LanguageType;
+  translations: TBreakfastTranslation[];
 }
 
 export interface IOneFacilityCategory {
   id: number;
   name: string;
-  languageType: FacilityLanguageType;
+  languageType: LanguageType;
 }
 
 export interface IFacilityCategoryResponse {
@@ -38,25 +39,47 @@ export interface IFacilityCategoryPayload {
 
 export interface IGetOneFacilityCategoryPayload {
   id: number;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
 }
 
 export interface IFacilityCategoryBody {
   name: string;
 }
 
-export interface IFacilityCategoryCreatePayload extends IFacilityCategoryBody {
+export interface IFacilityCategoryTranslationBody {
+  name: string;
+  categoryId: number;
+  languageType: LanguageType;
+}
+
+export interface ICreateTranslationPayload {
   callback?(): void;
+  body: IFacilityCategoryTranslationBody;
+}
+
+export interface ICreatePayload extends IFacilityCategoryBody {
+  callback?(): void;
+}
+
+export interface ICreateFacilityCategoryTranslationPayload {
+  callback?(): void;
+  body: IFacilityCategoryTranslationBody;
 }
 
 export interface IFacilityCategoryUpdatePayload {
   id: number;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
   body: IFacilityCategoryBody;
   callback?(): void;
 }
 
 export interface IFacilityCategoryDeletePayload {
   id: number;
+  callback?(): void;
+}
+
+export interface IDeleteTranslationPayload {
+  id: number;
+  lang: LanguageType;
   callback?(): void;
 }

@@ -1,3 +1,5 @@
+import { LanguageType } from '@/common/enum';
+
 export interface InitialState {
   loading: {
     get: boolean;
@@ -14,7 +16,7 @@ export interface IFacility {
   id: number;
   name: string;
   type: FacilityType;
-  languageType: FacilityLanguageType;
+  languageType: LanguageType;
   translations: any[];
   category: Category;
   common: boolean;
@@ -25,7 +27,7 @@ export interface IOneFacility {
   name: string;
   facilityType: FacilityType;
   description: string;
-  languageType: FacilityLanguageType;
+  languageType: LanguageType;
   category: Category;
   common: boolean;
 }
@@ -41,7 +43,7 @@ export interface IFacilityCreateResponse {
 
 export interface IGetOneFacilityPayload {
   id: number;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
   callback?(): void;
 }
 
@@ -62,9 +64,21 @@ export interface ICreateFacilityPayload extends IFacilityBody {
   callback?(): void;
 }
 
+export interface IFacilityTranslationBody {
+  facilityId: number;
+  name: string;
+  description: string;
+  languageType: LanguageType;
+}
+
+export interface ICreateTranslationPayload {
+  callback?(): void;
+  body: IFacilityTranslationBody;
+}
+
 export interface IUpdateFacilityPayload {
   id: number;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
   body: IFacilityBody;
   callback?(): void;
 }
@@ -74,14 +88,10 @@ export interface IFacilityDeletePayload {
   callback(): void;
 }
 
-export enum FacilityLanguageType {
-  UZ = 'UZ',
-  RU = 'RU',
-  EN = 'EN',
-  SP = 'SP',
-  AR = 'AR',
-  ZH = 'ZH',
-  FR = 'FR',
+export interface IDeleteTranslationFacilityPayload {
+  id: number;
+  lang: LanguageType;
+  callback(): void;
 }
 
 export enum FacilityType {
@@ -93,5 +103,5 @@ export enum FacilityType {
 export interface Category {
   id: number;
   name: string;
-  languageType: FacilityLanguageType;
+  languageType: LanguageType;
 }

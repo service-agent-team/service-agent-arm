@@ -2,6 +2,8 @@ import { Table } from '@/components/common';
 import { utils } from './utils';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useEffect } from 'react';
+import { subUtils } from './sub-utils';
+import { IBedType } from '@/store/booking/bed-type/types';
 
 export const BookingBedTypeTable = () => {
   const {
@@ -28,6 +30,9 @@ export const BookingBedTypeTable = () => {
       pagination={{ current, pageSize, total }}
       loading={get}
       bordered
+      expandable={{
+        expandedRowRender: (record: IBedType) => subUtils(record),
+      }}
     />
   );
 };
