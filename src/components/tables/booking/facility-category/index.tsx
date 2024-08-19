@@ -2,6 +2,8 @@ import { Table } from '@/components/common';
 import { utils } from './utils';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useEffect } from 'react';
+import { IFacilityCategory } from '@/store/booking/facility-category/types';
+import { subUtils } from './sub-utils';
 
 export const BookingFacilityCategoryTable = () => {
   const {
@@ -28,6 +30,9 @@ export const BookingFacilityCategoryTable = () => {
       pagination={{ current, pageSize, total }}
       loading={get}
       bordered
+      expandable={{
+        expandedRowRender: (record: IFacilityCategory) => subUtils(record),
+      }}
     />
   );
 };

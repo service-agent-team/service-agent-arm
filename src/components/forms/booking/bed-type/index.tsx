@@ -6,7 +6,7 @@ import { Col, Input, Row, Select } from 'antd';
 import { useEffect } from 'react';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
-import { FacilityLanguageType } from '@/store/booking/facility/types';
+import { LanguageType } from '@/common/enum';
 
 export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
@@ -33,7 +33,7 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
           navigate(ROUTES.bookingBedType);
         },
         id: Number(id),
-        lang: languageType as FacilityLanguageType,
+        lang: languageType as LanguageType,
         body: {
           name,
           description,
@@ -45,19 +45,11 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
 
   useEffect(() => {
     if (id && languageType) {
-      getOneBedType({ id: Number(id), lang: languageType as FacilityLanguageType });
+      getOneBedType({ id: Number(id), lang: languageType as LanguageType });
     }
   }, [id, languageType]);
 
-  const facilityLanguageTypeOptions = [
-    { label: 'UZ', value: 'UZ' },
-    { label: 'RU', value: 'RU' },
-    { label: 'EN', value: 'EN' },
-    { label: 'SP', value: 'SP' },
-    { label: 'AR', value: 'AR' },
-    { label: 'ZH', value: 'ZH' },
-    { label: 'FR', value: 'FR' },
-  ];
+  const langOptions = Object.keys(LanguageType).map((el) => ({ value: el, label: el }));
 
   useEffect(() => {
     if (type === 'edit' && bedType) {
@@ -92,10 +84,7 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
         {type === 'edit' ? (
           <Col span={type === 'edit' ? 8 : 0}>
             <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
-              <Select
-                options={facilityLanguageTypeOptions}
-                placeholder="Select bed type language type"
-              />
+              <Select options={langOptions} placeholder="Select bed type language type" />
             </BaseForm.Item>
           </Col>
         ) : null}

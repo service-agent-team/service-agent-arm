@@ -4,6 +4,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { BookingFacilityService } from '@/services';
 import {
   ICreateFacilityPayload,
+  ICreateTranslationPayload,
+  IDeleteTranslationFacilityPayload,
   IFacilityCreateResponse,
   IFacilityDeletePayload,
   IFacilityPayload,
@@ -70,6 +72,21 @@ export const createFacility = createAsyncThunk<IFacilityCreateResponse, ICreateF
   },
 );
 
+export const createFacilityTranslation = createAsyncThunk<
+  IFacilityCreateResponse,
+  ICreateTranslationPayload
+>(EndPointes.bookingFacility + '/create/translations', async ({ callback, body }, thunkApi) => {
+  try {
+    const response = await BookingFacilityService.createTranslation(body);
+    if (response.data && callback) {
+      callback();
+    }
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
+
 export const editFacility = createAsyncThunk<IFacilityCreateResponse, IUpdateFacilityPayload>(
   EndPointes.bookingFacility + '/update/:id',
   async ({ callback, id, lang, body }, thunkApi) => {
@@ -90,6 +107,21 @@ export const deleteFacility = createAsyncThunk<any, IFacilityDeletePayload>(
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await BookingFacilityService.delete(id);
+      if (callback) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const deleteFacilityTranslation = createAsyncThunk<any, IDeleteTranslationFacilityPayload>(
+  EndPointes.bookingFacility + '/delete/translation/:id',
+  async ({ callback, id, lang }, thunkApi) => {
+    try {
+      const response = await BookingFacilityService.deleteTranslation(id, lang);
       if (callback) {
         callback();
       }

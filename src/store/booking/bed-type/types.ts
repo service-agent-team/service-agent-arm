@@ -1,4 +1,5 @@
-import { FacilityLanguageType } from '../facility/types';
+import { LanguageType } from '@/common/enum';
+import { TBreakfastTranslation } from '@/types/booking';
 
 export interface InitialState {
   loading: {
@@ -17,8 +18,8 @@ export interface IBedType {
   id: number;
   name: string;
   size: string;
-  languageType: string;
-  translations: any[];
+  languageType: LanguageType;
+  translations: TBreakfastTranslation[];
 }
 
 export interface IGetOneBedType {
@@ -26,13 +27,21 @@ export interface IGetOneBedType {
   name: string;
   description: string;
   size: string;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
 }
 
 export interface IBetTypeBody {
   name: string;
   description: string;
   size: string;
+}
+
+export interface IBetTypeTranslationBody {
+  name: string;
+  description: string;
+  size: string;
+  bedTypeId: number;
+  languageType: LanguageType;
 }
 
 export interface IGetAllResponse {
@@ -49,7 +58,7 @@ export interface IGetOneResponse extends IGetOneBedType {}
 
 export interface IGetOnePayload {
   id: number;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
 }
 
 export interface ICreateResponse {
@@ -60,13 +69,18 @@ export interface ICreatePayload extends IBetTypeBody {
   callback?(): void;
 }
 
+export interface ICreateTranslationPayload {
+  callback?(): void;
+  body: IBetTypeTranslationBody;
+}
+
 export interface IUpdateResponse {
   data: IGetOneBedType;
 }
 
 export interface IUpdatePayload {
   id: number;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
   body: IBetTypeBody;
   callback?(): void;
 }
@@ -74,4 +88,8 @@ export interface IUpdatePayload {
 export interface IDeletePayload {
   id: number;
   callback?(): void;
+}
+
+export interface IDeleteTranslationPayload extends IDeletePayload {
+  lang: LanguageType;
 }

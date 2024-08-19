@@ -1,8 +1,8 @@
-import { FacilityLanguageType } from '@/store/booking/facility/types';
+import { LanguageType } from '@/common/enum';
 
 export interface IValues {
   name: string;
   description: string;
   size: string;
-  lang: FacilityLanguageType;
+  lang: LanguageType;
 }

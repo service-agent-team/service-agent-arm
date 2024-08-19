@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './types';
 import {
   createFacility,
+  createFacilityTranslation,
   deleteFacility,
   editFacility,
   getAllFacility,
@@ -27,6 +28,9 @@ export const bookingFacilitySlice = createSlice({
   reducers: {
     setBookingFacility: (state, { payload }) => {
       state.facilities = payload;
+    },
+    setOneFacility: (state, { payload }) => {
+      state.facility = payload;
     },
   },
   extraReducers: (builder) => {
@@ -67,6 +71,24 @@ export const bookingFacilitySlice = createSlice({
         state.errors = null;
       })
       .addCase(createFacility.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(createFacilityTranslation.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createFacilityTranslation.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        if (state.facilities) {
+          const foundedIndex = state.facilities.findIndex((c) => c.id === payload.data.id);
+          if (foundedIndex !== -1) {
+            state.facilities[foundedIndex].translations.push(payload.data);
+          }
+        }
+        state.errors = null;
+      })
+      .addCase(createFacilityTranslation.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })

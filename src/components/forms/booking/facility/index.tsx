@@ -3,7 +3,6 @@ import { LanguageType } from '@/common/enum';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, PrimaryBtn, TextArea } from '@/components';
 import { ROUTES } from '@/constants';
-import { FacilityLanguageType } from '@/store/booking/facility/types';
 import { Col, Input, Row, Select, Switch } from 'antd';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -37,7 +36,7 @@ export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
           navigate(ROUTES.bookingFacility);
         },
         id: Number(id),
-        lang: lang as FacilityLanguageType,
+        lang: lang as LanguageType,
         body: {
           name,
           description,
@@ -60,7 +59,7 @@ export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
     label: f.name,
   }));
 
-  const facilityLanguageTypeOptions = Object.keys(LanguageType).map((el) => ({
+  const LanguageTypeOptions = Object.keys(LanguageType).map((el) => ({
     value: el,
     label: el,
   }));
@@ -71,7 +70,7 @@ export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
     }
     if (id) {
       getAllFacilityCategory({ page: 0, size: 300 });
-      getOneFacility({ id: Number(id), lang: languageType as FacilityLanguageType });
+      getOneFacility({ id: Number(id), lang: languageType as LanguageType });
     }
   }, [id]);
 
@@ -118,10 +117,7 @@ export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
         {type === 'edit' ? (
           <Col span={type === 'edit' ? 7 : 6}>
             <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
-              <Select
-                options={facilityLanguageTypeOptions}
-                placeholder="Select facility language type"
-              />
+              <Select options={LanguageTypeOptions} placeholder="Select facility language type" />
             </BaseForm.Item>
           </Col>
         ) : null}

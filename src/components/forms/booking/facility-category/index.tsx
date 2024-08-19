@@ -6,7 +6,7 @@ import { Col, Input, Row, Select } from 'antd';
 import { useEffect } from 'react';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
-import { FacilityLanguageType } from '@/store/booking/facility/types';
+import { LanguageType } from '@/common/enum';
 
 export const BookingFacilityCategoryForm = ({ type }: { type: 'edit' | 'create' }) => {
   const [form] = BaseForm.useForm();
@@ -31,27 +31,18 @@ export const BookingFacilityCategoryForm = ({ type }: { type: 'edit' | 'create' 
           navigate(ROUTES.bookingFacilityCategory);
         },
         id: Number(id),
-        lang: lang as FacilityLanguageType,
+        lang: lang as LanguageType,
         body: {
           name,
         },
       });
     }
   };
-
-  const facilityLanguageTypeOptions = [
-    { label: 'UZ', value: 'UZ' },
-    { label: 'RU', value: 'RU' },
-    { label: 'EN', value: 'EN' },
-    { label: 'SP', value: 'SP' },
-    { label: 'AR', value: 'AR' },
-    { label: 'ZH', value: 'ZH' },
-    { label: 'FR', value: 'FR' },
-  ];
+  const langOptions = Object.keys(LanguageType).map((el) => ({ value: el, label: el }));
 
   useEffect(() => {
     if (id && languageType) {
-      getOneFacilityCategory({ id: Number(id), lang: languageType as FacilityLanguageType });
+      getOneFacilityCategory({ id: Number(id), lang: languageType as LanguageType });
     }
   }, [id, languageType]);
 
@@ -82,10 +73,7 @@ export const BookingFacilityCategoryForm = ({ type }: { type: 'edit' | 'create' 
         {type === 'edit' ? (
           <Col span={type === 'edit' ? 6 : 0}>
             <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
-              <Select
-                options={facilityLanguageTypeOptions}
-                placeholder="Select facility language type"
-              />
+              <Select options={langOptions} placeholder="Select facility language type" />
             </BaseForm.Item>
           </Col>
         ) : null}

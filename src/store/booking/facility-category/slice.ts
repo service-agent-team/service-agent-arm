@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './types';
 import {
   createFacilityCategory,
+  createFacilityCategoryTranslation,
   deleteFacilityCategory,
+  deleteFacilityCategoryTranslation,
   getAllFacilityCategory,
   getOneFacilityCategory,
   updateFacilityCategory,
@@ -27,6 +29,9 @@ export const bookingFacilityCategorySlice = createSlice({
   reducers: {
     setBookingFacilityCategory: (state, { payload }) => {
       state.facilityCategories = payload;
+    },
+    setOneFacilityCategory: (state, { payload }) => {
+      state.facilityCategory = payload;
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +77,24 @@ export const bookingFacilityCategorySlice = createSlice({
         state.loading.post = false;
         state.errors = payload;
       })
+      .addCase(createFacilityCategoryTranslation.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(createFacilityCategoryTranslation.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+        if (state.facilityCategories) {
+          const foundedIndex = state.facilityCategories.findIndex((c) => c.id === payload.data.id);
+          if (foundedIndex !== -1) {
+            state.facilityCategories[foundedIndex].translations.push(payload.data);
+          }
+        }
+        state.errors = null;
+      })
+      .addCase(createFacilityCategoryTranslation.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
       .addCase(updateFacilityCategory.pending, (state) => {
         state.loading.put = true;
         state.errors = null;
@@ -96,6 +119,18 @@ export const bookingFacilityCategorySlice = createSlice({
         state.errors = null;
       })
       .addCase(deleteFacilityCategory.rejected, (state, { payload }) => {
+        state.loading.delete = false;
+        state.errors = payload;
+      })
+      .addCase(deleteFacilityCategoryTranslation.pending, (state) => {
+        state.loading.delete = true;
+        state.errors = null;
+      })
+      .addCase(deleteFacilityCategoryTranslation.fulfilled, (state) => {
+        state.loading.delete = false;
+        state.errors = null;
+      })
+      .addCase(deleteFacilityCategoryTranslation.rejected, (state, { payload }) => {
         state.loading.delete = false;
         state.errors = payload;
       });

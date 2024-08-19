@@ -5,13 +5,15 @@ import { BookingFacilityCategoryService } from '@/services';
 import { appActions } from '@/store/app';
 import {
   IFacilityCategory,
-  IFacilityCategoryCreatePayload,
+  ICreatePayload,
   IFacilityCategoryDeletePayload,
   IFacilityCategoryPayload,
   IFacilityCategoryResponse,
   IFacilityCategoryUpdatePayload,
   IGetOneFacilityCategoryPayload,
   IOneFacilityCategory,
+  ICreateTranslationPayload,
+  IDeleteTranslationPayload,
 } from './types';
 import { AxiosResponse } from 'axios';
 
@@ -48,7 +50,7 @@ export const getOneFacilityCategory = createAsyncThunk<
 
 export const createFacilityCategory = createAsyncThunk<
   AxiosResponse<IFacilityCategory>,
-  IFacilityCategoryCreatePayload
+  ICreatePayload
 >(EndPointes.letsTripCountry.getAll + '/create', async ({ callback, name }, thunkApi) => {
   try {
     const response = await BookingFacilityCategoryService.create({ name });
@@ -60,6 +62,24 @@ export const createFacilityCategory = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: errorCatch(error) });
   }
 });
+
+export const createFacilityCategoryTranslation = createAsyncThunk<
+  AxiosResponse<IOneFacilityCategory>,
+  ICreateTranslationPayload
+>(
+  EndPointes.letsTripCountry.getAll + '/create/translation',
+  async ({ callback, body }, thunkApi) => {
+    try {
+      const response = await BookingFacilityCategoryService.createTranslation(body);
+      if (response.data && callback) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
 
 export const updateFacilityCategory = createAsyncThunk<
   AxiosResponse<IFacilityCategory>,
@@ -84,6 +104,21 @@ export const deleteFacilityCategory = createAsyncThunk<any, IFacilityCategoryDel
   async ({ callback, id }, thunkApi) => {
     try {
       const response = await BookingFacilityCategoryService.delete(id);
+      if (callback) {
+        callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const deleteFacilityCategoryTranslation = createAsyncThunk<any, IDeleteTranslationPayload>(
+  EndPointes.letsTripCountry.getAll + '/delete/translation/:id',
+  async ({ callback, id, lang }, thunkApi) => {
+    try {
+      const response = await BookingFacilityCategoryService.deleteTranslation(id, lang);
       if (callback) {
         callback();
       }

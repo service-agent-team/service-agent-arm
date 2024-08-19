@@ -1,3 +1,5 @@
+import { LanguageType } from '@/common/enum';
+
 export type TBreakfast = {
   id: number;
   name: string;
@@ -7,5 +9,5 @@ export type TBreakfast = {
 
 export interface TBreakfastTranslation {
   name: string;
-  languageType: string;
+  languageType: LanguageType;
 }
