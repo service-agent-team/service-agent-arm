@@ -221,41 +221,15 @@ export const LestTripTourCreateForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={() => {}}
     >
-      <Row gutter={10}>
-        <Col span={24}>
-          <BaseForm.Item
-            name="nameEn"
-            label={'name english'}
-            rules={[
-              { required: true },
-              {
-                validator: async (_, value: string) => {
-                  if (value === '<p><br></p>') {
-                    return Promise.reject(new Error('field required?'));
-                  }
-                },
-              },
-            ]}
-          >
-            <TextEditor name="nameEn" placeholder="Enter a english name ?" />
+      <Row gutter={[12, 12]}>
+        <Col span={12}>
+          <BaseForm.Item name="nameEn" label={'name english'} rules={[{ required: true }]}>
+            <Input name="nameEn" placeholder="Enter a english name ?" />
           </BaseForm.Item>
         </Col>
-        <Col span={24}>
-          <BaseForm.Item
-            name="nameRu"
-            label={'name russian'}
-            rules={[
-              { required: true },
-              {
-                validator: async (_, value: string) => {
-                  if (value === '<p><br></p>') {
-                    return Promise.reject(new Error('field required?'));
-                  }
-                },
-              },
-            ]}
-          >
-            <TextEditor name="nameRu" placeholder="Enter a russian name ?" />
+        <Col span={12}>
+          <BaseForm.Item name="nameRu" label={'name russian'} rules={[{ required: true }]}>
+            <Input name="nameRu" placeholder="Enter a russian name ?" />
           </BaseForm.Item>
         </Col>
 

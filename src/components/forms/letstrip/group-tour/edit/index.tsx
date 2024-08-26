@@ -22,7 +22,7 @@ import { UploadFile } from 'antd/lib';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import toast from 'react-hot-toast';
 // import dayjs from 'dayjs';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Lang } from '@/store/lets-trip/group-tour/types';
 import { LestTripGroupTourItenararyModal } from '@/components/modal';
 
@@ -68,7 +68,6 @@ export const LestTripTourEditForm: React.FC = () => {
     googleMapsApiKey: 'AIzaSyANA8h-fA595Nq-OMLG7JmTBWT-1R5eNVQ',
   });
   const center = { lat: 41.875734, lng: 64.017636 };
-  const navigate = useNavigate();
   const { id } = useParams();
   const {
     pagination: { current, pageSize },
@@ -206,7 +205,7 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('name changed');
-            navigate(-1);
+            history.back();
           },
           en: nameEn,
           ru: nameRu,
@@ -220,7 +219,7 @@ export const LestTripTourEditForm: React.FC = () => {
         otherUpdatesLetsTripGroupTour({
           callback() {
             addNotification('country and starting price changed');
-            navigate(-1);
+            history.back();
           },
           tourId: groupTourRaw.tourId as number,
           countryId: countryId as number,
@@ -236,7 +235,7 @@ export const LestTripTourEditForm: React.FC = () => {
         priceUpdateLetsTripGroupTour({
           callback() {
             addNotification('per persons price changed');
-            navigate(-1);
+            history.back();
           },
           tourId: Number(groupTourRaw.tourId),
           upTo2: upTo2 * 100,
@@ -252,7 +251,7 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('description changed');
-            navigate(-1);
+            history.back();
           },
           en: descriptionEn,
           ru: descriptionRu,
@@ -263,7 +262,7 @@ export const LestTripTourEditForm: React.FC = () => {
         updatePriceNoteTripGroupTour({
           callback() {
             addNotification('price note changed');
-            navigate(-1);
+            history.back();
           },
           en: priceNoteEn,
           ru: priceNoteRu,
@@ -273,7 +272,7 @@ export const LestTripTourEditForm: React.FC = () => {
       updatePriceIncludesGroupTour({
         callback() {
           addNotification('price includes changed');
-          navigate(-1);
+          history.back();
         },
         en: priceIncludes.map((item) => item.priceIncludeEn),
         ru: priceIncludes.map((item) => item.priceIncludeRu),
@@ -283,7 +282,7 @@ export const LestTripTourEditForm: React.FC = () => {
       updatePriceIncludesGroupTour({
         callback() {
           addNotification('price not includes changed');
-          navigate(-1);
+          history.back();
         },
         en: priceNotIncludes.map((item) => item.priceNotIncludeEn),
         ru: priceNotIncludes.map((item) => item.priceNotIncludeRu),
@@ -295,7 +294,7 @@ export const LestTripTourEditForm: React.FC = () => {
           return addItenararyLetsTripGroupTour({
             callback() {
               addNotification('add tour itenarary');
-              navigate(-1);
+              history.back();
             },
             tourId: groupTourRaw.tourId,
             body: {
@@ -327,7 +326,7 @@ export const LestTripTourEditForm: React.FC = () => {
       //   addNewDateLetsTripGroupTour({
       //     callback() {
       //       addNotification('available date added');
-      //       navigate(-1);
+      //       history.back()
       //     },
       //     tourId: groupTourRaw.tourId,
       //     availableDateItem: {
@@ -354,7 +353,7 @@ export const LestTripTourEditForm: React.FC = () => {
         addImageLetsTripGroupTour({
           callback() {
             addNotification('group tour images added');
-            navigate(-1);
+            history.back();
           },
           tourId: groupTourRaw.tourId as number,
           images: newImages,
@@ -369,7 +368,7 @@ export const LestTripTourEditForm: React.FC = () => {
         addExtraInfoLetsTripGroupTour({
           callback() {
             addNotification('successfully added extra info');
-            navigate(-1);
+            history.back();
           },
           tourId: groupTourRaw.tourId,
           items: filterEnglishInfo,
@@ -381,7 +380,7 @@ export const LestTripTourEditForm: React.FC = () => {
         addExtraInfoLetsTripGroupTour({
           callback() {
             addNotification('successfully added extra info');
-            navigate(-1);
+            history.back();
           },
           tourId: groupTourRaw.tourId,
           items: filterRussianInfo,
@@ -535,49 +534,15 @@ export const LestTripTourEditForm: React.FC = () => {
         onFinish={onFinish}
         onFinishFailed={() => {}}
       >
-        <Row gutter={12}>
-          <Col span={24}>
-            <BaseForm.Item
-              name="nameEn"
-              label={'name english'}
-              rules={[
-                { required: true },
-                {
-                  validator: async (_, value: string) => {
-                    if (value === '<p><br></p>') {
-                      return Promise.reject(new Error('field required?'));
-                    }
-                  },
-                },
-              ]}
-            >
-              <TextEditor
-                name="nameEn"
-                setContents={groupTourRaw?.name.en}
-                placeholder="Enter a english name ?"
-              />
+        <Row gutter={[12, 12]}>
+          <Col span={12}>
+            <BaseForm.Item name="nameEn" label={'name english'} rules={[{ required: true }]}>
+              <Input name="nameEn" placeholder="Enter a english name ?" />
             </BaseForm.Item>
           </Col>
-          <Col span={24}>
-            <BaseForm.Item
-              name="nameRu"
-              label={'name russian'}
-              rules={[
-                { required: true },
-                {
-                  validator: async (_, value: string) => {
-                    if (value === '<p><br></p>') {
-                      return Promise.reject(new Error('field required?'));
-                    }
-                  },
-                },
-              ]}
-            >
-              <TextEditor
-                name="nameRu"
-                setContents={groupTourRaw?.name?.ru}
-                placeholder="Enter a russian name ?"
-              />
+          <Col span={12}>
+            <BaseForm.Item name="nameRu" label={'name russian'} rules={[{ required: true }]}>
+              <Input name="nameRu" placeholder="Enter a russian name ?" />
             </BaseForm.Item>
           </Col>
 
