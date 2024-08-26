@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { IValues } from './types';
 import { PrimaryBtn } from '@/components/primary-btn';
 import { addNotification } from '@/common';
+import { Items } from '@/store/lets-trip/group-tour/types';
 
 export const LestTripGroupTourItenararyModal = () => {
   const { setModal, updateItenarary } = useActions();
@@ -23,6 +24,7 @@ export const LestTripGroupTourItenararyModal = () => {
   };
 
   const onFinish = ({ titleEn, titleRu, itemOrder, description }: IValues) => {
+    if (!itenararyItem) return;
     updateItenarary({
       callback() {
         addNotification('Successfully updated tour itenarary');
@@ -35,9 +37,14 @@ export const LestTripGroupTourItenararyModal = () => {
         item_order: itemOrder,
         imageUrl: '',
         descriptions: description.map((item, i) => ({
+          id: itenararyItem?.descriptions?.[i].id as number,
           hour: item.hour,
           item_order: item.itemDescOrder,
-          items: [{ id: itenararyItem?.descriptions?.[i].id, en: item.descEn, ru: item.descRu }],
+          items: itenararyItem?.descriptions?.[i].items.map((d) => ({
+            id: d.id as number,
+            en: item.descEn,
+            ru: item.descRu,
+          })) as Items[],
         })),
       },
     });
