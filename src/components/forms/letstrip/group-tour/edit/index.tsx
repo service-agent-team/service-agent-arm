@@ -205,7 +205,6 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('name changed');
-            history.back();
           },
           en: nameEn,
           ru: nameRu,
@@ -219,7 +218,6 @@ export const LestTripTourEditForm: React.FC = () => {
         otherUpdatesLetsTripGroupTour({
           callback() {
             addNotification('country and starting price changed');
-            history.back();
           },
           tourId: groupTourRaw.tourId as number,
           countryId: countryId as number,
@@ -235,7 +233,6 @@ export const LestTripTourEditForm: React.FC = () => {
         priceUpdateLetsTripGroupTour({
           callback() {
             addNotification('per persons price changed');
-            history.back();
           },
           tourId: Number(groupTourRaw.tourId),
           upTo2: upTo2 * 100,
@@ -251,7 +248,6 @@ export const LestTripTourEditForm: React.FC = () => {
         updateByObjectLetsTripGroupTour({
           callback() {
             addNotification('description changed');
-            history.back();
           },
           en: descriptionEn,
           ru: descriptionRu,
@@ -262,7 +258,6 @@ export const LestTripTourEditForm: React.FC = () => {
         updatePriceNoteTripGroupTour({
           callback() {
             addNotification('price note changed');
-            history.back();
           },
           en: priceNoteEn,
           ru: priceNoteRu,
@@ -272,7 +267,6 @@ export const LestTripTourEditForm: React.FC = () => {
       updatePriceIncludesGroupTour({
         callback() {
           addNotification('price includes changed');
-          history.back();
         },
         en: priceIncludes.map((item) => item.priceIncludeEn),
         ru: priceIncludes.map((item) => item.priceIncludeRu),
@@ -282,7 +276,6 @@ export const LestTripTourEditForm: React.FC = () => {
       updatePriceIncludesGroupTour({
         callback() {
           addNotification('price not includes changed');
-          history.back();
         },
         en: priceNotIncludes.map((item) => item.priceNotIncludeEn),
         ru: priceNotIncludes.map((item) => item.priceNotIncludeRu),
@@ -294,7 +287,6 @@ export const LestTripTourEditForm: React.FC = () => {
           return addItenararyLetsTripGroupTour({
             callback() {
               addNotification('add tour itenarary');
-              history.back();
             },
             tourId: groupTourRaw.tourId,
             body: {
@@ -353,7 +345,6 @@ export const LestTripTourEditForm: React.FC = () => {
         addImageLetsTripGroupTour({
           callback() {
             addNotification('group tour images added');
-            history.back();
           },
           tourId: groupTourRaw.tourId as number,
           images: newImages,
@@ -368,7 +359,6 @@ export const LestTripTourEditForm: React.FC = () => {
         addExtraInfoLetsTripGroupTour({
           callback() {
             addNotification('successfully added extra info');
-            history.back();
           },
           tourId: groupTourRaw.tourId,
           items: filterEnglishInfo,
@@ -380,13 +370,13 @@ export const LestTripTourEditForm: React.FC = () => {
         addExtraInfoLetsTripGroupTour({
           callback() {
             addNotification('successfully added extra info');
-            history.back();
           },
           tourId: groupTourRaw.tourId,
           items: filterRussianInfo,
           lang: Lang.Ru,
         });
       }
+      history.back();
     }
   };
 
