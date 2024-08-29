@@ -1,94 +1,126 @@
+import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
+import { Maps } from '@/common/utils/map';
+import { Icon } from '@/components/common/icon';
 import { Modal } from '@/components/common/modal';
-import { Badge, Card, Col, List, Row, Tag } from 'antd';
+import { LetsTripOrderType } from '@/store/lets-trip/order/types';
+import { Marker } from '@react-google-maps/api';
+import { Badge, Button, Card, Col, List, Row, Tag } from 'antd';
+import { Link } from 'react-router-dom';
 
 export const OrderViewModal = () => {
   const { setModal } = useActions();
   const { isModal } = useTypedSelector((state) => state.app);
   const { order } = useTypedSelector((state) => state.letsTripOrder);
+  const { type } = useTypedSelector((state) => state.letsTripOrder);
 
   const onClose = () => {
     setModal(false);
   };
 
   return (
-    <Modal title="Car settings" size="medium" onCancel={onClose} open={isModal} footer={null}>
-      <Badge.Ribbon text={order?.status} color="green" style={{ zIndex: 10 }} />
+    <Modal
+      title={`${type?.toUpperCase()} order view`}
+      size="large"
+      onCancel={onClose}
+      open={isModal}
+      footer={null}
+    >
+      <Badge.Ribbon
+        text={order?.status}
+        color="green"
+        style={{ zIndex: 10, top: '3px !important', right: '5px !important' }}
+      />
       <Card>
-        <List>
-          <List.Item>
-            <Row gutter={50} wrap={false}>
-              <Col span={24}>Order Id: {order?.id}</Col>
+        <Row gutter={[12, 12]}>
+          <Col span={24}>
+            {order?.userId ? 'USER ID' : 'AGENT ID'}
+            {': '}
+            {order?.userId ? order?.userId : order?.agentId}
+          </Col>
+          <Col span={24}> PRICE: {Number(order?.price) / 100}$</Col>
+
+          {/* HOTEL */}
+          {type === LetsTripOrderType.HOTEL && order ? (
+            <>
+              <Col span={24}> HOTEL: {order?.details?.hotelName}</Col>
               <Col span={24}>
-                {order?.userId ? 'User Id' : 'Agent Id'}
-                {': '}
-                {order?.userId ? order?.userId : order?.agentId}
+                DMC TYPE: <Tag color="success">{order?.details?.dmcType?.toUpperCase()}</Tag>
               </Col>
-            </Row>
-          </List.Item>
-          <List.Item> Price: {Number(order?.price) / 100}$</List.Item>
-          {order?.details?.tour && <List.Item>Tour name: {order.details?.tour?.name}</List.Item>}
-          {order?.details?.numberOfTravelers && (
-            <List.Item> Number of travels: {order?.details?.numberOfTravelers}</List.Item>
-          )}
-
-          {order?.details?.category && <List.Item>Car name: {order.details?.name?.en}</List.Item>}
-          {order?.details?.category && (
-            <List.Item>Car category: {order.details.category?.name?.en}</List.Item>
-          )}
-
-          {order?.details?.user && (
-            <>
-              <List.Item>
-                <Row style={{ width: '100%' }} gutter={12}>
-                  <Col span={12}>From: {order.details.from.city}</Col>
-                  <Col span={12}>To: {order.details.to.city}</Col>
-                </Row>
-              </List.Item>
-              <List.Item>
-                <Row style={{ width: '100%' }} gutter={12}>
-                  <Col span={12}>From Hotel: {order.details.from.hotel}</Col>
-                  <Col span={12}>To Hotel: {order.details.to.hotel}</Col>
-                </Row>
-              </List.Item>
-              <List.Item>Username: {order.details.user.name}</List.Item>
-              <List.Item>
-                User Email: <Tag color="lime">{order.details.user.email}</Tag>
-              </List.Item>
+              <Col span={24}>
+                EMAIL: <Link to={`mailto:${order?.details?.email}`}>{order?.details?.email}</Link>
+              </Col>
+              <Col span={24}>
+                PHONE NUMBER:{' '}
+                <Link to={`tel:+${order?.details?.phoneNumber}`}>
+                  +{order?.details?.phoneNumber}
+                </Link>
+              </Col>
+              <Col span={24}>
+                <Button
+                  size="small"
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      `https://maps.google.com?q=${order.details.latitude},${order?.details?.longitude}`,
+                    );
+                    addNotification('Copy to clipboard');
+                  }}
+                  type="primary"
+                  icon={<Icon name="CopyOutlined" />}
+                />
+                {'\t LOCATION: '}
+                <Link
+                  to={`https://maps.google.com?q=${order.details.latitude},${order?.details?.longitude}`}
+                  target="_blank"
+                >
+                  https://maps.google.com?q={order.details.latitude},{order?.details?.longitude}
+                </Link>
+              </Col>
+              <Col span={24}>
+                <Maps
+                  center={{ lat: order?.details?.latitude, lng: order?.details?.longitude }}
+                  zoom={14}
+                >
+                  <Marker
+                    position={{ lat: order?.details?.latitude, lng: order?.details?.longitude }}
+                  />
+                </Maps>
+              </Col>
             </>
-          )}
-          {order?.details?.PhoneNumber && (
+          ) : null}
+
+          {/* TOUR */}
+          {type === LetsTripOrderType.TOUR && order ? (
             <>
-              <List.Item>Custom Name: {order.details?.CustomerName}</List.Item>
-              <List.Item>Phone Number Price: {order.details?.phone_number_price} $</List.Item>
-              <List.Item>Phone Number : {order.details?.phone_number_price} $</List.Item>
-              <List.Item>
-                Phone Number: <Tag color="blue">{order.details?.PhoneNumber}</Tag>
-              </List.Item>
-              <List.Item>
-                <Row style={{ width: '100%' }} gutter={24}>
-                  <Col span={12}>
-                    Is Esim:{' '}
-                    {order.details?.iEsim ? (
-                      <Tag color="green">E-SIM</Tag>
-                    ) : (
-                      <Tag color="yellow">PHYSIC</Tag>
-                    )}
-                  </Col>
-                  <Col span={12}>
-                    Is Resident:{' '}
-                    {order.details?.isResident ? (
-                      <Tag color="info">RESIDENT</Tag>
-                    ) : (
-                      <Tag color="cyan">NO RESIDENT</Tag>
-                    )}
-                  </Col>
-                </Row>
-              </List.Item>
-              <List.Item>Order Date: {order.details?.OrderDate}</List.Item>
+              <Col span={24}>TOUR TITLE: {order?.details?.name?.en}</Col>
+              <Col span={24}>
+                PHONE NUMBER:{' '}
+                <a href={`tel:+${order?.details?.phoneNumber}`}>+{order?.details?.phoneNumber}</a>
+              </Col>
+              <Col span={24}>STARTING PRICE: {order?.details?.startingPrice / 100} $</Col>
+              <Col span={24}>START DATE: {order?.details?.startDate}</Col>
+              <Col span={24}>NUMBER OF TRAVELERS: {order?.details?.numberOfTravellers}</Col>
+              <Col span={24}>COMMENT: {order?.details?.comment || 'no comment'}</Col>
             </>
-          )}
-        </List>
+          ) : null}
+
+          {/* TRANSFER */}
+          {type === LetsTripOrderType.TRANSFER && order ? (
+            <>
+              <Col span={24}>
+                TRANSFER PRICE: {order?.details?.direction?.transferPrice / 100} $
+              </Col>
+              <Col span={24}>HOURLY PRICE: {order?.details?.direction?.hourlyPrice / 100} $</Col>
+              <Col span={24}>CAR: {order?.details?.name?.en}</Col>
+            </>
+          ) : null}
+
+          <Col span={24}>
+            <Button style={{ width: '100%' }} type="primary" onClick={() => setModal(false)}>
+              Close
+            </Button>
+          </Col>
+        </Row>
       </Card>
     </Modal>
   );

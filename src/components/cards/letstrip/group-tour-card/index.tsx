@@ -34,8 +34,16 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           <S.InfoCard width="254px">
             <Row gutter={12}>
               <Col span={24}>
-                <Typography.Text strong>Starting Price: </Typography.Text>
-                {Number(data?.startingPrice) / 100} $
+                <Row gutter={12}>
+                  <Col>
+                    <Icon name="ClockCircleOutlined" style={{ marginRight: '8px' }} />
+                    {data?.extraInformation?.[0].title}
+                  </Col>
+                  <Col>
+                    <Icon name="DollarOutlined" style={{ marginRight: '8px' }} />
+                    {data?.extraInformation?.[0].value}.00
+                  </Col>
+                </Row>
               </Col>
               <Col span={24}>
                 <Typography.Text strong>2 person price: </Typography.Text>
@@ -52,18 +60,6 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
               <Col span={24}>
                 <Typography.Text strong>20 person price: </Typography.Text>
                 {Number(data?.upTo20) / 100} $
-              </Col>
-              <Col span={24}>
-                <Row gutter={12}>
-                  <Col>
-                    <Icon name="ClockCircleOutlined" style={{ marginRight: '8px' }} />
-                    {data?.extraInformation?.[0].title}
-                  </Col>
-                  <Col>
-                    <Icon name="DollarOutlined" style={{ marginRight: '8px' }} />
-                    {data?.extraInformation?.[0].value}.00
-                  </Col>
-                </Row>
               </Col>
               {/* <H1>Extra Information: </H1>
             <List>

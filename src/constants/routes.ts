@@ -111,6 +111,7 @@ export const ROUTES = {
   letsTripGlobalRegionCreate: '/lets-trip/global-region/create',
   letsTripGlobalCountryEdit: '/lets-trip/global-country/edit/:id',
   reffral: '/lets-trip/refferal',
+  letsTripHotelOrder: '/lets-trip/hotel-order',
 
   // language
   languageHome: '/language/home',
