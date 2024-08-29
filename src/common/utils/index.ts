@@ -7,3 +7,4 @@ export { getPaginationParams } from './getPaginationParams';
 export { history } from './history';
 export * from './storage';
 export * from './upload';
+export * from './map';

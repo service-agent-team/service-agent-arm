@@ -10,22 +10,22 @@ export const LetsTripOrder = () => {
   const { setLetsTripOrderStatus } = useActions();
 
   const options = [
-    {
-      label: 'DELETED',
-      value: LetsTripOrderStatus.DELETED,
-    },
-    {
-      label: 'DRAFT',
-      value: LetsTripOrderStatus.DRAFT,
-    },
-    {
-      label: 'FAILED',
-      value: LetsTripOrderStatus.FAILED,
-    },
-    {
-      label: 'ON THE WAY',
-      value: LetsTripOrderStatus.ON_THE_WAY,
-    },
+    // {
+    //   label: 'DELETED',
+    //   value: LetsTripOrderStatus.DELETED,
+    // },
+    // {
+    //   label: 'DRAFT',
+    //   value: LetsTripOrderStatus.DRAFT,
+    // },
+    // {
+    //   label: 'FAILED',
+    //   value: LetsTripOrderStatus.FAILED,
+    // },
+    // {
+    //   label: 'ON THE WAY',
+    //   value: LetsTripOrderStatus.ON_THE_WAY,
+    // },
   ];
 
   if (type === LetsTripOrderType.TOUR)
@@ -48,6 +48,14 @@ export const LetsTripOrder = () => {
       { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
       { label: 'CANCELED', value: LetsTripOrderStatus.CANCELED },
     );
+  else if (type === LetsTripOrderType.HOTEL) {
+    options.push(
+      { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
+      { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
+      { label: 'COMPLETED', value: LetsTripOrderStatus.COMPLETED },
+      { label: 'ADMIN_CONFIRMED_CANCELED', value: LetsTripOrderStatus.ADMIN_CONFIRMED_CANCELED },
+    );
+  }
 
   const handleChangeStatus = (value: LetsTripOrderStatus) => {
     setLetsTripOrderStatus(value);

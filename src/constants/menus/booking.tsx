@@ -14,7 +14,7 @@ export const booking: MenuProps['items'] = [
     label: 'Facility',
   },
   {
-    icon: 'InsertRowRightOutlined',
+    icon: 'InsertRowBelowOutlined',
     key: ROUTES.bookingFacilityCategory,
     label: 'Facility Category',
   },

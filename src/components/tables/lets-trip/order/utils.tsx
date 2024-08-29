@@ -119,13 +119,6 @@ export const utils = () => {
       sortDirections: ['descend', 'ascend'],
       render: (_, __, i: number) => i + 1,
     },
-    // {
-    //   title: 'User Id',
-    //   dataIndex: 'userId',
-    //   key: 'userId',
-    //   width: '8%',
-    //   ...getColumnSearchProps('userId'),
-    // },
     {
       title: 'Status',
       dataIndex: 'status',
@@ -148,30 +141,6 @@ export const utils = () => {
       ...getColumnSearchProps('price'),
       render: (price: number) => price / 100 + ' $',
     },
-    // {
-    //   title: 'Status',
-    //   dataIndex: 'status',
-    //   key: 'status',
-    //   width: '20%',
-    //   render: (_, { status }) => (
-    //     <Row style={{ gap: '4px' }}>
-    //       <Tag
-    //         key={Math.random() * 100}
-    //         color={`${
-    //           status === LetsTripOrderStatus.active
-    //             ? 'success'
-    //             : status === LetsTripOrderStatus.pending
-    //               ? 'warning'
-    //               : status === LetsTripOrderStatus.rejected
-    //                 ? 'red'
-    //                 : 'primary'
-    //         }`}
-    //       >
-    //         {status.toUpperCase()}
-    //       </Tag>
-    //     </Row>
-    //   ),
-    // },
     {
       title: 'Created At',
       dataIndex: 'createdAt',

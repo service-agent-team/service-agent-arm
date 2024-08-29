@@ -23,9 +23,14 @@ export const letsTrip = [
     label: 'Countries',
   },
   {
-    icon: 'GlobalOutlined',
+    icon: 'RocketOutlined',
     key: ROUTES.letsTripGlobalCountry,
     label: 'Global Countries',
+  },
+  {
+    icon: 'BoxPlotOutlined',
+    key: ROUTES.letsTripOrder + 'hotel',
+    label: 'Hotel Orders',
   },
   {
     icon: 'WalletOutlined',
@@ -33,24 +38,24 @@ export const letsTrip = [
     label: 'Tour Orders',
   },
   {
-    icon: 'WalletOutlined',
+    icon: 'CarOutlined',
     key: ROUTES.letsTripOrder + 'transfer',
     label: 'Transfer Orders',
   },
   {
-    icon: 'WalletOutlined',
+    icon: 'PhoneOutlined',
     key: ROUTES.letsTripOrder + 'sim_card',
     label: 'Sim Orders',
   },
   {
-    icon: 'WalletOutlined',
+    icon: 'AuditOutlined',
     key: ROUTES.letsTripOrder + 'luggage',
     label: 'Luggage Orders',
   },
   {
-    icon: 'WalletOutlined',
+    icon: 'BarcodeOutlined',
     key: ROUTES.reffral,
-    label: 'Refferal',
+    label: 'Referrals',
   },
 ];
 

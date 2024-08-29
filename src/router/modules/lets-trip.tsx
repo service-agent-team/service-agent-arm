@@ -1,6 +1,4 @@
-import { Loading } from '@/components';
 import { ROUTES } from '@/constants';
-import { Suspense } from 'react';
 import {
   LetsTripByCountryTourPage,
   LetsTripCountryCreatePage,
@@ -34,211 +32,107 @@ import {
 export const letsTripRouter = [
   {
     path: ROUTES.letsTripHome,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripHomePage />
-      </Suspense>
-    ),
+    element: <LetsTripHomePage />,
   },
   {
     path: ROUTES.letTripLuggage,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripLuggagePage />
-      </Suspense>
-    ),
+    element: <LetsTripLuggagePage />,
   },
   {
     path: ROUTES.letsTripTourOrder,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripOrderPage />
-      </Suspense>
-    ),
+    element: <LetsTripOrderPage />,
   },
   {
     path: ROUTES.letsTripTour,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTourPage />
-      </Suspense>
-    ),
+    element: <LetsTripTourPage />,
   },
   {
     path: ROUTES.letsTripTourByCountry,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripByCountryTourPage />
-      </Suspense>
-    ),
+    element: <LetsTripByCountryTourPage />,
   },
   {
     path: ROUTES.letsTripGroupTour,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGroupTourPage />
-      </Suspense>
-    ),
+    element: <LetsTripGroupTourPage />,
   },
   {
     path: ROUTES.letsTripGroupTourCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGroupTourCreatePage />
-      </Suspense>
-    ),
+    element: <LetsTripGroupTourCreatePage />,
   },
   {
     path: ROUTES.letsTripGroupTourView,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTourGroupViewPage />
-      </Suspense>
-    ),
+    element: <LetsTripTourGroupViewPage />,
   },
   {
     path: ROUTES.letsTripGroupTourEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGroupTourEditPage />
-      </Suspense>
-    ),
+    element: <LetsTripGroupTourEditPage />,
   },
   {
     path: ROUTES.letsTripIndividualTour,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripIndividualTourPage />
-      </Suspense>
-    ),
+    element: <LetsTripIndividualTourPage />,
   },
   {
     path: ROUTES.letsTripIndividualTourCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripIndividualTourCreatePage />
-      </Suspense>
-    ),
+    element: <LetsTripIndividualTourCreatePage />,
   },
   {
     path: ROUTES.letsTripIndividualTourView,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripIndividualTourViewPage />
-      </Suspense>
-    ),
+    element: <LetsTripIndividualTourViewPage />,
   },
   {
     path: ROUTES.letsTripIndividualTourEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripIndividualTourEditPage />
-      </Suspense>
-    ),
+    element: <LetsTripIndividualTourEditPage />,
   },
   {
     path: ROUTES.letsTripTransferCategoryId,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTransferPage />
-      </Suspense>
-    ),
+    element: <LetsTripTransferPage />,
   },
   {
     path: ROUTES.letsTripTransferCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTransferCreatePage />
-      </Suspense>
-    ),
+    element: <LetsTripTransferCreatePage />,
   },
   {
     path: ROUTES.letsTripTransferEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTransferEditPage />
-      </Suspense>
-    ),
+    element: <LetsTripTransferEditPage />,
   },
   {
     path: ROUTES.letsTripTransferCategory,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTransferCategoryPage />
-      </Suspense>
-    ),
+    element: <LetsTripTransferCategoryPage />,
   },
   {
     path: ROUTES.letsTripTransferCategoryCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTransferCategoryCreatePage />
-      </Suspense>
-    ),
+    element: <LetsTripTransferCategoryCreatePage />,
   },
   {
     path: ROUTES.letsTripTransferCategoryEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripTransferCategoryEditPage />
-      </Suspense>
-    ),
+    element: <LetsTripTransferCategoryEditPage />,
   },
   {
     path: ROUTES.letsTripEsimGo,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripEsimGoPage />
-      </Suspense>
-    ),
+    element: <LetsTripEsimGoPage />,
   },
   {
     path: ROUTES.letsTripCountry,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripCountryPage />
-      </Suspense>
-    ),
+    element: <LetsTripCountryPage />,
   },
   {
     path: ROUTES.letsTripCountryCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripCountryCreatePage />
-      </Suspense>
-    ),
+    element: <LetsTripCountryCreatePage />,
   },
   {
     path: ROUTES.letsTripGlobalCountry,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGlobalCountryPage />
-      </Suspense>
-    ),
+    element: <LetsTripGlobalCountryPage />,
   },
   {
     path: ROUTES.letsTripGlobalCountryCreate,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGlobalCountryCreatePage />
-      </Suspense>
-    ),
+    element: <LetsTripGlobalCountryCreatePage />,
   },
   {
     path: ROUTES.letsTripGlobalCountryEdit,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGlobalCountryEditPage />
-      </Suspense>
-    ),
+    element: <LetsTripGlobalCountryEditPage />,
   },
   {
     path: ROUTES.letsTripGlobalRegionById,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LetsTripGlobalRegionPage />
-      </Suspense>
-    ),
+    element: <LetsTripGlobalRegionPage />,
   },
   {
     path: ROUTES.reffral,
