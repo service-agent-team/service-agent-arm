@@ -310,18 +310,9 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             name="descriptionEn"
             label={'description english'}
-            rules={[
-              { required: true },
-              {
-                validator: async (_, value: string) => {
-                  if (value === '<p><br></p>') {
-                    return Promise.reject(new Error('field required?'));
-                  }
-                },
-              },
-            ]}
+            rules={[{ required: true }]}
           >
-            <TextEditor name="descriptionEn" placeholder="Enter a english description ?" />
+            <TextArea name="descriptionEn" placeholder="Enter a english description ?" />
           </BaseForm.Item>
         </Col>
 
@@ -329,18 +320,9 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             name="descriptionRu"
             label={'description russian'}
-            rules={[
-              { required: true },
-              {
-                validator: async (_, value: string) => {
-                  if (value === '<p><br></p>') {
-                    return Promise.reject(new Error('field required?'));
-                  }
-                },
-              },
-            ]}
+            rules={[{ required: true }]}
           >
-            <TextEditor name="descriptionRu" placeholder="Enter a russian description ? " />
+            <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
           </BaseForm.Item>
         </Col>
         <Col span={24}>
