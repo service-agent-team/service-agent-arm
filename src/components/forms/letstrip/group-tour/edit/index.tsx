@@ -643,11 +643,7 @@ export const LestTripTourEditForm: React.FC = () => {
             label={'description english'}
             rules={[{ required: true }]}
           >
-            <TextEditor
-              name="descriptionEn"
-              setContents={String(groupTourRaw?.description[0].en)}
-              placeholder="Enter a english description ?"
-            />
+            <TextArea name="descriptionEn" placeholder="Enter a english description ?" />
           </BaseForm.Item>
           <BaseForm.Item
             style={{ width: '100%' }}
@@ -655,11 +651,7 @@ export const LestTripTourEditForm: React.FC = () => {
             label={'description russian'}
             rules={[{ required: true }]}
           >
-            <TextEditor
-              name="descriptionRu"
-              setContents={String(groupTourRaw?.description[0].ru)}
-              placeholder="Enter a russian description ? "
-            />
+            <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
           </BaseForm.Item>
           <Col span={24}>
             <BaseForm.Item

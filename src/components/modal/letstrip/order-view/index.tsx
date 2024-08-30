@@ -5,7 +5,7 @@ import { Icon } from '@/components/common/icon';
 import { Modal } from '@/components/common/modal';
 import { LetsTripOrderType } from '@/store/lets-trip/order/types';
 import { Marker } from '@react-google-maps/api';
-import { Badge, Button, Card, Col, List, Row, Tag } from 'antd';
+import { Badge, Button, Card, Col, Row, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 
 export const OrderViewModal = () => {
