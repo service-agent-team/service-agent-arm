@@ -22,8 +22,8 @@ export const getAllLetsTripTransferCategory = createAsyncThunk<
     const response = await LetsTripTransferCategoryService.getAllCategory(page, size, deleted);
     thunkApi.dispatch(
       appActions.setPagination({
-        current: response.data.pageable.pageNumber + 1,
-        pageSize: response.data.pageable.pageSize,
+        current: page + 1,
+        pageSize: size,
         total: response.data.totalElements,
       }),
     );
