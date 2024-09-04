@@ -19,16 +19,20 @@ export const LetsTripOrderTable = () => {
   } = useTypedSelector((state) => state.app);
 
   useEffect(() => {
-    getLetsTripOrderByStatus({
-      status,
-      type,
-      page: current - 1,
-      size: pageSize,
-    });
+    if (type && status) {
+      getLetsTripOrderByStatus({
+        status,
+        type,
+        page: current - 1,
+        size: pageSize,
+      });
+    }
+  }, [status, type, project, current]);
 
+  useEffect(() => {
     if (project && typeof project === 'string')
       setLetsTripOrderType(project.toUpperCase() as LetsTripOrderType);
-  }, [status, type, project, current]);
+  }, [project]);
 
   return (
     <Table

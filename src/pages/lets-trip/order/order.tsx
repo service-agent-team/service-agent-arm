@@ -3,30 +3,13 @@ import { SimplePage } from '@/components/common/page';
 import { OrderViewModal } from '@/components/modal';
 import { LetsTripOrderTable } from '@/components/tables';
 import { LetsTripOrderStatus, LetsTripOrderType } from '@/store/lets-trip/order/types';
-import { Flex, Segmented } from 'antd';
+import { Flex, Segmented, Tooltip } from 'antd';
 
 export const LetsTripOrder = () => {
-  const { status, type } = useTypedSelector((state) => state.letsTripOrder);
+  const { type } = useTypedSelector((state) => state.letsTripOrder);
   const { setLetsTripOrderStatus } = useActions();
 
-  const options = [
-    // {
-    //   label: 'DELETED',
-    //   value: LetsTripOrderStatus.DELETED,
-    // },
-    // {
-    //   label: 'DRAFT',
-    //   value: LetsTripOrderStatus.DRAFT,
-    // },
-    // {
-    //   label: 'FAILED',
-    //   value: LetsTripOrderStatus.FAILED,
-    // },
-    // {
-    //   label: 'ON THE WAY',
-    //   value: LetsTripOrderStatus.ON_THE_WAY,
-    // },
-  ];
+  const options = [];
 
   if (type === LetsTripOrderType.TOUR)
     options.push(
@@ -50,10 +33,30 @@ export const LetsTripOrder = () => {
     );
   else if (type === LetsTripOrderType.HOTEL) {
     options.push(
-      { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
-      { label: 'COMPLETED', value: LetsTripOrderStatus.COMPLETED },
-      { label: 'ADMIN_CONFIRMED_CANCELED', value: LetsTripOrderStatus.ADMIN_CONFIRMED_CANCELED },
+      {
+        label: <Tooltip title="CREATED">CREATED</Tooltip>,
+        value: LetsTripOrderStatus.CREATED,
+      },
+      {
+        label: <Tooltip title="To'langan">CONFIRMED</Tooltip>,
+        value: LetsTripOrderStatus.CONFIRMED,
+      },
+      {
+        label: (
+          <Tooltip title="To'langan bugandan keyin bu userni hotelini sotib olib berish kerak i shu statusga uzgartirib quyish kerak">
+            COMPLETED
+          </Tooltip>
+        ),
+        value: LetsTripOrderStatus.COMPLETED,
+      },
+      {
+        label: (
+          <Tooltip title="Buyurtma foydalanuvchi tomonidan bekor qilingandan so'ng, admin tomonidan ham bekor qilindi, bu uning ko'rib chiqilganligini tasdiqlaydi.">
+            CANCELLED
+          </Tooltip>
+        ),
+        value: LetsTripOrderStatus.ADMIN_CONFIRMED_CANCELED,
+      },
     );
   }
 
@@ -68,7 +71,6 @@ export const LetsTripOrder = () => {
           size="large"
           width={'100%'}
           options={options}
-          defaultValue={status}
           onChange={(e: LetsTripOrderStatus) => handleChangeStatus(e)}
         />
       </Flex>
