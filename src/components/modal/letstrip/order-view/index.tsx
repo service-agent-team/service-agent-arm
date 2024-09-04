@@ -44,9 +44,52 @@ export const OrderViewModal = () => {
           {type === LetsTripOrderType.HOTEL && order ? (
             <>
               <Col span={24}> HOTEL: {order?.details?.hotelName}</Col>
+              <Col span={24}> ROOM NAME: {order?.details?.roomName}</Col>
               <Col span={24}>
                 DMC TYPE: <Tag color="success">{order?.details?.dmcType?.toUpperCase()}</Tag>
               </Col>
+              <Col span={24}>
+                <Icon name="ClockCircleOutlined" /> Check in: {order?.details?.checkIn}
+              </Col>
+              <Col span={24}>
+                <Icon name="CheckSquareOutlined" /> Check out: {order?.details?.checkOut}
+              </Col>
+
+              {/* ROOMS & GUESTS */}
+              <Col span={24}>
+                ROOMS:
+                <Row gutter={[10, 10]}>
+                  {order?.details?.rooms?.map((r: any, key: number) => (
+                    <Col key={key} span={24}>
+                      <Badge.Ribbon text={`Room ${key + 1}`}>
+                        <Card>
+                          <Row gutter={[10, 10]}>
+                            {r?.guests?.map((g: any, i: number) => (
+                              <Col key={`${key}-${i}`} span={24}>
+                                <Badge.Ribbon
+                                  color={`${g?.isChild ? 'cyan' : 'grey'}`}
+                                  text={`${g?.isChild ? 'Child' : 'Guest'} ${i + 1}`}
+                                >
+                                  <Card>
+                                    <Row gutter={[10, 10]}>
+                                      <Col span={g?.isChild ? 8 : 12}>
+                                        First name: {g?.firstName}
+                                      </Col>
+                                      <Col span={g?.isChild ? 8 : 12}>Last name: {g?.lastName}</Col>
+                                      {g?.isChild ? <Col span={8}>Age: {g?.age}</Col> : null}
+                                    </Row>
+                                  </Card>
+                                </Badge.Ribbon>
+                              </Col>
+                            ))}
+                          </Row>
+                        </Card>
+                      </Badge.Ribbon>
+                    </Col>
+                  ))}
+                </Row>
+              </Col>
+
               <Col span={24}>
                 EMAIL: <Link to={`mailto:${order?.details?.email}`}>{order?.details?.email}</Link>
               </Col>
