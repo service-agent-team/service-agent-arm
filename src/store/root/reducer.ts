@@ -34,10 +34,11 @@ import { LetsTripTransferCategoryReduce } from '../lets-trip/transfer-category/s
 import { LetsTripTransferReduce } from '../lets-trip/transfer/slice';
 import { AgentPermissionsReducer } from '../service-agent/agent-permission/slice';
 
+import { BookingBedTypeReduce } from '../booking/bed-type/slice';
 import { breakfastReducer } from '../booking/breakfast/slice';
 import { BookingFacilityCategoryReduce } from '../booking/facility-category/slice';
 import { BookingFacilityReduce } from '../booking/facility/slice';
-import { BookingBedTypeReduce } from '../booking/bed-type/slice';
+import { LetsTripNotificationReduce } from '../lets-trip/notification/slice';
 
 export const reducer = {
   app: appReducer,
@@ -83,4 +84,5 @@ export const reducer = {
   bookingBreakfast: breakfastReducer,
   bookingFacilityCategory: BookingFacilityCategoryReduce,
   bookingBedType: BookingBedTypeReduce,
+  letstripNotification: LetsTripNotificationReduce,
 };

@@ -57,9 +57,14 @@ export const letsTrip = [
     key: ROUTES.reffral,
     label: 'Referrals',
   },
+  {
+    icon: 'BellOutlined',
+    key: ROUTES.letstripNotification,
+    label: 'Notifications',
+  },
 ];
 
 export const LetsTripConf = {
-  name: '',
+  name: 'CORETEAM',
   logo: letstriplogo,
 };

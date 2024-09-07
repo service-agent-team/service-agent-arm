@@ -4,6 +4,7 @@ export * from './global-country';
 export * from './global-region';
 export * from './home';
 export * from './luggage';
+export * from './notification';
 export * from './order';
 export * from './refferals';
 export * from './tour';

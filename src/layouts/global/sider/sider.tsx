@@ -11,7 +11,7 @@ export const Sider = ({ collapsed, conf }: IProps) => {
       trigger={null}
       collapsible
       collapsed={collapsed}
-      style={{ height: '97vh', padding: '10px 0', borderRadius: 20, marginTop: 5 }}
+      style={{ height: '97vh', padding: '10px 0' }}
     >
       <Flex justify="center" align="center" gap={12}>
         <img src={conf.logo} height={50} width={60} />

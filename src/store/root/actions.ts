@@ -67,14 +67,16 @@ import { AgentUserPermissionSliceActions } from '../service-agent/user-permissio
 import * as AgentUserRoleActions from '../service-agent/user-role/action';
 import { AgentUserRoleSliceActions } from '../service-agent/user-role/slice';
 
+import * as BookingBedTypeReduce from '../booking/bed-type/actions';
+import { BookingBedTypeSliceActions } from '../booking/bed-type/slice';
 import * as BookingBreakfastActions from '../booking/breakfast/action';
 import { breakfastSliceActions } from '../booking/breakfast/slice';
 import * as BookingFacilityCategoryReduce from '../booking/facility-category/actions';
 import { BookingFacilityCategorySliceActions } from '../booking/facility-category/slice';
 import * as BookingFacilityReduce from '../booking/facility/actions';
 import { BookingFacilitySliceActions } from '../booking/facility/slice';
-import * as BookingBedTypeReduce from '../booking/bed-type/actions';
-import { BookingBedTypeSliceActions } from '../booking/bed-type/slice';
+import * as LetstripUsers from '../lets-trip/notification/actions';
+import { LetsTripNotificationSliceActions } from '../lets-trip/notification/slice';
 
 export const AllActions = {
   ...AgentTariffActions,
@@ -147,7 +149,6 @@ export const AllActions = {
   ...LetsTripStatisticSliceActions,
   ...LetsTripGlobalRegionReduce,
   ...LetsTripGlobalRegionSliceActions,
-
   ...BookingFacilityReduce,
   ...BookingFacilitySliceActions,
   ...BookingBreakfastActions,
@@ -156,4 +157,6 @@ export const AllActions = {
   ...BookingFacilityCategorySliceActions,
   ...BookingBedTypeReduce,
   ...BookingBedTypeSliceActions,
+  ...LetstripUsers,
+  ...LetsTripNotificationSliceActions,
 };

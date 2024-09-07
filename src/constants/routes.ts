@@ -112,6 +112,7 @@ export const ROUTES = {
   letsTripGlobalCountryEdit: '/lets-trip/global-country/edit/:id',
   reffral: '/lets-trip/refferal',
   letsTripHotelOrder: '/lets-trip/hotel-order',
+  letstripNotification: '/lets-trip/notification',
 
   // language
   languageHome: '/language/home',

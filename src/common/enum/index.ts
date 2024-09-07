@@ -7,3 +7,8 @@ export enum LanguageType {
   ZH = 'ZH',
   FR = 'FR',
 }
+
+export enum NotificationType {
+  SELECTBLE = 'SELECTBLE',
+  All_USERS = 'All_USERS',
+}

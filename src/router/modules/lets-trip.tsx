@@ -26,6 +26,7 @@ import {
   LetsTripTransferCreatePage,
   LetsTripTransferEditPage,
   LetsTripTransferPage,
+  LetstripNotification,
   Refferal,
 } from '../loadable';
 
@@ -137,5 +138,9 @@ export const letsTripRouter = [
   {
     path: ROUTES.reffral,
     element: <Refferal />,
+  },
+  {
+    path: ROUTES.letstripNotification,
+    element: <LetstripNotification />,
   },
 ];
