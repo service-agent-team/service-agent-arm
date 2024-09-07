@@ -25,7 +25,6 @@ import {
   UpdatePriceIncludes,
   UpdatePriceIncludesPayload,
   ILetsTripGroupTourSearchPayload,
-  ILetsTripGroupTourPriceUpdatesPayload,
   ILetsTripGroupTourAddExtraInfoPayload,
   ILetsTripGroupTour,
 } from './types';
@@ -303,36 +302,17 @@ export const otherUpdatesLetsTripGroupTour = createAsyncThunk<
   ILetsTripGroupTourOtherUpdatesPayload
 >(
   EndPointes.letsTripGroupTour.getAll + '/update/tourId',
-  async ({ callback, tourId, startingPrice, countryId }, thunkApi) => {
+  async ({ callback, tourId, countryId, price, upTo2, upTo4, upTo6, upTo10 }, thunkApi) => {
     try {
       const response = await LetsTripGroupTourService.otherUpdates(tourId, {
-        startingPrice,
         countryId,
-      });
-      if (response.data) {
-        callback();
-      }
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
-    }
-  },
-);
-
-export const priceUpdateLetsTripGroupTour = createAsyncThunk<
-  IGetOneRawLetsTripTourResponse,
-  ILetsTripGroupTourPriceUpdatesPayload
->(
-  EndPointes.letsTripGroupTour.getAll + '/price-update/tourId',
-  async ({ callback, tourId, upTo2, upTo6, upTo10, upTo20 }, thunkApi) => {
-    try {
-      const response = await LetsTripGroupTourService.priceUpdate(tourId, {
+        price,
         upTo2,
+        upTo4,
         upTo6,
         upTo10,
-        upTo20,
       });
-      if (response.status === 200) {
+      if (response.data) {
         callback();
       }
       return response.data;

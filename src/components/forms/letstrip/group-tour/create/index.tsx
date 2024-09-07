@@ -68,11 +68,11 @@ export const LestTripTourCreateForm: React.FC = () => {
     nameEn,
     nameRu,
     countryId,
-    startingPrice,
+    price,
     upTo2,
+    upTo4,
     upTo6,
     upTo10,
-    upTo20,
     descriptionEn,
     descriptionRu,
     priceNoteEn,
@@ -121,11 +121,11 @@ export const LestTripTourCreateForm: React.FC = () => {
       //   };
       // }),
       extraInformation: { en: extraInformation[0].en, ru: extraInformation[0].ru },
-      startingPrice: startingPrice * 100,
+      startingPrice: price * 100,
       upTo2: upTo2 * 100,
+      upTo4: upTo4 * 100,
       upTo6: upTo6 * 100,
       upTo10: upTo10 * 100,
-      upTo20: upTo20 * 100,
       priceNote: {
         en: priceNoteEn,
         ru: priceNoteRu,
@@ -169,6 +169,10 @@ export const LestTripTourCreateForm: React.FC = () => {
     label: el.name.en,
     value: el.id,
   }));
+
+  const [countryCode, setCountryCode] = useState(
+    globalCountries?.find((c) => c.id === Number(countryId))?.code === 'UZ',
+  );
 
   type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -229,7 +233,7 @@ export const LestTripTourCreateForm: React.FC = () => {
           </BaseForm.Item>
         </Col>
 
-        <Col span={6}>
+        <Col span={12}>
           <BaseForm.Item
             name="priceNoteEn"
             label={'price note english'}
@@ -238,7 +242,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             <Input name="priceNoteEn" type="string" placeholder="Enter a price note english ?" />
           </BaseForm.Item>
         </Col>
-        <Col span={6}>
+        <Col span={12}>
           <BaseForm.Item
             name="priceNoteRu"
             label={'price note russian'}
@@ -247,64 +251,89 @@ export const LestTripTourCreateForm: React.FC = () => {
             <Input name="priceNoteRu" type="string" placeholder="Enter a price note russian  ?" />
           </BaseForm.Item>
         </Col>
-        <Col span={6}>
-          <BaseForm.Item
-            name="startingPrice"
-            label={'starting price ($)'}
-            rules={[{ required: true }]}
-          >
+        <Col span={countryCode ? 0 : 12}>
+          <BaseForm.Item name="price" label={'excursion price ($)'} rules={[{ required: true }]}>
             <InputNumber
               $block
-              name="starting price"
+              name="price"
               type="number"
-              placeholder="Enter a starting price ?"
+              placeholder="Enter a excursion price ?"
             />
           </BaseForm.Item>
         </Col>
-        <Col span={6}>
+        <Col span={countryCode ? 24 : 12}>
           <BaseForm.Item name="countryId" label={'select country'} rules={[{ required: true }]}>
-            <Select placeholder="Select country?" options={selectOptionCountry} />
+            <Select
+              placeholder="Select country?"
+              options={selectOptionCountry}
+              onChange={(v) =>
+                setCountryCode(globalCountries?.find((c) => c.id === Number(v))?.code === 'UZ')
+              }
+            />
           </BaseForm.Item>
         </Col>
 
-        <Col span={6}>
-          <BaseForm.Item name="upTo2" label={'2 per person price ($)'} rules={[{ required: true }]}>
-            <InputNumber $block name="upTo2" type="number" placeholder="2 per person price ($) ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={6}>
-          <BaseForm.Item name="upTo6" label={'6 per person price ($)'} rules={[{ required: true }]}>
-            <InputNumber $block name="upTo6" type="number" placeholder="6 per person price ($) ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={6}>
-          <BaseForm.Item
-            name="upTo10"
-            label={'10 per person price ($)'}
-            rules={[{ required: true }]}
-          >
-            <InputNumber
-              $block
-              name="upTo10"
-              type="number"
-              placeholder="10 per person price ($) ?"
-            />
-          </BaseForm.Item>
-        </Col>
-        <Col span={6}>
-          <BaseForm.Item
-            name="upTo20"
-            label={'20 per person price ($)'}
-            rules={[{ required: true }]}
-          >
-            <InputNumber
-              $block
-              name="upTo20"
-              type="number"
-              placeholder="20 per person price ($) ?"
-            />
-          </BaseForm.Item>
-        </Col>
+        {/* check is price */}
+        {countryCode ? (
+          <>
+            <Col span={6}>
+              <BaseForm.Item
+                name="upTo2"
+                label={'2 per person price ($)'}
+                rules={[{ required: true }]}
+              >
+                <InputNumber
+                  $block
+                  name="upTo2"
+                  type="number"
+                  placeholder="2 per person price ($) ?"
+                />
+              </BaseForm.Item>
+            </Col>
+            <Col span={6}>
+              <BaseForm.Item
+                name="upTo4"
+                label={'4 per person price ($)'}
+                rules={[{ required: true }]}
+              >
+                <InputNumber
+                  $block
+                  name="upTo4"
+                  type="number"
+                  placeholder="4 per person price ($) ?"
+                />
+              </BaseForm.Item>
+            </Col>
+            <Col span={6}>
+              <BaseForm.Item
+                name="upTo6"
+                label={'6 per person price ($)'}
+                rules={[{ required: true }]}
+              >
+                <InputNumber
+                  $block
+                  name="upTo6"
+                  type="number"
+                  placeholder="6 per person price ($) ?"
+                />
+              </BaseForm.Item>
+            </Col>
+            <Col span={6}>
+              <BaseForm.Item
+                name="upTo10"
+                label={'10 per person price ($)'}
+                rules={[{ required: true }]}
+              >
+                <InputNumber
+                  $block
+                  name="upTo10"
+                  type="number"
+                  placeholder="10 per person price ($) ?"
+                />
+              </BaseForm.Item>
+            </Col>
+          </>
+        ) : null}
 
         <Col span={24}>
           <BaseForm.Item

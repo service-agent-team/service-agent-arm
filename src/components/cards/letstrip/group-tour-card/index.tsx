@@ -32,35 +32,32 @@ export const LetsTripGroupTourCard = ({ data }: { data: ILetsTripGroupTourGetOne
           </S.CustomImageGroup>
           <S.Title dangerouslySetInnerHTML={{ __html: data?.name as string }} />
           <S.InfoCard width="254px">
-            <Row gutter={12}>
-              <Col span={24}>
-                <Row gutter={12}>
-                  <Col>
-                    <Icon name="ClockCircleOutlined" style={{ marginRight: '8px' }} />
-                    {data?.extraInformation?.[0].title}
+            <Row gutter={[12, 12]}>
+              {data?.price ? (
+                <Col>
+                  Excursion price: {data?.price / 100}.00{' '}
+                  <Icon name="DollarOutlined" style={{ marginRight: '8px' }} />
+                </Col>
+              ) : (
+                <>
+                  <Col span={24}>
+                    <Typography.Text strong>2 per person price: </Typography.Text>
+                    {Number(data?.upTo2) / 100} $
                   </Col>
-                  <Col>
-                    <Icon name="DollarOutlined" style={{ marginRight: '8px' }} />
-                    {data?.extraInformation?.[0].value}.00
+                  <Col span={24}>
+                    <Typography.Text strong>4 per person price: </Typography.Text>
+                    {Number(data?.upTo4) / 100} $
                   </Col>
-                </Row>
-              </Col>
-              <Col span={24}>
-                <Typography.Text strong>2 person price: </Typography.Text>
-                {Number(data?.upTo2) / 100} $
-              </Col>
-              <Col span={24}>
-                <Typography.Text strong>6 person price: </Typography.Text>
-                {Number(data?.upTo6) / 100} $
-              </Col>
-              <Col span={24}>
-                <Typography.Text strong>10 person price: </Typography.Text>
-                {Number(data?.upTo10) / 100} $
-              </Col>
-              <Col span={24}>
-                <Typography.Text strong>20 person price: </Typography.Text>
-                {Number(data?.upTo20) / 100} $
-              </Col>
+                  <Col span={24}>
+                    <Typography.Text strong>6 per person price: </Typography.Text>
+                    {Number(data?.upTo6) / 100} $
+                  </Col>
+                  <Col span={24}>
+                    <Typography.Text strong>10 per person price: </Typography.Text>
+                    {Number(data?.upTo10) / 100} $
+                  </Col>
+                </>
+              )}
               {/* <H1>Extra Information: </H1>
             <List>
               {data?.extraInformation.map((el, idx) => (

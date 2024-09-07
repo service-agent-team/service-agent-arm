@@ -157,11 +157,11 @@ export const utils = () => {
       render: (id: number) => globalCountries?.find((c) => c.id === id)?.name?.en,
     },
     {
-      title: 'Starting Price',
-      dataIndex: 'startingPrice',
-      key: 'startingPrice',
+      title: 'Excursion Price',
+      dataIndex: 'price',
+      key: 'price',
       width: '25%',
-      ...getColumnSearchProps('startingPrice'),
+      ...getColumnSearchProps('price'),
       render: (value) => `${value / 100} $`,
     },
     // {

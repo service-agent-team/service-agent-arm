@@ -14,7 +14,6 @@ import {
   getOneLetsTripTour,
   getOneRawLetsTripTour,
   otherUpdatesLetsTripGroupTour,
-  priceUpdateLetsTripGroupTour,
   removeDateLetsTripGroupTour,
   removeExtraInfoLetsTripGroupTour,
   removeItenararyLetsTripGroupTour,
@@ -273,19 +272,6 @@ export const letsTripGroupTourSlice = createSlice({
         state.errors = null;
       })
       .addCase(otherUpdatesLetsTripGroupTour.rejected, (state, { payload }) => {
-        state.loading.patch = false;
-        state.errors = payload;
-      })
-      .addCase(priceUpdateLetsTripGroupTour.pending, (state) => {
-        state.loading.patch = true;
-        state.errors = null;
-      })
-      .addCase(priceUpdateLetsTripGroupTour.fulfilled, (state, { payload }) => {
-        state.loading.patch = false;
-        state.groupTourRaw = payload;
-        state.errors = null;
-      })
-      .addCase(priceUpdateLetsTripGroupTour.rejected, (state, { payload }) => {
         state.loading.patch = false;
         state.errors = payload;
       })

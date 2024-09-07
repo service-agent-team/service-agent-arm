@@ -23,11 +23,11 @@ export interface ILetsTripGroupTour {
   extraInformation: ExtraInformation;
   tourItenarary: TourItinerary[];
   images: string[];
-  startingPrice: number;
+  price: number;
   upTo2: number;
+  upTo4: number;
   upTo6: number;
   upTo10: number;
-  upTo20: number;
   name: Name;
   availableDate: AvailableDate[];
   description: Description2[];
@@ -89,9 +89,9 @@ export interface ILetsTripGroupTourCreatePayload {
   countryId: number;
   startingPrice: number;
   upTo2: number;
+  upTo4: number;
   upTo6: number;
   upTo10: number;
-  upTo20: number;
   priceNote: PriceNote;
   priceNotIncludes: PriceNotIncludes;
   extraInformation: ExtraInformation;
@@ -157,17 +157,12 @@ export interface ILetsTripGroupTourImagePayload {
 
 export interface ILetsTripGroupTourOtherUpdatesPayload {
   tourId: number;
-  startingPrice: number;
   countryId: number;
-  callback(): void;
-}
-
-export interface ILetsTripGroupTourPriceUpdatesPayload {
-  tourId: number;
-  upTo2: number;
-  upTo6: number;
-  upTo10: number;
-  upTo20: number;
+  price?: number;
+  upTo2?: number;
+  upTo4?: number;
+  upTo6?: number;
+  upTo10?: number;
   callback(): void;
 }
 
@@ -350,9 +345,9 @@ export interface ILetsTripGroupTourGetOne {
   images: string[];
   priceNote: string;
   upTo2: number;
+  upTo4: number;
   upTo6: number;
   upTo10: number;
-  upTo20: number;
   tourId: number;
   name: string;
   tourItenarary: TourItenarary2[];
@@ -360,7 +355,7 @@ export interface ILetsTripGroupTourGetOne {
   priceIncludes: string[];
   availableDate: AvailableDate2[];
   locations: Location2[];
-  startingPrice: number;
+  price: number;
 }
 export interface AvailableDate2 {
   id: number;
