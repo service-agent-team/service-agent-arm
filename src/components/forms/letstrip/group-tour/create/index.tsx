@@ -2,6 +2,7 @@ import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Icon, InputNumber, PrimaryBtn, TextArea, TextEditor } from '@/components';
 import { BASE_URL, FILE_URL } from '@/constants';
+import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import {
   Button,
   Card,
@@ -15,12 +16,11 @@ import {
   Upload,
   UploadProps,
 } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Id, IGoogleMouseEvent, IValuesForm } from '../types';
 import { UploadFile } from 'antd/lib';
-import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
+import { IGoogleMouseEvent, IValuesForm, Id } from '../types';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -122,6 +122,7 @@ export const LestTripTourCreateForm: React.FC = () => {
       // }),
       extraInformation: { en: extraInformation[0].en, ru: extraInformation[0].ru },
       startingPrice: price * 100,
+      price,
       upTo2: upTo2 * 100,
       upTo4: upTo4 * 100,
       upTo6: upTo6 * 100,
@@ -187,19 +188,7 @@ export const LestTripTourCreateForm: React.FC = () => {
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
     setFileList(newFileList);
 
-  const handleChange2: UploadProps['onChange'] = ({ fileList: newFileList }) =>
-    setFileList2(newFileList);
-
   const handlePreview = async (file: UploadFile) => {
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj as FileType);
-    }
-
-    setPreviewImage(file.url || (file.preview as string));
-    setPreviewOpen(true);
-  };
-
-  const handlePreview2 = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj as FileType);
     }
@@ -219,7 +208,9 @@ export const LestTripTourCreateForm: React.FC = () => {
       form={form}
       layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={() => {}}
+      onFinishFailed={(errorInfo) => {
+        console.log('Xatolik:', errorInfo);
+      }}
     >
       <Row gutter={[12, 12]}>
         <Col span={12}>
@@ -252,13 +243,12 @@ export const LestTripTourCreateForm: React.FC = () => {
           </BaseForm.Item>
         </Col>
         <Col span={countryCode ? 0 : 12}>
-          <BaseForm.Item name="price" label={'excursion price ($)'} rules={[{ required: true }]}>
-            <InputNumber
-              $block
-              name="price"
-              type="number"
-              placeholder="Enter a excursion price ?"
-            />
+          <BaseForm.Item
+            name="price"
+            label="Excursion price ($)"
+            rules={[{ required: true, message: 'Please enter the excursion price' }]}
+          >
+            <InputNumber placeholder="Enter the excursion price" />
           </BaseForm.Item>
         </Col>
         <Col span={countryCode ? 24 : 12}>
@@ -985,7 +975,6 @@ export const LestTripTourCreateForm: React.FC = () => {
           </GoogleMap>
         ) : null}
       </Row>
-
       <PrimaryBtn style={{ marginTop: '15px' }} htmlType="submit" loading={post}>
         Create
       </PrimaryBtn>

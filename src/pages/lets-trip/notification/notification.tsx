@@ -42,7 +42,7 @@ export const Notification = () => {
   const userOpt = users.map((el) => ({ value: el.id, label: el.firstName }));
   return (
     <Fragment>
-      <Card>
+      <Card loading={loading.post}>
         <Form onFinish={onFinish}>
           <Row gutter={[10, 10]}>
             <Col span={24}>
