@@ -87,7 +87,7 @@ export interface ILetsTripGroupTourCreatePayload {
   callback(): void;
   name: Name;
   countryId: number;
-  startingPrice: number;
+  price: number;
   upTo2: number;
   upTo4: number;
   upTo6: number;

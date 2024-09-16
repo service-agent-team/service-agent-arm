@@ -503,9 +503,12 @@ export const LestTripTourEditForm: React.FC = () => {
 
   useEffect(() => {
     getAllGlobalCountry({ page: current - 1, size: pageSize });
-    getOneRawLetsTripTour({
-      id: id as string,
-    });
+
+    if (id) {
+      getOneRawLetsTripTour({
+        id: id as string,
+      });
+    }
 
     if (groupTourRaw?.locations) setLetsTripGroupTourLocations(groupTourRaw?.locations);
 

@@ -1,5 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space } from 'antd';
+import { Button, Col, Input, InputRef, Row, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -161,8 +161,20 @@ export const utils = () => {
       dataIndex: 'price',
       key: 'price',
       width: '25%',
-      ...getColumnSearchProps('price'),
-      render: (value) => `${value / 100} $`,
+      render: (value, { upTo2, upTo4, upTo6, upTo10 }) => {
+        if (value) {
+          return `${value / 100} $`;
+        }
+
+        return (
+          <Row>
+            <Col span={24}>2 per person - ${upTo2 / 100} $ </Col>
+            <Col span={24}>4 per person - ${upTo4 / 100} $ </Col>
+            <Col span={24}>6 per person - ${upTo6 / 100} $ </Col>
+            <Col span={24}>10 per person - ${upTo10 / 100} $ </Col>
+          </Row>
+        );
+      },
     },
     // {
     //   title: 'Active',

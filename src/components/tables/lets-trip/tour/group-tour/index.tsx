@@ -25,7 +25,7 @@ export const LetsTripGroupTourTable = () => {
   const { countryId } = useParams();
 
   useEffect(() => {
-    if (search === '') {
+    if (search === '' && countryId) {
       getByCountryIdLetsTripGroupTour({
         page: current - 1,
         size: pageSize,
