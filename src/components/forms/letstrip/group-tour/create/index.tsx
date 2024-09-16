@@ -210,7 +210,7 @@ export const LestTripTourCreateForm: React.FC = () => {
       layout="vertical"
       onFinish={onFinish}
       // @ts-ignore
-      onFinishFailed={(errorInfo) => console.log('Xatolik:', errorInfo)}
+      onFinishFailed={(errorInfo) => addNotification('Xatolik:', errorInfo)}
     >
       <Row gutter={[12, 12]}>
         <Col span={12}>
