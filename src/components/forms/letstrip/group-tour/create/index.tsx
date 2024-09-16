@@ -62,7 +62,9 @@ export const LestTripTourCreateForm: React.FC = () => {
     );
   };
 
-  form.setFieldValue('countryId', Number(countryId));
+  useEffect(() => {
+    form.setFieldValue('countryId', Number(countryId));
+  }, []);
 
   const onFinish = ({
     nameEn,
@@ -121,8 +123,7 @@ export const LestTripTourCreateForm: React.FC = () => {
       //   };
       // }),
       extraInformation: { en: extraInformation[0].en, ru: extraInformation[0].ru },
-      startingPrice: price * 100,
-      price,
+      price: price * 100,
       upTo2: upTo2 * 100,
       upTo4: upTo4 * 100,
       upTo6: upTo6 * 100,
@@ -208,9 +209,8 @@ export const LestTripTourCreateForm: React.FC = () => {
       form={form}
       layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={(errorInfo) => {
-        console.log('Xatolik:', errorInfo);
-      }}
+      // @ts-ignore
+      onFinishFailed={(errorInfo) => console.log('Xatolik:', errorInfo)}
     >
       <Row gutter={[12, 12]}>
         <Col span={12}>
@@ -246,9 +246,13 @@ export const LestTripTourCreateForm: React.FC = () => {
           <BaseForm.Item
             name="price"
             label="Excursion price ($)"
-            rules={[{ required: true, message: 'Please enter the excursion price' }]}
+            rules={[{ required: !countryCode, message: 'Please enter the excursion price' }]}
           >
-            <InputNumber placeholder="Enter the excursion price" />
+            <InputNumber
+              name="price"
+              style={{ width: '100%' }}
+              placeholder="Enter the excursion price"
+            />
           </BaseForm.Item>
         </Col>
         <Col span={countryCode ? 24 : 12}>
@@ -270,7 +274,7 @@ export const LestTripTourCreateForm: React.FC = () => {
               <BaseForm.Item
                 name="upTo2"
                 label={'2 per person price ($)'}
-                rules={[{ required: true }]}
+                rules={[{ required: countryCode }]}
               >
                 <InputNumber
                   $block
@@ -284,7 +288,7 @@ export const LestTripTourCreateForm: React.FC = () => {
               <BaseForm.Item
                 name="upTo4"
                 label={'4 per person price ($)'}
-                rules={[{ required: true }]}
+                rules={[{ required: countryCode }]}
               >
                 <InputNumber
                   $block
@@ -298,7 +302,7 @@ export const LestTripTourCreateForm: React.FC = () => {
               <BaseForm.Item
                 name="upTo6"
                 label={'6 per person price ($)'}
-                rules={[{ required: true }]}
+                rules={[{ required: countryCode }]}
               >
                 <InputNumber
                   $block
@@ -312,7 +316,7 @@ export const LestTripTourCreateForm: React.FC = () => {
               <BaseForm.Item
                 name="upTo10"
                 label={'10 per person price ($)'}
-                rules={[{ required: true }]}
+                rules={[{ required: countryCode }]}
               >
                 <InputNumber
                   $block

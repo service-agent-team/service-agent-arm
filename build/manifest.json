@@ -5,7 +5,7 @@
   },
   "index.html": {
     "assets": [
-      "assets/fon.jpg",
+      "assets/fon.png",
       "assets/logo.png",
       "assets/lets-trip-logo.svg"
     ],
@@ -25,9 +25,9 @@
     "isDynamicEntry": true,
     "src": "node_modules/web-vitals/dist/web-vitals.js"
   },
-  "src/assets/images/fon.jpg": {
-    "file": "assets/fon.jpg",
-    "src": "src/assets/images/fon.jpg"
+  "src/assets/images/fon.png": {
+    "file": "assets/fon.png",
+    "src": "src/assets/images/fon.png"
   },
   "src/assets/images/lets-trip-logo.svg": {
     "file": "assets/lets-trip-logo.svg",

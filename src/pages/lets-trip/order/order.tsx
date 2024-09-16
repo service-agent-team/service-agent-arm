@@ -13,13 +13,17 @@ export const LetsTripOrder = () => {
 
   if (type === LetsTripOrderType.TOUR)
     options.push(
+      { label: 'AWAITING_CASH_PAYMENT', value: LetsTripOrderStatus.AWAITING_CASH_PAYMENT },
       { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
       { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
+      { label: 'CANCELED', value: LetsTripOrderStatus.CANCELED },
     );
   else if (type === LetsTripOrderType.TRANSFER)
     options.push(
+      { label: 'AWAITING_CASH_PAYMENT', value: LetsTripOrderStatus.AWAITING_CASH_PAYMENT },
       { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'COMPLETED', value: LetsTripOrderStatus.COMPLETED },
+      { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
+      { label: 'CANCELED', value: LetsTripOrderStatus.CANCELED },
     );
   else if (type === LetsTripOrderType.LUGGAGE)
     options.push(
@@ -52,7 +56,7 @@ export const LetsTripOrder = () => {
       {
         label: (
           <Tooltip title="Buyurtma foydalanuvchi tomonidan bekor qilingandan so'ng, admin tomonidan ham bekor qilindi, bu uning ko'rib chiqilganligini tasdiqlaydi.">
-            CANCELLED
+            ADMIN CANCELLED
           </Tooltip>
         ),
         value: LetsTripOrderStatus.ADMIN_CONFIRMED_CANCELED,
