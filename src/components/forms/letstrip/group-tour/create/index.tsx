@@ -69,6 +69,8 @@ export const LestTripTourCreateForm: React.FC = () => {
   const onFinish = ({
     nameEn,
     nameRu,
+    cityEn,
+    cityRu,
     countryId,
     price,
     upTo2,
@@ -99,6 +101,7 @@ export const LestTripTourCreateForm: React.FC = () => {
         navigate(-1);
       },
       name: { en: nameEn, ru: nameRu },
+      cityName: { en: cityEn, ru: cityRu },
       countryId,
       description: [{ ru: descriptionRu, en: descriptionEn }],
       images: images.fileList.flatMap((item: UploadFile) =>
@@ -221,6 +224,17 @@ export const LestTripTourCreateForm: React.FC = () => {
         <Col span={12}>
           <BaseForm.Item name="nameRu" label={'name russian'} rules={[{ required: true }]}>
             <Input name="nameRu" placeholder="Enter a russian name ?" />
+          </BaseForm.Item>
+        </Col>
+
+        <Col span={12}>
+          <BaseForm.Item name="cityEn" label={'city name english'} rules={[{ required: true }]}>
+            <Input name="cityEn" placeholder="Enter a english city name ?" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={12}>
+          <BaseForm.Item name="cityRu" label={'city name russian'} rules={[{ required: true }]}>
+            <Input name="cityRu" placeholder="Enter a russian city name ?" />
           </BaseForm.Item>
         </Col>
 

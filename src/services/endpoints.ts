@@ -286,6 +286,10 @@ export const EndPointes = {
 
   letstripNotification: {
     getLetstripUser: '/api/notification/findUser',
-    sendNotification: '/api/notification/multiple',
+    sendNotification: '/api/notification/push',
+    getAllTemplates: '/api/notification/templates',
+    sendMultiNotification: '/api/notification/push/multiple',
+    sendTemplateNotification: '/api/notification/template',
+    sendMultiTemplateNotification: '/api/notification/template/multiple',
   },
 } as const;

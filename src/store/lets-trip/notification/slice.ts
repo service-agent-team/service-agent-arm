@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getLetstripUsers } from './actions';
+import {
+  getAllNotificationTemplates,
+  getLetstripUsers,
+  sendMultiTemplateNotification,
+} from './actions';
 import { IInitialState } from './type';
 
 const initialState: IInitialState = {
@@ -11,6 +15,7 @@ const initialState: IInitialState = {
   },
   users: [],
   selected_userIds: [],
+  templates: null,
 };
 
 export const letstripNotificationSlice = createSlice({
@@ -32,6 +37,25 @@ export const letstripNotificationSlice = createSlice({
       })
       .addCase(getLetstripUsers.rejected, (state) => {
         state.loading.get = false;
+      })
+      .addCase(getAllNotificationTemplates.pending, (state) => {
+        state.loading.get = true;
+      })
+      .addCase(getAllNotificationTemplates.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.templates = payload;
+      })
+      .addCase(getAllNotificationTemplates.rejected, (state) => {
+        state.loading.get = false;
+      })
+      .addCase(sendMultiTemplateNotification.pending, (state) => {
+        state.loading.post = true;
+      })
+      .addCase(sendMultiTemplateNotification.fulfilled, (state) => {
+        state.loading.post = false;
+      })
+      .addCase(sendMultiTemplateNotification.rejected, (state) => {
+        state.loading.post = false;
       });
   },
 });

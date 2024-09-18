@@ -3,6 +3,8 @@ import { UploadChangeParam } from 'antd/lib/upload/interface';
 export interface IValuesForm {
   nameRu: string;
   nameEn: string;
+  cityRu: string;
+  cityEn: string;
   countryId: number;
   priceNoteRu: string;
   priceNoteEn: string;

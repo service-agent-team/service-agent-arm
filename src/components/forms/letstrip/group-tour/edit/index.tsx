@@ -122,6 +122,8 @@ export const LestTripTourEditForm: React.FC = () => {
       form.setFieldsValue({
         nameEn: groupTourRaw?.name?.en,
         nameRu: groupTourRaw?.name?.ru,
+        cityEn: groupTourRaw?.cityName?.en,
+        cityRu: groupTourRaw?.cityName?.ru,
         countryId: groupTourRaw?.countryId,
         price: Number(groupTourRaw?.price) / 100,
         upTo2: Number(groupTourRaw?.upTo2) / 100,
@@ -533,6 +535,17 @@ export const LestTripTourEditForm: React.FC = () => {
           <Col span={12}>
             <BaseForm.Item name="nameRu" label={'name russian'} rules={[{ required: true }]}>
               <Input name="nameRu" placeholder="Enter a russian name ?" />
+            </BaseForm.Item>
+          </Col>
+
+          <Col span={12}>
+            <BaseForm.Item name="cityEn" label={'city name english'} rules={[{ required: true }]}>
+              <Input name="cityEn" placeholder="Enter a english city name ?" />
+            </BaseForm.Item>
+          </Col>
+          <Col span={12}>
+            <BaseForm.Item name="cityRu" label={'city name russian'} rules={[{ required: true }]}>
+              <Input name="cityRu" placeholder="Enter a russian city name ?" />
             </BaseForm.Item>
           </Col>
 
