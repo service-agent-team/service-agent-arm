@@ -38,6 +38,7 @@ export interface ILetsTripGroupTour {
   countryId: number;
   deleted?: boolean;
   createdAt?: string;
+  cityName: Name2;
 }
 
 export interface ILetsTripGroupTourResponse {
@@ -101,6 +102,7 @@ export interface ILetsTripGroupTourCreatePayload {
   locations: Location[];
   // availableDate: AvailableDate[];
   tourItenarary: TourItinerary[];
+  cityName: Name;
 }
 
 export interface UpdateByObject {
@@ -356,6 +358,7 @@ export interface ILetsTripGroupTourGetOne {
   availableDate: AvailableDate2[];
   locations: Location2[];
   price: number;
+  cityName: Name2;
 }
 export interface AvailableDate2 {
   id: number;
