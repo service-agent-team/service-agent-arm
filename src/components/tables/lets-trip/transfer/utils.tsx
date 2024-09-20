@@ -1,4 +1,3 @@
-import { dateParser } from '@/common/utils/format';
 import { ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
 import { ColumnsType } from 'antd/es/table';
 import { Actions } from './actions';
@@ -25,15 +24,6 @@ export const utils = () => {
       dataIndex: ['category', 'name', 'en'],
       key: 'category',
       width: '230px',
-    },
-    {
-      title: 'Created At Date',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      width: '230px',
-      render: (date) => {
-        return dateParser(date);
-      },
     },
     {
       title: 'Manufacture Date',
