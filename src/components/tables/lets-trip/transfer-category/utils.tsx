@@ -1,6 +1,5 @@
 import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { dateParser } from '@/common/utils/format';
 import { Icon, modal } from '@/components';
 import { ROUTES } from '@/constants';
 import { ILetsTripTransferCategory } from '@/store/lets-trip/transfer-category/types';
@@ -75,15 +74,6 @@ export const utils = () => {
       dataIndex: 'priority',
       key: 'name',
       width: '5%',
-    },
-    {
-      title: 'Created At Date',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      width: '25%',
-      render: (date) => {
-        return dateParser(date);
-      },
     },
     {
       title: 'View',
