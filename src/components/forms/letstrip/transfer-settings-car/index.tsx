@@ -1,28 +1,27 @@
+import { addNotification } from '@/common';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { BaseForm, Input, PrimaryBtn, Select } from '@/components';
 import { ICreateCarDirection } from '@/types';
 import { Col, Row } from 'antd';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
-export const TransferCarSettinsForm = () => {
+export const TransferCarSettingsForm = () => {
   const [form] = BaseForm.useForm();
+
   const {
     transferCarSettings,
     globalCountries,
     countryRegions,
     setCarModal,
-    getByCategoryIdLetsTripTransfer,
+    updateTransferDirectionPrice,
   } = useActions();
+
   const {
-    car_details: { select_car_id },
+    car_details: { select_car_id, select_car_direction },
+    modal: { type },
     global_countries,
     country_regions,
   } = useTypedSelector((state) => state.letsTripTransfer);
-  const { id } = useParams();
-  const {
-    pagination: { current, pageSize },
-  } = useTypedSelector((state) => state.app);
 
   useEffect(() => {
     globalCountries({});
@@ -34,28 +33,59 @@ export const TransferCarSettinsForm = () => {
     hourlyPrice,
     transferPrice,
   }: ICreateCarDirection) => {
-    transferCarSettings({
-      carId: Number(select_car_id),
-      direction: {
-        sourceBoundaryId,
-        destinationBoundaryId,
-        hourlyPrice: +hourlyPrice * 100,
-        transferPrice: +transferPrice * 100,
-      },
-      callback: () => {
-        getByCategoryIdLetsTripTransfer({
-          page: current,
-          size: pageSize,
-          categoryId: Number(id),
-        });
-        setCarModal(false);
-      },
-    });
+    if (type === 'create') {
+      transferCarSettings({
+        carId: Number(select_car_id),
+        direction: {
+          sourceBoundaryId,
+          destinationBoundaryId,
+          hourlyPrice: +hourlyPrice * 100,
+          transferPrice: +transferPrice * 100,
+        },
+        callback: () => {
+          setCarModal(false);
+        },
+      });
+    } else if (type === 'edit') {
+      updateTransferDirectionPrice({
+        callback() {
+          addNotification('Successfully updated transfer direction price');
+          setCarModal(false);
+        },
+        carId: Number(select_car_id),
+        directionId: Number(select_car_direction?.id),
+        body: {
+          hourlyPrice: +hourlyPrice * 100,
+          transferPrice: +transferPrice * 100,
+        },
+      });
+    }
   };
 
   const changeCountry = (countryId: number) => {
     countryRegions({ countryId: countryId });
   };
+
+  useEffect(() => {
+    if (type === 'edit' && select_car_direction) {
+      const { transferPrice, hourlyPrice, sourceBoundary, destinationBoundary } =
+        select_car_direction;
+
+      form.setFieldsValue({
+        sourceCountryId: { label: sourceBoundary.name.en, value: sourceBoundary.id },
+        sourceBoundaryId: { label: sourceBoundary.name.en, value: sourceBoundary.id },
+        destinationCountryId: { label: destinationBoundary.name.en, value: destinationBoundary.id },
+        destinationBoundaryId: {
+          label: destinationBoundary.name.en,
+          value: destinationBoundary.id,
+        },
+        transferPrice: transferPrice / 100,
+        hourlyPrice: hourlyPrice / 100,
+      });
+    } else {
+      form.resetFields();
+    }
+  }, [select_car_direction, type]);
 
   const sourceCountry = global_countries.map((el) => ({ value: el.id, label: el.name.en }));
   const regions = country_regions.map((el) => ({ value: el.id, label: el.name.en }));
@@ -71,6 +101,7 @@ export const TransferCarSettinsForm = () => {
           >
             <Select
               options={sourceCountry}
+              disabled={type === 'edit'}
               onChange={(e) => changeCountry(Number(e))}
               placeholder="Select Source Country"
             />
@@ -83,6 +114,7 @@ export const TransferCarSettinsForm = () => {
             rules={[{ required: true, message: 'Destination Country is required!' }]}
           >
             <Select
+              disabled={type === 'edit'}
               options={sourceCountry}
               onChange={(e) => changeCountry(Number(e))}
               placeholder="Select Destination Country"
@@ -96,7 +128,11 @@ export const TransferCarSettinsForm = () => {
             label={'Source Boundary'}
             rules={[{ required: true, message: 'Select Source Boundary is required!' }]}
           >
-            <Select options={regions} placeholder="Select Source Boundary" />
+            <Select
+              disabled={type === 'edit'}
+              options={regions}
+              placeholder="Select Source Boundary"
+            />
           </BaseForm.Item>
         </Col>
 
@@ -106,7 +142,11 @@ export const TransferCarSettinsForm = () => {
             label={'Destination Boundary'}
             rules={[{ required: true, message: 'Destination Boundary is required!' }]}
           >
-            <Select options={regions} placeholder="Select Destination Boundary" />
+            <Select
+              disabled={type === 'edit'}
+              options={regions}
+              placeholder="Select Destination Boundary"
+            />
           </BaseForm.Item>
         </Col>
 
@@ -129,7 +169,7 @@ export const TransferCarSettinsForm = () => {
           </BaseForm.Item>
         </Col>
 
-        <PrimaryBtn htmlType="submit">Create</PrimaryBtn>
+        <PrimaryBtn htmlType="submit">{type === 'create' ? 'Create' : 'Update'}</PrimaryBtn>
       </Row>
     </BaseForm>
   );

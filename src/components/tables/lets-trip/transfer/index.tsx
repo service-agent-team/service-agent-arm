@@ -9,7 +9,6 @@ export const LetsTripTransferTable = () => {
   const {
     getByCategoryIdLetsTripTransfer,
     setPagination,
-    deleteTransferDirection,
     searchLetsTripTransfer,
     setSearchPagination,
   } = useActions();
@@ -54,7 +53,7 @@ export const LetsTripTransferTable = () => {
     <Table
       columns={utils()}
       expandable={{
-        expandedRowRender: (record) => subUtils(record, deleteTransferDirection),
+        expandedRowRender: (record) => subUtils(record, record.id),
       }}
       pagination={
         search

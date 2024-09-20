@@ -1,32 +1,10 @@
-import { addNotification } from '@/common';
-import { modal } from '@/components';
 import { Table } from '@/components/common';
-import { Icon } from '@/components/common/icon';
 import { IDirection, ILetsTripTransfer } from '@/store/lets-trip/transfer/types';
-import { Button, TableColumnsType, Tag } from 'antd';
+import { TableColumnsType, Tag } from 'antd';
 import React from 'react';
-// import { useParams } from 'react-router-dom';
+import { SubActions } from './actions';
 
-export const subUtils = (
-  dataSource: ILetsTripTransfer,
-  deleteTransferDirection: any,
-): React.ReactNode => {
-  // const { id } = useParams();
-  const handleDelete = (record: IDirection) => {
-    modal.confirm({
-      okText: 'Delete',
-      title: `You want to delete right ?`,
-      onOk: () => {
-        deleteTransferDirection({
-          callback() {
-            addNotification('successfully deleted direction');
-          },
-          carId: record.id,
-          directionId: record.id,
-        });
-      },
-    });
-  };
+export const subUtils = (dataSource: ILetsTripTransfer, carId: number): React.ReactNode => {
   const columns: TableColumnsType<IDirection> = [
     {
       title: 'Id',
@@ -68,13 +46,7 @@ export const subUtils = (
       dataIndex: 'action',
       key: 'action',
       width: '10%',
-      render: (_, record) => {
-        return (
-          <Button type="primary" danger key={1} onClick={() => handleDelete(record)}>
-            <Icon name="DeleteOutlined" />
-          </Button>
-        );
-      },
+      render: (_, record) => <SubActions record={record} carId={carId} />,
     },
   ];
 

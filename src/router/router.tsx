@@ -2,7 +2,14 @@ import { ROUTES } from '@/constants';
 import { GlobalLayout, PrivateLayout, PublicLayout } from '@/layouts';
 import { useRoutes } from 'react-router-dom';
 import { SignIn, ProjectsPage, LanguageHomePage } from './loadable';
-import { mainRouter, agentRouter, transferRouter, letsTripRouter, bookingRouter } from './modules';
+import {
+  mainRouter,
+  agentRouter,
+  transferRouter,
+  letsTripRouter,
+  bookingRouter,
+  processRouter,
+} from './modules';
 import {
   global,
   GlobalConf,
@@ -14,6 +21,8 @@ import {
   letsTrip as letsTripMenu,
   booking,
   BookingConf,
+  process,
+  ProcessConf,
 } from '@/constants/menus';
 
 export const Routes = ({ isAuth }: { isAuth: boolean }) =>
@@ -54,6 +63,11 @@ export const Routes = ({ isAuth }: { isAuth: boolean }) =>
           path: ROUTES.booking,
           element: <GlobalLayout isAuth={isAuth} items={booking} conf={BookingConf} />,
           children: [...bookingRouter],
+        },
+        {
+          path: ROUTES.process,
+          element: <GlobalLayout isAuth={isAuth} items={process} conf={ProcessConf} />,
+          children: [...processRouter],
         },
       ],
     },

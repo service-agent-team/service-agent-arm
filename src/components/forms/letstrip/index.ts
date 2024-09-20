@@ -6,11 +6,11 @@ export {
   LestTripIndividualTourCreateForm,
   LestTripIndividualTourEditForm,
 } from './individual-tour';
+export * from './notification';
 export * from './referal-download';
 export { LestTripTransferCreateForm, LestTripTransferEditForm } from './transfer';
 export {
   LestTripTransferCategoryCreateForm,
   LestTripTransferCategoryEditForm,
 } from './transfer-category';
-export { TransferCarSettinsForm } from './transfer-settings-car';
-export * from './notification';
+export { TransferCarSettingsForm } from './transfer-settings-car';

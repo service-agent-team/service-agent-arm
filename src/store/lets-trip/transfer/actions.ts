@@ -20,6 +20,7 @@ import {
   ILetsTripTransferSearchPayload,
   ILetsTripTransferUpdateI18Payload,
   ILetsTripTransferUpdatePayload,
+  IUpdateDirectionPayload,
 } from './types';
 import { appActions } from '@/store/app';
 
@@ -168,12 +169,34 @@ export const transferCarSettings = createAsyncThunk<
   }
 });
 
+export const updateTransferDirectionPrice = createAsyncThunk<
+  AxiosResponse<ILetsTripTransfer>,
+  IUpdateDirectionPayload
+>(
+  EndPointes.letsTripTransfer.update + '/update-direction-price',
+  async ({ carId, directionId, body, callback }, thunkApi) => {
+    try {
+      const response = await LetsTripTransferCarService.updateDirectionCar(
+        carId,
+        directionId,
+        body,
+      );
+      if (response.data && callback) {
+        callback();
+      }
+      return response;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
 export const deleteTransferDirection = createAsyncThunk<any, IDeleteDirectionPay>(
   EndPointes.letsTripTransfer.deleteDirection + '/direction/delete',
   async ({ carId, directionId, callback }, thunkApi) => {
     try {
       const response = await LetsTripTransferCarService.deleteDirectionCar(carId, directionId);
-      if (response.data && callback) {
+      if (response.status === 200 && callback) {
         callback();
       }
       return response;

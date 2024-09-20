@@ -5,9 +5,9 @@ import './table.scss';
 import type { TTable } from './type';
 
 export const Table = ({
-  isAdd,
+  isAdd = true,
   select,
-  path = 'create',
+  path,
   ...props
 }: TableProps<any> & Partial<TTable>) => {
   return (
@@ -16,7 +16,7 @@ export const Table = ({
       {...props}
       scroll={{ x: 'max-content' }}
       style={{ width: '100%' }}
-      title={() => <Header isAdd={isAdd} select={select} path={path} />}
+      title={() => <Header isAdd={isAdd || !!path} select={select} path={path} />}
     />
   );
 };

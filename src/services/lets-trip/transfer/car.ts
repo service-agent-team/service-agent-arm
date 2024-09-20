@@ -42,6 +42,13 @@ export const LetsTripTransferCarService = {
     );
   },
 
+  async updateDirectionCar(carId: number, directionId: number, body: Partial<ICreateCarDirection>) {
+    return await $axios.patch<ICreateCarDirection, AxiosResponse<ILetsTripTransfer>>(
+      `${EndPointes.letsTripTransfer.updateDirection}/${carId}/update-direction-price/${directionId}`,
+      body,
+    );
+  },
+
   async deleteDirectionCar(carId: number, directionId: number) {
     return await $axios.delete(
       `${EndPointes.letsTripTransfer.deleteDirection}/${carId}/direction/${directionId}`,
