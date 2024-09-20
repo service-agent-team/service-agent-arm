@@ -130,4 +130,8 @@ export const ROUTES = {
   bookingBedTypeCreate: '/booking/bed-type/create',
   bookingBedTypeEdit: '/booking/bed-type/edit/:id/:languageType',
   bookingBreakfast: '/booking/breakfast',
+
+  // process
+  process: '/process',
+  processHome: '/process/home',
 } as const;

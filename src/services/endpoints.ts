@@ -237,6 +237,7 @@ export const EndPointes = {
     updateI18: '/api/transfer/update/i18',
     delete: '/api/transfer/car/delete',
     addDirection: '/api/transfer/car/add-directions',
+    updateDirection: '/api/transfer/car',
     deleteDirection: '/api/transfer/car',
     countries: 'api/country/get-all',
     regions: 'api/country/region',

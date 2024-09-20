@@ -12,6 +12,7 @@ import {
   transferCarSettings,
   updateI18LetsTripTransfer,
   updateLetsTripTransfer,
+  updateTransferDirectionPrice,
 } from './actions';
 import { ILetsTripTransferInitialState } from './types';
 
@@ -24,9 +25,11 @@ const initialState: ILetsTripTransferInitialState = {
   },
   modal: {
     car_settings: false,
+    type: 'create',
   },
   car_details: {
     select_car_id: null,
+    select_car_direction: null,
   },
   global_countries: [],
   country_regions: [],
@@ -51,8 +54,14 @@ export const letsTripTransferSlice = createSlice({
     setCarModal: (state, { payload }) => {
       state.modal.car_settings = payload;
     },
+    setCarModalType: (state, { payload }) => {
+      state.modal.type = payload;
+    },
     setSelectCar: (state, { payload }) => {
       state.car_details.select_car_id = payload;
+    },
+    setSelectCarDirection: (state, { payload }) => {
+      state.car_details.select_car_direction = payload;
     },
   },
   extraReducers: (builder) => {
@@ -167,10 +176,41 @@ export const letsTripTransferSlice = createSlice({
       })
       .addCase(transferCarSettings.fulfilled, (state, { payload }) => {
         state.loading.post = false;
-        state.transfers = [...state.transfers, payload.data];
+
+        if (state.transfers) {
+          const updated = state.transfers.map((t) => {
+            if (t.id === payload.data.id)
+              return { ...payload.data, directions: payload.data.directions };
+
+            return t;
+          });
+          state.transfers = [...updated];
+        }
         state.errors = null;
       })
       .addCase(transferCarSettings.rejected, (state, { payload }) => {
+        state.loading.post = false;
+        state.errors = payload;
+      })
+      .addCase(updateTransferDirectionPrice.pending, (state) => {
+        state.loading.post = true;
+        state.errors = null;
+      })
+      .addCase(updateTransferDirectionPrice.fulfilled, (state, { payload }) => {
+        state.loading.post = false;
+
+        if (state.transfers) {
+          const updated = state.transfers.map((t) => {
+            if (t.id === payload.data.id)
+              return { ...payload.data, directions: payload.data.directions };
+
+            return t;
+          });
+          state.transfers = [...updated];
+        }
+        state.errors = null;
+      })
+      .addCase(updateTransferDirectionPrice.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })

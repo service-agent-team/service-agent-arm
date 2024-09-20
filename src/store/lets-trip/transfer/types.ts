@@ -10,9 +10,11 @@ export interface ILetsTripTransferInitialState {
   };
   modal: {
     car_settings: boolean;
+    type: 'edit' | 'create';
   };
   car_details: {
     select_car_id: number | null;
+    select_car_direction: IDirection | null;
   };
   global_countries: IGlobalCountry[];
   country_regions: IGlobalCountry[];
@@ -44,6 +46,8 @@ export interface IDirection {
   hourlyPrice: number;
   sourceBoundary: Boundary;
   destinationBoundary: Boundary;
+  destinationBoundaryId: number;
+  sourceBoundaryId: number;
 }
 
 export interface Boundary {
@@ -135,6 +139,13 @@ export interface ILetsTripTransferDeletePayload {
 export interface ICreateTransferDirectionPay {
   carId: number;
   direction: ICreateCarDirection;
+  callback?: () => void;
+}
+
+export interface IUpdateDirectionPayload {
+  directionId: number;
+  carId: number;
+  body: Partial<ICreateCarDirection>;
   callback?: () => void;
 }
 

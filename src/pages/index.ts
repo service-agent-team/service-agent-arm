@@ -7,3 +7,4 @@ export * from './transfer';
 export * from './lets-trip';
 export * from './language';
 export * from './booking';
+export * from './process';
