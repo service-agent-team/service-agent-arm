@@ -50,5 +50,7 @@ export const subUtils = (dataSource: ILetsTripTransfer, carId: number): React.Re
     },
   ];
 
-  return <Table columns={columns} dataSource={dataSource?.directions} pagination={false} />;
+  return (
+    <Table columns={columns} dataSource={dataSource?.directions} pagination={false} isAdd={true} />
+  );
 };

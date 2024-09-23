@@ -1,9 +1,9 @@
 import { errorCatch } from '@/common';
 import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { BookingBedTypeService } from '@/services';
+import { BookingTaxesService } from '@/services';
 import {
-  IBedType,
+  ITaxe,
   ICreatePayload,
   ICreateResponse,
   ICreateTranslationPayload,
@@ -15,21 +15,12 @@ import {
   IUpdatePayload,
   IUpdateResponse,
 } from './types';
-import { appActions } from '@/store/app';
 
-export const getAllBedType = createAsyncThunk<IBedType[], IGetAllPayload>(
-  EndPointes.bookingBedType.getAll + '/get-all',
-  async ({ page, size }, thunkApi) => {
+export const getAllTaxes = createAsyncThunk<ITaxe[], IGetAllPayload>(
+  EndPointes.bookingTaxes + '/get-all',
+  async (_, thunkApi) => {
     try {
-      const response = await BookingBedTypeService.getAll(page, size);
-      if (response.data) {
-        thunkApi.dispatch(
-          appActions.setPagination({
-            current: page + 1,
-            total: response.data.count,
-          }),
-        );
-      }
+      const response = await BookingTaxesService.getAll();
       return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });
@@ -37,25 +28,23 @@ export const getAllBedType = createAsyncThunk<IBedType[], IGetAllPayload>(
   },
 );
 
-export const getOneBedType = createAsyncThunk<IGetOneResponse, IGetOnePayload>(
-  EndPointes.bookingBedType.getAll + '/get-one/:id',
+export const getOneTaxe = createAsyncThunk<IGetOneResponse, IGetOnePayload>(
+  EndPointes.bookingTaxes + '/get-one/:id',
   async ({ id, lang }, thunkApi) => {
     try {
-      return (await BookingBedTypeService.getOne(id, lang)).data;
+      return (await BookingTaxesService.getOne(id, lang)).data;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
   },
 );
 
-export const createBedType = createAsyncThunk<ICreateResponse, ICreatePayload>(
-  EndPointes.bookingBedType.getAll + '/create',
-  async ({ callback, name, description, size }, thunkApi) => {
+export const createTaxe = createAsyncThunk<ICreateResponse, ICreatePayload>(
+  EndPointes.bookingTaxes + '/create',
+  async ({ callback, name }, thunkApi) => {
     try {
-      const response = await BookingBedTypeService.create({
+      const response = await BookingTaxesService.create({
         name,
-        description,
-        size,
       });
       if (response.data && callback) {
         callback();
@@ -67,14 +56,11 @@ export const createBedType = createAsyncThunk<ICreateResponse, ICreatePayload>(
   },
 );
 
-export const createBedTypeTranslation = createAsyncThunk<
-  ICreateResponse,
-  ICreateTranslationPayload
->(
-  EndPointes.bookingBedType.getAll + '/create/translations',
+export const createTaxeTranslation = createAsyncThunk<ICreateResponse, ICreateTranslationPayload>(
+  EndPointes.bookingTaxes + '/create/translations',
   async ({ callback, body }, thunkApi) => {
     try {
-      const response = await BookingBedTypeService.createTranslation(body);
+      const response = await BookingTaxesService.createTranslation(body);
       if (response.data && callback) {
         callback();
       }
@@ -85,11 +71,11 @@ export const createBedTypeTranslation = createAsyncThunk<
   },
 );
 
-export const updateBedType = createAsyncThunk<IUpdateResponse, IUpdatePayload>(
-  EndPointes.bookingBedType.getAll + '/update/:id',
+export const updateTaxe = createAsyncThunk<IUpdateResponse, IUpdatePayload>(
+  EndPointes.bookingTaxes + '/update/:id',
   async ({ callback, id, lang, body }, thunkApi) => {
     try {
-      const response = await BookingBedTypeService.update(id, lang, body);
+      const response = await BookingTaxesService.update(id, lang, body);
       if (response.data && callback) {
         callback();
       }
@@ -100,12 +86,12 @@ export const updateBedType = createAsyncThunk<IUpdateResponse, IUpdatePayload>(
   },
 );
 
-export const deleteBedType = createAsyncThunk<any, IDeletePayload>(
-  EndPointes.bookingBedType.getAll + '/delete/:id',
+export const deleteTaxe = createAsyncThunk<any, IDeletePayload>(
+  EndPointes.bookingTaxes + '/delete/:id',
   async ({ callback, id }, thunkApi) => {
     try {
-      const response = await BookingBedTypeService.delete(id);
-      if (response.data && callback) {
+      const response = await BookingTaxesService.delete(id);
+      if (response.status === 200 && callback) {
         callback();
       }
       return response.data;
@@ -115,11 +101,11 @@ export const deleteBedType = createAsyncThunk<any, IDeletePayload>(
   },
 );
 
-export const deleteBedTypeTranslation = createAsyncThunk<any, IDeleteTranslationPayload>(
-  EndPointes.bookingBedType.getAll + '/delete/translation:id',
+export const deleteTaxeTranslation = createAsyncThunk<any, IDeleteTranslationPayload>(
+  EndPointes.bookingTaxes + '/delete/translation:id',
   async ({ callback, id, lang }, thunkApi) => {
     try {
-      const response = await BookingBedTypeService.deleteTranslation(id, lang);
+      const response = await BookingTaxesService.deleteTranslation(id, lang);
       if (response.status === 204 && callback) {
         callback();
       }
