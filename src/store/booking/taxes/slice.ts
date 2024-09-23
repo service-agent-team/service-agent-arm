@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './types';
 import {
-  getAllBedType,
-  getOneBedType,
-  createBedType,
-  updateBedType,
-  deleteBedType,
-  createBedTypeTranslation,
+  createTaxe,
+  createTaxeTranslation,
+  deleteTaxe,
+  getAllTaxes,
+  getOneTaxe,
+  updateTaxe,
 } from './actions';
 
 const initialState: InitialState = {
@@ -17,112 +17,112 @@ const initialState: InitialState = {
     patch: false,
     delete: false,
   },
-  bedTypes: null,
-  bedType: null,
+  taxes: null,
+  taxe: null,
   errors: null,
 };
 
-export const bookingBedTypeSlice = createSlice({
-  name: 'bookingBedType',
+export const bookingTaxesSlice = createSlice({
+  name: 'bookingTaxes',
   initialState,
   reducers: {
-    setBedType: (state, { payload }) => {
-      state.bedTypes = payload;
+    setTaxes: (state, { payload }) => {
+      state.taxes = payload;
     },
-    setOneBedType: (state, { payload }) => {
-      state.bedType = payload;
+    setOneTaxe: (state, { payload }) => {
+      state.taxe = payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllBedType.pending, (state) => {
+      .addCase(getAllTaxes.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
       })
-      .addCase(getAllBedType.fulfilled, (state, { payload }) => {
+      .addCase(getAllTaxes.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.bedTypes = payload;
+        state.taxes = payload;
         state.errors = null;
       })
-      .addCase(getAllBedType.rejected, (state, { payload }) => {
+      .addCase(getAllTaxes.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
-      .addCase(getOneBedType.pending, (state) => {
+      .addCase(getOneTaxe.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
       })
-      .addCase(getOneBedType.fulfilled, (state, { payload }) => {
+      .addCase(getOneTaxe.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.bedType = payload;
+        state.taxe = payload;
         state.errors = null;
       })
-      .addCase(getOneBedType.rejected, (state, { payload }) => {
+      .addCase(getOneTaxe.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })
-      .addCase(createBedType.pending, (state) => {
+      .addCase(createTaxe.pending, (state) => {
         state.loading.post = true;
         state.errors = null;
       })
-      .addCase(createBedType.fulfilled, (state, { payload }) => {
+      .addCase(createTaxe.fulfilled, (state, { payload }) => {
         state.loading.post = false;
-        state.bedTypes?.push(payload.data as any);
+        state.taxes?.push(payload.data as any);
         state.errors = null;
       })
-      .addCase(createBedType.rejected, (state, { payload }) => {
+      .addCase(createTaxe.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })
-      .addCase(createBedTypeTranslation.pending, (state) => {
+      .addCase(createTaxeTranslation.pending, (state) => {
         state.loading.post = true;
         state.errors = null;
       })
-      .addCase(createBedTypeTranslation.fulfilled, (state, { payload }) => {
+      .addCase(createTaxeTranslation.fulfilled, (state, { payload }) => {
         state.loading.post = false;
-        if (state.bedTypes) {
-          const foundedIndex = state.bedTypes.findIndex((c) => c.id === payload.data.id);
+        if (state.taxes) {
+          const foundedIndex = state.taxes.findIndex((c) => c.id === payload.data.id);
           if (foundedIndex !== -1) {
-            state.bedTypes[foundedIndex].translations.push({
+            state.taxes[foundedIndex].translations.push({
               ...payload.data,
-              languageType: payload.data.lang,
+              languageType: payload.data.languageType,
             });
           }
         }
         state.errors = null;
       })
-      .addCase(createBedTypeTranslation.rejected, (state, { payload }) => {
+      .addCase(createTaxeTranslation.rejected, (state, { payload }) => {
         state.loading.post = false;
         state.errors = payload;
       })
-      .addCase(updateBedType.pending, (state) => {
+      .addCase(updateTaxe.pending, (state) => {
         state.loading.put = true;
         state.errors = null;
       })
-      .addCase(updateBedType.fulfilled, (state, { payload }) => {
+      .addCase(updateTaxe.fulfilled, (state, { payload }) => {
         state.loading.put = false;
-        const foundIndex = state.bedTypes?.findIndex((f) => f.id === payload.data.id);
-        if (foundIndex && state.bedTypes) state.bedTypes[foundIndex] = payload.data as any;
+        const foundIndex = state.taxes?.findIndex((f) => f.id === payload.data.id);
+        if (foundIndex && state.taxes) state.taxes[foundIndex] = payload.data as any;
         state.errors = null;
       })
-      .addCase(updateBedType.rejected, (state, { payload }) => {
+      .addCase(updateTaxe.rejected, (state, { payload }) => {
         state.loading.put = false;
         state.errors = payload;
       })
-      .addCase(deleteBedType.pending, (state) => {
+      .addCase(deleteTaxe.pending, (state) => {
         state.loading.delete = true;
         state.errors = null;
       })
-      .addCase(deleteBedType.fulfilled, (state) => {
+      .addCase(deleteTaxe.fulfilled, (state) => {
         state.loading.delete = false;
         state.errors = null;
       })
-      .addCase(deleteBedType.rejected, (state, { payload }) => {
+      .addCase(deleteTaxe.rejected, (state, { payload }) => {
         state.loading.delete = false;
         state.errors = payload;
       });
   },
 });
 
-export const BookingBedTypeReduce = bookingBedTypeSlice.reducer;
-export const BookingBedTypeSliceActions = bookingBedTypeSlice.actions;
+export const BookingTaxesReduce = bookingTaxesSlice.reducer;
+export const BookingTaxesSliceActions = bookingTaxesSlice.actions;

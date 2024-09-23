@@ -108,6 +108,9 @@ export const BookingBedTypeCreatePage = getLoadablePage('BookingBedTypeCreate');
 export const BookingBedTypeEditPage = getLoadablePage('BookingBedTypeEdit');
 export const BookingBreakfast = getLoadablePage('Breakfast');
 export const BookingBreakfastDetail = getLoadablePage('BreakfastDetail');
+export const BookingTaxesPage = getLoadablePage('BookingTaxes');
+export const BookingTaxesCreatePage = getLoadablePage('BookingTaxesCreate');
+export const BookingTaxesEditPage = getLoadablePage('BookingTaxesEdit');
 
 // process
 export const ProcessHomePage = getLoadablePage('ProcessHome');

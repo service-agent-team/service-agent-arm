@@ -9,52 +9,43 @@ export interface InitialState {
     put: boolean;
     delete: boolean;
   };
-  bedTypes: IBedType[] | null;
-  bedType: IGetOneBedType | null;
+  taxes: ITaxe[] | null;
+  taxe: IGetOneTaxe | null;
   errors: unknown | string[] | string;
 }
 
-export interface IBedType {
+export interface ITaxe {
   id: number;
   name: string;
-  size: string;
   languageType: LanguageType;
   translations: TBreakfastTranslation[];
 }
 
-export interface IGetOneBedType {
+export interface IGetOneTaxe {
   id: number;
   name: string;
-  description: string;
-  size: string;
-  lang: LanguageType;
+  languageType: LanguageType;
+  translations: TBreakfastTranslation[];
 }
 
-export interface IBetTypeBody {
+export interface ITaxeBody {
   name: string;
-  description: string;
-  size: string;
 }
 
-export interface IBetTypeTranslationBody {
+export interface ITaxeTranslationBody {
   name: string;
-  description: string;
-  size: string;
-  bedTypeId: number;
+  taxId: number;
   languageType: LanguageType;
 }
 
 export interface IGetAllResponse {
-  data: IBedType[];
+  data: ITaxe[];
   count: number;
 }
 
-export interface IGetAllPayload {
-  page: number;
-  size: number;
-}
+export interface IGetAllPayload {}
 
-export interface IGetOneResponse extends IGetOneBedType {}
+export interface IGetOneResponse extends IGetOneTaxe {}
 
 export interface IGetOnePayload {
   id: number;
@@ -62,26 +53,26 @@ export interface IGetOnePayload {
 }
 
 export interface ICreateResponse {
-  data: IGetOneBedType;
+  data: IGetOneTaxe;
 }
 
-export interface ICreatePayload extends IBetTypeBody {
+export interface ICreatePayload extends ITaxeBody {
   callback?(): void;
 }
 
 export interface ICreateTranslationPayload {
   callback?(): void;
-  body: IBetTypeTranslationBody;
+  body: ITaxeTranslationBody;
 }
 
 export interface IUpdateResponse {
-  data: IGetOneBedType;
+  data: IGetOneTaxe;
 }
 
 export interface IUpdatePayload {
   id: number;
   lang: LanguageType;
-  body: IBetTypeBody;
+  body: ITaxeBody;
   callback?(): void;
 }
 

@@ -128,8 +128,9 @@ export const ROUTES = {
   bookingFacilityCategoryEdit: '/booking/facility-category/edit/:id/:languageType',
   bookingBedType: '/booking/bed-type',
   bookingBedTypeCreate: '/booking/bed-type/create',
-  bookingBedTypeEdit: '/booking/bed-type/edit/:id/:languageType',
   bookingBreakfast: '/booking/breakfast',
+  bookingTaxes: '/booking/taxes',
+  bookingTaxesCreate: '/booking/taxes/create',
 
   // process
   process: '/process',

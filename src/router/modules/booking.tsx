@@ -13,6 +13,9 @@ import {
   BookingFacilityEditPage,
   BookingFacilityPage,
   BookingHomePage,
+  BookingTaxesCreatePage,
+  BookingTaxesEditPage,
+  BookingTaxesPage,
 } from '../loadable';
 
 export const bookingRouter: RouteObject[] = [
@@ -85,6 +88,23 @@ export const bookingRouter: RouteObject[] = [
       {
         path: ROUTES.view,
         element: <BookingBreakfastDetail />,
+      },
+    ],
+  },
+  {
+    path: ROUTES.bookingTaxes,
+    children: [
+      {
+        index: true,
+        element: <BookingTaxesPage />,
+      },
+      {
+        path: ROUTES.add,
+        element: <BookingTaxesCreatePage />,
+      },
+      {
+        path: 'edit/:id/:languageType',
+        element: <BookingTaxesEditPage />,
       },
     ],
   },
