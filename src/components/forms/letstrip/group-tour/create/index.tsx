@@ -87,8 +87,10 @@ export const LestTripTourCreateForm: React.FC = () => {
 
     priceIncludes,
     priceNotIncludes,
-
     tourItenarary,
+
+    freeCancellationDay,
+    freeCancellationHour,
   }: IValuesForm) => {
     if (locations.length === 0) {
       return toast.error('location required', { position: 'top-right' });
@@ -102,6 +104,7 @@ export const LestTripTourCreateForm: React.FC = () => {
       },
       name: { en: nameEn, ru: nameRu },
       cityName: { en: cityEn, ru: cityRu },
+      freeCancellation: { day: freeCancellationDay, hour: freeCancellationHour },
       countryId,
       description: [{ ru: descriptionRu, en: descriptionEn }],
       images: images.fileList.flatMap((item: UploadFile) =>
@@ -207,14 +210,7 @@ export const LestTripTourCreateForm: React.FC = () => {
   }, [errors]);
 
   return (
-    <BaseForm
-      name="letsTripGroupTourForm"
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      // @ts-ignore
-      onFinishFailed={(errorInfo) => addNotification('Xatolik:', errorInfo)}
-    >
+    <BaseForm name="letsTripGroupTourForm" form={form} layout="vertical" onFinish={onFinish}>
       <Row gutter={[12, 12]}>
         <Col span={12}>
           <BaseForm.Item name="nameEn" label={'name english'} rules={[{ required: true }]}>
@@ -343,6 +339,17 @@ export const LestTripTourCreateForm: React.FC = () => {
           </>
         ) : null}
 
+        <Col span={12}>
+          <BaseForm.Item name="freeCancellationDay" label="Free cancellation day">
+            <InputNumber min={0} $block placeholder="Free cancellation day" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={12}>
+          <BaseForm.Item name="freeCancellationHour" label="Free cancellation hour">
+            <InputNumber min={0} max={23} $block placeholder="Free cancellation hour" />
+          </BaseForm.Item>
+        </Col>
+
         <Col span={24}>
           <BaseForm.Item
             name="descriptionEn"
@@ -362,39 +369,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
           </BaseForm.Item>
         </Col>
-        <Col span={24}>
-          <BaseForm.Item
-            name="images"
-            label={'tour images'}
-            rules={[{ required: true, message: 'tour images is required?', type: 'object' }]}
-          >
-            <Upload.Dragger
-              name="files"
-              listType="picture"
-              multiple={true}
-              fileList={fileList}
-              onChange={handleChange}
-              onPreview={handlePreview}
-              beforeUpload={(file) => file.type.split('/')[0] === 'image'}
-              action={`${BASE_URL}/api/file`}
-            >
-              <Icon fontSize="20" color="blue" name="InboxOutlined" />
-              <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
-              {previewImage && (
-                <Image
-                  height={100}
-                  wrapperStyle={{ display: 'none' }}
-                  preview={{
-                    visible: previewOpen,
-                    onVisibleChange: (visible) => setPreviewOpen(visible),
-                    afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                  }}
-                  src={previewImage}
-                />
-              )}
-            </Upload.Dragger>
-          </BaseForm.Item>
-        </Col>
+
         <Col span={24}>
           <BaseForm.List
             name="tourItenarary"
@@ -650,6 +625,41 @@ export const LestTripTourCreateForm: React.FC = () => {
             )}
           </BaseForm.List>
         </Col>
+
+        <Col span={24}>
+          <BaseForm.Item
+            name="images"
+            label={'tour images'}
+            rules={[{ required: true, message: 'tour images is required?', type: 'object' }]}
+          >
+            <Upload.Dragger
+              name="files"
+              listType="picture"
+              multiple={true}
+              fileList={fileList}
+              onChange={handleChange}
+              onPreview={handlePreview}
+              beforeUpload={(file) => file.type.split('/')[0] === 'image'}
+              action={`${BASE_URL}/api/file`}
+            >
+              <Icon fontSize="20" color="blue" name="InboxOutlined" />
+              <div style={{ marginTop: 8 }}>Click or drag file to this area to upload</div>
+              {previewImage && (
+                <Image
+                  height={100}
+                  wrapperStyle={{ display: 'none' }}
+                  preview={{
+                    visible: previewOpen,
+                    onVisibleChange: (visible) => setPreviewOpen(visible),
+                    afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                  }}
+                  src={previewImage}
+                />
+              )}
+            </Upload.Dragger>
+          </BaseForm.Item>
+        </Col>
+
         <Col span={24}>
           <BaseForm.List
             name="extraInformation"
@@ -976,6 +986,7 @@ export const LestTripTourCreateForm: React.FC = () => {
             )}
           </BaseForm.List>
         </Col>
+
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={{ width: '100%', height: '400px' }}

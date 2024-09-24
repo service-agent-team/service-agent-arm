@@ -39,6 +39,7 @@ export interface ILetsTripGroupTour {
   deleted?: boolean;
   createdAt?: string;
   cityName: Name2;
+  freeCancellation: IFreeCancellation;
 }
 
 export interface ILetsTripGroupTourResponse {
@@ -84,6 +85,11 @@ export interface ILetsTripGroupTourGetOnePayload {
   callback?(): void;
 }
 
+export interface IFreeCancellation {
+  day: number;
+  hour: number;
+}
+
 export interface ILetsTripGroupTourCreatePayload {
   callback(): void;
   name: Name;
@@ -103,6 +109,7 @@ export interface ILetsTripGroupTourCreatePayload {
   // availableDate: AvailableDate[];
   tourItenarary: TourItinerary[];
   cityName: Name;
+  freeCancellation: IFreeCancellation;
 }
 
 export interface UpdateByObject {
@@ -165,6 +172,7 @@ export interface ILetsTripGroupTourOtherUpdatesPayload {
   upTo4?: number;
   upTo6?: number;
   upTo10?: number;
+  freeCancellation: IFreeCancellation;
   callback(): void;
 }
 
