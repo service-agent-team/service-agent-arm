@@ -1,4 +1,6 @@
+import { IFreeCancellation } from '@/store/lets-trip/group-tour/types';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
+import { Dayjs } from 'dayjs';
 
 export interface IValuesForm {
   nameRu: string;
@@ -26,6 +28,9 @@ export interface IValuesForm {
   descriptionRu: string;
   descriptionEn: string;
   tourItenarary: TourItinerary[];
+
+  freeCancellationDay: number;
+  freeCancellationHour: number;
   // availableDate: AvailableDate[];
 }
 

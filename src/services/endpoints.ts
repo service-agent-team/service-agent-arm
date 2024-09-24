@@ -287,6 +287,8 @@ export const EndPointes = {
 
   bookingTaxes: '/api/booking/taxes',
 
+  bookingRoom: '/api/booking/room',
+
   letstripNotification: {
     getLetstripUser: '/api/notification/findUser',
     sendNotification: '/api/notification/push',

@@ -124,6 +124,8 @@ export const LestTripTourEditForm: React.FC = () => {
         nameRu: groupTourRaw?.name?.ru,
         cityEn: groupTourRaw?.cityName?.en,
         cityRu: groupTourRaw?.cityName?.ru,
+        freeCancellationDay: groupTourRaw?.freeCancellation?.day,
+        freeCancellationHour: groupTourRaw?.freeCancellation?.hour,
         countryId: groupTourRaw?.countryId,
         price: Number(groupTourRaw?.price) / 100,
         upTo2: Number(groupTourRaw?.upTo2) / 100,
@@ -197,6 +199,9 @@ export const LestTripTourEditForm: React.FC = () => {
     extraInformation,
     // availableDate,
     tourItenarary,
+
+    freeCancellationDay,
+    freeCancellationHour,
   }: IValuesForm) => {
     if (locations.length === 0) {
       return toast.error('location required', { position: 'top-right' });
@@ -233,6 +238,10 @@ export const LestTripTourEditForm: React.FC = () => {
           upTo4: upTo4 * 100,
           upTo6: upTo6 * 100,
           upTo10: upTo10 * 100,
+          freeCancellation: {
+            day: freeCancellationDay,
+            hour: freeCancellationHour,
+          },
         });
       }
 
@@ -650,6 +659,25 @@ export const LestTripTourEditForm: React.FC = () => {
             </>
           ) : null}
 
+          <Col span={12}>
+            <BaseForm.Item
+              name="freeCancellationDay"
+              label="Free cancellation day"
+              rules={[{ required: true }]}
+            >
+              <InputNumber min={0} $block placeholder="Free cancellation day" />
+            </BaseForm.Item>
+          </Col>
+          <Col span={12}>
+            <BaseForm.Item
+              name="freeCancellationHour"
+              label="Free cancellation hour"
+              rules={[{ required: true }]}
+            >
+              <InputNumber min={0} max={23} $block placeholder="Free cancellation hour" />
+            </BaseForm.Item>
+          </Col>
+
           <BaseForm.Item
             style={{ width: '100%' }}
             name="descriptionEn"
@@ -710,175 +738,7 @@ export const LestTripTourEditForm: React.FC = () => {
               </Upload.Dragger>
             </BaseForm.Item>
           </Col>
-          {/* <BaseForm.List name="availableDate">
-          {(fields, { add, remove }) => (
-            <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
-              {fields.map((field) => (
-                <>
-                  <Card
-                    size="small"
-                    title={`${field.key + 1}. available date`}
-                    key={field.key}
-                    extra={
-                      <Icon
-                        color="red"
-                        name="DeleteOutlined"
-                        onClick={() => {
-                          if (groupTourRaw) {
-                            handleAvailableDateDelete(field, remove);
-                          }
-                        }}
-                      />
-                    }
-                  >
-                    <Flex gap={'15px'}>
-                      <BaseForm.Item
-                        style={{ width: '100%' }}
-                        name={[field.key, 'month']}
-                        label={'available month'}
-                        rules={[{ required: true, message: 'Enter a available month' }]}
-                      >
-                        <DatePicker picker="month" style={{ width: '100%' }} />
-                      </BaseForm.Item>
-                      <BaseForm.Item
-                        style={{ width: '100%' }}
-                        name={[field.key, 'year']}
-                        label={'available year'}
-                        rules={[{ required: true, message: 'Enter a available year' }]}
-                      >
-                        <DatePicker picker="year" style={{ width: '100%' }} />
-                      </BaseForm.Item>
-                    </Flex>
-                    <BaseForm.List name={[field.key, 'departures']}>
-                      {(subFields, { add, remove }) => (
-                        <div
-                          key={field.key}
-                          style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}
-                        >
-                          {subFields.map((subField) => (
-                            <>
-                              <Card
-                                size="small"
-                                title={`${subField.key + 1}. available date departures`}
-                                extra={
-                                  <Icon
-                                    name="CloseOutlined"
-                                    onClick={() => {
-                                      remove(subField.name);
-                                    }}
-                                  />
-                                }
-                              >
-                                <Flex gap={'15px'}>
-                                  <BaseForm.Item
-                                    style={{ width: '100%' }}
-                                    name={[subField.key, 'transferTypeEn']}
-                                    label={'transfer type english'}
-                                    rules={[
-                                      {
-                                        required: true,
-                                        message: 'transfer type english is required?',
-                                      },
-                                      {
-                                        type: 'string',
-                                        message: 'Enter transfer type english ?',
-                                      },
-                                    ]}
-                                  >
-                                    <Input
-                                      name="en"
-                                      type="string"
-                                      placeholder="Enter a transfer type english ?"
-                                    />
-                                  </BaseForm.Item>
-                                  <BaseForm.Item
-                                    style={{ width: '100%' }}
-                                    name={[subField.key, 'transferTypeRu']}
-                                    label={'transfer type russian'}
-                                    rules={[
-                                      {
-                                        required: true,
-                                        message: 'transfer type russian is required?',
-                                      },
-                                      {
-                                        type: 'string',
-                                        message: 'Enter transfer type russian ?',
-                                      },
-                                    ]}
-                                  >
-                                    <Input
-                                      name="ru"
-                                      type="string"
-                                      placeholder="Enter a transfer type russian ?"
-                                    />
-                                  </BaseForm.Item>
 
-                                  <BaseForm.Item
-                                    style={{ width: '100%' }}
-                                    name={[subField.key, 'price']}
-                                    label={'available price'}
-                                    rules={[
-                                      { required: true, message: 'available price is required?' },
-                                      {
-                                        type: 'number',
-                                        message: 'Enter available price ?',
-                                      },
-                                    ]}
-                                  >
-                                    <InputNumber
-                                      style={{ width: '100%' }}
-                                      type="number"
-                                      placeholder="Enter a available price ?"
-                                    />
-                                  </BaseForm.Item>
-
-                                  <BaseForm.Item
-                                    style={{ width: '100%' }}
-                                    name={[subField.key, 'transferDate']}
-                                    label={'transfer start end date'}
-                                    rules={[{ required: true, message: 'transfer date required' }]}
-                                  >
-                                    <DatePicker.RangePicker
-                                      format={{
-                                        format: 'YYYY-MM-DD',
-                                        type: 'mask',
-                                      }}
-                                    />
-                                  </BaseForm.Item>
-                                </Flex>
-                              </Card>
-                            </>
-                          ))}
-                          <BaseForm.Item>
-                            <Button
-                              type="dashed"
-                              onClick={() => add()}
-                              block
-                              icon={<Icon name="PlusOutlined" />}
-                            >
-                              add available date departures ({subFields.length}){' '}
-                              {subFields.length ? '✅' : '❌'}
-                            </Button>
-                          </BaseForm.Item>
-                        </div>
-                      )}
-                    </BaseForm.List>
-                  </Card>
-                </>
-              ))}
-              <BaseForm.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => add()}
-                  block
-                  icon={<Icon name="PlusOutlined" />}
-                >
-                  add available date ({fields.length}) {fields.length ? '✅' : '❌'}
-                </Button>
-              </BaseForm.Item>
-            </div>
-          )}
-        </BaseForm.List> */}
           <Col span={24}>
             <BaseForm.List name="tourItenarary">
               {(fields, { add, remove }) => (
