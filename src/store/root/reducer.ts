@@ -39,6 +39,7 @@ import { breakfastReducer } from '../booking/breakfast/slice';
 import { BookingFacilityCategoryReduce } from '../booking/facility-category/slice';
 import { BookingFacilityReduce } from '../booking/facility/slice';
 import { BookingTaxesReduce } from '../booking/taxes/slice';
+import { BookingRoomReduce } from '../booking/room/slice';
 
 import { LetsTripNotificationReduce } from '../lets-trip/notification/slice';
 
@@ -87,6 +88,7 @@ export const reducer = {
   bookingFacilityCategory: BookingFacilityCategoryReduce,
   bookingBedType: BookingBedTypeReduce,
   bookingTaxes: BookingTaxesReduce,
+  bookingRoom: BookingRoomReduce,
 
   letstripNotification: LetsTripNotificationReduce,
 };

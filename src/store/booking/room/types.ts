@@ -28,7 +28,7 @@ export interface IRoomTranslation {
   attachments: any[];
   facilityList: any[];
   roomCount: number;
-  languageType: string;
+  languageType: LanguageType;
   smockingAllowed: boolean;
 }
 
@@ -48,7 +48,7 @@ export interface IRoom {
   attachments: any[];
   facilityList: any[];
   roomCount: number;
-  languageType: string;
+  languageType: LanguageType;
   smockingAllowed: boolean;
   translations?: IRoomTranslation[];
 }

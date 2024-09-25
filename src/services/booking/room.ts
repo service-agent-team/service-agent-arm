@@ -11,7 +11,7 @@ export const BookingRoomService = {
     return await $axios.get(`${EndPointes.bookingRoom}/${id}`);
   },
   async getOneTranslation(id: number) {
-    return await $axios.get(`${EndPointes.bookingRoom}/${id}`);
+    return await $axios.get(`${EndPointes.bookingRoom}/translation/${id}`);
   },
   async createTranslation(body: IRoomTranslationBody) {
     return await $axios.post(`${EndPointes.bookingRoom}/translations`, body);

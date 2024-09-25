@@ -1,5 +1,5 @@
 import { BookingFacilityCategoryTable } from '@/components';
-import { FacilityCategoryTranslationModal } from '@/components/modal';
+import { FacilityCategoryTranslationModal } from '@/components';
 
 export const BookingFacilityCategory = () => {
   return (
