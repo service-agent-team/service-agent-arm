@@ -1,4 +1,4 @@
-import { letstriplogo } from '@/assets';
+import { letstripLogo } from '@/assets';
 import { MenuProps } from 'antd';
 import { ROUTES } from '../routes';
 
@@ -37,5 +37,5 @@ export const booking: MenuProps['items'] = [
 
 export const BookingConf = {
   name: '',
-  logo: letstriplogo,
+  logo: letstripLogo,
 };

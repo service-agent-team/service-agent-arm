@@ -1,51 +1,54 @@
-import { useActions, useTypedSelector } from '@/common/hooks';
+import { useActions } from '@/common/hooks';
 import { Sidebar } from './styled';
-import { Dropdown, Input, Menu } from 'antd';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { TextArea } from '@/components';
+import { Dropdown, Menu } from 'antd';
 
 export const ProcessPayload = () => {
   const { setProcess } = useActions();
-  const { process } = useTypedSelector((s) => s.app);
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<string>('');
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
-  const suggestions = ['participant', '->', '-->', '{id: number, orderId: number}', '/url'];
+  const suggestions = [
+    'actor A -> B: message1',
+    'actor B -> C: message2',
+    'note left of A: note text',
+    'loop 3 times',
+    'alt condition',
+  ];
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;
     setValue(inputValue);
-    setProcess(inputValue);
 
-    // Extract the last word to use for filtering suggestions
-    const lastWord = inputValue.split(/\s+/).pop() || '';
+    const lines = inputValue.split('\n');
+    const lastLine = lines[lines.length - 1];
 
-    // Filter suggestions based on last word
-    const filtered = suggestions.filter((suggestion) =>
-      suggestion.toLowerCase().startsWith(lastWord.toLowerCase()),
+    const matchingSuggestions = suggestions.filter((s) =>
+      s.toLowerCase().includes(lastLine.toLowerCase()),
     );
 
-    // Update suggestions
-    setFilteredSuggestions(filtered);
-
-    // Show dropdown if there are any filtered suggestions
-    setShowDropdown(filtered.length > 0);
+    setFilteredSuggestions(matchingSuggestions);
+    setDropdownVisible(matchingSuggestions.length > 0);
   };
 
-  const handleSelectSuggestion = (suggestion: string) => {
-    // Replace the last word with the selected suggestion
-    const words = value.split(/\s+/);
-    words.pop();
-    const newValue = `${words.join(' ')} ${suggestion} `;
-    setValue(newValue);
-    setShowDropdown(false);
+  const handleSelect = (suggestion: string) => {
+    const lines = value.split('\n');
+    lines[lines.length - 1] = suggestion;
+    setValue(lines.join('\n'));
+    setDropdownVisible(false);
   };
 
-  const suggestionMenu = (
+  useEffect(() => {
+    setProcess(value);
+  }, [value]);
+
+  const menu = (
     <Menu>
       {filteredSuggestions.map((suggestion) => (
-        <Menu.Item key={suggestion} onClick={() => handleSelectSuggestion(suggestion)}>
+        <Menu.Item key={suggestion} onClick={() => handleSelect(suggestion)}>
           {suggestion}
         </Menu.Item>
       ))}
@@ -56,18 +59,12 @@ export const ProcessPayload = () => {
     <>
       <Sidebar>
         <div>ProcessPayload</div>
-
-        <Dropdown
-          overlay={suggestionMenu}
-          trigger={['click']}
-          visible={showDropdown}
-          placement="bottomLeft"
-        >
-          <Input.TextArea
+        <Dropdown overlay={menu} visible={dropdownVisible} trigger={['click']}>
+          <TextArea
+            rows={10}
             value={value}
             onChange={handleInputChange}
-            rows={8}
-            placeholder="Start typing..."
+            placeholder="Write your sequence diagram here..."
           />
         </Dropdown>
       </Sidebar>

@@ -42,6 +42,20 @@ export const subUtils = (dataSource: ILetsTripTransfer, carId: number): React.Re
       render: (el) => el / 100 + ' $',
     },
     {
+      title: 'Old Transfer Price',
+      dataIndex: 'oldTransferPrice',
+      key: 'oldTransferPrice',
+      width: '15%',
+      render: (el) => el / 100 + ' $',
+    },
+    {
+      title: 'Old Hourly Price',
+      dataIndex: 'oldHourlyPrice',
+      key: 'oldHourlyPrice',
+      width: '15%',
+      render: (el) => el / 100 + ' $',
+    },
+    {
       title: 'Actions',
       dataIndex: 'action',
       key: 'action',

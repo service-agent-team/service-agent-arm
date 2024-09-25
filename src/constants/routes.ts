@@ -135,4 +135,6 @@ export const ROUTES = {
   // process
   process: '/process',
   processHome: '/process/home',
+  processDiagram: '/process/diagram',
+  processProject: '/process/project',
 } as const;

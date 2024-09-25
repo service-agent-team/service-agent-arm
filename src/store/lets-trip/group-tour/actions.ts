@@ -303,17 +303,37 @@ export const otherUpdatesLetsTripGroupTour = createAsyncThunk<
 >(
   EndPointes.letsTripGroupTour.getAll + '/update/tourId',
   async (
-    { callback, tourId, countryId, price, upTo2, upTo4, upTo6, upTo10, freeCancellation },
+    {
+      callback,
+      tourId,
+      countryId,
+      price,
+      oldPrice,
+      upTo2,
+      upTo4,
+      upTo6,
+      upTo10,
+      oldUpTo2,
+      oldUpTo4,
+      oldUpTo6,
+      oldUpTo10,
+      freeCancellation,
+    },
     thunkApi,
   ) => {
     try {
       const response = await LetsTripGroupTourService.otherUpdates(tourId, {
         countryId,
         price,
+        oldPrice,
         upTo2,
         upTo4,
         upTo6,
         upTo10,
+        oldUpTo2,
+        oldUpTo4,
+        oldUpTo6,
+        oldUpTo10,
         freeCancellation,
       });
       if (response.data) {

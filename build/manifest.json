@@ -6,8 +6,8 @@
   "index.html": {
     "assets": [
       "assets/fon.png",
-      "assets/logo.png",
-      "assets/lets-trip-logo.svg"
+      "assets/lets-trip-logo.svg",
+      "assets/logo.png"
     ],
     "css": [
       "assets/index.css"

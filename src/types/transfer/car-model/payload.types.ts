@@ -7,6 +7,8 @@ export interface CreateCarPayload {
 export interface ICreateCarDirection {
   transferPrice: number;
   hourlyPrice: number;
+  oldTransferPrice: number;
+  oldHourlyPrice: number;
   sourceBoundaryId: number;
   destinationBoundaryId: number;
 }
