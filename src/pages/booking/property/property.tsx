@@ -1,11 +1,9 @@
-import { BookingBedTypeTable } from '@/components';
-import { BedTypeTranslationModal } from '@/components/modal/booking/bed-type-translation';
+import { BookingPropertyTable } from '@/components';
 
 export const BookingProperty = () => {
   return (
     <>
-      <BookingBedTypeTable />
-      <BedTypeTranslationModal />
+      <BookingPropertyTable />
     </>
   );
 };

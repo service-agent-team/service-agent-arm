@@ -14,6 +14,7 @@ import {
   BookingFacilityPage,
   BookingHomePage,
   BookingPropertyPage,
+  BookingPropertyTranslationPage,
   BookingRoomPage,
   BookingRoomTranslationPage,
   BookingTaxesCreatePage,
@@ -130,6 +131,10 @@ export const bookingRouter: RouteObject[] = [
       {
         index: true,
         element: <BookingPropertyPage />,
+      },
+      {
+        path: ROUTES.view,
+        element: <BookingPropertyTranslationPage />,
       },
     ],
   },

@@ -42,6 +42,7 @@ import { BookingTaxesReduce } from '../booking/taxes/slice';
 import { BookingRoomReduce } from '../booking/room/slice';
 
 import { LetsTripNotificationReduce } from '../lets-trip/notification/slice';
+import { BookingPropertyReduce } from '../booking/property/slice';
 
 export const reducer = {
   app: appReducer,
@@ -89,6 +90,7 @@ export const reducer = {
   bookingBedType: BookingBedTypeReduce,
   bookingTaxes: BookingTaxesReduce,
   bookingRoom: BookingRoomReduce,
+  bookingProperty: BookingPropertyReduce,
 
   letstripNotification: LetsTripNotificationReduce,
 };

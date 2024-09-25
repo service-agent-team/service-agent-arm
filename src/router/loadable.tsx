@@ -114,6 +114,7 @@ export const BookingTaxesEditPage = getLoadablePage('BookingTaxesEdit');
 export const BookingRoomPage = getLoadablePage('BookingRoom');
 export const BookingRoomTranslationPage = getLoadablePage('BookingRoomTranslation');
 export const BookingPropertyPage = getLoadablePage('BookingProperty');
+export const BookingPropertyTranslationPage = getLoadablePage('BookingPropertyTranslation');
 
 // process
 export const ProcessHomePage = getLoadablePage('ProcessHome');

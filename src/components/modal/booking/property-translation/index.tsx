@@ -7,31 +7,32 @@ import { PrimaryBtn } from '@/components/primary-btn';
 import { LanguageType } from '@/common/enum';
 import { addNotification } from '@/common';
 
-export const RoomTranslationModal = () => {
-  const { setModal, createRoomTranslation } = useActions();
+export const PropertyTranslationModal = () => {
+  const { setModal, createPropertyTranslation } = useActions();
   const { isModal } = useTypedSelector((s) => s.app);
   const [form] = Form.useForm();
 
   const {
-    room,
+    property,
     loading: { post },
-  } = useTypedSelector((s) => s.bookingRoom);
+  } = useTypedSelector((s) => s.bookingProperty);
 
   const onClose = () => {
     setModal(false);
   };
 
-  const onFinish = ({ name, description, languageType }: IValues) => {
-    if (room) {
-      createRoomTranslation({
+  const onFinish = ({ name, description, address, languageType }: IValues) => {
+    if (property) {
+      createPropertyTranslation({
         cb() {
-          addNotification('Successfully added room translation');
+          addNotification('Successfully added property translation');
           setModal(false);
           form.resetFields();
         },
         body: {
           name,
-          roomId: room.id,
+          propertyId: property.id || 2,
+          address,
           description,
           languageType,
         },
@@ -42,12 +43,12 @@ export const RoomTranslationModal = () => {
   const lang = Object.keys(LanguageType).map((el) => ({
     value: el,
     label: el,
-    disabled: !!room?.translations?.find((t) => t.languageType === el),
+    disabled: !!property?.translations?.find((t) => t.languageType === el),
   }));
 
   return (
     <Modal
-      title="Create room translation"
+      title="Create property translation"
       size="large"
       onCancel={onClose}
       open={isModal}
@@ -63,6 +64,11 @@ export const RoomTranslationModal = () => {
           <Col span={24}>
             <BaseForm.Item name="languageType" label="Language Type" rules={[{ required: true }]}>
               <Select options={lang} placeholder="Select language type" />
+            </BaseForm.Item>
+          </Col>
+          <Col span={24}>
+            <BaseForm.Item name="address" rules={[{ required: true }]}>
+              <TextArea placeholder="Address" />
             </BaseForm.Item>
           </Col>
           <Col span={24}>
