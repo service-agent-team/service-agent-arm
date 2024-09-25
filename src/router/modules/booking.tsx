@@ -13,6 +13,8 @@ import {
   BookingFacilityEditPage,
   BookingFacilityPage,
   BookingHomePage,
+  BookingPropertyPage,
+  BookingRoomPage,
   BookingTaxesCreatePage,
   BookingTaxesEditPage,
   BookingTaxesPage,
@@ -105,6 +107,24 @@ export const bookingRouter: RouteObject[] = [
       {
         path: 'edit/:id/:languageType',
         element: <BookingTaxesEditPage />,
+      },
+    ],
+  },
+  {
+    path: ROUTES.bookingRoom,
+    children: [
+      {
+        index: true,
+        element: <BookingRoomPage />,
+      },
+    ],
+  },
+  {
+    path: ROUTES.bookingProperty,
+    children: [
+      {
+        index: true,
+        element: <BookingPropertyPage />,
       },
     ],
   },

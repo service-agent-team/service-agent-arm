@@ -131,6 +131,8 @@ export const ROUTES = {
   bookingBreakfast: '/booking/breakfast',
   bookingTaxes: '/booking/taxes',
   bookingTaxesCreate: '/booking/taxes/create',
+  bookingRoom: '/booking/room',
+  bookingProperty: '/booking/property',
 
   // process
   process: '/process',
