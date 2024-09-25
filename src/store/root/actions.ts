@@ -77,6 +77,8 @@ import * as BookingFacilityReduce from '../booking/facility/actions';
 import { BookingFacilitySliceActions } from '../booking/facility/slice';
 import * as BookingTaxesReduce from '../booking/taxes/actions';
 import { BookingTaxesSliceActions } from '../booking/taxes/slice';
+import * as BookingRoomReduce from '../booking/room/actions';
+import { BookingRoomSliceActions } from '../booking/room/slice';
 
 import * as LetstripUsers from '../lets-trip/notification/actions';
 import { LetsTripNotificationSliceActions } from '../lets-trip/notification/slice';
@@ -165,4 +167,6 @@ export const AllActions = {
   ...BookingBedTypeSliceActions,
   ...BookingTaxesReduce,
   ...BookingTaxesSliceActions,
+  ...BookingRoomReduce,
+  ...BookingRoomSliceActions,
 };

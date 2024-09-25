@@ -3,12 +3,15 @@ import { EndPointes } from '@/services/endpoints';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { BookingRoomService } from '@/services';
 import {
+  ICreateRoomTranslationPayload,
   IDeleteRoomTranslationPayload,
   IGetOneRoomPayload,
   IRoom,
   IRoomPayload,
   IRoomResponse,
+  IRoomTranslation,
 } from './types';
+import { AxiosResponse } from 'axios';
 
 export const getAllRoom = createAsyncThunk<IRoomResponse<IRoom[]>, IRoomPayload>(
   EndPointes.bookingTaxes + '/get-all',
@@ -34,7 +37,7 @@ export const getOneRoom = createAsyncThunk<IRoomResponse<IRoom>, IGetOneRoomPayl
   },
 );
 
-export const getOneRoomTranslation = createAsyncThunk<IRoomResponse<IRoom>, IGetOneRoomPayload>(
+export const getOneRoomTranslation = createAsyncThunk<IRoom, IGetOneRoomPayload>(
   EndPointes.bookingTaxes + '/get-one/translation',
   async ({ id }, thunkApi) => {
     try {
@@ -46,23 +49,29 @@ export const getOneRoomTranslation = createAsyncThunk<IRoomResponse<IRoom>, IGet
   },
 );
 
-export const createRoomTranslation = createAsyncThunk<IRoomResponse<IRoom>, IRoomPayload>(
-  EndPointes.bookingTaxes + '/create-translation',
-  async ({ page, size }, thunkApi) => {
-    try {
-      const response = await BookingRoomService.getAll(page, size);
-      return response.data;
-    } catch (error) {
-      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+export const createRoomTranslation = createAsyncThunk<
+  AxiosResponse<IRoomTranslation>,
+  ICreateRoomTranslationPayload
+>(EndPointes.bookingTaxes + '/create-translation', async ({ cb, body }, thunkApi) => {
+  try {
+    const response = await BookingRoomService.createTranslation(body);
+    if (response.status === 201) {
+      cb();
     }
-  },
-);
+    return response.data;
+  } catch (error) {
+    return thunkApi.rejectWithValue({ error: errorCatch(error) });
+  }
+});
 
-export const deleteRoomTranslation = createAsyncThunk<IRoom[], IDeleteRoomTranslationPayload>(
+export const deleteRoomTranslation = createAsyncThunk<any, IDeleteRoomTranslationPayload>(
   EndPointes.bookingTaxes + '/delete-translation',
-  async ({ id, lang }, thunkApi) => {
+  async ({ id, lang, cb }, thunkApi) => {
     try {
       const response = await BookingRoomService.deleteTranslation(id, lang);
+      if (response.status === 204) {
+        cb();
+      }
       return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });

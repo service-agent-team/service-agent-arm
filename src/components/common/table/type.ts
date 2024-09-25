@@ -5,4 +5,5 @@ export type TTable = {
   select?: ReactNode;
   path?: string;
   frash?: () => void;
+  onClick?: () => void;
 };

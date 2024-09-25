@@ -4,6 +4,7 @@ import {
   createRoomTranslation,
   deleteRoomTranslation,
   getAllRoom,
+  getOneRoom,
   getOneRoomTranslation,
 } from './actions';
 
@@ -20,7 +21,7 @@ const initialState: InitialState = {
   errors: null,
 };
 
-export const bookingTaxesSlice = createSlice({
+export const slice = createSlice({
   name: 'bookingTaxes',
   initialState,
   reducers: {
@@ -46,13 +47,26 @@ export const bookingTaxesSlice = createSlice({
         state.loading.get = false;
         state.errors = payload;
       })
+      .addCase(getOneRoom.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneRoom.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.room = payload.content;
+        state.errors = null;
+      })
+      .addCase(getOneRoom.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
       .addCase(getOneRoomTranslation.pending, (state) => {
         state.loading.get = true;
         state.errors = null;
       })
       .addCase(getOneRoomTranslation.fulfilled, (state, { payload }) => {
         state.loading.get = false;
-        state.room = payload.content;
+        state.room = payload;
         state.errors = null;
       })
       .addCase(getOneRoomTranslation.rejected, (state, { payload }) => {
@@ -66,7 +80,7 @@ export const bookingTaxesSlice = createSlice({
       .addCase(createRoomTranslation.fulfilled, (state, { payload }) => {
         state.loading.post = false;
         if (state.room?.translations) {
-          state.room.translations.push(payload.content);
+          state.room.translations.push(payload.data);
         }
         state.errors = null;
       })
@@ -89,5 +103,5 @@ export const bookingTaxesSlice = createSlice({
   },
 });
 
-export const BookingTaxesReduce = bookingTaxesSlice.reducer;
-export const BookingTaxesSliceActions = bookingTaxesSlice.actions;
+export const BookingRoomReduce = slice.reducer;
+export const BookingRoomSliceActions = slice.actions;

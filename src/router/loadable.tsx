@@ -112,6 +112,7 @@ export const BookingTaxesPage = getLoadablePage('BookingTaxes');
 export const BookingTaxesCreatePage = getLoadablePage('BookingTaxesCreate');
 export const BookingTaxesEditPage = getLoadablePage('BookingTaxesEdit');
 export const BookingRoomPage = getLoadablePage('BookingRoom');
+export const BookingRoomTranslationPage = getLoadablePage('BookingRoomTranslation');
 export const BookingPropertyPage = getLoadablePage('BookingProperty');
 
 // process
