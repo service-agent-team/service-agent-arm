@@ -38,3 +38,7 @@ export const DetailsValue = styled.div`
   font-size: ${FONT_SIZE.md};
   font-weight: ${FONT_WEIGHT.semibold};
 `;
+
+export const OldPrice = styled.span`
+  text-decoration: line-through;
+`;

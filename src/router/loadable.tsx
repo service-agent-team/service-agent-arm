@@ -114,3 +114,5 @@ export const BookingTaxesEditPage = getLoadablePage('BookingTaxesEdit');
 
 // process
 export const ProcessHomePage = getLoadablePage('ProcessHome');
+export const ProcessDiagramPage = getLoadablePage('ProcessDiagram');
+export const ProcessProjectPage = getLoadablePage('ProcessProject');

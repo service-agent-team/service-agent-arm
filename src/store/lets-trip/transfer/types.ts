@@ -44,6 +44,8 @@ export interface IDirection {
   id: number;
   transferPrice: number;
   hourlyPrice: number;
+  oldTransferPrice: number;
+  oldHourlyPrice: number;
   sourceBoundary: Boundary;
   destinationBoundary: Boundary;
   destinationBoundaryId: number;

@@ -1,4 +1,4 @@
-import { letstriplogo } from '@/assets';
+import { letstripLogo } from '@/assets';
 import { ROUTES } from '../routes';
 
 export const letsTrip = [
@@ -66,5 +66,5 @@ export const letsTrip = [
 
 export const LetsTripConf = {
   name: 'CORETEAM',
-  logo: letstriplogo,
+  logo: letstripLogo,
 };

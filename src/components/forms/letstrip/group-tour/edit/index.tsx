@@ -25,6 +25,7 @@ import toast from 'react-hot-toast';
 import { useParams } from 'react-router-dom';
 import { Lang } from '@/store/lets-trip/group-tour/types';
 import { LestTripGroupTourItenararyModal } from '@/components/modal';
+import { OldPrice } from './styled';
 
 export const LestTripTourEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -128,10 +129,15 @@ export const LestTripTourEditForm: React.FC = () => {
         freeCancellationHour: groupTourRaw?.freeCancellation?.hour,
         countryId: groupTourRaw?.countryId,
         price: Number(groupTourRaw?.price) / 100,
+        oldPrice: Number(groupTourRaw?.oldPrice) / 100,
         upTo2: Number(groupTourRaw?.upTo2) / 100,
         upTo4: Number(groupTourRaw?.upTo4) / 100,
         upTo6: Number(groupTourRaw?.upTo6) / 100,
         upTo10: Number(groupTourRaw?.upTo10) / 100,
+        oldUpTo2: Number(groupTourRaw?.oldUpTo2) / 100,
+        oldUpTo4: Number(groupTourRaw?.oldUpTo4) / 100,
+        oldUpTo6: Number(groupTourRaw?.oldUpTo6) / 100,
+        oldUpTo10: Number(groupTourRaw?.oldUpTo10) / 100,
         descriptionEn: groupTourRaw?.description[0]?.en,
         descriptionRu: groupTourRaw?.description[0]?.ru,
         priceNoteEn: groupTourRaw?.priceNote?.en,
@@ -183,10 +189,15 @@ export const LestTripTourEditForm: React.FC = () => {
     nameRu,
     countryId,
     price,
+    oldPrice,
     upTo2,
     upTo4,
     upTo6,
     upTo10,
+    oldUpTo2,
+    oldUpTo4,
+    oldUpTo6,
+    oldUpTo10,
     descriptionEn,
     descriptionRu,
     priceNoteEn,
@@ -221,23 +232,33 @@ export const LestTripTourEditForm: React.FC = () => {
 
       if (
         price !== Number(groupTourRaw.price) / 100 ||
+        oldPrice !== Number(groupTourRaw.oldPrice) / 100 ||
         countryId !== groupTourRaw.countryId ||
         groupTourRaw.upTo2 / 100 !== upTo2 ||
         groupTourRaw.upTo4 / 100 !== upTo4 ||
         groupTourRaw.upTo6 / 100 !== upTo6 ||
-        groupTourRaw.upTo10 / 100 !== upTo10
+        groupTourRaw.upTo10 / 100 !== upTo10 ||
+        groupTourRaw.oldUpTo2 / 100 !== oldUpTo2 ||
+        groupTourRaw.oldUpTo4 / 100 !== oldUpTo4 ||
+        groupTourRaw.oldUpTo6 / 100 !== oldUpTo6 ||
+        groupTourRaw.oldUpTo10 / 100 !== oldUpTo10
       ) {
         otherUpdatesLetsTripGroupTour({
           callback() {
-            addNotification('country and starting price changed');
+            addNotification('country and prices changed');
           },
           tourId: groupTourRaw.tourId as number,
           countryId: countryId as number,
           price: price * 100,
+          oldPrice: price * 100,
           upTo2: upTo2 * 100,
           upTo4: upTo4 * 100,
           upTo6: upTo6 * 100,
           upTo10: upTo10 * 100,
+          oldUpTo2: oldUpTo2 * 100,
+          oldUpTo4: oldUpTo4 * 100,
+          oldUpTo6: oldUpTo6 * 100,
+          oldUpTo10: oldUpTo10 * 100,
           freeCancellation: {
             day: freeCancellationDay,
             hour: freeCancellationHour,
@@ -577,6 +598,8 @@ export const LestTripTourEditForm: React.FC = () => {
               <Input name="priceNoteRu" type="string" placeholder="Enter a price note russian  ?" />
             </BaseForm.Item>
           </Col>
+
+          {/* price */}
           <Col span={countryCode ? 0 : 12}>
             <BaseForm.Item name="price" label={'excursion price ($)'} rules={[{ required: true }]}>
               <InputNumber
@@ -587,7 +610,22 @@ export const LestTripTourEditForm: React.FC = () => {
               />
             </BaseForm.Item>
           </Col>
-          <Col span={countryCode ? 24 : 12}>
+          <Col span={countryCode ? 0 : 12}>
+            <BaseForm.Item
+              name="oldPrice"
+              label={<OldPrice>excursion old price ($)</OldPrice>}
+              rules={[{ required: true }]}
+            >
+              <InputNumber
+                $block
+                name="oldPrice"
+                type="number"
+                placeholder="Enter a excursion old price ?"
+              />
+            </BaseForm.Item>
+          </Col>
+
+          <Col span={24}>
             <BaseForm.Item
               name="countryId"
               style={{ width: '100%' }}
@@ -600,6 +638,7 @@ export const LestTripTourEditForm: React.FC = () => {
 
           {countryCode ? (
             <>
+              {/* per person prices */}
               <Col span={6}>
                 <BaseForm.Item
                   name="upTo2"
@@ -653,6 +692,64 @@ export const LestTripTourEditForm: React.FC = () => {
                     name="upTo10"
                     type="number"
                     placeholder="10 per person price ($) ?"
+                  />
+                </BaseForm.Item>
+              </Col>
+
+              {/* per person old prices */}
+              <Col span={6}>
+                <BaseForm.Item
+                  name="oldUpTo2"
+                  label={<OldPrice>2 per person old price ($)</OldPrice>}
+                  rules={[{ required: true }]}
+                >
+                  <InputNumber
+                    $block
+                    name="oldUpTo2"
+                    type="number"
+                    placeholder="2 per person old price ($) ?"
+                  />
+                </BaseForm.Item>
+              </Col>
+              <Col span={6}>
+                <BaseForm.Item
+                  name="oldUpTo4"
+                  label={<OldPrice>4 per person old price ($)</OldPrice>}
+                  rules={[{ required: true }]}
+                >
+                  <InputNumber
+                    $block
+                    name="oldUpTo4"
+                    type="number"
+                    placeholder="4 per person price ($) ?"
+                  />
+                </BaseForm.Item>
+              </Col>
+              <Col span={6}>
+                <BaseForm.Item
+                  name="oldUpTo6"
+                  label={<OldPrice>6 per person price ($)</OldPrice>}
+                  rules={[{ required: true }]}
+                >
+                  <InputNumber
+                    $block
+                    name="oldUpTo6"
+                    type="number"
+                    placeholder="6 per person old price ($) ?"
+                  />
+                </BaseForm.Item>
+              </Col>
+              <Col span={6}>
+                <BaseForm.Item
+                  name="oldUpTo10"
+                  label={<OldPrice>10 per person old price ($)</OldPrice>}
+                  rules={[{ required: true }]}
+                >
+                  <InputNumber
+                    $block
+                    name="oldPpTo10"
+                    type="number"
+                    placeholder="10 per person old price ($) ?"
                   />
                 </BaseForm.Item>
               </Col>

@@ -32,6 +32,8 @@ export const TransferCarSettingsForm = () => {
     destinationBoundaryId,
     hourlyPrice,
     transferPrice,
+    oldHourlyPrice,
+    oldTransferPrice,
   }: ICreateCarDirection) => {
     if (type === 'create') {
       transferCarSettings({
@@ -41,6 +43,8 @@ export const TransferCarSettingsForm = () => {
           destinationBoundaryId,
           hourlyPrice: +hourlyPrice * 100,
           transferPrice: +transferPrice * 100,
+          oldHourlyPrice: +oldHourlyPrice * 100,
+          oldTransferPrice: +oldTransferPrice * 100,
         },
         callback: () => {
           setCarModal(false);
@@ -57,6 +61,8 @@ export const TransferCarSettingsForm = () => {
         body: {
           hourlyPrice: +hourlyPrice * 100,
           transferPrice: +transferPrice * 100,
+          oldHourlyPrice: +oldHourlyPrice * 100,
+          oldTransferPrice: +oldTransferPrice * 100,
         },
       });
     }
@@ -68,8 +74,14 @@ export const TransferCarSettingsForm = () => {
 
   useEffect(() => {
     if (type === 'edit' && select_car_direction) {
-      const { transferPrice, hourlyPrice, sourceBoundary, destinationBoundary } =
-        select_car_direction;
+      const {
+        transferPrice,
+        hourlyPrice,
+        oldTransferPrice,
+        oldHourlyPrice,
+        sourceBoundary,
+        destinationBoundary,
+      } = select_car_direction;
 
       form.setFieldsValue({
         sourceCountryId: { label: sourceBoundary.name.en, value: sourceBoundary.id },
@@ -81,6 +93,8 @@ export const TransferCarSettingsForm = () => {
         },
         transferPrice: transferPrice / 100,
         hourlyPrice: hourlyPrice / 100,
+        oldTransferPrice: oldTransferPrice / 100,
+        oldHourlyPrice: oldHourlyPrice / 100,
       });
     } else {
       form.resetFields();
@@ -166,6 +180,25 @@ export const TransferCarSettingsForm = () => {
             rules={[{ required: true, message: 'Hourly Price is required!' }]}
           >
             <Input placeholder="Enter hourly price" />
+          </BaseForm.Item>
+        </Col>
+
+        <Col span={12}>
+          <BaseForm.Item
+            name="oldTransferPrice"
+            label={'Old Transfer Price'}
+            rules={[{ required: true, message: 'Old transfer price is required!' }]}
+          >
+            <Input placeholder="Enter transfer old price" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={12}>
+          <BaseForm.Item
+            name="oldHourlyPrice"
+            label={'Old Hourly Price'}
+            rules={[{ required: true, message: 'Old hourly Price is required!' }]}
+          >
+            <Input placeholder="Enter hourly old price" />
           </BaseForm.Item>
         </Col>
 

@@ -1,4 +1,4 @@
-import { letstriplogo } from '@/assets';
+import { letstripLogo } from '@/assets';
 import { MenuProps } from 'antd';
 import { ROUTES } from '../routes';
 
@@ -9,13 +9,18 @@ export const process: MenuProps['items'] = [
     label: 'Home',
   },
   {
-    icon: 'InsertRowRightOutlined',
-    key: ROUTES.processHome,
+    icon: 'ScheduleOutlined',
+    key: ROUTES.processDiagram,
     label: 'Processes',
+  },
+  {
+    icon: 'ProjectOutlined',
+    key: ROUTES.processProject,
+    label: 'Projects',
   },
 ];
 
 export const ProcessConf = {
   name: '',
-  logo: letstriplogo,
+  logo: letstripLogo,
 };

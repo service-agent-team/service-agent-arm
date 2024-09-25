@@ -21,3 +21,4 @@ export * from './lets-trip/transfer';
 export * from './lets-trip';
 export * from './files';
 export * from './booking';
+export * from './process';

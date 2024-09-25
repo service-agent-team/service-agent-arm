@@ -1,3 +1,3 @@
-export const DiagramHome = () => {
-  return <div>DiagramHome</div>;
+export const ProcessHome = () => {
+  return <div>ProcessHome</div>;
 };

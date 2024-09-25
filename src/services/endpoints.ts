@@ -297,4 +297,7 @@ export const EndPointes = {
     sendTemplateNotification: '/api/notification/template',
     sendMultiTemplateNotification: '/api/notification/template/multiple',
   },
+
+  process: '/api/process',
+  processProject: '/api/process/project',
 } as const;
