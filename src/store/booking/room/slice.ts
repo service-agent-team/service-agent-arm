@@ -22,7 +22,7 @@ const initialState: InitialState = {
 };
 
 export const slice = createSlice({
-  name: 'bookingTaxes',
+  name: 'bookingRoom',
   initialState,
   reducers: {
     setRooms: (state, { payload }) => {
