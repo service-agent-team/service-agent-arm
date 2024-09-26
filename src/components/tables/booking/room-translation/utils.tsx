@@ -107,7 +107,6 @@ export const utils = () => {
       title: 'Id',
       dataIndex: 'id',
       key: 'id',
-      width: '4%',
       render: (_: any, __: any, idx: number) => idx + 1,
     },
     {
@@ -120,6 +119,7 @@ export const utils = () => {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+      render: (value: string) => value.slice(0, 100),
     },
     {
       title: 'Size',
@@ -157,6 +157,7 @@ export const utils = () => {
       dataIndex: 'action',
       key: 'action',
       render: (_, record) => <Actions record={record} />,
+      fixed: 'right',
     },
   ];
 

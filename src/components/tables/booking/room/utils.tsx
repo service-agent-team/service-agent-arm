@@ -107,7 +107,6 @@ export const utils = () => {
       title: 'Id',
       dataIndex: 'id',
       key: 'id',
-      width: '4%',
       sorter: (a, b) => {
         if (a.id && b.id) a.id - b.id;
         return 0;
@@ -125,6 +124,7 @@ export const utils = () => {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+      render: (value: string) => value.slice(0, 100),
     },
     {
       title: 'Size',
@@ -156,6 +156,7 @@ export const utils = () => {
       dataIndex: 'action',
       key: 'action',
       render: (_: number, record) => <Actions record={record} />,
+      fixed: 'right',
     },
   ];
 
