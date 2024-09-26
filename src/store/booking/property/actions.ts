@@ -12,12 +12,21 @@ import {
   IPropertyTranslation,
 } from './types';
 import { AxiosResponse } from 'axios';
+import { appActions } from '@/store/app';
 
 export const getAllProperty = createAsyncThunk<IPropertyResponse<IProperty[]>, IPropertyPayload>(
   EndPointes.bookingTaxes + '/get-all',
   async ({ page, size }, thunkApi) => {
     try {
       const response = await BookingPropertyService.getAll(page, size);
+      if (response.data) {
+        thunkApi.dispatch(
+          appActions.setPagination({
+            current: page + 1,
+            total: response.data.totalCount,
+          }),
+        );
+      }
       return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });

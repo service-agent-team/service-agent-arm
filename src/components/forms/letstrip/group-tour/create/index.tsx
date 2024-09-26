@@ -340,12 +340,20 @@ export const LestTripTourCreateForm: React.FC = () => {
         ) : null}
 
         <Col span={12}>
-          <BaseForm.Item name="freeCancellationDay" label="Free cancellation day">
+          <BaseForm.Item
+            name="freeCancellationDay"
+            label="Free cancellation day"
+            rules={[{ required: false }]}
+          >
             <InputNumber min={0} $block placeholder="Free cancellation day" />
           </BaseForm.Item>
         </Col>
         <Col span={12}>
-          <BaseForm.Item name="freeCancellationHour" label="Free cancellation hour">
+          <BaseForm.Item
+            name="freeCancellationHour"
+            label="Free cancellation hour"
+            rules={[{ required: false }]}
+          >
             <InputNumber min={0} max={23} $block placeholder="Free cancellation hour" />
           </BaseForm.Item>
         </Col>
