@@ -5,6 +5,7 @@ import { BookingRoomService } from '@/services';
 import {
   ICreateRoomTranslationPayload,
   IDeleteRoomTranslationPayload,
+  IGetByPropertyIdPayload,
   IGetOneRoomPayload,
   IRoom,
   IRoomPayload,
@@ -39,6 +40,26 @@ export const getOneRoom = createAsyncThunk<IRoomResponse<IRoom>, IGetOneRoomPayl
   async ({ id }, thunkApi) => {
     try {
       const response = await BookingRoomService.getOne(id);
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const getByPropertyRoom = createAsyncThunk<IRoomResponse<IRoom[]>, IGetByPropertyIdPayload>(
+  EndPointes.bookingTaxes + '/by-property',
+  async ({ propertyId, lang, page, size }, thunkApi) => {
+    try {
+      const response = await BookingRoomService.getByProperty(propertyId, lang, page, size);
+      if (response.data) {
+        thunkApi.dispatch(
+          appActions.setPagination({
+            current: page + 1,
+            total: response.data.totalCount,
+          }),
+        );
+      }
       return response.data;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });

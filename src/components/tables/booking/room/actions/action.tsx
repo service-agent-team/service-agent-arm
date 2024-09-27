@@ -7,7 +7,7 @@ export const Actions = ({ record }: { record: IRoom }) => {
   const navigate = useNavigate();
 
   const handleModal = () => {
-    navigate(`${record.id}`);
+    navigate(`translation/${record.id}`);
   };
 
   return (

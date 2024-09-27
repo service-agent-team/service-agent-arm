@@ -10,13 +10,13 @@ export const BookingRoomTranslationTable = () => {
     loading: { get },
   } = useTypedSelector((s) => s.bookingRoom);
   const { getOneRoomTranslation, setModal } = useActions();
-  const { id } = useParams();
+  const { translationId } = useParams();
 
   useEffect(() => {
-    if (id) {
-      getOneRoomTranslation({ id: Number(id) });
+    if (translationId) {
+      getOneRoomTranslation({ id: Number(translationId) });
     }
-  }, [id]);
+  }, [translationId]);
 
   return (
     <Table

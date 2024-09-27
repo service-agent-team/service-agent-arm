@@ -99,3 +99,10 @@ export const Table = styled(AntdTable)`
     }
   }
 `;
+
+export const Box = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
+`;

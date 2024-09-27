@@ -35,11 +35,6 @@ export const booking: MenuProps['items'] = [
   },
   {
     icon: 'ShopOutlined',
-    key: ROUTES.bookingRoom,
-    label: 'Rooms',
-  },
-  {
-    icon: 'TagOutlined',
     key: ROUTES.bookingProperty,
     label: 'Properties',
   },
