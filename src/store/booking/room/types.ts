@@ -10,6 +10,7 @@ export interface InitialState {
   };
   rooms: IRoom[] | null;
   room: IRoom | null;
+  lang: LanguageType;
   errors: unknown | string[] | string;
 }
 
@@ -80,6 +81,11 @@ export interface IRoomTranslationBody {
 
 export interface IGetOneRoomPayload {
   id: number;
+}
+
+export interface IGetByPropertyIdPayload extends IRoomPayload {
+  propertyId: number;
+  lang: LanguageType;
 }
 
 export interface ICreateRoomTranslationPayload {

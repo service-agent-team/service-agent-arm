@@ -11,7 +11,7 @@ export const BookingPropertyService = {
     return await $axios.get(`${EndPointes.bookingProperty}/translation/${id}`);
   },
   async createTranslation(body: IPropertyTranslationBody) {
-    return await $axios.post(`${EndPointes.bookingProperty}/translations`, body);
+    return await $axios.post(`${EndPointes.bookingProperty}/translation`, body);
   },
   async deleteTranslation(id: number, lang: LanguageType) {
     return await $axios.delete(`${EndPointes.bookingProperty}/translation/${id}?lang=${lang}`);

@@ -7,11 +7,13 @@ import { DataIndex, IHandleSearchProps } from './types';
 import { dateParser } from '@/common/utils/format';
 import { IRoomTranslation } from '@/store/booking/room/types';
 import { Actions } from './actions';
+import { Icon } from '@/components/common/icon';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
   const searchInput = useRef<InputRef>(null);
+  const [show, setShow] = useState(true);
 
   const handleSearch = ({ selectedKeys, confirm, dataIndex }: IHandleSearchProps) => {
     confirm();
@@ -119,7 +121,20 @@ export const utils = () => {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      render: (value: string) => value.slice(0, 100),
+      width: 800,
+      render: (value: string) => (
+        <>
+          {show ? value?.slice(0, 100) : value} {!show || '... '}
+          {
+            <Icon
+              onClick={() => setShow(!show)}
+              size="small"
+              type="primary"
+              name={show ? 'EyeOutlined' : 'EyeInvisibleOutlined'}
+            />
+          }
+        </>
+      ),
     },
     {
       title: 'Size',

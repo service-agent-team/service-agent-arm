@@ -760,7 +760,7 @@ export const LestTripTourEditForm: React.FC = () => {
             <BaseForm.Item
               name="freeCancellationDay"
               label="Free cancellation day"
-              rules={[{ required: true }]}
+              rules={[{ required: false }]}
             >
               <InputNumber min={0} $block placeholder="Free cancellation day" />
             </BaseForm.Item>
@@ -769,7 +769,7 @@ export const LestTripTourEditForm: React.FC = () => {
             <BaseForm.Item
               name="freeCancellationHour"
               label="Free cancellation hour"
-              rules={[{ required: true }]}
+              rules={[{ required: false }]}
             >
               <InputNumber min={0} max={23} $block placeholder="Free cancellation hour" />
             </BaseForm.Item>

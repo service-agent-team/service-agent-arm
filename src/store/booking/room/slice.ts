@@ -4,9 +4,11 @@ import {
   createRoomTranslation,
   deleteRoomTranslation,
   getAllRoom,
+  getByPropertyRoom,
   getOneRoom,
   getOneRoomTranslation,
 } from './actions';
+import { LanguageType } from '@/common/enum';
 
 const initialState: InitialState = {
   loading: {
@@ -18,6 +20,7 @@ const initialState: InitialState = {
   },
   rooms: null,
   room: null,
+  lang: LanguageType.EN,
   errors: null,
 };
 
@@ -30,6 +33,9 @@ export const slice = createSlice({
     },
     setOneRoom: (state, { payload }) => {
       state.room = payload;
+    },
+    setRoomLang: (state, { payload }) => {
+      state.lang = payload;
     },
   },
   extraReducers: (builder) => {
@@ -57,6 +63,19 @@ export const slice = createSlice({
         state.errors = null;
       })
       .addCase(getOneRoom.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getByPropertyRoom.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getByPropertyRoom.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.rooms = payload.content;
+        state.errors = null;
+      })
+      .addCase(getByPropertyRoom.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })

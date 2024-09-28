@@ -116,11 +116,11 @@ export const bookingRouter: RouteObject[] = [
     path: ROUTES.bookingRoom,
     children: [
       {
-        index: true,
+        path: ROUTES.view,
         element: <BookingRoomPage />,
       },
       {
-        path: ROUTES.view,
+        path: ROUTES.bookingRoomTranslation,
         element: <BookingRoomTranslationPage />,
       },
     ],

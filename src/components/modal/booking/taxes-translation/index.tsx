@@ -38,7 +38,7 @@ export const TaxesTranslationModal = () => {
   const lang = Object.keys(LanguageType).map((el) => ({
     value: el,
     label: el,
-    disabled: el === LanguageType.EN || !!taxe?.translations?.find((t) => t.languageType === el),
+    disabled: !!taxe?.translations?.find((t) => t.languageType === el),
   }));
 
   return (
