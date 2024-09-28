@@ -4,12 +4,12 @@ import { ProcessPayload } from './payload/payload';
 import { Block } from './styled';
 
 export const ProcessDiagram = () => {
-  const { process } = useTypedSelector((s) => s.app);
+  const { diagram } = useTypedSelector((s) => s.app);
 
   return (
     <Block>
       Process
-      <SequenceDiagram input={process} />
+      <SequenceDiagram input={diagram} />
       <ProcessPayload />
     </Block>
   );

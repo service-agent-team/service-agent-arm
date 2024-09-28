@@ -40,9 +40,12 @@ import { BookingFacilityCategoryReduce } from '../booking/facility-category/slic
 import { BookingFacilityReduce } from '../booking/facility/slice';
 import { BookingTaxesReduce } from '../booking/taxes/slice';
 import { BookingRoomReduce } from '../booking/room/slice';
+import { BookingPropertyReduce } from '../booking/property/slice';
 
 import { LetsTripNotificationReduce } from '../lets-trip/notification/slice';
-import { BookingPropertyReduce } from '../booking/property/slice';
+
+import { ProcessProjectReducer } from '../process/project/slice';
+import { ProcessReducer } from '../process/diagram/slice';
 
 export const reducer = {
   app: appReducer,
@@ -93,4 +96,7 @@ export const reducer = {
   bookingProperty: BookingPropertyReduce,
 
   letstripNotification: LetsTripNotificationReduce,
+
+  processProject: ProcessProjectReducer,
+  process: ProcessReducer,
 };

@@ -1,13 +1,14 @@
-import { useActions } from '@/common/hooks';
+import { useActions, useDebounce, useTypedSelector } from '@/common/hooks';
 import { Sidebar } from './styled';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { TextArea } from '@/components';
 import { Dropdown, Menu } from 'antd';
 
 export const ProcessPayload = () => {
-  const { setProcess } = useActions();
+  const { setDiagram } = useActions();
+  const { diagram } = useTypedSelector((s) => s.app);
 
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(diagram);
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 
@@ -41,9 +42,11 @@ export const ProcessPayload = () => {
     setDropdownVisible(false);
   };
 
+  const debouncedValue = useDebounce(value, 500);
+
   useEffect(() => {
-    setProcess(value);
-  }, [value]);
+    setDiagram(debouncedValue);
+  }, [debouncedValue]);
 
   const menu = (
     <Menu>

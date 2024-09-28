@@ -1,3 +1,9 @@
+import { ProcessProjectTable } from '@/components';
+
 export const ProcessProject = () => {
-  return <div>ProcessProject</div>;
+  return (
+    <>
+      <ProcessProjectTable />
+    </>
+  );
 };
