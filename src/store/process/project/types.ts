@@ -37,5 +37,5 @@ export interface IUpdateProcessPayload extends ICreateProcessProjectPayload {
 
 export interface IProcessProjectPayload {
   id: number;
-  cb(): void;
+  cb?(): void;
 }

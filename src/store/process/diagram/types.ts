@@ -1,12 +1,12 @@
-export interface ICarInitialState {
+export interface InitialState {
   loading: {
     get: boolean;
     post: boolean;
     patch: boolean;
     delete: boolean;
   };
-  project: IProcess | null;
-  projects: IProcess[] | null;
+  process: IProcess | null;
+  processes: IProcess[] | null;
   errors: unknown | string[] | string;
 }
 
@@ -20,15 +20,15 @@ export interface IProcess {
 
 export interface IProcessBody {
   name: string;
-  description: string;
+  input: string;
 }
 
-export interface ICreateProcessProjectPayload {
+export interface ICreateProcessPayload {
   body: IProcessBody;
   cb(): void;
 }
 
-export interface IUpdateProcessPayload extends ICreateProcessProjectPayload {
+export interface IUpdateProcessPayload extends ICreateProcessPayload {
   id: number;
 }
 

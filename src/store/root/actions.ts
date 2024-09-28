@@ -85,6 +85,11 @@ import { BookingPropertySliceActions } from '../booking/property/slice';
 import * as LetstripUsers from '../lets-trip/notification/actions';
 import { LetsTripNotificationSliceActions } from '../lets-trip/notification/slice';
 
+import * as ProcessProjectReduce from '../process/project/actions';
+import { ProcessProjectSliceActions } from '../process/project/slice';
+import * as ProcessReduce from '../process/diagram/actions';
+import { ProcessSliceActions } from '../process/diagram/slice';
+
 export const AllActions = {
   ...AgentTariffActions,
   ...AgentTariffSliceActions,
@@ -173,4 +178,9 @@ export const AllActions = {
   ...BookingRoomSliceActions,
   ...BookingPropertyReduce,
   ...BookingPropertySliceActions,
+
+  ...ProcessProjectReduce,
+  ...ProcessProjectSliceActions,
+  ...ProcessReduce,
+  ...ProcessSliceActions,
 };

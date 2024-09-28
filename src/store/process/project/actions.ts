@@ -14,22 +14,19 @@ export const getAllProcessProject = createAsyncThunk<IProcessProject[], any>(
   async (_, thunkApi) => {
     try {
       const response = await ProcessProjectService.getAll();
-      return response.data;
+      return response;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
   },
 );
 
-export const getOneProcessProject = createAsyncThunk<IProcessProject[], IProcessProjectPayload>(
+export const getOneProcessProject = createAsyncThunk<IProcessProject, IProcessProjectPayload>(
   EndPointes.processProject + '/getOne',
-  async ({ id, cb }, thunkApi) => {
+  async ({ id }, thunkApi) => {
     try {
       const response = await ProcessProjectService.getOne(id);
-      if (response.data) {
-        cb();
-      }
-      return response.data;
+      return response;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
@@ -42,11 +39,11 @@ export const createProcessProject = createAsyncThunk<IProcessProject, ICreatePro
     try {
       const response = await ProcessProjectService.create(body);
 
-      if (response.data) {
+      if (response) {
         cb();
       }
 
-      return response.data;
+      return response;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
@@ -59,11 +56,11 @@ export const updateProcessProject = createAsyncThunk<IProcessProject, IUpdatePro
     try {
       const response = await ProcessProjectService.update(id, body);
 
-      if (response.data) {
+      if (response) {
         cb();
       }
 
-      return response.data;
+      return response;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });
     }
@@ -76,7 +73,7 @@ export const deleteProcessProject = createAsyncThunk<IProcessProject, IProcessPr
     try {
       const response = await ProcessProjectService.delete(id);
 
-      if (response.status === 204) {
+      if (response.status === 204 && cb) {
         cb();
       }
 
