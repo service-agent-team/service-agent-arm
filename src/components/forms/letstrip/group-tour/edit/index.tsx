@@ -187,6 +187,8 @@ export const LestTripTourEditForm: React.FC = () => {
   const onFinish = ({
     nameEn,
     nameRu,
+    cityEn,
+    cityRu,
     countryId,
     price,
     oldPrice,
@@ -227,6 +229,17 @@ export const LestTripTourEditForm: React.FC = () => {
           en: nameEn,
           ru: nameRu,
           id: groupTourRaw.name?.id as number,
+        });
+      }
+
+      if (groupTourRaw?.cityName.en !== cityEn || groupTourRaw?.cityName.ru !== cityRu) {
+        updateByObjectLetsTripGroupTour({
+          callback() {
+            addNotification('city name changed');
+          },
+          en: cityEn,
+          ru: cityRu,
+          id: groupTourRaw?.cityName?.id as number,
         });
       }
 
