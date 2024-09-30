@@ -17,7 +17,7 @@ export const BookingPropertyTable = () => {
     if (current) {
       getAllProperty({ page: current - 1, size: pageSize });
     }
-  }, [current]);
+  }, [current, pageSize]);
 
   return (
     <Table

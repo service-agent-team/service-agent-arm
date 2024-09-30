@@ -19,7 +19,7 @@ export const BookingBedTypeTable = () => {
     if (current) {
       getAllBedType({ page: current - 1, size: pageSize });
     }
-  }, [current]);
+  }, [current, pageSize]);
 
   return (
     <Table

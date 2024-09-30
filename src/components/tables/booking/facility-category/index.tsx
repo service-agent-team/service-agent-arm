@@ -19,7 +19,7 @@ export const BookingFacilityCategoryTable = () => {
     if (current) {
       getAllFacilityCategory({ page: current - 1, size: pageSize });
     }
-  }, [current]);
+  }, [current, pageSize]);
 
   return (
     <Table

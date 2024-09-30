@@ -25,7 +25,7 @@ export const BookingRoomTable = () => {
     if (current) {
       getByPropertyRoom({ propertyId: Number(id), lang, page: current - 1, size: pageSize });
     }
-  }, [current, lang]);
+  }, [current, lang, pageSize]);
 
   return (
     <Table

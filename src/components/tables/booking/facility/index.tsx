@@ -19,7 +19,7 @@ export const BookingFacilityTable = () => {
     if (current) {
       getAllFacility({ page: current - 1, size: pageSize });
     }
-  }, [current]);
+  }, [current, pageSize]);
 
   return (
     <Table

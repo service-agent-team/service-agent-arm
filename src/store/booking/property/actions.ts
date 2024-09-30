@@ -23,6 +23,7 @@ export const getAllProperty = createAsyncThunk<IPropertyResponse<IProperty[]>, I
         thunkApi.dispatch(
           appActions.setPagination({
             current: page + 1,
+            pageSize: size,
             total: response.data.totalCount,
           }),
         );
