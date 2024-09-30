@@ -55,6 +55,7 @@ export interface ILetsTripOrder {
   type: string;
   details: any;
   price: number;
+  paymentType: string;
   createdAt: string;
   updatedAt: string;
 }

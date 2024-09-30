@@ -56,6 +56,7 @@ export const getByPropertyRoom = createAsyncThunk<IRoomResponse<IRoom[]>, IGetBy
         thunkApi.dispatch(
           appActions.setPagination({
             current: page + 1,
+            pageSize: size,
             total: response.data.totalCount,
           }),
         );

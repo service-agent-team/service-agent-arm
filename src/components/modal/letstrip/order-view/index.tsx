@@ -4,7 +4,7 @@ import { Maps } from '@/common/utils/map';
 import { Icon } from '@/components/common/icon';
 import { Modal } from '@/components/common/modal';
 import { LetsTripOrderType } from '@/store/lets-trip/order/types';
-import { Marker } from '@react-google-maps/api';
+import { Marker, Polyline } from '@react-google-maps/api';
 import { Badge, Button, Card, Col, Row, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +38,11 @@ export const OrderViewModal = () => {
             {': '}
             {order?.userId ? order?.userId : order?.agentId}
           </Col>
+
+          <Col span={24}>
+            PAYMENT TYPE: <Tag color="blue">{order?.paymentType}</Tag>
+          </Col>
+
           <Col span={24}> PRICE: {Number(order?.price) / 100}$</Col>
 
           {/* HOTEL */}
@@ -113,19 +118,26 @@ export const OrderViewModal = () => {
                 />
                 {'\t LOCATION: '}
                 <Link
-                  to={`https://maps.google.com?q=${order.details.latitude},${order?.details?.longitude}`}
+                  to={`https://maps.google.com?q=${order?.details?.center?.latitude},${order?.details?.center?.longitude}`}
                   target="_blank"
                 >
-                  https://maps.google.com?q={order.details.latitude},{order?.details?.longitude}
+                  https://maps.google.com?q={order?.details?.center?.latitude},
+                  {order?.details?.center?.longitude}
                 </Link>
               </Col>
               <Col span={24}>
                 <Maps
-                  center={{ lat: order?.details?.latitude, lng: order?.details?.longitude }}
+                  center={{
+                    lat: order?.details?.center?.latitude,
+                    lng: order?.details?.center?.longitude,
+                  }}
                   zoom={14}
                 >
                   <Marker
-                    position={{ lat: order?.details?.latitude, lng: order?.details?.longitude }}
+                    position={{
+                      lat: order?.details?.center?.latitude,
+                      lng: order?.details?.center?.longitude,
+                    }}
                   />
                 </Maps>
               </Col>
@@ -135,12 +147,10 @@ export const OrderViewModal = () => {
           {/* TOUR */}
           {type === LetsTripOrderType.TOUR && order ? (
             <>
-              <Col span={24}>TOUR TITLE: {order?.details?.name?.en}</Col>
               <Col span={24}>
                 PHONE NUMBER:{' '}
                 <a href={`tel:+${order?.details?.phoneNumber}`}>+{order?.details?.phoneNumber}</a>
               </Col>
-              <Col span={24}>STARTING PRICE: {order?.details?.startingPrice / 100} $</Col>
               <Col span={24}>START DATE: {order?.details?.startDate}</Col>
               <Col span={24}>NUMBER OF TRAVELERS: {order?.details?.numberOfTravellers}</Col>
               <Col span={24}>COMMENT: {order?.details?.comment || 'no comment'}</Col>
@@ -154,7 +164,45 @@ export const OrderViewModal = () => {
                 TRANSFER PRICE: {order?.details?.direction?.transferPrice / 100} $
               </Col>
               <Col span={24}>HOURLY PRICE: {order?.details?.direction?.hourlyPrice / 100} $</Col>
-              <Col span={24}>CAR: {order?.details?.name?.en}</Col>
+              <Col span={24}>
+                DESTINATION: {order?.details?.direction?.sourceBoundary?.name?.en} {' -> '}
+                {order?.details?.direction?.destinationBoundary?.name?.en}
+              </Col>
+              <Col span={24}>
+                <Maps
+                  center={{
+                    lat: order?.details?.pickUpLocation?.latitude,
+                    lng: order?.details?.pickUpLocation?.longitude,
+                  }}
+                  zoom={11}
+                >
+                  <Marker
+                    position={{
+                      lat: order?.details?.pickUpLocation?.latitude,
+                      lng: order?.details?.pickUpLocation?.longitude,
+                    }}
+                  />
+                  <Marker
+                    position={{
+                      lat: order?.details?.destination?.latitude,
+                      lng: order?.details?.destination?.longitude,
+                    }}
+                  />
+                  <Polyline
+                    path={[
+                      {
+                        lat: order?.details?.pickUpLocation?.latitude,
+                        lng: order?.details?.pickUpLocation?.longitude,
+                      },
+                      {
+                        lat: order?.details?.destination?.latitude,
+                        lng: order?.details?.destination?.longitude,
+                      },
+                    ]}
+                    options={{ strokeColor: '#FF0000', strokeOpacity: 1.0, strokeWeight: 2 }}
+                  />
+                </Maps>
+              </Col>
             </>
           ) : null}
 
