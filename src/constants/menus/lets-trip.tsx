@@ -62,6 +62,11 @@ export const letsTrip = [
     key: ROUTES.letstripNotification,
     label: 'Notifications',
   },
+  {
+    icon: 'CommentOutlined',
+    key: ROUTES.letstripFeedback,
+    label: 'Feedbacks',
+  },
 ];
 
 export const LetsTripConf = {

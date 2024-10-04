@@ -4,6 +4,7 @@ import {
   LetsTripCountryCreatePage,
   LetsTripCountryPage,
   LetsTripEsimGoPage,
+  LetsTripFeedbackPage,
   LetsTripGlobalCountryCreatePage,
   LetsTripGlobalCountryEditPage,
   LetsTripGlobalCountryPage,
@@ -29,6 +30,7 @@ import {
   LetstripNotification,
   Refferal,
 } from '../loadable';
+import path from 'path';
 
 export const letsTripRouter = [
   {
@@ -142,5 +144,9 @@ export const letsTripRouter = [
   {
     path: ROUTES.letstripNotification,
     element: <LetstripNotification />,
+  },
+  {
+    path: ROUTES.letstripFeedback,
+    element: <LetsTripFeedbackPage />,
   },
 ];

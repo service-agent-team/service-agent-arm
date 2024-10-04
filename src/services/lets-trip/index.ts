@@ -6,3 +6,4 @@ export * from './notification';
 export * from './order';
 export * from './statistic';
 export * from './tour';
+export * from './feedback';

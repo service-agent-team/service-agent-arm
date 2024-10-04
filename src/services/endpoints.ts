@@ -300,6 +300,8 @@ export const EndPointes = {
     sendMultiTemplateNotification: '/api/notification/template/multiple',
   },
 
+  letsTripFeedback: '/api/feedback',
+
   process: '/api/process',
   processProject: '/api/process/project',
 } as const;

@@ -19,6 +19,7 @@ import * as CarTypeActions from '../lets-trip/car-type/actions';
 import { CarTypesliceActions } from '../lets-trip/car-type/slice';
 import * as CarActions from '../lets-trip/car/actions';
 import { CarSliceActions } from '../lets-trip/car/slice';
+
 import * as LetsTripCategoryReduce from '../lets-trip/category/actions';
 import { LetsTripCategorySliceActions } from '../lets-trip/category/slice';
 import * as LetsTripCountryReduce from '../lets-trip/country/actions';
@@ -39,6 +40,9 @@ import * as LetsTripTransferCategoryReduce from '../lets-trip/transfer-category/
 import { LetsTripTransferCategorySliceActions } from '../lets-trip/transfer-category/slice';
 import * as LetsTripTransferReduce from '../lets-trip/transfer/actions';
 import { LetsTripTransferSliceActions } from '../lets-trip/transfer/slice';
+import * as LetsTripFeedbackReduce from '../lets-trip/feedback/actions';
+import { LetsTripFeedbackSliceActions } from '../lets-trip/feedback/slice';
+
 import * as AgentPermissionsSliceActions from '../service-agent/agent-permission/action';
 import { AgentPermissionsActions } from '../service-agent/agent-permission/slice';
 import * as CompanyAction from '../service-agent/company/actions';
@@ -163,6 +167,8 @@ export const AllActions = {
   ...LetsTripGlobalRegionSliceActions,
   ...LetstripUsers,
   ...LetsTripNotificationSliceActions,
+  ...LetsTripFeedbackReduce,
+  ...LetsTripFeedbackSliceActions,
 
   ...BookingFacilityReduce,
   ...BookingFacilitySliceActions,

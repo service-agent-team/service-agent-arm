@@ -113,6 +113,7 @@ export const ROUTES = {
   reffral: '/lets-trip/refferal',
   letsTripHotelOrder: '/lets-trip/hotel-order',
   letstripNotification: '/lets-trip/notification',
+  letstripFeedback: '/lets-trip/feedback',
 
   // language
   languageHome: '/language/home',
