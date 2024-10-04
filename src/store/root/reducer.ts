@@ -46,6 +46,7 @@ import { LetsTripNotificationReduce } from '../lets-trip/notification/slice';
 
 import { ProcessProjectReducer } from '../process/project/slice';
 import { ProcessReducer } from '../process/diagram/slice';
+import { LetsTripFeedbackReduce } from '../lets-trip/feedback/slice';
 
 export const reducer = {
   app: appReducer,
@@ -96,6 +97,7 @@ export const reducer = {
   bookingProperty: BookingPropertyReduce,
 
   letstripNotification: LetsTripNotificationReduce,
+  letsTripFeedback: LetsTripFeedbackReduce,
 
   processProject: ProcessProjectReducer,
   process: ProcessReducer,

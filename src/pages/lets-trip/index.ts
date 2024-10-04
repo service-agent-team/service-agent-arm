@@ -10,3 +10,4 @@ export * from './refferals';
 export * from './tour';
 export * from './transfer';
 export * from './transfer-category';
+export * from './feedback';
