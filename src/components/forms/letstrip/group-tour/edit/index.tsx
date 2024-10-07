@@ -1559,8 +1559,8 @@ export const LestTripTourEditForm: React.FC = () => {
                         <Col span={8}>
                           <BaseForm.Item
                             name={[field.name, 'oldPrice']}
-                            label={<OldPrice>oldPrice</OldPrice>}
-                            rules={[{ required: true }]}
+                            label={<OldPrice>old price</OldPrice>}
+                            rules={[{ required: false }]}
                           >
                             <InputNumber
                               style={{ width: '100%' }}
