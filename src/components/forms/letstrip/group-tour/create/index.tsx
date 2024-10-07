@@ -21,6 +21,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IGoogleMouseEvent, IValuesForm, Id } from '../types';
+import { OldPrice } from '../edit/styled';
 
 export const LestTripTourCreateForm: React.FC = () => {
   const [form] = BaseForm.useForm();
@@ -34,7 +35,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     useActions();
   const navigate = useNavigate();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [fileList2, setFileList2] = useState<UploadFile[]>([]);
+  // const [fileList2, setFileList2] = useState<UploadFile[]>([]);
   const [previewImage, setPreviewImage] = useState('');
   const [previewOpen, setPreviewOpen] = useState(false);
   const { isLoaded } = useJsApiLoader({
@@ -63,7 +64,19 @@ export const LestTripTourCreateForm: React.FC = () => {
   };
 
   useEffect(() => {
-    form.setFieldValue('countryId', Number(countryId));
+    form.setFieldsValue({
+      countryId: Number(countryId),
+      childPrices: [
+        {
+          minAge: 0,
+        },
+      ],
+      adultPrices: [
+        {
+          from: 1,
+        },
+      ],
+    });
   }, []);
 
   const onFinish = ({
@@ -88,6 +101,8 @@ export const LestTripTourCreateForm: React.FC = () => {
     priceIncludes,
     priceNotIncludes,
     tourItenarary,
+    childPrices,
+    adultPrices,
 
     freeCancellationDay,
     freeCancellationHour,
@@ -104,6 +119,18 @@ export const LestTripTourCreateForm: React.FC = () => {
       },
       name: { en: nameEn, ru: nameRu },
       cityName: { en: cityEn, ru: cityRu },
+      prices: {
+        childPrices: childPrices?.map((c) => ({
+          minAge: c.minAge,
+          maxAge: c.maxAge,
+          price: c.price * 100,
+        })),
+        adultPrices: adultPrices?.map((a) => ({
+          from: a.from,
+          price: a.price * 100,
+          oldPrice: a.oldPrice * 100,
+        })),
+      },
       freeCancellation: { day: freeCancellationDay, hour: freeCancellationHour },
       countryId,
       description: [{ ru: descriptionRu, en: descriptionEn }],
@@ -146,7 +173,7 @@ export const LestTripTourCreateForm: React.FC = () => {
         en: priceIncludes.map((item) => item.priceIncludeEn),
         ru: priceIncludes.map((item) => item.priceIncludeRu),
       },
-      tourItenarary: tourItenarary.map((el, idx) => {
+      tourItenarary: tourItenarary.map((el) => {
         return {
           title: {
             en: el.itineraryTitleEn,
@@ -987,6 +1014,181 @@ export const LestTripTourCreateForm: React.FC = () => {
                     icon={<Icon name="PlusOutlined" />}
                   >
                     add tour price not includes ❌ ({fields.length}) {fields.length ? '✅' : '❌'}
+                  </Button>
+                </BaseForm.Item>
+                <BaseForm.ErrorList errors={errors} />
+              </div>
+            )}
+          </BaseForm.List>
+        </Col>
+
+        <Col span={24}>
+          <BaseForm.List
+            name="childPrices"
+            rules={[
+              {
+                validator: async (_, priceIncludes) => {
+                  if (!priceIncludes.length) {
+                    return Promise.reject(new Error('child prices field required?'));
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) => (
+              <div>
+                {fields.map((field) => (
+                  <Card
+                    key={field.name}
+                    size="small"
+                    title={`${field.name + 1}.child price`}
+                    extra={
+                      <Icon
+                        name="CloseOutlined"
+                        onClick={() => {
+                          remove(field.name);
+                        }}
+                      />
+                    }
+                  >
+                    <Row gutter={12}>
+                      <Col span={8}>
+                        <BaseForm.Item
+                          name={[field.name, 'minAge']}
+                          label={'min age'}
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber
+                            name="minAge"
+                            style={{ width: '100%' }}
+                            disabled={field.name === 0}
+                            placeholder="Enter a min age ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                      <Col span={8}>
+                        <BaseForm.Item
+                          name={[field.name, 'maxAge']}
+                          label={'max age'}
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber
+                            name="maxAge"
+                            style={{ width: '100%' }}
+                            placeholder="Enter a max age ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                      <Col span={8}>
+                        <BaseForm.Item
+                          name={[field.name, 'price']}
+                          label={'price'}
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber
+                            name="price"
+                            style={{ width: '100%' }}
+                            placeholder="Enter a price ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                    </Row>
+                  </Card>
+                ))}
+                <BaseForm.Item>
+                  <Button
+                    block
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<Icon name="PlusOutlined" />}
+                  >
+                    add tour child price ({fields.length}) {fields.length ? '✅' : '❌'}
+                  </Button>
+                </BaseForm.Item>
+                <BaseForm.ErrorList errors={errors} />
+              </div>
+            )}
+          </BaseForm.List>
+        </Col>
+
+        <Col span={24}>
+          <BaseForm.List
+            name="adultPrices"
+            rules={[
+              {
+                validator: async (_, priceIncludes) => {
+                  if (!priceIncludes.length) {
+                    return Promise.reject(new Error('adult prices field required?'));
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) => (
+              <div>
+                {fields.map((field) => (
+                  <Card
+                    key={field.name}
+                    size="small"
+                    title={`${field.name + 1}.adult price`}
+                    extra={
+                      <Icon
+                        name="CloseOutlined"
+                        onClick={() => {
+                          remove(field.name);
+                        }}
+                      />
+                    }
+                  >
+                    <Row gutter={12}>
+                      <Col span={8}>
+                        <BaseForm.Item
+                          label={'person count'}
+                          name={[field.name, 'from']}
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber
+                            style={{ width: '100%' }}
+                            disabled={field.name === 0}
+                            placeholder="Enter a person count ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                      <Col span={8}>
+                        <BaseForm.Item
+                          name={[field.name, 'price']}
+                          label={'price'}
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber
+                            style={{ width: '100%' }}
+                            placeholder="Enter a adult price ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                      <Col span={8}>
+                        <BaseForm.Item
+                          name={[field.name, 'oldPrice']}
+                          label={<OldPrice>oldPrice</OldPrice>}
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber
+                            style={{ width: '100%' }}
+                            placeholder="Enter a adult old price ?"
+                          />
+                        </BaseForm.Item>
+                      </Col>
+                    </Row>
+                  </Card>
+                ))}
+                <BaseForm.Item>
+                  <Button
+                    block
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<Icon name="PlusOutlined" />}
+                  >
+                    add tour adult price ({fields.length}) {fields.length ? '✅' : '❌'}
                   </Button>
                 </BaseForm.Item>
                 <BaseForm.ErrorList errors={errors} />
