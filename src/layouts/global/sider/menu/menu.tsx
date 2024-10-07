@@ -9,13 +9,15 @@ import { menuItems } from './constants';
 export const Menu = () => {
   const { pathname } = useLocation();
   const { menu } = useTypedSelector((state) => state.app);
-  const selectedMenuOpenKey = menu.find((item) => item.key === pathname)?.key || menuItems[0].key;
+  const selectedMenuOpenKey =
+    menu.find((item) => pathname.includes(String(item.key)))?.key || menuItems[0].key;
 
   const handleClick: MenuProps['onClick'] = ({ key, domEvent }) => {
     domEvent.preventDefault();
     domEvent.stopPropagation();
     history.push(key);
   };
+
   const menuitems = generateMenuIconCreator(menu);
   return (
     <AntMenu
