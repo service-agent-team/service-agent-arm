@@ -23,6 +23,7 @@ export interface ILetsTripGroupTour {
   extraInformation: ExtraInformation;
   tourItenarary: TourItinerary[];
   images: string[];
+  prices?: IPrices;
   price: number;
   oldPrice: number;
   upTo2: number;
@@ -99,6 +100,7 @@ export interface ILetsTripGroupTourCreatePayload {
   callback(): void;
   name: Name;
   countryId: number;
+  prices?: IPrices;
   price?: number;
   oldPrice?: number;
   upTo2?: number;
@@ -177,6 +179,7 @@ export interface ILetsTripGroupTourImagePayload {
 export interface ILetsTripGroupTourOtherUpdatesPayload {
   tourId: number;
   countryId: number;
+  prices?: IPrices;
   price?: number;
   oldPrice?: number;
   upTo2?: number;
@@ -428,4 +431,21 @@ export interface Items2 {
 export enum Lang {
   En = 'EN',
   Ru = 'RU',
+}
+
+export interface IPrices {
+  childPrices: ChildPrice[];
+  adultPrices: AdultPrice[];
+}
+
+export interface ChildPrice {
+  minAge: number;
+  maxAge: number;
+  price: number;
+}
+
+export interface AdultPrice {
+  from: number;
+  price: number;
+  oldPrice: number;
 }

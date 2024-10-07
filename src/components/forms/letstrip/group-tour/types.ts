@@ -1,6 +1,5 @@
-import { IFreeCancellation } from '@/store/lets-trip/group-tour/types';
+import { AdultPrice, ChildPrice } from '@/store/lets-trip/group-tour/types';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
-import { Dayjs } from 'dayjs';
 
 export interface IValuesForm {
   nameRu: string;
@@ -10,6 +9,8 @@ export interface IValuesForm {
   countryId: number;
   priceNoteRu: string;
   priceNoteEn: string;
+  childPrices: ChildPrice[];
+  adultPrices: AdultPrice[];
   price: number;
   oldPrice: number;
   upTo2: number;
@@ -36,7 +37,6 @@ export interface IValuesForm {
 
   freeCancellationDay: number;
   freeCancellationHour: number;
-  // availableDate: AvailableDate[];
 }
 
 export interface IFileResponse {

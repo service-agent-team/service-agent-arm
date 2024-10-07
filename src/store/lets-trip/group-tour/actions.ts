@@ -308,6 +308,7 @@ export const otherUpdatesLetsTripGroupTour = createAsyncThunk<
       tourId,
       countryId,
       price,
+      prices,
       oldPrice,
       upTo2,
       upTo4,
@@ -325,6 +326,7 @@ export const otherUpdatesLetsTripGroupTour = createAsyncThunk<
       const response = await LetsTripGroupTourService.otherUpdates(tourId, {
         countryId,
         price,
+        prices,
         oldPrice,
         upTo2,
         upTo4,

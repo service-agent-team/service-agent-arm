@@ -149,7 +149,7 @@ export const utils = () => {
       title: 'Rating',
       dataIndex: 'star',
       key: 'star',
-      render: (v) => <Rate value={v} />,
+      render: (v) => <Rate disabled value={v} />,
     },
     {
       title: 'Created At',
