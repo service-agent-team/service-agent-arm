@@ -121,7 +121,6 @@ export const LestTripTourCreateForm: React.FC = () => {
       cityName: { en: cityEn, ru: cityRu },
       prices: {
         childPrices: childPrices?.map((c) => ({
-          minAge: c.minAge,
           maxAge: c.maxAge,
           price: c.price * 100,
         })),
@@ -1052,21 +1051,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                     }
                   >
                     <Row gutter={12}>
-                      <Col span={8}>
-                        <BaseForm.Item
-                          name={[field.name, 'minAge']}
-                          label={'min age'}
-                          rules={[{ required: true }]}
-                        >
-                          <InputNumber
-                            name="minAge"
-                            style={{ width: '100%' }}
-                            disabled={field.name === 0}
-                            placeholder="Enter a min age ?"
-                          />
-                        </BaseForm.Item>
-                      </Col>
-                      <Col span={8}>
+                      <Col span={12}>
                         <BaseForm.Item
                           name={[field.name, 'maxAge']}
                           label={'max age'}
@@ -1079,7 +1064,7 @@ export const LestTripTourCreateForm: React.FC = () => {
                           />
                         </BaseForm.Item>
                       </Col>
-                      <Col span={8}>
+                      <Col span={12}>
                         <BaseForm.Item
                           name={[field.name, 'price']}
                           label={'price'}
