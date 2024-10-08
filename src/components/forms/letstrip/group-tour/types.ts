@@ -48,19 +48,6 @@ export interface Id {
   id: number;
 }
 
-interface AvailableDate {
-  month: string;
-  year: string;
-  departures: Departures[];
-}
-
-interface Departures {
-  price: number;
-  transferTypeEn: string;
-  transferTypeRu: string;
-  transferDate: string;
-}
-
 interface TourItinerary {
   id?: number;
   itineraryTitleEn: string;

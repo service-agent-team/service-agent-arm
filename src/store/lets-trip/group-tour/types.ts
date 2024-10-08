@@ -439,7 +439,6 @@ export interface IPrices {
 }
 
 export interface ChildPrice {
-  minAge: number;
   maxAge: number;
   price: number;
 }
