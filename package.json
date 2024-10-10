@@ -32,6 +32,7 @@
     "react-router-dom": "^6.17.0",
     "react-sequence-diagram": "^0.0.12",
     "sass": "^1.69.5",
+    "sequence-diagram-react": "^0.0.25",
     "styled-components": "^6.1.1",
     "suneditor-react": "^3.6.1",
     "typeface-montserrat": "^1.1.13",

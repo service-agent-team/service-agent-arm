@@ -1,3 +1,5 @@
+import { IDiagram } from '../process/diagram/types';
+
 export type TInitialState = {
   isModal: boolean;
   isDrawer: boolean;
@@ -13,7 +15,7 @@ export type TInitialState = {
   search: string | null;
   pagination: IPagination;
   searchPagination: IPagination;
-  diagram: string;
+  diagram: IDiagram | null;
 };
 
 export enum ETheme {

@@ -3,6 +3,7 @@ import { ProcessService } from '@/services';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { EndPointes } from '@/services/endpoints';
 import { ICreateProcessPayload, IProcess, IProcessPayload, IUpdateProcessPayload } from './types';
+import { appActions } from '@/store/app';
 
 export const getAllProcess = createAsyncThunk<IProcess[], any>(
   EndPointes.process + '/getAll',
@@ -16,12 +17,13 @@ export const getAllProcess = createAsyncThunk<IProcess[], any>(
   },
 );
 
-export const getOneProcess = createAsyncThunk<IProcess[], IProcessPayload>(
+export const getOneProcess = createAsyncThunk<IProcess, IProcessPayload>(
   EndPointes.process + '/getOne',
   async ({ id, cb }, thunkApi) => {
     try {
       const response = await ProcessService.getOne(id);
       if (response) {
+        thunkApi.dispatch(appActions.setDiagram(response.diagram));
         cb();
       }
       return response;

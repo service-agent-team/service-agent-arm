@@ -4,8 +4,10 @@ import { modal } from '@/components';
 import { Icon } from '@/components/common/icon';
 import { IProcess } from '@/store/process/diagram/types';
 import { Button, Space } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 export const SubActions = ({ record, projectId }: { record: IProcess; projectId: number }) => {
+  const navigate = useNavigate();
   const {
     deleteProcess,
     setCarModal,
@@ -39,10 +41,7 @@ export const SubActions = ({ record, projectId }: { record: IProcess; projectId:
   };
 
   const handleEdit = (record: IProcess) => {
-    setCarModal(true);
-    setCarModalType('edit');
-    setSelectCar(projectId);
-    setSelectCarDirection(record);
+    navigate(`${projectId}/diagram/edit/${record.id}`);
   };
 
   return (
@@ -50,7 +49,7 @@ export const SubActions = ({ record, projectId }: { record: IProcess; projectId:
       <Button type="primary" key={1} onClick={() => handleEdit(record)}>
         <Icon name="EditOutlined" />
       </Button>
-      <Button type="primary" danger key={2} onClick={() => handleDelete(record)} disabled>
+      <Button type="primary" danger key={2} onClick={() => handleDelete(record)}>
         <Icon name="DeleteOutlined" />
       </Button>
     </Space>

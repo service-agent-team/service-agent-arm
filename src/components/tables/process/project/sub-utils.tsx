@@ -1,9 +1,9 @@
-import { SequenceDiagram, Table } from '@/components/common';
 import { TableColumnsType } from 'antd';
 import React from 'react';
 import { SubActions } from './actions';
 import { IProcessProject } from '@/store/process/project/types';
 import { IProcess } from '@/store/process/diagram/types';
+import { Table } from '@/components/common';
 
 export const subUtils = (dataSource: IProcessProject, projectId: number): React.ReactNode => {
   const columns: TableColumnsType<IProcess> = [
@@ -20,12 +20,6 @@ export const subUtils = (dataSource: IProcessProject, projectId: number): React.
       key: 'name',
     },
     {
-      title: 'Diagram',
-      dataIndex: 'input',
-      key: 'input',
-      render: (value) => <SequenceDiagram input={value} />,
-    },
-    {
       title: 'Actions',
       dataIndex: 'action',
       key: 'action',
@@ -34,5 +28,12 @@ export const subUtils = (dataSource: IProcessProject, projectId: number): React.
     },
   ];
 
-  return <Table columns={columns} dataSource={dataSource?.processes} pagination={false} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={dataSource?.processes}
+      pagination={false}
+      path={`${projectId}/diagram/create`}
+    />
+  );
 };
