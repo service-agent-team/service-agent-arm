@@ -9,11 +9,6 @@ export const process: MenuProps['items'] = [
     label: 'Home',
   },
   {
-    icon: 'ScheduleOutlined',
-    key: ROUTES.processDiagram,
-    label: 'Processes',
-  },
-  {
     icon: 'ProjectOutlined',
     key: ROUTES.processProject,
     label: 'Projects',

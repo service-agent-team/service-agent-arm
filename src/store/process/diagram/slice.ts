@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { InitialState } from './types';
-import { createProcess, deleteProcess, getAllProcess, updateProcess } from './actions';
+import {
+  createProcess,
+  deleteProcess,
+  getAllProcess,
+  getOneProcess,
+  updateProcess,
+} from './actions';
 
 const initialState: InitialState = {
   loading: {
@@ -37,6 +43,19 @@ export const slice = createSlice({
         state.errors = null;
       })
       .addCase(getAllProcess.rejected, (state, { payload }) => {
+        state.loading.get = false;
+        state.errors = payload;
+      })
+      .addCase(getOneProcess.pending, (state) => {
+        state.loading.get = true;
+        state.errors = null;
+      })
+      .addCase(getOneProcess.fulfilled, (state, { payload }) => {
+        state.loading.get = false;
+        state.process = payload;
+        state.errors = null;
+      })
+      .addCase(getOneProcess.rejected, (state, { payload }) => {
         state.loading.get = false;
         state.errors = payload;
       })

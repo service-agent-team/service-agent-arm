@@ -13,14 +13,22 @@ export interface InitialState {
 export interface IProcess {
   id: number;
   name: string;
-  input: string;
+  diagram: IDiagram;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IDiagram {
+  objects: IObject[];
+  messages: IMessage[];
   created_at: string;
   updated_at: string;
 }
 
 export interface IProcessBody {
   name: string;
-  input: string;
+  diagram: IDiagram;
+  project: number;
 }
 
 export interface ICreateProcessPayload {
@@ -35,4 +43,15 @@ export interface IUpdateProcessPayload extends ICreateProcessPayload {
 export interface IProcessPayload {
   id: number;
   cb(): void;
+}
+export interface IMessage {
+  id: string;
+  name: string;
+  receiver: string;
+  sender: string;
+}
+
+export interface IObject {
+  id: string;
+  name: string;
 }

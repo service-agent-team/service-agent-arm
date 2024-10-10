@@ -119,5 +119,4 @@ export const BookingPropertyTranslationPage = getLoadablePage('BookingPropertyTr
 
 // process
 export const ProcessHomePage = getLoadablePage('ProcessHome');
-export const ProcessDiagramPage = getLoadablePage('ProcessDiagram');
 export const ProcessProjectPage = getLoadablePage('ProcessProject');

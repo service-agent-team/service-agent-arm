@@ -25,7 +25,7 @@ const initialState: TInitialState = {
     pageSize: 10,
     total: 10,
   },
-  diagram: '',
+  diagram: null,
 };
 
 const appSlice = createSlice({
