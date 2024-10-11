@@ -220,6 +220,7 @@ export const LestTripTourEditForm: React.FC = () => {
     priceNotIncludes,
 
     images,
+    videoUrl,
     extraInformation,
     // availableDate,
     tourItenarary,
@@ -381,7 +382,7 @@ export const LestTripTourEditForm: React.FC = () => {
             addNotification('group tour images added');
           },
           tourId: groupTourRaw.tourId as number,
-          images: newImages,
+          images: [videoUrl, ...newImages],
         });
       }
 
@@ -780,6 +781,16 @@ export const LestTripTourEditForm: React.FC = () => {
           >
             <TextArea name="descriptionRu" placeholder="Enter a russian description ? " />
           </BaseForm.Item>
+
+          <Col span={24}>
+            <BaseForm.Item name="videoUrl" label="video url" rules={[{ required: false }]}>
+              <TextArea name="videoUrl" placeholder="Enter a video url ?" />
+            </BaseForm.Item>
+          </Col>
+
+          <div dangerouslySetInnerHTML={{ __html: form.getFieldValue('videoUrl') }} />
+          {/* <iframe src={form.getFieldValue('videoUrl')} width="100%" /> */}
+
           <Col span={24}>
             <BaseForm.Item
               name="images"
