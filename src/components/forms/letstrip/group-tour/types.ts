@@ -31,6 +31,7 @@ export interface IValuesForm {
   priceNotIncludes: IPriceNotInclude[];
 
   images: UploadChangeParam;
+  videoUrl: string;
   descriptionRu: string;
   descriptionEn: string;
   tourItenarary: TourItinerary[];
