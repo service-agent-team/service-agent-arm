@@ -2,12 +2,13 @@ import { FC, useEffect } from 'react';
 import { ProcessPayload } from './payload';
 import * as S from './styled';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { BaseForm } from '@/components';
 import { IProcessBody } from '@/store/process/diagram/types';
 import { addNotification } from '@/common';
 // @ts-ignore
 import { store } from 'sequence-diagram-react';
+import { ROUTES } from '@/constants';
 
 interface IProps {
   type: 'edit' | 'create';
@@ -21,6 +22,7 @@ export const ProcessDiagram: FC<IProps> = ({ type }: IProps) => {
   const { getOneProcess, createProcess, updateProcess } = useActions();
   const { diagramId, id } = useParams();
   const [form] = BaseForm.useForm();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (diagramId) {
@@ -47,7 +49,8 @@ export const ProcessDiagram: FC<IProps> = ({ type }: IProps) => {
         createProcess({
           body: { name, diagram, project: Number(id) },
           cb: () => {
-            addNotification('Suffessfully created process');
+            addNotification('Successfully created process');
+            navigate(ROUTES.processProject);
           },
         });
       }
@@ -57,7 +60,7 @@ export const ProcessDiagram: FC<IProps> = ({ type }: IProps) => {
           id: Number(diagramId),
           body: { name, diagram, project: Number(id) },
           cb: () => {
-            addNotification('Suffessfully updated process');
+            addNotification('Successfully updated process');
           },
         });
       }

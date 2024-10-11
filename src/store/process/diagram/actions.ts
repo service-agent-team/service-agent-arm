@@ -68,9 +68,7 @@ export const deleteProcess = createAsyncThunk<IProcess, IProcessPayload>(
   async ({ cb, id }, thunkApi) => {
     try {
       const response = await ProcessService.delete(id);
-      if (response) {
-        cb();
-      }
+      cb();
       return response;
     } catch (error) {
       return thunkApi.rejectWithValue({ error: errorCatch(error) });

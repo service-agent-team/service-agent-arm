@@ -8,14 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const SubActions = ({ record, projectId }: { record: IProcess; projectId: number }) => {
   const navigate = useNavigate();
-  const {
-    deleteProcess,
-    setCarModal,
-    setSelectCar,
-    setCarModalType,
-    setSelectCarDirection,
-    setLetsTripTransfers,
-  } = useActions();
+  const { deleteProcess, setProcessProjects } = useActions();
   const { projects } = useTypedSelector((s) => s.processProject);
 
   const handleDelete = (record: IProcess) => {
@@ -27,11 +20,11 @@ export const SubActions = ({ record, projectId }: { record: IProcess; projectId:
           cb() {
             const filteredData = projects?.map((p) => {
               if (p.id === projectId) {
-                return p.processes.filter((d) => d.id !== record.id);
+                return { ...p, processes: p.processes.filter((d) => d.id !== record.id) };
               }
               return p;
             });
-            setLetsTripTransfers(filteredData);
+            setProcessProjects(filteredData);
             addNotification('Successfully deleted process');
           },
           id: record.id,
