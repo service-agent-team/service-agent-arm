@@ -39,11 +39,11 @@ export const OrderViewModal = () => {
             {order?.userId ? order?.userId : order?.agentId}
           </Col>
 
-          <Col span={24}>
+          <Col span={12}>
             PAYMENT TYPE: <Tag color="blue">{order?.paymentType}</Tag>
           </Col>
 
-          <Col span={24}> PRICE: {Number(order?.price) / 100}$</Col>
+          <Col span={12}> PRICE: {Number(order?.price) / 100}$</Col>
 
           {/* HOTEL */}
           {type === LetsTripOrderType.HOTEL && order ? (
@@ -147,10 +147,29 @@ export const OrderViewModal = () => {
           {/* TOUR */}
           {type === LetsTripOrderType.TOUR && order ? (
             <>
-              <Col span={24}>
+              <Col span={12}>
+                FULL NAME: {order?.user?.firstName} {order?.user?.lastName}
+              </Col>
+              <Col span={12}>
                 PHONE NUMBER:{' '}
                 <a href={`tel:+${order?.details?.phoneNumber}`}>+{order?.details?.phoneNumber}</a>
               </Col>
+              <Col span={12}>
+                EMAIL: <a href={`mailto:${order?.user?.login}`}>{order?.user?.login}</a>
+              </Col>
+              <Col span={12}>
+                GENDER:{' '}
+                <Tag color={order?.user?.gender === 'MALE' ? 'blue' : 'pink'}>
+                  {order?.user?.gender}
+                </Tag>
+              </Col>
+              <Col span={12}>
+                COUNTRY: <Tag color={'cyan'}>{order?.user?.countryName}</Tag>
+              </Col>
+              <Col span={12}>
+                LANGUAGE: <Tag color={'green'}>{order?.user?.language}</Tag>
+              </Col>
+              <Col span={24}>TOUR TITLE: {order?.tour?.name?.en}</Col>
               <Col span={24}>START DATE: {order?.details?.startDate}</Col>
               <Col span={24}>NUMBER OF TRAVELERS: {order?.details?.numberOfTravellers}</Col>
               <Col span={24}>COMMENT: {order?.details?.comment || 'no comment'}</Col>
@@ -160,6 +179,29 @@ export const OrderViewModal = () => {
           {/* TRANSFER */}
           {type === LetsTripOrderType.TRANSFER && order ? (
             <>
+              <Col span={12}>
+                FULL NAME: {order?.user?.firstName} {order?.user?.lastName}
+              </Col>
+              <Col span={12}>
+                PHONE NUMBER:{' '}
+                <a href={`tel:+${order?.user?.phoneNumber}`}>+{order?.user?.phoneNumber}</a>
+              </Col>
+              <Col span={12}>
+                EMAIL: <a href={`mailto:${order?.user?.login}`}>{order?.user?.login}</a>
+              </Col>
+              <Col span={12}>
+                GENDER:{' '}
+                <Tag color={order?.user?.gender === 'MALE' ? 'blue' : 'pink'}>
+                  {order?.user?.gender}
+                </Tag>
+              </Col>
+              <Col span={12}>
+                COUNTRY: <Tag color={'cyan'}>{order?.user?.countryName}</Tag>
+              </Col>
+              <Col span={12}>
+                LANGUAGE: <Tag color={'green'}>{order?.user?.language}</Tag>
+              </Col>
+              <Col span={24}>TRANSFER: {order?.car?.name?.en}</Col>
               <Col span={24}>
                 TRANSFER PRICE: {order?.details?.direction?.transferPrice / 100} $
               </Col>
@@ -202,6 +244,42 @@ export const OrderViewModal = () => {
                     options={{ strokeColor: '#FF0000', strokeOpacity: 1.0, strokeWeight: 2 }}
                   />
                 </Maps>
+              </Col>
+            </>
+          ) : null}
+          {/* SIM */}
+          {type === LetsTripOrderType.SIM_CARD && order ? (
+            <>
+              <Col span={24}>
+                AGENT FULL NAME: {order?.agent?.firstName} {order?.agent?.lastName}{' '}
+                {order?.agent?.middleName}
+              </Col>
+              <Col span={12}>
+                GENDER:{' '}
+                <Tag color={order?.agent?.gender === 'MALE' ? 'blue' : 'pink'}>
+                  {order?.agent?.gender}
+                </Tag>
+              </Col>
+              <Col span={12}>
+                LOGIN: <a href={`tel:+${order?.agent?.login}`}>+{order?.agent?.login}</a>
+              </Col>
+              <Col span={24}>CUSTOMER NAME: {order?.details?.CustomerName}</Col>
+              <Col span={12}>
+                PHONE NUMBER:{' '}
+                <a href={`tel:+${order?.details?.PhoneNumber}`}>+{order?.details?.PhoneNumber}</a>
+              </Col>
+              <Col span={12}>ORDER DATE: {order?.details?.OrderDate}</Col>
+              <Col span={12}>
+                SIM TYPE:{' '}
+                <Tag color={order?.details?.isEsim ? 'green' : 'red'}>
+                  {order?.details?.isEsim ? 'E-SIM' : 'PHYSICALLY'}
+                </Tag>
+              </Col>
+              <Col span={12}>
+                is RESIDENT:{' '}
+                <Tag color={order?.details?.isResident ? 'green' : 'red'}>
+                  {order?.details?.isResident ? 'YES' : 'NO'}
+                </Tag>
               </Col>
             </>
           ) : null}
