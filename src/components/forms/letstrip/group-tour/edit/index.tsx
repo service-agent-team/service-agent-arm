@@ -72,6 +72,7 @@ export const LestTripTourEditForm: React.FC = () => {
   const {
     pagination: { current, pageSize },
   } = useTypedSelector((state) => state.app);
+  const [video, setVideo] = useState<string>('');
 
   const handleMapClick = (event: IGoogleMouseEvent) => {
     if (event.latLng) {
@@ -119,6 +120,9 @@ export const LestTripTourEditForm: React.FC = () => {
         groupTourRaw.priceNotIncludes.en.length > groupTourRaw.priceNotIncludes.ru.length
           ? groupTourRaw.priceNotIncludes.en
           : groupTourRaw.priceNotIncludes.ru;
+
+      const videoUrl = groupTourRaw.images.includes('youtube.com') ? groupTourRaw.images[0] : '';
+      setVideo(videoUrl);
 
       form.setFieldsValue({
         nameEn: groupTourRaw?.name?.en,
@@ -177,6 +181,7 @@ export const LestTripTourEditForm: React.FC = () => {
             RU: 'RU',
           },
         ],
+        videoUrl: videoUrl,
         tourItenarary: groupTourRaw?.tourItenarary.map((el) => ({
           id: el.id,
           itineraryTitleEn: el.title.en,
@@ -382,7 +387,7 @@ export const LestTripTourEditForm: React.FC = () => {
             addNotification('group tour images added');
           },
           tourId: groupTourRaw.tourId as number,
-          images: [videoUrl, ...newImages],
+          images: [videoUrl && true, ...newImages],
         });
       }
 
@@ -784,12 +789,24 @@ export const LestTripTourEditForm: React.FC = () => {
 
           <Col span={24}>
             <BaseForm.Item name="videoUrl" label="video url" rules={[{ required: false }]}>
-              <TextArea name="videoUrl" placeholder="Enter a video url ?" />
+              <Input
+                name="videoUrl"
+                placeholder="Enter a video url ?"
+                onChange={(e) => setVideo(e.target.value)}
+              />
             </BaseForm.Item>
           </Col>
-
-          <div dangerouslySetInnerHTML={{ __html: form.getFieldValue('videoUrl') }} />
-          {/* <iframe src={form.getFieldValue('videoUrl')} width="100%" /> */}
+          {form.getFieldValue('videoUrl') && (
+            <iframe
+              src={`https://www.youtube.com/embed/${video?.split('v=')[1]}`}
+              width="100%"
+              height="500px"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          )}
 
           <Col span={24}>
             <BaseForm.Item
