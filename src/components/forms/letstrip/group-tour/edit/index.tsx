@@ -377,9 +377,10 @@ export const LestTripTourEditForm: React.FC = () => {
         }
       });
 
-      const newImages = images?.fileList
-        .filter((el) => el.response)
-        .flatMap((el) => el.response.ids.map((file: Id) => `${FILE_URL}/${file.id}`));
+      const newImages =
+        images?.fileList
+          .filter((el) => el.response)
+          .flatMap((el) => el.response.ids.map((file: Id) => `${FILE_URL}/${file.id}`)) || [];
 
       if (newImages?.length) {
         addImageLetsTripGroupTour({
@@ -416,7 +417,7 @@ export const LestTripTourEditForm: React.FC = () => {
           lang: Lang.Ru,
         });
       }
-      history.back();
+      // history.back();
     }
   };
 

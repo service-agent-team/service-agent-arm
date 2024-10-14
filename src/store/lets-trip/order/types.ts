@@ -1,3 +1,5 @@
+import { ILetsTripGroupTour } from '../group-tour/types';
+
 export enum LetsTripOrderStatus {
   DELIVERED = 'DELIVERED',
   CREATED = 'CREATED',
@@ -58,6 +60,10 @@ export interface ILetsTripOrder {
   paymentType: string;
   createdAt: string;
   updatedAt: string;
+  tour?: ILetsTripGroupTour;
+  user?: any;
+  agent?: any;
+  car?: any;
 }
 
 export interface ILetsTripHotelOrder {
