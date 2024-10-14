@@ -26,13 +26,6 @@ export const Table = styled(AntdTable)`
     line-height: 1.25rem;
   }
 
-  & tbody .ant-table-row-expand-icon {
-    min-height: 1.25rem;
-    min-width: 1.25rem;
-    border-radius: 0.1875rem;
-    margin-top: 0;
-  }
-
   // Override default antd selector
   &
     .ant-table-thead

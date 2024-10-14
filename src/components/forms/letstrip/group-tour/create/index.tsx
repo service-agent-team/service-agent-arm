@@ -47,6 +47,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     pagination: { current, pageSize },
   } = useTypedSelector((state) => state.app);
   const { countryId } = useParams();
+  const [video, setVideo] = useState<string>('');
 
   const handleMapClick = (event: IGoogleMouseEvent) => {
     if (event.latLng) {
@@ -94,6 +95,7 @@ export const LestTripTourCreateForm: React.FC = () => {
     descriptionRu,
     priceNoteEn,
     priceNoteRu,
+    videoUrl,
     images,
     extraInformation,
     // availableDate,
@@ -133,27 +135,13 @@ export const LestTripTourCreateForm: React.FC = () => {
       freeCancellation: { day: freeCancellationDay, hour: freeCancellationHour },
       countryId,
       description: [{ ru: descriptionRu, en: descriptionEn }],
-      images: images.fileList.flatMap((item: UploadFile) =>
-        item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
-      ),
+      images: [
+        videoUrl && true,
+        ...images.fileList.flatMap((item: UploadFile) =>
+          item?.response?.ids?.map((file: Id) => `${FILE_URL}/${file.id}`),
+        ),
+      ],
       locations,
-      // availableDate: availableDate?.map((el) => {
-      //   return {
-      //     month: +generateUTC(el.month).split('-')[1],
-      //     year: +generateUTC(el.month).split('-')[0],
-      //     departures: el.departures.map((dep) => {
-      //       return {
-      //         price: dep.price,
-      //         transferType: {
-      //           en: dep.transferTypeEn,
-      //           ru: dep.transferTypeRu,
-      //         },
-      //         startDate: dateFormatDayJs(dep.transferDate[0]),
-      //         endDate: dateFormatDayJs(dep.transferDate[1]),
-      //       };
-      //     }),
-      //   };
-      // }),
       extraInformation: { en: extraInformation[0].en, ru: extraInformation[0].ru },
       price: price * 100,
       upTo2: upTo2 * 100,
@@ -659,6 +647,27 @@ export const LestTripTourCreateForm: React.FC = () => {
             )}
           </BaseForm.List>
         </Col>
+
+        <Col span={24}>
+          <BaseForm.Item name="videoUrl" label="video url" rules={[{ required: false }]}>
+            <Input
+              name="videoUrl"
+              placeholder="Enter a video url ?"
+              onChange={(e) => setVideo(e.target.value)}
+            />
+          </BaseForm.Item>
+        </Col>
+        {form.getFieldValue('videoUrl') && (
+          <iframe
+            src={`https://www.youtube.com/embed/${video?.split('v=')[1]}`}
+            width="100%"
+            height="500px"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+        )}
 
         <Col span={24}>
           <BaseForm.Item

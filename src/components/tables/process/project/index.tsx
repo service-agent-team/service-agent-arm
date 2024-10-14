@@ -20,12 +20,12 @@ export const ProcessProjectTable = () => {
     <Table
       rowKey={'id'}
       columns={utils()}
-      dataSource={projects ? projects : []}
-      loading={get}
-      bordered
       expandable={{
         expandedRowRender: (record: IProcessProject) => subUtils(record, record.id),
       }}
+      dataSource={projects ? projects : []}
+      loading={get}
+      bordered
     />
   );
 };
