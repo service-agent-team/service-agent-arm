@@ -1,11 +1,11 @@
-import { Button, Input, InputRef, Row, Space, Tag } from 'antd';
+import { Button, Input, InputRef, Space } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { DataIndex, IHandleSearchProps } from './types';
 import { ILetsTripOrder } from '@/store/lets-trip/order/types';
 import { dateParser } from '@/common/utils/format';
-import { Icon } from '../../../common/icon/icon';
+import { Icon } from '@/components/common/icon/icon';
 import { useActions, useTypedSelector } from '@/common/hooks';
 
 export const utils = () => {

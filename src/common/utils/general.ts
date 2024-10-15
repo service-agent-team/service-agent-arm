@@ -5,6 +5,7 @@ export const LANG = 'lang';
 const PREFIX = '/';
 export const API_URL = (import.meta.env.APP_API_URL as string) || 'https://admin.devnugget.uz/api/';
 export const IMAGE_URL = `${API_URL}uploads/`;
+export const IMAGE_OPEN_URL = 'https://files.coreteam.uz/api/v1/media/open';
 
 export const ACCESS_TOKEN = 'access-token';
 export const USER = 'user';

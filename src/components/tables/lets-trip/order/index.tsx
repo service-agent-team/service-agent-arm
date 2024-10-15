@@ -1,12 +1,17 @@
 import { Table } from 'antd';
 import { utils } from './utils';
-import { ILetsTripOrder, LetsTripOrderType } from '@/store/lets-trip/order/types';
+import {
+  ILetsTripOrder,
+  LetsTripOrderStatus,
+  LetsTripOrderType,
+} from '@/store/lets-trip/order/types';
 import { useEffect } from 'react';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useParams } from 'react-router-dom';
 
 export const LetsTripOrderTable = () => {
-  const { getLetsTripOrderByStatus, setLetsTripOrderType, setPagination } = useActions();
+  const { getLetsTripOrderByStatus, setLetsTripOrderType, setLetsTripOrderStatus, setPagination } =
+    useActions();
   const {
     orders,
     loading: { get },
@@ -19,7 +24,7 @@ export const LetsTripOrderTable = () => {
   } = useTypedSelector((state) => state.app);
 
   useEffect(() => {
-    if (type && status) {
+    if (type && project?.toUpperCase() === type && status) {
       getLetsTripOrderByStatus({
         status,
         type,
@@ -30,8 +35,10 @@ export const LetsTripOrderTable = () => {
   }, [status, type, project, current]);
 
   useEffect(() => {
-    if (project && typeof project === 'string')
+    if (project && typeof project === 'string') {
+      setLetsTripOrderStatus(LetsTripOrderStatus.CREATED);
       setLetsTripOrderType(project.toUpperCase() as LetsTripOrderType);
+    }
   }, [project]);
 
   return (
