@@ -12,7 +12,7 @@ const initialState: ILetsTripOrderInitialState = {
   orders: null,
   order: null,
   status: LetsTripOrderStatus.CREATED,
-  type: LetsTripOrderType.TOUR,
+  type: null,
   errors: null,
 };
 

@@ -4,7 +4,7 @@ export enum LetsTripOrderStatus {
   DELIVERED = 'DELIVERED',
   CREATED = 'CREATED',
   DELETED = 'DELETED',
-  CANCELED = 'CANCELLED',
+  CANCELLED = 'CANCELLED',
   ADMIN_CONFIRMED_CANCELED = 'ADMIN_CONFIRMED_CANCELLED',
   AWAITING_CASH_PAYMENT = 'AWAITING_CASH_PAYMENT',
   ON_THE_WAY = 'ON_THE_WAY',
@@ -33,7 +33,7 @@ export interface ILetsTripOrderInitialState {
   orders: ILetsTripOrder[] | null;
   order: ILetsTripOrder | null;
   status: LetsTripOrderStatus;
-  type: LetsTripOrderType;
+  type: LetsTripOrderType | null;
   errors: unknown | string[] | string;
 }
 

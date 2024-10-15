@@ -6,34 +6,36 @@ import { LetsTripOrderStatus, LetsTripOrderType } from '@/store/lets-trip/order/
 import { Flex, Segmented, Tooltip } from 'antd';
 
 export const LetsTripOrder = () => {
-  const { type } = useTypedSelector((state) => state.letsTripOrder);
+  const { type, status } = useTypedSelector((state) => state.letsTripOrder);
   const { setLetsTripOrderStatus } = useActions();
 
   const options = [];
 
   if (type === LetsTripOrderType.TOUR)
     options.push(
-      { label: 'AWAITING_CASH_PAYMENT', value: LetsTripOrderStatus.AWAITING_CASH_PAYMENT },
       { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
       { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
-      { label: 'CANCELED', value: LetsTripOrderStatus.CANCELED },
+      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
     );
   else if (type === LetsTripOrderType.TRANSFER)
     options.push(
-      { label: 'AWAITING_CASH_PAYMENT', value: LetsTripOrderStatus.AWAITING_CASH_PAYMENT },
       { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
       { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
-      { label: 'CANCELED', value: LetsTripOrderStatus.CANCELED },
+      { label: 'AWAITING_CASH_PAYMENT', value: LetsTripOrderStatus.AWAITING_CASH_PAYMENT },
+      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
     );
   else if (type === LetsTripOrderType.LUGGAGE)
     options.push(
       { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'CANCELED', value: LetsTripOrderStatus.CANCELED },
+      { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
+      { label: 'ON THE WAY', value: LetsTripOrderStatus.ON_THE_WAY },
+      { label: 'DELIVERED', value: LetsTripOrderStatus.DELIVERED },
+      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
     );
   else if (type === LetsTripOrderType.SIM_CARD)
     options.push(
       { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'CANCELED', value: LetsTripOrderStatus.CANCELED },
+      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
     );
   else if (type === LetsTripOrderType.HOTEL) {
     options.push(
@@ -72,6 +74,7 @@ export const LetsTripOrder = () => {
     <SimplePage>
       <Flex align="center" justify="center" style={{ padding: '20px 0' }}>
         <Segmented
+          defaultValue={status}
           size="large"
           width={'100%'}
           options={options}
