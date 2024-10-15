@@ -136,11 +136,13 @@ export const LestTripTourEditForm: React.FC = () => {
           maxAge: c.maxAge,
           price: c.price / 100,
         })),
-        adultPrices: groupTourRaw.prices?.adultPrices?.map((a) => ({
-          from: a.from,
-          price: a.price / 100,
-          oldPrice: a.oldPrice / 100,
-        })),
+        adultPrices: groupTourRaw.prices?.adultPrices?.length
+          ? groupTourRaw.prices?.adultPrices?.map((a) => ({
+              from: a.from,
+              price: a.price / 100,
+              oldPrice: a.oldPrice / 100,
+            }))
+          : [{ from: 1 }],
         price: Number(groupTourRaw?.price) / 100,
         oldPrice: Number(groupTourRaw?.oldPrice) / 100,
         upTo2: Number(groupTourRaw?.upTo2) / 100,
@@ -1329,7 +1331,7 @@ export const LestTripTourEditForm: React.FC = () => {
                       }
                     >
                       <Row gutter={12}>
-                        <Col span={24}>
+                        <Col span={12}>
                           <BaseForm.Item
                             name={[field.name, 'priceIncludeEn']}
                             label={'price include english'}
@@ -1338,7 +1340,7 @@ export const LestTripTourEditForm: React.FC = () => {
                             <TextArea placeholder="Enter a price include english ?" />
                           </BaseForm.Item>
                         </Col>
-                        <Col span={24}>
+                        <Col span={12}>
                           <BaseForm.Item
                             name={[field.name, 'priceIncludeRu']}
                             label={'price include russian'}
@@ -1396,7 +1398,7 @@ export const LestTripTourEditForm: React.FC = () => {
                       }
                     >
                       <Row gutter={12}>
-                        <Col span={24}>
+                        <Col span={12}>
                           <BaseForm.Item
                             name={[field.name, 'priceNotIncludeEn']}
                             label={'price not include english'}
@@ -1408,7 +1410,7 @@ export const LestTripTourEditForm: React.FC = () => {
                             />
                           </BaseForm.Item>
                         </Col>
-                        <Col span={24}>
+                        <Col span={12}>
                           <BaseForm.Item
                             name={[field.name, 'priceNotIncludeRu']}
                             label={'price not include russian'}
@@ -1454,50 +1456,53 @@ export const LestTripTourEditForm: React.FC = () => {
             >
               {(fields, { add, remove }, { errors }) => (
                 <div>
-                  {fields.map((field) => (
-                    <Card
-                      key={field.name}
-                      size="small"
-                      title={`${field.name + 1}.child price`}
-                      extra={
-                        <Icon
-                          name="CloseOutlined"
-                          onClick={() => {
-                            remove(field.name);
-                          }}
-                        />
-                      }
-                    >
-                      <Row gutter={12}>
-                        <Col span={12}>
-                          <BaseForm.Item
-                            name={[field.name, 'maxAge']}
-                            label={'max age'}
-                            rules={[{ required: true }]}
-                          >
-                            <InputNumber
-                              name="maxAge"
-                              style={{ width: '100%' }}
-                              placeholder="Enter a max age ?"
+                  <Row gutter={[12, 12]}>
+                    {fields.map((field) => (
+                      <Col key={field.name} span={12}>
+                        <Card
+                          size="small"
+                          title={`${field.name + 1}.child price`}
+                          extra={
+                            <Icon
+                              name="CloseOutlined"
+                              onClick={() => {
+                                remove(field.name);
+                              }}
                             />
-                          </BaseForm.Item>
-                        </Col>
-                        <Col span={12}>
-                          <BaseForm.Item
-                            name={[field.name, 'price']}
-                            label={'price'}
-                            rules={[{ required: true }]}
-                          >
-                            <InputNumber
-                              name="price"
-                              style={{ width: '100%' }}
-                              placeholder="Enter a price ?"
-                            />
-                          </BaseForm.Item>
-                        </Col>
-                      </Row>
-                    </Card>
-                  ))}
+                          }
+                        >
+                          <Row gutter={12}>
+                            <Col span={12}>
+                              <BaseForm.Item
+                                name={[field.name, 'maxAge']}
+                                label={'max age'}
+                                rules={[{ required: true }]}
+                              >
+                                <InputNumber
+                                  name="maxAge"
+                                  style={{ width: '100%' }}
+                                  placeholder="Enter a max age ?"
+                                />
+                              </BaseForm.Item>
+                            </Col>
+                            <Col span={12}>
+                              <BaseForm.Item
+                                name={[field.name, 'price']}
+                                label={'price'}
+                                rules={[{ required: true }]}
+                              >
+                                <InputNumber
+                                  name="price"
+                                  style={{ width: '100%' }}
+                                  placeholder="Enter a price ?"
+                                />
+                              </BaseForm.Item>
+                            </Col>
+                          </Row>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
                   <BaseForm.Item>
                     <Button
                       block
