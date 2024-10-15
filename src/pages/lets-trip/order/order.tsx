@@ -10,60 +10,43 @@ export const LetsTripOrder = () => {
   const { setLetsTripOrderStatus } = useActions();
 
   const options = [];
+  const created = {
+    label: <Tooltip title="CREATED">CREATED</Tooltip>,
+    value: LetsTripOrderStatus.CREATED,
+  };
+  const confirmed = {
+    label: <Tooltip title="To'langan">CONFIRMED</Tooltip>,
+    value: LetsTripOrderStatus.CONFIRMED,
+  };
+  const cancelled = { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED };
+  const awaitingCashPayment = {
+    label: 'AWAITING CASH PAYMENT',
+    value: LetsTripOrderStatus.AWAITING_CASH_PAYMENT,
+  };
+  const adminCancelled = {
+    label: (
+      <Tooltip title="Buyurtma foydalanuvchi tomonidan bekor qilingandan so'ng, admin tomonidan ham bekor qilindi, bu uning ko'rib chiqilganligini tasdiqlaydi.">
+        ADMIN CANCELLED
+      </Tooltip>
+    ),
+    value: LetsTripOrderStatus.ADMIN_CONFIRMED_CANCELED,
+  };
 
   if (type === LetsTripOrderType.TOUR)
-    options.push(
-      { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
-      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
-    );
+    options.push(created, confirmed, awaitingCashPayment, cancelled, adminCancelled);
   else if (type === LetsTripOrderType.TRANSFER)
-    options.push(
-      { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
-      { label: 'AWAITING_CASH_PAYMENT', value: LetsTripOrderStatus.AWAITING_CASH_PAYMENT },
-      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
-    );
+    options.push(created, confirmed, awaitingCashPayment, cancelled, adminCancelled);
   else if (type === LetsTripOrderType.LUGGAGE)
     options.push(
-      { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'CONFIRMED', value: LetsTripOrderStatus.CONFIRMED },
+      created,
+      confirmed,
       { label: 'ON THE WAY', value: LetsTripOrderStatus.ON_THE_WAY },
       { label: 'DELIVERED', value: LetsTripOrderStatus.DELIVERED },
-      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
+      cancelled,
     );
-  else if (type === LetsTripOrderType.SIM_CARD)
-    options.push(
-      { label: 'CREATED', value: LetsTripOrderStatus.CREATED },
-      { label: 'CANCELLED', value: LetsTripOrderStatus.CANCELLED },
-    );
+  else if (type === LetsTripOrderType.SIM_CARD) options.push(created, confirmed, cancelled);
   else if (type === LetsTripOrderType.HOTEL) {
-    options.push(
-      {
-        label: <Tooltip title="CREATED">CREATED</Tooltip>,
-        value: LetsTripOrderStatus.CREATED,
-      },
-      {
-        label: <Tooltip title="To'langan">CONFIRMED</Tooltip>,
-        value: LetsTripOrderStatus.CONFIRMED,
-      },
-      {
-        label: (
-          <Tooltip title="To'langan bugandan keyin bu userni hotelini sotib olib berish kerak i shu statusga uzgartirib quyish kerak">
-            COMPLETED
-          </Tooltip>
-        ),
-        value: LetsTripOrderStatus.COMPLETED,
-      },
-      {
-        label: (
-          <Tooltip title="Buyurtma foydalanuvchi tomonidan bekor qilingandan so'ng, admin tomonidan ham bekor qilindi, bu uning ko'rib chiqilganligini tasdiqlaydi.">
-            ADMIN CANCELLED
-          </Tooltip>
-        ),
-        value: LetsTripOrderStatus.ADMIN_CONFIRMED_CANCELED,
-      },
-    );
+    options.push(created, confirmed, awaitingCashPayment, cancelled, adminCancelled);
   }
 
   const handleChangeStatus = (value: LetsTripOrderStatus) => {

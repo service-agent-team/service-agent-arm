@@ -124,14 +124,18 @@ export const utils = () => {
       dataIndex: 'status',
       key: 'status',
       width: '20%',
-      ...getColumnSearchProps('status'),
     },
     {
       title: 'Project',
       dataIndex: 'type',
       key: 'type',
       width: '20%',
-      ...getColumnSearchProps('type'),
+    },
+    {
+      title: 'Payment type',
+      dataIndex: 'paymentType',
+      key: 'paymentType',
+      width: '20%',
     },
     {
       title: 'Price ($)',
