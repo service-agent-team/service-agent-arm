@@ -1,8 +1,8 @@
-import { BaseForm, PrimaryBtn, TextArea } from '@/components';
+import { BaseForm, Field } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IValues } from './types';
-import { Col, Input, Row, Select } from 'antd';
+import { Col, Input } from 'antd';
 import { useEffect } from 'react';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
@@ -57,27 +57,17 @@ export const BookingTaxesForm = ({ type }: { type: 'edit' | 'create' }) => {
   }, [taxe]);
 
   return (
-    <BaseForm form={form} layout="vertical" onFinish={onFinish} onFinishFailed={() => {}}>
-      <Row gutter={[12, 12]}>
-        <Col span={24}>
-          <BaseForm.Item name="name" label={'Taxes name'} rules={[{ required: true }]}>
-            <Input placeholder="Enter taxes name ?" />
-          </BaseForm.Item>
-        </Col>
-        {type === 'edit' ? (
-          <Col span={type === 'edit' ? 24 : 0}>
-            <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
-              <Select options={langOptions} placeholder="Select bed type language type" />
-            </BaseForm.Item>
-          </Col>
-        ) : null}
+    <BaseForm form={form} layout="vertical" onFinish={onFinish} loading={loading} save>
+      <Field span={24} name="name" label="Taxes name" isRequired />
 
-        <Col span={24}>
-          <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
-            {type === 'create' ? 'create' : 'edit'}
-          </PrimaryBtn>
-        </Col>
-      </Row>
+      {type === 'edit' ? (
+        <Field
+          span={type === 'edit' ? 24 : 0}
+          name="lang"
+          label="Language type"
+          options={langOptions}
+        />
+      ) : null}
     </BaseForm>
   );
 };

@@ -10,15 +10,17 @@ export type TUploadFileResponse = {
 export enum PayloadEnum {
   get = 'get',
   post = 'post',
+  patch = 'patch',
   put = 'put',
   delete = 'delete',
 }
 
 export interface IStoreLoadings {
-  get: string;
-  post: string;
-  put: string;
-  delete: string;
+  get: boolean;
+  post: boolean;
+  patch: boolean;
+  put: boolean;
+  delete: boolean;
 }
 
 export type AppThunk<ReturnType = void> = ThunkAction<

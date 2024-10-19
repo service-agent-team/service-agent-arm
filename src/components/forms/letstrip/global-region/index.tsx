@@ -4,7 +4,7 @@ import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import { IValuesForm } from './types';
 import { ROUTES } from '@/constants';
-import { Col, Row } from 'antd';
+import { Col } from 'antd';
 import { GoogleMap, Marker, Polyline, useJsApiLoader } from '@react-google-maps/api';
 import { IGoogleMouseEvent } from '../group-tour/types';
 import toast from 'react-hot-toast';
@@ -71,68 +71,60 @@ export const GlobalRegionForm = ({ type }: { type: 'edit' | 'create' }) => {
   };
 
   return (
-    <BaseForm
-      name="letsTripCountryForm"
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={() => {}}
-    >
-      <Row gutter={12}>
-        <Col span={8}>
-          <BaseForm.Item
-            name="nameEn"
-            label={'name english'}
-            style={{ width: '100%' }}
-            rules={[{ required: true, message: 'filed is required' }]}
-          >
-            <Input placeholder="Enter name english ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={8}>
-          <BaseForm.Item
-            name="nameRu"
-            label={'name russian'}
-            style={{ width: '100%' }}
-            rules={[{ required: true, message: 'filed is required' }]}
-          >
-            <Input placeholder="Enter name russian ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={8}>
-          <BaseForm.Item
-            name="nameUz"
-            label={'name uzbek'}
-            style={{ width: '100%' }}
-            rules={[{ required: true, message: 'filed is required' }]}
-          >
-            <Input placeholder="Enter nameRu ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={12}>
-          <BaseForm.Item
-            name="code"
-            label={'region code'}
-            style={{ width: '100%' }}
-            rules={[{ required: true, message: 'filed is required' }]}
-          >
-            <Input placeholder="Enter region code ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={12}>
-          <BaseForm.Item
-            name="parentId"
-            label={'select country'}
-            style={{ width: '100%' }}
-            rules={[{ required: true, message: 'filed is required' }]}
-          >
-            <Select
-              options={globalCountries?.map((c) => ({ label: c?.name?.en, value: c?.id })) || []}
-              placeholder="Select country"
-            />
-          </BaseForm.Item>
-        </Col>
-      </Row>
+    <BaseForm form={form} onFinish={onFinish} loading={loading} save={false}>
+      <Col span={8}>
+        <BaseForm.Item
+          name="nameEn"
+          label={'name english'}
+          style={{ width: '100%' }}
+          rules={[{ required: true, message: 'filed is required' }]}
+        >
+          <Input placeholder="Enter name english ?" />
+        </BaseForm.Item>
+      </Col>
+      <Col span={8}>
+        <BaseForm.Item
+          name="nameRu"
+          label={'name russian'}
+          style={{ width: '100%' }}
+          rules={[{ required: true, message: 'filed is required' }]}
+        >
+          <Input placeholder="Enter name russian ?" />
+        </BaseForm.Item>
+      </Col>
+      <Col span={8}>
+        <BaseForm.Item
+          name="nameUz"
+          label={'name uzbek'}
+          style={{ width: '100%' }}
+          rules={[{ required: true, message: 'filed is required' }]}
+        >
+          <Input placeholder="Enter nameRu ?" />
+        </BaseForm.Item>
+      </Col>
+      <Col span={12}>
+        <BaseForm.Item
+          name="code"
+          label={'region code'}
+          style={{ width: '100%' }}
+          rules={[{ required: true, message: 'filed is required' }]}
+        >
+          <Input placeholder="Enter region code ?" />
+        </BaseForm.Item>
+      </Col>
+      <Col span={12}>
+        <BaseForm.Item
+          name="parentId"
+          label={'select country'}
+          style={{ width: '100%' }}
+          rules={[{ required: true, message: 'filed is required' }]}
+        >
+          <Select
+            options={globalCountries?.map((c) => ({ label: c?.name?.en, value: c?.id })) || []}
+            placeholder="Select country"
+          />
+        </BaseForm.Item>
+      </Col>
       {isLoaded ? (
         <GoogleMap
           mapContainerStyle={{ width: '100%', height: '400px' }}

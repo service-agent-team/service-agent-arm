@@ -121,9 +121,10 @@ export const utils = () => {
       ...getColumnSearchProps('fullName'),
     },
     {
-      title: 'Title',
+      title: 'Feedback',
       dataIndex: 'title',
       key: 'title',
+      width: '600px',
     },
     {
       title: 'Type',

@@ -30,12 +30,9 @@ import { OldPrice } from './styled';
 export const LestTripTourEditForm: React.FC = () => {
   const [form] = BaseForm.useForm();
   const { globalCountries } = useTypedSelector((state) => state.letsTripGlobalCountry);
-  const {
-    loading: { post, patch },
-    locations,
-    groupTourRaw,
-    errors,
-  } = useTypedSelector((state) => state.letsTripTour);
+  const { loading, locations, groupTourRaw, errors } = useTypedSelector(
+    (state) => state.letsTripTour,
+  );
   const {
     updateByObjectLetsTripGroupTour,
     updatePriceNoteTripGroupTour,
@@ -227,7 +224,7 @@ export const LestTripTourEditForm: React.FC = () => {
     priceNotIncludes,
 
     images,
-    videoUrl,
+    media,
     extraInformation,
     // availableDate,
     tourItenarary,
@@ -390,7 +387,7 @@ export const LestTripTourEditForm: React.FC = () => {
             addNotification('group tour images added');
           },
           tourId: groupTourRaw.tourId as number,
-          images: [videoUrl && true, ...newImages],
+          images: newImages,
         });
       }
 
@@ -548,11 +545,12 @@ export const LestTripTourEditForm: React.FC = () => {
   return (
     <>
       <BaseForm
-        name="letsTripGroupTourForm"
+        loading={loading}
         form={form}
         layout="vertical"
         onFinish={onFinish}
         onFinishFailed={() => {}}
+        save={false}
       >
         <Row gutter={[12, 12]}>
           <Col span={12}>
@@ -1623,7 +1621,11 @@ export const LestTripTourEditForm: React.FC = () => {
               </GoogleMap>
             ) : null}
           </Col>
-          <PrimaryBtn style={{ marginTop: '15px' }} htmlType="submit" loading={post || patch}>
+          <PrimaryBtn
+            style={{ marginTop: '15px' }}
+            htmlType="submit"
+            loading={loading.post || loading.put || loading.patch}
+          >
             Edit
           </PrimaryBtn>
         </Row>

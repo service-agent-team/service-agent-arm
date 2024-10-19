@@ -72,6 +72,7 @@ export const LetsTripCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
 
   return (
     <BaseForm
+      loading={loading}
       initialValues={
         type === 'edit'
           ? {
@@ -81,11 +82,9 @@ export const LetsTripCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
             }
           : {}
       }
-      name="letsTripCountryForm"
       form={form}
-      layout="vertical"
       onFinish={onFinish}
-      onFinishFailed={() => {}}
+      save={false}
     >
       <S.FormContent>
         <Flex gap={'15px'}>

@@ -1,12 +1,8 @@
+import { IStoreLoadings } from '@/types/app/common';
 import { Pageable, Sort } from '@/types/response';
 
 export interface ILetsTripGroupTourInitialState {
-  loading: {
-    get: boolean;
-    post: boolean;
-    patch: boolean;
-    delete: boolean;
-  };
+  loading: IStoreLoadings;
   groupTour: ILetsTripGroupTourGetOne | null;
   groupTourRaw: ILetsTripGroupTour | null;
   activeTours: ILetsTripGroupTour[] | null;
@@ -23,6 +19,7 @@ export interface ILetsTripGroupTour {
   extraInformation: ExtraInformation;
   tourItenarary: TourItinerary[];
   images: string[];
+  media: IMedia[];
   prices?: IPrices;
   price: number;
   oldPrice: number;
@@ -44,7 +41,7 @@ export interface ILetsTripGroupTour {
   countryId: number;
   deleted?: boolean;
   createdAt?: string;
-  cityName: Name2;
+  cityName: Name;
   freeCancellation: IFreeCancellation;
 }
 
@@ -96,6 +93,12 @@ export interface IFreeCancellation {
   hour: number;
 }
 
+export interface IMedia {
+  priority: number;
+  url: string;
+  mediaType: MediaType;
+}
+
 export interface ILetsTripGroupTourCreatePayload {
   callback(): void;
   name: Name;
@@ -114,7 +117,8 @@ export interface ILetsTripGroupTourCreatePayload {
   priceNote: PriceNote;
   priceNotIncludes: PriceNotIncludes;
   extraInformation: ExtraInformation;
-  images: string[];
+  images?: string[];
+  media: IMedia[];
   description: Description2[];
   priceIncludes: PriceIncludes;
   locations: Location[];
@@ -168,6 +172,17 @@ export interface ILetsTripGroupTourRemoveLocationPayload {
   tourId: number;
   locationItemId: number;
   callback(): void;
+}
+
+export interface IAddMediaPayload {
+  tourId: number;
+  media: IMedia;
+  cb?(): void;
+}
+
+export interface IDeleteMediaPayload {
+  mediaId: number;
+  cb?(): void;
 }
 
 export interface ILetsTripGroupTourImagePayload {
@@ -354,17 +369,11 @@ export interface PriceNote {
 
 export interface Country {
   id: number;
-  name: Name2;
+  name: Name;
   imageUrl: string;
   code: string;
   region: any[];
   deleted: boolean;
-}
-
-export interface Name2 {
-  id: number;
-  ru?: string;
-  en?: string;
 }
 
 export interface ILetsTripGroupTourGetOne {
@@ -389,7 +398,7 @@ export interface ILetsTripGroupTourGetOne {
   priceIncludes: string[];
   availableDate: AvailableDate2[];
   locations: Location2[];
-  cityName: Name2;
+  cityName: Name;
 }
 export interface AvailableDate2 {
   id: number;
@@ -431,6 +440,11 @@ export interface Items2 {
 export enum Lang {
   En = 'EN',
   Ru = 'RU',
+}
+
+export enum MediaType {
+  IMAGE = 'IMAGE',
+  VIDEO = 'VIDEO',
 }
 
 export interface IPrices {

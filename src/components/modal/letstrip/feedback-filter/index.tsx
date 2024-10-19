@@ -12,12 +12,7 @@ export const LestTripFeedbackFilterModal = () => {
   const {
     pagination: { current, pageSize },
   } = useTypedSelector((s) => s.app);
-  const {
-    type,
-    state,
-    modal,
-    loading: { get },
-  } = useTypedSelector((s) => s.letsTripFeedback);
+  const { type, state, modal, loading } = useTypedSelector((s) => s.letsTripFeedback);
   const [form] = BaseForm.useForm();
 
   const typeOpt = Object.keys(FeedbackType).map((t) => ({ label: t, value: t }));
@@ -57,35 +52,33 @@ export const LestTripFeedbackFilterModal = () => {
       open={modal.name === 'filter' && modal.data}
       footer={null}
     >
-      <BaseForm form={form} onFinish={onFinish}>
-        <Row gutter={[12, 12]}>
-          <Col span={12}>
-            <BaseForm.Item name="type" label={'Select project'}>
-              <Select options={typeOpt} placeholder="Select project" />
-            </BaseForm.Item>
-          </Col>
-          <Col span={12}>
-            <BaseForm.Item name="status" style={{ width: '100%' }} label={'Select status'}>
-              <Select options={statusOpt} placeholder="Select status" />
-            </BaseForm.Item>
-          </Col>
-          <Col span={16}>
-            <PrimaryBtn htmlType="submit" loading={get} icon={<Icon name="FilterOutlined" />}>
-              Filter
-            </PrimaryBtn>
-          </Col>
-          <Col span={8}>
-            <Button
-              style={{ width: '100%' }}
-              onClick={handleReset}
-              type="dashed"
-              color="red"
-              icon={<Icon danger name="ClearOutlined" />}
-            >
-              Clear
-            </Button>
-          </Col>
-        </Row>
+      <BaseForm form={form} onFinish={onFinish} loading={loading} save={false}>
+        <Col span={12}>
+          <BaseForm.Item name="type" label={'Select project'}>
+            <Select options={typeOpt} placeholder="Select project" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={12}>
+          <BaseForm.Item name="status" style={{ width: '100%' }} label={'Select status'}>
+            <Select options={statusOpt} placeholder="Select status" />
+          </BaseForm.Item>
+        </Col>
+        <Col span={16}>
+          <PrimaryBtn htmlType="submit" loading={loading.get} icon={<Icon name="FilterOutlined" />}>
+            Filter
+          </PrimaryBtn>
+        </Col>
+        <Col span={8}>
+          <Button
+            style={{ width: '100%' }}
+            onClick={handleReset}
+            type="dashed"
+            color="red"
+            icon={<Icon danger name="ClearOutlined" />}
+          >
+            Clear
+          </Button>
+        </Col>
       </BaseForm>
     </Modal>
   );

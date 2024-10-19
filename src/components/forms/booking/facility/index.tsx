@@ -1,9 +1,8 @@
 import { addNotification } from '@/common';
 import { LanguageType } from '@/common/enum';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { BaseForm, PrimaryBtn, TextArea } from '@/components';
+import { BaseForm, Field, Loading } from '@/components';
 import { ROUTES } from '@/constants';
-import { Col, Input, Row, Select, Switch } from 'antd';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IValues } from './types';
@@ -89,60 +88,43 @@ export const BookingFacilityForm = ({ type }: { type: 'edit' | 'create' }) => {
     }
   }, [facility]);
 
+  if (loading.get) {
+    return <Loading />;
+  }
+
   return (
-    <BaseForm
-      name="facilityForm"
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={() => {}}
-    >
-      <Row gutter={[12, 12]}>
-        <Col span={24}>
-          <BaseForm.Item name="name" label={'Facility name'} rules={[{ required: true }]}>
-            <Input placeholder="Enter facility name ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={type === 'edit' ? 7 : 10}>
-          <BaseForm.Item name="facilityType" label={'Facility type'} rules={[{ required: true }]}>
-            <Select options={facilityTypeOptions} placeholder="Select facility type" />
-          </BaseForm.Item>
-        </Col>
+    <BaseForm form={form} onFinish={onFinish} loading={loading} save>
+      <Field span={24} name="name" label="Facility name" isRequired />
 
-        <Col span={type === 'edit' ? 7 : 10}>
-          <BaseForm.Item name="categoryId" label={'Facility category'} rules={[{ required: true }]}>
-            <Select options={facilityCategoryOptions} placeholder="Select facility category?" />
-          </BaseForm.Item>
-        </Col>
-        {type === 'edit' ? (
-          <Col span={type === 'edit' ? 7 : 6}>
-            <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
-              <Select options={LanguageTypeOptions} placeholder="Select facility language type" />
-            </BaseForm.Item>
-          </Col>
-        ) : null}
-        <Col span={type === 'edit' ? 3 : 4}>
-          <BaseForm.Item name="isCommon" label={'Is Common'} rules={[{ required: true }]}>
-            <Switch />
-          </BaseForm.Item>
-        </Col>
+      <Field
+        span={type === 'edit' ? 7 : 10}
+        name="facilityType"
+        label="Facility type"
+        isRequired
+        options={facilityTypeOptions}
+      />
 
-        <Col span={24}>
-          <BaseForm.Item
-            name="description"
-            label="Facility description"
-            rules={[{ required: true }]}
-          >
-            <TextArea placeholder="Description" />
-          </BaseForm.Item>
-        </Col>
+      <Field
+        span={type === 'edit' ? 7 : 10}
+        name="categoryId"
+        label="Facility category"
+        isRequired
+        options={facilityCategoryOptions}
+      />
 
-        <Col span={24}>
-          <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
-            {type === 'create' ? 'create' : 'edit'}
-          </PrimaryBtn>
-        </Col>
-      </Row>
+      {type === 'edit' ? (
+        <Field
+          span={type === 'edit' ? 7 : 6}
+          name="lang"
+          label={'Language type'}
+          isRequired
+          options={LanguageTypeOptions}
+        />
+      ) : null}
+
+      <Field span={type === 'edit' ? 3 : 4} name="isCommon" label="Is Common" isRequired isSwitch />
+
+      <Field span={24} name="description" label="Facility description" isRequired textarea />
     </BaseForm>
   );
 };

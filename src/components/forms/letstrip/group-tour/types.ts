@@ -1,4 +1,4 @@
-import { AdultPrice, ChildPrice } from '@/store/lets-trip/group-tour/types';
+import { AdultPrice, ChildPrice, IMedia } from '@/store/lets-trip/group-tour/types';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 export interface IValuesForm {
@@ -31,7 +31,7 @@ export interface IValuesForm {
   priceNotIncludes: IPriceNotInclude[];
 
   images: UploadChangeParam;
-  videoUrl: string;
+  media: IMedia[];
   descriptionRu: string;
   descriptionEn: string;
   tourItenarary: TourItinerary[];

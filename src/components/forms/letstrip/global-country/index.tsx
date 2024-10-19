@@ -147,14 +147,7 @@ export const GlobalCountryForm = ({ type }: { type: 'edit' | 'create' }) => {
   }, []);
 
   return (
-    <BaseForm
-      initialValues={type === 'edit' ? {} : {}}
-      name="letsTripCountryForm"
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={() => {}}
-    >
+    <BaseForm form={form} onFinish={onFinish} loading={loading} save={false}>
       <S.FormContent>
         <Row gutter={10}>
           <Col span={6}>
