@@ -1,4 +1,3 @@
-export { CarTypetable } from './carType';
 export * from './global/user-role';
 export * from './global/user-permission';
 export * from './global/project';

@@ -1,5 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, InputRef, Space } from 'antd';
+import { Button, Input, InputRef, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
@@ -126,7 +126,7 @@ export const utils = () => {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
-      width: 800,
+      width: 600,
       render: (value: string) => (
         <>
           {show ? value?.slice(0, 100) : value} {!show || '... '}
@@ -141,23 +141,23 @@ export const utils = () => {
         </>
       ),
     },
-    // {
-    //   title: 'Contact Number',
-    //   dataIndex: 'contactNumber',
-    //   key: 'contactNumber',
-    // },
-    // {
-    //   title: 'Star Rating',
-    //   dataIndex: 'starRating',
-    //   key: 'starRating',
-    //   render: (value) => <Tag color="blue">{value}</Tag>,
-    // },
-    // {
-    //   title: 'Property Type',
-    //   dataIndex: 'propertyType',
-    //   key: 'propertyType',
-    //   render: (value) => <Tag color="blue">{value}</Tag>,
-    // },
+    {
+      title: 'Contact Number',
+      dataIndex: 'contactNumber',
+      key: 'contactNumber',
+    },
+    {
+      title: 'Star Rating',
+      dataIndex: 'starRating',
+      key: 'starRating',
+      render: (value) => <Tag color="blue">{value}</Tag>,
+    },
+    {
+      title: 'Property Type',
+      dataIndex: 'propertyType',
+      key: 'propertyType',
+      render: (value) => <Tag color="blue">{value}</Tag>,
+    },
     {
       title: 'Created At',
       dataIndex: 'createdAt',
@@ -170,8 +170,8 @@ export const utils = () => {
       title: 'Actions',
       dataIndex: 'action',
       key: 'action',
-      render: (_: number, record) => <Actions record={record} />,
       fixed: 'right',
+      render: (_: number, record) => <Actions record={record} />,
     },
   ];
 

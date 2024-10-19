@@ -1,11 +1,11 @@
 import { LanguageType } from '@/common/enum';
 import { useActions, useTypedSelector } from '@/common/hooks';
-import { BaseForm } from '@/components/common';
-import { Button, Input, Select } from 'antd';
+import { BaseForm, Field } from '@/components/common';
+import { Button } from 'antd';
 
 export const BreakfastLanguageForm = () => {
   const { addBreakfastLang, findBreakfasts, setBreakfastModal } = useActions();
-  const { selectable_id } = useTypedSelector((state) => state.bookingBreakfast);
+  const { selectable_id, loading } = useTypedSelector((state) => state.bookingBreakfast);
   const lang = Object.keys(LanguageType).map((el) => ({ value: el, label: el }));
 
   const handleClose = () => {
@@ -22,13 +22,11 @@ export const BreakfastLanguageForm = () => {
   };
 
   return (
-    <BaseForm onFinish={onFinish}>
-      <BaseForm.Item label="Language" name="languageType">
-        <Select options={lang} placeholder="language" />
-      </BaseForm.Item>
-      <BaseForm.Item label="Name" name="name" required={true}>
-        <Input placeholder="name" />
-      </BaseForm.Item>
+    <BaseForm onFinish={onFinish} loading={loading} save={false}>
+      <Field span={24} name="name" label="Name" isRequired />
+
+      <Field span={24} name="languageType" label="Language" isRequired options={lang} />
+
       <Button htmlType="submit" type="primary" style={{ width: '100%' }}>
         Save
       </Button>

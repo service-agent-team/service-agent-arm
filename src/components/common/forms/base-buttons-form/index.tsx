@@ -51,3 +51,4 @@ BaseButtonsForm.Item = BaseFormItem;
 BaseButtonsForm.List = BaseFormList;
 BaseButtonsForm.useForm = BaseForm.useForm;
 BaseButtonsForm.Provider = BaseForm.Provider;
+BaseButtonsForm.ErrorList = BaseForm.ErrorList;

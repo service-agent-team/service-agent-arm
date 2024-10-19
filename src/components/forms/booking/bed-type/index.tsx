@@ -1,8 +1,7 @@
-import { BaseForm, PrimaryBtn, TextArea } from '@/components';
+import { BaseForm, Field } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IValues } from './types';
-import { Col, Input, Row, Select } from 'antd';
 import { useEffect } from 'react';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
@@ -63,48 +62,22 @@ export const BookingBedTypeForm = ({ type }: { type: 'edit' | 'create' }) => {
   }, [bedType]);
 
   return (
-    <BaseForm
-      name="facilityForm"
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={() => {}}
-    >
-      <Row gutter={[12, 12]}>
-        <Col span={type === 'edit' ? 8 : 12}>
-          <BaseForm.Item name="name" label={'Bed type name'} rules={[{ required: true }]}>
-            <Input placeholder="Enter bed type name ?" />
-          </BaseForm.Item>
-        </Col>
-        <Col span={type === 'edit' ? 8 : 12}>
-          <BaseForm.Item name="size" label={'Bed type size'} rules={[{ required: true }]}>
-            <Input placeholder="Enter bed type size ?" />
-          </BaseForm.Item>
-        </Col>
-        {type === 'edit' ? (
-          <Col span={type === 'edit' ? 8 : 0}>
-            <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
-              <Select options={langOptions} placeholder="Select bed type language type" />
-            </BaseForm.Item>
-          </Col>
-        ) : null}
+    <BaseForm form={form} onFinish={onFinish} loading={loading} save>
+      <Field span={type === 'edit' ? 8 : 12} name="name" label="Bed type name" isRequired />
 
-        <Col span={24}>
-          <BaseForm.Item
-            name="description"
-            label="Bed type description"
-            rules={[{ required: true }]}
-          >
-            <TextArea placeholder="Description" />
-          </BaseForm.Item>
-        </Col>
+      <Field span={type === 'edit' ? 8 : 12} name="size" label="Bed type size" isRequired />
 
-        <Col span={24}>
-          <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
-            {type === 'create' ? 'create' : 'edit'}
-          </PrimaryBtn>
-        </Col>
-      </Row>
+      {type === 'edit' ? (
+        <Field
+          span={type === 'edit' ? 8 : 0}
+          name="lang"
+          label="Language type"
+          isRequired
+          options={langOptions}
+        />
+      ) : null}
+
+      <Field span={24} name="size" label="Bed type description" isRequired textarea />
     </BaseForm>
   );
 };

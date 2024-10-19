@@ -4,7 +4,7 @@ import { createBreakfast, findBreakfasts, findOneBreakfast } from './action';
 import { InitialSate } from './type';
 
 const initialState: InitialSate = {
-  loading: { get: false, post: false, put: false, delete: false },
+  loading: { get: false, post: false, patch: false, put: false, delete: false },
   modal: { delete: false, translation: false },
   selectable_id: null,
   breakfasts: [],

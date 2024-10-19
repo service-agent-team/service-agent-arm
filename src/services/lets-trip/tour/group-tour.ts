@@ -1,6 +1,6 @@
 import { $axios } from '@/common/config';
 import { EndPointes } from '../../endpoints';
-import { ItenararyBody } from '@/store/lets-trip/group-tour/types';
+import { IMedia, ItenararyBody } from '@/store/lets-trip/group-tour/types';
 
 export const LetsTripGroupTourService = {
   async getByCountryId(countryId: number, page = 0, size = 10) {
@@ -70,6 +70,19 @@ export const LetsTripGroupTourService = {
   async removeLocation(tourId: number, locationItemId: number) {
     const response = await $axios.delete(
       `${EndPointes.letsTripGroupTour.getAll}/${tourId}/remove/${locationItemId}`,
+    );
+    return response;
+  },
+  async addMedia(tourId: number, body: { media: IMedia }) {
+    const response = await $axios.post(
+      `${EndPointes.letsTripGroupTour.getAll}/${tourId}/add/media`,
+      body,
+    );
+    return response;
+  },
+  async removeMedia(mediaId: number) {
+    const response = await $axios.delete(
+      `${EndPointes.letsTripGroupTour.getAll}/remove/media/${mediaId}`,
     );
     return response;
   },

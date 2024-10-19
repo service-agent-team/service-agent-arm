@@ -13,12 +13,6 @@ import * as UserRoleActions from '../global/user-role/actions';
 import { UserRoleSliceActions } from '../global/user-role/slice';
 import * as UserActions from '../global/users/actions';
 import { UserSliceActions } from '../global/users/slice';
-import * as CarModelActions from '../lets-trip/car-model/action';
-import { CarModelsliceActions } from '../lets-trip/car-model/slice';
-import * as CarTypeActions from '../lets-trip/car-type/actions';
-import { CarTypesliceActions } from '../lets-trip/car-type/slice';
-import * as CarActions from '../lets-trip/car/actions';
-import { CarSliceActions } from '../lets-trip/car/slice';
 
 import * as LetsTripCategoryReduce from '../lets-trip/category/actions';
 import { LetsTripCategorySliceActions } from '../lets-trip/category/slice';
@@ -99,8 +93,6 @@ export const AllActions = {
   ...AgentTariffSliceActions,
   ...ContractSlices,
   ...ContractSliceActions,
-  ...CarActions,
-  ...CarSliceActions,
   ...appActions,
   ...AuthSliceActions,
   ...AuthActions,
@@ -116,10 +108,6 @@ export const AllActions = {
   ...TariffActions,
   ...ProductActions,
   ...ProductSliceActions,
-  ...CarTypeActions,
-  ...CarTypesliceActions,
-  ...CarModelsliceActions,
-  ...CarModelActions,
   ...RolesSlice,
   ...RolesSliceActions,
   ...UserPermissionSliceActions,

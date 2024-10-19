@@ -4,6 +4,7 @@ export interface InitialSate {
   loading: {
     get: boolean;
     post: boolean;
+    patch: boolean;
     put: boolean;
     delete: boolean;
   };

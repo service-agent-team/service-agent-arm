@@ -1,8 +1,7 @@
-import { BaseForm, PrimaryBtn } from '@/components';
+import { BaseForm, Field } from '@/components';
 import { useActions, useTypedSelector } from '@/common/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IValues } from './types';
-import { Col, Input, Row, Select } from 'antd';
 import { useEffect } from 'react';
 import { addNotification } from '@/common';
 import { ROUTES } from '@/constants';
@@ -56,34 +55,18 @@ export const BookingFacilityCategoryForm = ({ type }: { type: 'edit' | 'create' 
   }, [facilityCategory]);
 
   return (
-    <BaseForm
-      name="facilityCategoryForm"
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      onFinishFailed={() => {}}
-    >
-      <Row gutter={[12, 12]}>
-        <Col span={type === 'create' ? 24 : 18}>
-          <BaseForm.Item name="name" label={'Facility name'} rules={[{ required: true }]}>
-            <Input placeholder="Enter facility category name ?" />
-          </BaseForm.Item>
-        </Col>
+    <BaseForm form={form} onFinish={onFinish} loading={loading} save>
+      <Field span={type === 'edit' ? 24 : 18} name="name" label="Facility name" isRequired />
 
-        {type === 'edit' ? (
-          <Col span={type === 'edit' ? 6 : 0}>
-            <BaseForm.Item name="lang" label={'Language type'} rules={[{ required: true }]}>
-              <Select options={langOptions} placeholder="Select facility language type" />
-            </BaseForm.Item>
-          </Col>
-        ) : null}
-
-        <Col span={24}>
-          <PrimaryBtn htmlType="submit" loading={type === 'edit' ? loading.put : loading.post}>
-            {type === 'create' ? 'create' : 'edit'}
-          </PrimaryBtn>
-        </Col>
-      </Row>
+      {type === 'edit' ? (
+        <Field
+          span={type === 'edit' ? 6 : 0}
+          name="name"
+          label="Facility name"
+          options={langOptions}
+          isRequired
+        />
+      ) : null}
     </BaseForm>
   );
 };

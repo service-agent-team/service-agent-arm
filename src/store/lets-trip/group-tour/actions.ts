@@ -27,6 +27,8 @@ import {
   ILetsTripGroupTourSearchPayload,
   ILetsTripGroupTourAddExtraInfoPayload,
   ILetsTripGroupTour,
+  IAddMediaPayload,
+  IDeleteMediaPayload,
 } from './types';
 import { LetsTripGroupTourService } from '@/services';
 import { appActions } from '@/store/app';
@@ -253,6 +255,36 @@ export const removeLocationLetsTripGroupTour = createAsyncThunk<
       const response = await LetsTripGroupTourService.removeLocation(tourId, locationItemId);
       if (response.data) {
         callback();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const addGroupTourMedia = createAsyncThunk<any, IAddMediaPayload>(
+  EndPointes.letsTripGroupTour.getAll + 'tourId/add/media',
+  async ({ cb, tourId, media }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.addMedia(tourId, { media });
+      if (cb) {
+        cb();
+      }
+      return response.data;
+    } catch (error) {
+      return thunkApi.rejectWithValue({ error: errorCatch(error) });
+    }
+  },
+);
+
+export const deleteGroupTourMedia = createAsyncThunk<any, IDeleteMediaPayload>(
+  EndPointes.letsTripGroupTour.getAll + 'tourId/remove/media/:mediaId',
+  async ({ cb, mediaId }, thunkApi) => {
+    try {
+      const response = await LetsTripGroupTourService.removeMedia(mediaId);
+      if (cb) {
+        cb();
       }
       return response.data;
     } catch (error) {

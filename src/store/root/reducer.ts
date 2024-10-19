@@ -5,9 +5,6 @@ import { ProjectReducer } from '../global/project/slice';
 import { RoleReducer } from '../global/role/slice';
 import { UserRoleReducer } from '../global/user-role/slice';
 import { UserReducer } from '../global/users/slice';
-import { CarModelReducer } from '../lets-trip/car-model/slice';
-import { CarTypeReducer } from '../lets-trip/car-type/slice';
-import { CarReducer } from '../lets-trip/car/slice';
 import { LetsTripOrderReduce } from '../lets-trip/order/slice';
 import { CompanyReducer } from '../service-agent/company/slice';
 import { AgentContractReducer } from '../service-agent/contract/contract.slice';
@@ -62,10 +59,7 @@ export const reducer = {
   role: RoleReducer,
   userRole: UserRoleReducer,
   userPermission: UserPermissionReducer,
-  carType: CarTypeReducer,
   agentTariff: AgentTariffReducer,
-  car: CarReducer,
-  carModel: CarModelReducer,
   roles: RolesReducer,
 
   agentRolesPermission: AgentRolesPermissionReducer,
@@ -87,6 +81,8 @@ export const reducer = {
   letsTripCategory: LetsTripCategoryReduce,
   letsTripStatistic: LetsTripStatisticReduce,
   letsTripGlobalRegion: LetsTripGlobalRegionReduce,
+  letstripNotification: LetsTripNotificationReduce,
+  letsTripFeedback: LetsTripFeedbackReduce,
 
   bookingFacility: BookingFacilityReduce,
   bookingBreakfast: breakfastReducer,
@@ -95,9 +91,6 @@ export const reducer = {
   bookingTaxes: BookingTaxesReduce,
   bookingRoom: BookingRoomReduce,
   bookingProperty: BookingPropertyReduce,
-
-  letstripNotification: LetsTripNotificationReduce,
-  letsTripFeedback: LetsTripFeedbackReduce,
 
   processProject: ProcessProjectReducer,
   process: ProcessReducer,
