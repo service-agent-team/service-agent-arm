@@ -1,12 +1,13 @@
+import { dateParser } from '@/common/utils/format';
+import { FeedbackStateType, IFeedback } from '@/store/lets-trip/feedback/types';
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, InputRef, Rate, Space, Tag } from 'antd';
 import { ColumnType, ColumnsType } from 'antd/es/table';
 import { Key, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-import { DataIndex, IHandleSearchProps } from './types';
-import { dateParser } from '@/common/utils/format';
+import { Link } from 'react-router-dom';
 import { Actions } from './actions';
-import { FeedbackStateType, IFeedback } from '@/store/lets-trip/feedback/types';
+import { DataIndex, IHandleSearchProps } from './types';
 
 export const utils = () => {
   const [searchText, setSearchText] = useState<string | Key>('');
@@ -151,6 +152,19 @@ export const utils = () => {
       dataIndex: 'star',
       key: 'star',
       render: (v) => <Rate disabled value={v} />,
+    },
+    {
+      title: 'Product',
+      key: 'product',
+      render: (el: IFeedback) => {
+        if (el.type === 'TOUR') {
+          return <Link to={`/lets-trip/group-tour/view/${el.productId}`}>{el?.product?.name}</Link>;
+        } else if (el.type === 'TRANSFER') {
+          return (
+            <Link to={`/lets-trip/transfer/edit/${el.productId}`}>{el?.product?.name?.en}</Link>
+          );
+        }
+      },
     },
     {
       title: 'Created At',

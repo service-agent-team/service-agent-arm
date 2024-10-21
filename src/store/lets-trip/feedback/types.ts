@@ -37,6 +37,10 @@ export interface IFeedback {
   star: number;
   state: string;
   productId: number;
+  product: {
+    id: number;
+    name: any;
+  };
   type: string;
   pictureURL: string;
   createdAt: string;
